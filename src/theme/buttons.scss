@@ -1,0 +1,36 @@
+button {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+
+  color: var(--color-primary12);
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 1em;
+  line-height: 1.5;
+
+  background-color: var(--color-primary3);
+  border: none;
+  border-radius: 3px;
+
+  transition:
+    background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-primary4);
+  }
+
+  &:active {
+    background-color: var(--color-primary5);
+  }
+
+  &.button--primary {
+    background-color: var(--color-primary9);
+  }
+
+  &.button--primary:hover {
+    background-color: var(--color-primary10);
+  }
+}
