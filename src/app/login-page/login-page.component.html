@@ -1,0 +1,78 @@
+<div class="page">
+  <main class="page__content flow">
+    <h1>Log in to FusionSuite</h1>
+
+    <div class="page__inner">
+      <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()" class="flow">
+        <div
+          class="alert alert--error"
+          role="alert"
+          *ngIf="formError"
+        >
+          <div class="alert__title">
+            <fa-icon icon="exclamation-circle"></fa-icon>
+            Error
+          </div>
+
+          <p class="alert__message">
+            {{ formError }}
+          </p>
+        </div>
+
+        <div>
+          <label for="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            required
+            formControlName="username"
+            [attr.aria-invalid]="usernameIsInvalid"
+            [attr.aria-errormessage]="usernameIsInvalid ? 'username-error' : null"
+          >
+
+          <div
+            class="form__error"
+            id="username-error"
+            role="alert"
+            *ngIf="usernameIsInvalid"
+          >
+            <fa-icon icon="exclamation-circle"></fa-icon>
+            <span class="sr-only">Error:</span>
+            <span *ngIf="formControls.username.hasError('required')">
+              The username is required.
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            required
+            formControlName="password"
+            [attr.aria-invalid]="passwordIsInvalid"
+            [attr.aria-errormessage]="passwordIsInvalid ? 'password-error' : null"
+          >
+
+          <div
+            class="form__error"
+            id="password-error"
+            role="alert"
+            *ngIf="passwordIsInvalid"
+          >
+            <fa-icon icon="exclamation-circle"></fa-icon>
+            <span class="sr-only">Error:</span>
+            <span *ngIf="formControls.password.hasError('required')">
+              The password is required.
+            </span>
+          </div>
+        </div>
+
+        <div class="form__actions">
+          <button type="submit" class="button--primary">Login</button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>
