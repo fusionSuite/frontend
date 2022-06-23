@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs';
 
 interface Configuration {
   backendUrl: string;
@@ -15,15 +16,14 @@ export class SettingsService {
 
   constructor(
     private http: HttpClient,
-  ) {
-    this.loadConfiguration();
-  }
+  ) { }
 
-  private async loadConfiguration() {
+  public async loadConfiguration() {
     await this.http.get<Configuration>('config.json')
-      .subscribe((configuration: Configuration) => {
+      .pipe(map((configuration: Configuration) => {
         this.configuration = configuration;
-      });
+      }))
+      .toPromise();
   }
 
   get backendUrl() {
