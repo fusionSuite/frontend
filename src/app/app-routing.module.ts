@@ -1,7 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { LoggedInGuard } from './logged-in.guard';
+import { NotLoggedInGuard } from './not-logged-in.guard';
+
+import { HomePageComponent } from './home-page/home-page.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    title: 'FusionSuite',
+    component: HomePageComponent,
+    canActivate: [LoggedInGuard],
+  },
+  {
+    path: 'login',
+    title: 'Log in to Fusion Suite',
+    component: LoginPageComponent,
+    canActivate: [NotLoggedInGuard],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
