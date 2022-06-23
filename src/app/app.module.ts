@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 import { SettingsService } from './services/settings.service';
 
@@ -43,6 +43,6 @@ function initializeApp(settings: SettingsService) {
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faExclamationCircle);
+    library.addIconPacks(fas);
   }
 }
