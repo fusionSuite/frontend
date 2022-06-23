@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { AuthService } from 'src/app/services/auth.service';
 import { SettingsService } from 'src/app/services/settings.service';
+
+import { Type } from 'src/app/interfaces/type';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +12,22 @@ import { SettingsService } from 'src/app/services/settings.service';
 export class ApiService {
   constructor(
     private http: HttpClient,
-    private settings: SettingsService,
+    private settingsService: SettingsService,
+    private authService: AuthService,
   ) { }
 
   public login(username: String, password: String) {
-    return this.http.post(this.settings.backendUrl + '/v1/token', {
+    return this.http.post(this.settingsService.backendUrl + '/v1/token', {
       login: username,
       password: password,
+    });
+  }
+
+  public getTypes() {
+    return this.http.get<Type[]>(this.settingsService.backendUrl + '/v1/config/types', {
+      headers: {
+        'Authorization': 'Bearer ' + this.authService.getToken(),
+      },
     });
   }
 }

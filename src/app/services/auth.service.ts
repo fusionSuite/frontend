@@ -7,7 +7,7 @@ export class AuthService {
   constructor(
   ) { }
 
-  token: string = '';
+  private token: string = '';
 
   public login(token: string) {
     this.token = token;

@@ -1,0 +1,24 @@
+<a class="page__nav-home" routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">
+  <img alt="Home FusionSuite" src="assets/logo.png" width="200">
+</a>
+
+<ul class="page__nav-container flow">
+  <li class="page__nav-item" *ngFor="let type of types">
+    <a class="page__nav-link" href="#" routerLinkActive="active" ariaCurrentWhenActive="page">
+      <fa-icon [icon]="typeIcon(type)" size="xs" [fixedWidth]="true"></fa-icon>
+      {{ type.name }}
+    </a>
+  </li>
+</ul>
+
+<div class="page__nav-bottom">
+  <span class="page__nav-username">
+    <fa-icon icon="user" size="xs" [fixedWidth]="true"></fa-icon>
+    {{ displayName }}
+  </span>
+
+  <button (click)="logout()">
+    <fa-icon icon="sign-out-alt"></fa-icon>
+    <span class="sr-only">Log out</span>
+  </button>
+</div>
