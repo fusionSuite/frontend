@@ -53,6 +53,12 @@
 
   color: var(--color-nav-fg);
   text-decoration: none;
+
+  border-radius: 3px;
+
+  &.active {
+    background-color: var(--sky12);
+  }
 }
 
 .page__nav-link .ng-fa-icon {

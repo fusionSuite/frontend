@@ -30,4 +30,12 @@ export class ApiService {
       },
     });
   }
+
+  public getType(id: number) {
+    return this.http.get<Type>(this.settingsService.backendUrl + '/v1/config/types/' + id, {
+      headers: {
+        'Authorization': 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
 }

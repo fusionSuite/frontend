@@ -6,6 +6,7 @@ import { NotLoggedInGuard } from './not-logged-in.guard';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { TypeShowPageComponent } from './type-show-page/type-show-page.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,12 @@ const routes: Routes = [
     title: 'Log in to Fusion Suite',
     component: LoginPageComponent,
     canActivate: [NotLoggedInGuard],
+  },
+  {
+    path: 'types/:id',
+    title: 'Type',
+    component: TypeShowPageComponent,
+    canActivate: [LoggedInGuard],
   },
 ];
 

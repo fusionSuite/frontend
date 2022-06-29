@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { PageMenuComponent } from './page-menu/page-menu.component';
+import { TypeShowPageComponent } from './type-show-page/type-show-page.component';
 
 function initializeApp(settings: SettingsService) {
   return () => settings.loadConfiguration();
@@ -25,6 +26,7 @@ function initializeApp(settings: SettingsService) {
     HomePageComponent,
     LoginPageComponent,
     PageMenuComponent,
+    TypeShowPageComponent,
   ],
   imports: [
     AppRoutingModule,
