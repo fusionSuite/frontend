@@ -12,6 +12,19 @@
   --sky11: hsl(195, 100%, 31.5%);
   --sky12: hsl(195, 100%, 13.0%);
 
+  --slate1: hsl(206, 30.0%, 98.8%);
+  --slate2: hsl(210, 16.7%, 97.6%);
+  --slate3: hsl(209, 13.3%, 95.3%);
+  --slate4: hsl(209, 12.2%, 93.2%);
+  --slate5: hsl(208, 11.7%, 91.1%);
+  --slate6: hsl(208, 11.3%, 88.9%);
+  --slate7: hsl(207, 11.1%, 85.9%);
+  --slate8: hsl(205, 10.7%, 78.0%);
+  --slate9: hsl(206, 6.0%, 56.1%);
+  --slate10: hsl(206, 5.8%, 52.3%);
+  --slate11: hsl(206, 6.0%, 43.5%);
+  --slate12: hsl(206, 24.0%, 9.0%);
+
   --red1: hsl(359, 100%, 99.4%);
   --red2: hsl(359, 100%, 98.6%);
   --red3: hsl(360, 100%, 96.8%);
@@ -33,45 +46,57 @@
   // card, sidebar)
   --color-primary1: var(--sky1);
   --color-primary2: var(--sky2);
+  --color-grey1: var(--slate1);
+  --color-grey2: var(--slate2);
   --color-error1: var(--red1);
   --color-error2: var(--red2);
 
   // Component backgrounds (+1 for call-to-action components)
   // normal states
   --color-primary3: var(--sky3);
+  --color-grey3: var(--slate3);
   --color-error3: var(--red3);
   // hover states
   --color-primary4: var(--sky4);
+  --color-grey4: var(--slate4);
   --color-error4: var(--red4);
   // pressed or selected states
   --color-primary5: var(--sky5);
+  --color-grey5: var(--slate5);
   --color-error5: var(--red5);
 
   // Borders
   // subtle borders for non-interactive components
   --color-primary6: var(--sky6);
+  --color-grey6: var(--slate6);
   --color-error6: var(--red6);
   // borders for interactive components, focus rings
   --color-primary7: var(--sky7);
+  --color-grey7: var(--slate7);
   --color-error7: var(--red7);
   // border for interactive components in hover state
   --color-primary8: var(--sky8);
+  --color-grey8: var(--slate8);
   --color-error8: var(--red8);
 
   // Solid backgrounds
   // Main backgrounds in normal state (e.g. header backgrounds, coloured
   // shadows, accent borders)
   --color-primary9: var(--sky9);
+  --color-grey9: var(--slate9);
   --color-error9: var(--red9);
   // Main backgrounds in hover state
   --color-primary10: var(--sky10);
+  --color-grey10: var(--slate10);
   --color-error10: var(--red10);
 
   // Text
   // low-contrast text
   --color-primary11: var(--sky11);
+  --color-grey11: var(--slate11);
   --color-error11: var(--red11);
   // high-contrast text
   --color-primary12: var(--sky12);
+  --color-grey12: var(--slate12);
   --color-error12: var(--red12);
 }

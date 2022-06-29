@@ -1,0 +1,277 @@
+.center {
+  text-align: center;
+}
+
+.float--right {
+  float: right;
+}
+
+.extender {
+  flex: 1;
+}
+
+.organization-name {
+  margin-top: 0;
+  margin-bottom: 0;
+
+  font-style: italic;
+}
+
+.page__header {
+  display: flex;
+
+  align-items: baseline;
+
+  background-color: var(--color-grey2);
+  border-bottom: 1px solid var(--color-grey6);
+
+  > :first-child {
+    flex: 1;
+  }
+}
+
+.page__content {
+  display: flex;
+
+  align-items: stretch;
+
+  > div:nth-child(2) {
+    padding-left: 1rem;
+
+    flex: 1;
+  }
+}
+
+.ticket-nav {
+  width: 275px;
+  margin-top: -1rem;
+  margin-left: -1rem;
+  margin-bottom: -1rem;
+  padding: 1rem;
+  padding-top: 2em;
+
+  background-color: var(--color-grey2);
+  border-right: 1px solid var(--color-grey6);
+
+  ul {
+    margin-bottom: 0;
+    padding-left: 0;
+
+    list-style: none;
+  }
+
+  li.active {
+    font-weight: bold;
+    a {
+      color: var(--color-primary11);
+    }
+  }
+
+  a {
+    color: var(--color-grey12);
+    text-decoration: none;
+  }
+
+  .number-tickets {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+
+    font-size: 0.8rem;
+
+    border: 1px solid var(--color-grey6);
+    border-radius: 10px;
+
+    float: right;
+  }
+
+  .saved-views__title {
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.view-config {
+  .top {
+    display: flex;
+
+    justify-content: space-between;
+
+    form {
+      width: 50%;
+    }
+  }
+
+  .search-bar {
+    position: relative;
+
+    input {
+      padding: 0.5rem;
+    }
+
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+
+      padding: 0.5rem;
+
+      background-color: transparent;
+      border: none;
+    }
+
+    input:focus + button {
+      color: var(--color-primary12);
+    }
+  }
+
+  .filters * + * {
+    margin-left: 0.5rem;
+  }
+
+  .filter--pending {
+    color: #2b0e44;
+    background-color: #eddbf9;
+    border-color: #e3ccf4;
+  }
+}
+
+.table--top {
+  display: flex;
+
+  align-items: center;
+
+  button .ng-fa-icon {
+    margin-left: -7px;
+  }
+}
+
+.pagination {
+  display: flex;
+  margin: 0;
+  padding-left: 0;
+
+  list-style: none;
+
+  li {
+    min-width: 40px;
+    padding: 0.25rem 0;
+
+    text-align: center;
+    background-color: var(--color-grey3);
+    border-radius: 5px;
+  }
+
+  li + li {
+    margin-left: 0.25rem;
+  }
+
+  .ellipsis {
+    background-color: transparent;
+  }
+
+  .active {
+    color: var(--color-primary1);
+    font-weight: bold;
+
+    background-color: var(--color-primary11);
+  }
+}
+
+table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  thead {
+    text-align: left;
+
+    background-color: var(--color-grey3);
+    border-bottom: 1px solid var(--color-grey6);
+  }
+
+  th,
+  td {
+    padding: 0.5rem;
+
+    font-size: 0.9rem;
+  }
+
+  tr:nth-child(even) {
+    background-color: var(--color-grey2);
+  }
+
+  a {
+    display: block;
+    margin: -0.5rem;
+    padding: 0.5rem;
+
+    text-decoration: none;
+  }
+
+  .col--id {
+    text-align: right;
+  }
+
+  td.col--id {
+    color: var(--color-grey11);
+  }
+
+  td.col--status,
+  td.col--priority {
+    text-align: center;
+  }
+
+  td.col--title {
+    .ng-fa-layers-text {
+      font-size: 0.7rem;
+      color: var(--color-primary1);
+    }
+  }
+
+  .status--pending {
+    padding: 0.25rem 0.5rem;
+
+    color: #2b0e44;
+
+    background-color: #eddbf9;
+    border-color: #e3ccf4;
+    border-radius: 25px;
+  }
+
+  .priority--low {
+    padding: 0.25rem 0.5rem;
+
+    color: var(--color-primary12);
+    text-align: center;
+
+    background-color: var(--color-primary4);
+    border-color: var(--color-primary6);
+    border-radius: 25px;
+  }
+
+  .priority--high {
+    padding: 0.25rem 0.5rem;
+
+    color: var(--color-error12);
+    text-align: center;
+
+    background-color: var(--color-error4);
+    border-color: var(--color-error6);
+    border-radius: 25px;
+  }
+}
+
+.table--bottom {
+  display: flex;
+
+  align-items: center;
+}
+
+.results-per-page {
+  label {
+    display: inline-block;
+    margin-left: 0.25rem;
+  }
+}

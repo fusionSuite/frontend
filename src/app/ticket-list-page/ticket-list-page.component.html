@@ -1,0 +1,687 @@
+<div class="page">
+  <nav class="page__nav flow" app-page-menu></nav>
+
+  <main class="page__content">
+    <nav class="ticket-nav flow--large">
+      <div class="center">
+        <button class="button--primary">
+          <fa-icon icon="plus" [fixedWidth]="true"></fa-icon>
+          New ticket
+        </button>
+      </div>
+
+      <ul class="flow">
+        <li class="active">
+          <a href="#">All tickets</a>
+        </li>
+        <li>
+          <a href="#">Tickets to assign</a>
+          <span class="number-tickets">21</span>
+        </li>
+        <li>
+          <a href="#">My open tickets</a>
+          <span class="number-tickets">3</span>
+        </li>
+      </ul>
+
+      <div>
+        <div class="saved-views__title">
+          Saved views
+          <fa-icon icon="cog" [fixedWidth]="true" class="float--right"></fa-icon>
+        </div>
+
+        <ul class="flow">
+          <li>
+            <a href="#">My resolved tickets</a>
+            <span class="number-tickets">4</span>
+          </li>
+          <li>
+            <a href="#">Urgent tickets</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div>
+      <p class="organization-name">
+        Probesys
+      </p>
+
+      <div class="page__header">
+        <div class="flow">
+          <header>
+            <h1>
+              All tickets
+            </h1>
+          </header>
+
+          <div class="view-config flow--small">
+            <div class="top">
+              <form>
+                <div class="search-bar">
+                  <input
+                    type="text"
+                    aria-label="Search a ticket"
+                    placeholder="Search a ticket"
+                  />
+                  <button>
+                    <fa-icon icon="search" size="lg" [fixedWidth]="true"></fa-icon>
+                    <span class="sr-only">Search</span>
+                  </button>
+                </div>
+              </form>
+
+              <button>
+                Save view
+              </button>
+            </div>
+
+            <div class="filters">
+              <button>
+                <fa-icon icon="plus" [fixedWidth]="true"></fa-icon>
+                Add filter
+              </button>
+
+              <button class="filter--pending">
+                <fa-icon icon="dot-circle" [fixedWidth]="true"></fa-icon>
+                Pending
+              </button>
+
+              <button class="filter--user">
+                <fa-icon icon="headset" [fixedWidth]="true"></fa-icon>
+                Benedict Lesage
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page__inner flow">
+        <div class="table--top">
+          <button class="button--primary">
+            <fa-icon icon="level-down-alt" flip="horizontal" [fixedWidth]="true"></fa-icon>
+            Actions
+          </button>
+
+          <div class="extender"></div>
+
+          <ul class="pagination">
+            <li>
+              <fa-icon icon="angle-double-left" [fixedWidth]="true"></fa-icon>
+            </li>
+            <li>
+              <fa-icon icon="angle-left" [fixedWidth]="true"></fa-icon>
+            </li>
+            <li class="active">
+              1
+            </li>
+            <li>
+              2
+            </li>
+            <li>
+              3
+            </li>
+            <li class="ellipsis">
+              …
+            </li>
+            <li>
+              10
+            </li>
+            <li>
+              <fa-icon icon="angle-right" [fixedWidth]="true"></fa-icon>
+            </li>
+            <li>
+              <fa-icon icon="angle-double-right" [fixedWidth]="true"></fa-icon>
+            </li>
+          </ul>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th class="col--checkbox">
+                <input id="checkbox--all" type="checkbox">
+                <label for="checkbox--all"></label>
+              </th>
+              <th class="col--created-at">
+                Opened
+              </th>
+              <th class="col--id">
+                #
+              </th>
+              <th class="col--title">
+                Title
+              </th>
+              <th class="col--requester">
+                <fa-icon icon="user" [fixedWidth]="true"></fa-icon>
+                Requester
+              </th>
+              <th class="col--assignee">
+                <fa-icon icon="headset" [fixedWidth]="true"></fa-icon>
+                Assignee
+              </th>
+              <th class="col--status">
+                <fa-icon icon="dot-circle" [fixedWidth]="true"></fa-icon>
+                Status
+              </th>
+              <th class="col--priority">
+                <fa-icon icon="bolt" [fixedWidth]="true"></fa-icon>
+                Priority
+              </th>
+              <th class="col--updated-at">
+                Last activity
+                <fa-icon icon="caret-down" [fixedWidth]="true"></fa-icon>
+              </th>
+              <th class="col--actions">
+                <fa-icon icon="cog" [fixedWidth]="true"></fa-icon>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--1" checked type="checkbox">
+                <label for="checkbox--1"></label>
+              </td>
+              <td class="col--created-at">7 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  1
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  Mise à jour de la préprod
+                  <fa-layers [fixedWidth]="true" size="lg">
+                    <fa-icon icon="comment"></fa-icon>
+                    <fa-layers-text content="5"></fa-layers-text>
+                  </fa-layers>
+                </a>
+              </td>
+              <td class="col--requester">Alix Prevost-Barbier</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--low">Low</span>
+              </td>
+              <td class="col--updated-at">1 hour ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--2" type="checkbox">
+                <label for="checkbox--2"></label>
+              </td>
+              <td class="col--created-at">6 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  2
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  La démo n’est pas à jour sur la préprod
+                </a>
+              </td>
+              <td class="col--requester">Charlie Gonzalez</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--low">Low</span>
+              </td>
+              <td class="col--updated-at">5 days ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--3" checked type="checkbox">
+                <label for="checkbox--3"></label>
+              </td>
+              <td class="col--created-at">6 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  3
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  La démo n’est pas à jour sur la prod
+                  <fa-layers [fixedWidth]="true" size="lg">
+                    <fa-icon icon="comment"></fa-icon>
+                    <fa-layers-text content="21"></fa-layers-text>
+                  </fa-layers>
+                </a>
+              </td>
+              <td class="col--requester">Charlie Gonzalez</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--high">High</span>
+              </td>
+              <td class="col--updated-at">5 days ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--4" type="checkbox">
+                <label for="checkbox--4"></label>
+              </td>
+              <td class="col--created-at">6 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  4
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  La démo n’est pas à jour sur la préprod
+                </a>
+              </td>
+              <td class="col--requester">Charlie Gonzalez</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--low">Low</span>
+              </td>
+              <td class="col--updated-at">5 days ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--5" type="checkbox">
+                <label for="checkbox--5"></label>
+              </td>
+              <td class="col--created-at">6 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  5
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  La démo n’est pas à jour sur la préprod
+                </a>
+              </td>
+              <td class="col--requester">Charlie Gonzalez</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--low">Low</span>
+              </td>
+              <td class="col--updated-at">5 days ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--6" type="checkbox">
+                <label for="checkbox--6"></label>
+              </td>
+              <td class="col--created-at">6 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  6
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  La démo n’est pas à jour sur la préprod
+                </a>
+              </td>
+              <td class="col--requester">Charlie Gonzalez</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--low">Low</span>
+              </td>
+              <td class="col--updated-at">5 days ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--7" type="checkbox">
+                <label for="checkbox--7"></label>
+              </td>
+              <td class="col--created-at">6 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  7
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  La démo n’est pas à jour sur la préprod
+                </a>
+              </td>
+              <td class="col--requester">Charlie Gonzalez</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--low">Low</span>
+              </td>
+              <td class="col--updated-at">5 days ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--2" type="checkbox">
+                <label for="checkbox--2"></label>
+              </td>
+              <td class="col--created-at">6 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  8
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  La démo n’est pas à jour sur la préprod
+                </a>
+              </td>
+              <td class="col--requester">Charlie Gonzalez</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--low">Low</span>
+              </td>
+              <td class="col--updated-at">5 days ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--2" type="checkbox">
+                <label for="checkbox--2"></label>
+              </td>
+              <td class="col--created-at">6 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  9
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  La démo n’est pas à jour sur la préprod
+                </a>
+              </td>
+              <td class="col--requester">Charlie Gonzalez</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--low">Low</span>
+              </td>
+              <td class="col--updated-at">5 days ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--2" type="checkbox">
+                <label for="checkbox--2"></label>
+              </td>
+              <td class="col--created-at">6 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  10
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  La démo n’est pas à jour sur la préprod
+                </a>
+              </td>
+              <td class="col--requester">Charlie Gonzalez</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--low">Low</span>
+              </td>
+              <td class="col--updated-at">5 days ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--2" type="checkbox">
+                <label for="checkbox--2"></label>
+              </td>
+              <td class="col--created-at">6 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  11
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  La démo n’est pas à jour sur la préprod
+                </a>
+              </td>
+              <td class="col--requester">Charlie Gonzalez</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--low">Low</span>
+              </td>
+              <td class="col--updated-at">5 days ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--2" type="checkbox">
+                <label for="checkbox--2"></label>
+              </td>
+              <td class="col--created-at">6 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  12
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  La démo n’est pas à jour sur la préprod
+                </a>
+              </td>
+              <td class="col--requester">Charlie Gonzalez</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--low">Low</span>
+              </td>
+              <td class="col--updated-at">5 days ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--2" type="checkbox">
+                <label for="checkbox--2"></label>
+              </td>
+              <td class="col--created-at">6 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  13
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  La démo n’est pas à jour sur la préprod
+                </a>
+              </td>
+              <td class="col--requester">Charlie Gonzalez</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--low">Low</span>
+              </td>
+              <td class="col--updated-at">5 days ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--2" type="checkbox">
+                <label for="checkbox--2"></label>
+              </td>
+              <td class="col--created-at">6 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  14
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  La démo n’est pas à jour sur la préprod
+                </a>
+              </td>
+              <td class="col--requester">Charlie Gonzalez</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--low">Low</span>
+              </td>
+              <td class="col--updated-at">5 days ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="col--checkbox">
+                <input id="checkbox--2" type="checkbox">
+                <label for="checkbox--2"></label>
+              </td>
+              <td class="col--created-at">6 days ago</td>
+              <td class="col--id">
+                <a href="/tickets/1">
+                  15
+                </a>
+              </td>
+              <td class="col--title">
+                <a href="/tickets/1">
+                  La démo n’est pas à jour sur la préprod
+                </a>
+              </td>
+              <td class="col--requester">Charlie Gonzalez</td>
+              <td class="col--assignee">Benedict Lesage</td>
+              <td class="col--status">
+                <span class="status--pending">Pending</span>
+              </td>
+              <td class="col--priority">
+                <span class="priority--low">Low</span>
+              </td>
+              <td class="col--updated-at">5 days ago</td>
+              <td class="col--actions">
+                <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="table--bottom">
+          <div class="results-per-page">
+            <select id="results-per-page">
+              <option selected>25</option>
+            </select>
+            <label for="results-per-page">
+              results per page
+            </label>
+          </div>
+
+          <div class="extender"></div>
+
+          <ul class="pagination">
+            <li>
+              <fa-icon icon="angle-double-left" [fixedWidth]="true"></fa-icon>
+            </li>
+            <li>
+              <fa-icon icon="angle-left" [fixedWidth]="true"></fa-icon>
+            </li>
+            <li class="active">
+              1
+            </li>
+            <li>
+              2
+            </li>
+            <li>
+              3
+            </li>
+            <li class="ellipsis">
+              …
+            </li>
+            <li>
+              10
+            </li>
+            <li>
+              <fa-icon icon="angle-right" [fixedWidth]="true"></fa-icon>
+            </li>
+            <li>
+              <fa-icon icon="angle-double-right" [fixedWidth]="true"></fa-icon>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

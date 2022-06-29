@@ -1,0 +1,617 @@
+<div class="page">
+  <nav class="page__nav flow" app-page-menu></nav>
+
+  <main class="page__content flow ticket" [ngClass]="hideEvents ? 'hide-events' : ''">
+    <div class="ticket__content">
+      <p class="organization-name">
+        Probesys
+      </p>
+
+      <div class="page__header">
+        <div class="flow">
+          <header>
+            <h1>
+              Mise à jour de la préprod
+              <span class="text--muted">#1</span>
+            </h1>
+          </header>
+
+          <div class="ticket__subheader">
+            <span class="badge badge--pending">
+              <fa-icon icon="dot-circle" [fixedWidth]="true"></fa-icon>
+              Pending
+            </span>
+
+            <span>
+              <b>Alix Prevost-Barbier</b> opened this <b>request</b> 7 days ago ⋅ 5 messages
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <a href="/tickets/1#bottom" class="jump">Jump to bottom</a>
+
+          <button>
+            Edit
+          </button>
+        </div>
+      </div>
+
+      <div class="page__inner ticket__columns">
+        <div class="flow--large">
+          <div class="ticket__timeline flow--large">
+
+            <div class="timeline__item timeline__hide-configure">
+              <button (click)="switchEvents()">
+                <span *ngIf="hideEvents">
+                  Show events
+                </span>
+                <span *ngIf="!hideEvents">
+                  Hide events
+                </span>
+              </button>
+
+              <select>
+                <option>Oldest first</option>
+                <option>Newest first</option>
+              </select>
+            </div>
+
+            <div class="timeline__item message">
+              <div class="message__avatar">
+                <img src="https://i.pravatar.cc/50?img=2" />
+                <div class="avatar__icon">
+                  <fa-icon icon="user" [fixedWidth]="true" size="xs"></fa-icon>
+                  <span class="sr-only">
+                    Requester
+                  </span>
+                </div>
+              </div>
+
+              <div class="message__box">
+                <div class="message__header">
+                  <div class="message__author">
+                    <fa-icon icon="envelope" title="Send by email" [fixedWidth]="true"></fa-icon>
+                    <span><b>Alix</b></span>
+                  </div>
+
+                  <div>
+                    <span class="message__date">
+                      7 days ago
+                    </span>
+                    <button class="button--ghost">
+                      <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+                      <span class="sr-only">
+                        Actions
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="message__body">
+                  Il faut mettre à jour le site sur la préprod !!!
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__item message message--owned">
+              <div class="message__avatar">
+                <img src="https://i.pravatar.cc/50?img=15" />
+                <div class="avatar__icon">
+                  <fa-icon icon="headset" [fixedWidth]="true" size="xs"></fa-icon>
+                  <span class="sr-only">
+                    Assignee
+                  </span>
+                </div>
+              </div>
+
+              <div class="message__box">
+                <div class="message__header">
+                  <div class="message__author">
+                    <span><b>Benedict</b></span>
+                  </div>
+
+                  <div>
+                    <span class="message__date">
+                      6 days ago
+                    </span>
+                    <button class="button--ghost">
+                      <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+                      <span class="sr-only">
+                        Actions
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="message__body">
+                  Bonjour,<br>
+                  De quel site s’agit-il ?<br>
+                  Cordialement
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__item event">
+              <fa-icon icon="user-plus" class="event__icon" [fixedWidth]="true"></fa-icon>
+              <b>Benedict</b> assigned the ticket to themself
+
+              <span class="event__time">
+                6 days ago
+              </span>
+            </div>
+
+            <div class="timeline__item event">
+              <fa-icon icon="dot-circle" class="event__icon" [fixedWidth]="true"></fa-icon>
+              <b>Benedict</b> changed status to “Pending”
+
+              <span class="event__time">
+                6 days ago
+              </span>
+            </div>
+
+            <div class="timeline__item message message--owned message--private">
+              <div class="message__avatar">
+                <img src="https://i.pravatar.cc/50?img=15" />
+                <div class="avatar__icon">
+                  <fa-icon icon="headset" [fixedWidth]="true" size="xs"></fa-icon>
+                  <span class="sr-only">
+                    Assignee
+                  </span>
+                </div>
+              </div>
+
+              <div class="message__box">
+                <div class="message__header">
+                  <div class="message__author">
+                    <fa-icon icon="user-secret" title="Send in private" [fixedWidth]="true"></fa-icon>
+                    <span><b>Benedict</b></span>
+                  </div>
+
+                  <div>
+                    <span class="message__date">
+                      6 days ago
+                    </span>
+
+                    <button class="button--ghost">
+                      <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+                      <span class="sr-only">
+                        Actions
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="message__body">
+                  Encore une demande très précise !
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__item fast-forward">
+              <fa-icon icon="ellipsis-v" class="fast-forward__icon" [fixedWidth]="true"></fa-icon>
+              <span class="float--right">5 days later</span>
+            </div>
+
+            <div class="timeline__item message">
+              <div class="message__avatar">
+                <img src="https://i.pravatar.cc/50?img=2" />
+                <div class="avatar__icon">
+                  <fa-icon icon="user" [fixedWidth]="true" size="xs"></fa-icon>
+                  <span class="sr-only">
+                    Requester
+                  </span>
+                </div>
+              </div>
+
+              <div class="message__box">
+                <div class="message__header">
+                  <div class="message__author">
+                    <fa-icon icon="envelope" title="Send by email" [fixedWidth]="true"></fa-icon>
+                    <span><b>Alix</b></span>
+                  </div>
+
+                  <div>
+                    <span class="message__date">
+                      20 hours ago
+                    </span>
+                    <button class="button--ghost">
+                      <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+                      <span class="sr-only">
+                        Actions
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="message__body">
+                  Celui de la démo merci
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__item event">
+              <fa-icon icon="dot-circle" class="event__icon" [fixedWidth]="true"></fa-icon>
+              <b>Alix</b> changed status to “In progress”
+
+              <span class="event__time">
+                20 hours ago
+              </span>
+            </div>
+
+            <div class="timeline__item event">
+              <fa-icon icon="bolt" class="event__icon" [fixedWidth]="true"></fa-icon>
+              <b>Benedict</b> changed urgency to low
+
+              <span class="event__time">
+                18 hours ago
+              </span>
+            </div>
+
+            <div class="timeline__item event">
+              <fa-icon icon="ticket-alt" class="event__icon" [fixedWidth]="true"></fa-icon>
+              <b>Benedict</b> added ticket “La démo n’est pas à jour sur la
+              préprod #2”
+
+              <span class="event__time">
+                18 hours ago
+              </span>
+            </div>
+
+            <div class="timeline__item event">
+              <fa-icon icon="ticket-alt" class="event__icon" [fixedWidth]="true"></fa-icon>
+              <b>Benedict</b> added ticket “La démo n’est pas à jour sur la
+              prod #3”
+
+              <span class="event__time">
+                18 hours ago
+              </span>
+            </div>
+
+            <div class="timeline__item message message--owned">
+              <div class="message__avatar">
+                <img src="https://i.pravatar.cc/50?img=15" />
+                <div class="avatar__icon">
+                  <fa-icon icon="headset" [fixedWidth]="true" size="xs"></fa-icon>
+                  <span class="sr-only">
+                    Assignee
+                  </span>
+                </div>
+              </div>
+
+              <div class="message__box">
+                <div class="message__header">
+                  <div class="message__author">
+                    <span><b>Benedict</b></span>
+                  </div>
+
+                  <div>
+                    <span class="message__date">
+                      1 hour ago
+                    </span>
+                    <button class="button--ghost">
+                      <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+                      <span class="sr-only">
+                        Actions
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="message__body">
+                  Bonjour,<br>
+                  Nous venons de mettre à jour la préprod avec la dernière version
+                  de la démo. Pouvez-vous confirmer que tout fonctionne chez vous ?<br>
+                  Cordialement
+                </div>
+
+                <div class="message__bottom">
+                  <fa-icon icon="clock" [fixedWidth]="true"></fa-icon>
+                  Spent 1 hour on contract “Support développeurs”
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__item event">
+              <fa-icon icon="dot-circle" class="event__icon" [fixedWidth]="true"></fa-icon>
+              <b>Benedict</b> changed status to “Pending”
+
+              <span class="event__time">
+                1 hour ago
+              </span>
+            </div>
+
+            <div class="timeline__item timeline__item-end" id="bottom"></div>
+
+          </div>
+
+          <div *ngIf="editorOpened" class="editor" id="editor">
+            <div class="editor__toolbar">
+              <div class="editor__toolbar-group">
+                <fa-icon icon="bold" size="lg" [fixedWidth]="true"></fa-icon>
+                <fa-icon icon="italic" size="lg" [fixedWidth]="true"></fa-icon>
+                <fa-icon icon="underline" size="lg" [fixedWidth]="true"></fa-icon>
+              </div>
+
+              <div class="editor__toolbar-group">
+                <fa-icon icon="list-ul" size="lg" [fixedWidth]="true"></fa-icon>
+                <fa-icon icon="list-ol" size="lg" [fixedWidth]="true"></fa-icon>
+              </div>
+
+              <div class="editor__toolbar-group">
+                <fa-icon icon="link" size="lg" [fixedWidth]="true"></fa-icon>
+                <fa-icon icon="image" size="lg" [fixedWidth]="true"></fa-icon>
+              </div>
+
+              <div class="editor__extender"></div>
+
+              <div class="editor__toolbar-actions">
+                <div class="editor__toolbar-group">
+                  <fa-icon icon="paperclip" size="lg" [fixedWidth]="true"></fa-icon>
+                  <fa-icon icon="clock" size="lg" [fixedWidth]="true"></fa-icon>
+                </div>
+
+                <div class="editor__toolbar-group">
+                  <fa-icon icon="swatchbook" size="lg" [fixedWidth]="true"></fa-icon>
+                </div>
+              </div>
+            </div>
+
+            <textarea class="editor__content" autofocus></textarea>
+
+            <div class="editor__actions">
+              <div class="editor__checkbox">
+                <input type="checkbox" id="private" (click)="onPrivateChange($event)" />
+                <label for="private">Private</label>
+                <fa-icon icon="user-secret" [class.shadow]="!isPrivate" [fixedWidth]="true"></fa-icon>
+              </div>
+
+              <div class="editor__checkbox">
+                <input type="checkbox" id="solution" (click)="onSolutionChange($event)" />
+                <label for="solution">Solution</label>
+              </div>
+
+              <div class="editor__extender"></div>
+
+              <div class="editor__actions-end">
+                <div class="inline">
+                  <label for="status">
+                    Status to
+                  </label>
+                  <select id="status">
+                    <option
+                      *ngFor="let status of statuses"
+                      [selected]="status === selectedStatus"
+                    >{{ status }}</option>
+                  </select>
+                </div>
+
+                <button class="button--primary">
+                  <fa-icon icon="paper-plane" [fixedWidth]="true"></fa-icon>
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ticket__info flow flow--larger">
+          <div class="info__group flow">
+            <div class="info__group-name">
+              <div>
+                <fa-icon icon="user-friends" [fixedWidth]="true"></fa-icon>
+                Actors
+              </div>
+
+              <span class="info__group-actions">
+                <a href="#">
+                  <fa-icon icon="cog" [fixedWidth]="true"></fa-icon>
+                  <span class="sr-only">
+                    Change
+                  </span>
+                </a>
+              </span>
+            </div>
+
+            <ul class="info__actors flow">
+              <li class="info__actor">
+                <div class="info__actor-header">
+                  <span class="info__actor-role">Requester</span>
+                </div>
+                <span class="info__actor-name">Alix Prevost-Barbier</span>
+              </li>
+
+              <li class="info__actor">
+                <div class="info__actor-header">
+                  <span class="info__actor-role">Assignee</span>
+                </div>
+                <span class="info__actor-name">Benedict Lesage</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="info__group flow">
+            <div class="info__group-name">
+              <div>
+                <fa-icon icon="bolt" [fixedWidth]="true"></fa-icon>
+                Priority
+              </div>
+
+              <span class="info__group-actions">
+                <a href="#">
+                  <fa-icon icon="cog" [fixedWidth]="true"></fa-icon>
+                  <span class="sr-only">
+                    Change
+                  </span>
+                </a>
+              </span>
+            </div>
+
+            <ul class="info__priorities flow">
+              <li class="info__priority info__priority-main">
+                <span class="info__priority-type sr-only">Priority:</span>
+                Low
+              </li>
+
+              <li class="info__priority">
+                <span class="info__priority-type">Urgency:</span>
+                Low
+              </li>
+
+              <li class="info__priority">
+                <span class="info__priority-type">Impact:</span>
+                Medium
+              </li>
+            </ul>
+          </div>
+
+          <div class="info__group info__group--contract flow">
+            <div class="info__group-name">
+              <div>
+                <fa-icon icon="file-signature" [fixedWidth]="true"></fa-icon>
+                Contract
+              </div>
+
+              <span class="info__group-actions">
+                <a href="#">
+                  <fa-icon icon="cog" [fixedWidth]="true"></fa-icon>
+                  <span class="sr-only">
+                    Change
+                  </span>
+                </a>
+              </span>
+            </div>
+
+            <p>
+              Support développeurs
+            </p>
+
+            <p class="contract__active-tickets">
+              <fa-icon icon="info-circle" [fixedWidth]="true"></fa-icon>
+              3 active tickets
+            </p>
+
+            <p>
+              <span class="info__contract-usage-label">Usage:</span> 1 of 12 hours
+              <span class="float--right"><a href="#">details</a></span>
+            </p>
+
+            <div class="contract__usage-bar"></div>
+          </div>
+
+          <div class="info__group info__group--tickets flow">
+            <div class="info__group-name">
+              <div>
+                <fa-icon icon="ticket-alt" [fixedWidth]="true"></fa-icon>
+                Related tickets
+              </div>
+
+              <span class="info__group-actions">
+                <a href="#">
+                  <fa-icon icon="cog" [fixedWidth]="true"></fa-icon>
+                  <span class="sr-only">
+                    Change
+                  </span>
+                </a>
+              </span>
+            </div>
+
+            <ul class="info__tickets flow">
+              <li class="info__ticket">
+                <span class="info__ticket-type">Close:</span>
+                <span class="info__ticket-related">
+                  <span class="info__ticket-label">
+                    La démo n’est pas à jour sur la préprod
+                  </span>
+                  <span class="info__ticket-number">
+                    #2
+                  </span>
+                </span>
+              </li>
+
+              <li class="info__ticket">
+                <span class="info__ticket-type">Linked to:</span>
+                <span class="info__ticket-related">
+                  <span class="info__ticket-label">
+                    La démo n’est pas à jour sur la prod
+                  </span>
+                  <span class="info__ticket-number">
+                    #3
+                  </span>
+                </span>
+              </li>
+            </ul>
+
+            <button>
+              <fa-icon icon="plus" [fixedWidth]="true"></fa-icon>
+              Add a ticket
+            </button>
+          </div>
+
+          <div class="info__actions">
+            <ul class="flow">
+              <li>
+                <a href="#">
+                  <fa-icon icon="cubes" [fixedWidth]="true"></fa-icon>
+                  Add assets
+                </a>
+              </li>
+
+              <li>
+                <a href="#">
+                  <fa-icon icon="hourglass-half" [fixedWidth]="true"></fa-icon>
+                  Add <abbr>SLA</abbr>s
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="info__group info__group--notes">
+            <div class="info__group-name">
+              <div>
+                Notes additionnelles
+              </div>
+            </div>
+
+            <ul class="flow--small">
+              <li>Les SLA seraient à monter dans le header (sous le statut)
+                pour les mettre en avant</li>
+              <li>Il faudrait évaluer la pertinence de fusionner les
+                formulaires de suivi et des tâches techniques</li>
+              <li>Si on part là-dessus, on peut envisager de toujours
+                afficher le formulaire de réponse et de merger les boutons
+                "Edit" et "Actions"</li>
+              <li>Il pourrait être utile d’afficher quelque part le temps
+                total passé sur le ticket</li>
+              <li>Il faudrait permettre de saisir l'origine d’une réponse
+                (téléphone, email, etc.)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticket__actions">
+        <button *ngIf="!editorOpened" class="button--primary" (click)="switchEditor()">
+          <fa-icon icon="comment" [fixedWidth]="true"></fa-icon>
+          Answer to ticket
+        </button>
+
+        <button *ngIf="!editorOpened">
+          <fa-icon icon="tasks" [fixedWidth]="true"></fa-icon>
+          Add tasks
+        </button>
+
+        <button *ngIf="editorOpened" (click)="switchEditor()">
+          Cancel answer
+        </button>
+
+        <div class="float--right">
+          <button *ngIf="!editorOpened">
+            <fa-icon icon="ellipsis-h" [fixedWidth]="true"></fa-icon>
+            Actions
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
