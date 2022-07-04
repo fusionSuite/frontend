@@ -8,9 +8,9 @@ describe('PageMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PageMenuComponent ]
+      declarations: [PageMenuComponent],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(PageMenuComponent);
     component = fixture.componentInstance;

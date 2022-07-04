@@ -14,9 +14,9 @@ describe('HomePageComponent', () => {
       ],
       imports: [
         RouterTestingModule,
-      ]
+      ],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(HomePageComponent);
     component = fixture.componentInstance;

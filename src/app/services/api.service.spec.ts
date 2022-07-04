@@ -10,7 +10,7 @@ describe('ApiService', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-      ]
+      ],
     });
     service = TestBed.inject(ApiService);
   });

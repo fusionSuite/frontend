@@ -16,7 +16,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { PageMenuComponent } from './page-menu/page-menu.component';
 import { TypeShowPageComponent } from './type-show-page/type-show-page.component';
 
-function initializeApp(settings: SettingsService) {
+function initializeApp (settings: SettingsService) {
   return () => settings.loadConfiguration();
 }
 
@@ -40,13 +40,13 @@ function initializeApp(settings: SettingsService) {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
       deps: [SettingsService],
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(library: FaIconLibrary) {
+  constructor (library: FaIconLibrary) {
     library.addIconPacks(fas);
   }
 }

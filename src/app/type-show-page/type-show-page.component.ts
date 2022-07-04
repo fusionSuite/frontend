@@ -8,19 +8,18 @@ import { Type } from 'src/app/interfaces/type';
 @Component({
   selector: 'app-type-show-page',
   templateUrl: './type-show-page.component.html',
-  styleUrls: ['./type-show-page.component.scss']
+  styleUrls: ['./type-show-page.component.scss'],
 })
 export class TypeShowPageComponent implements OnInit {
-
   type: Type|null = null;
   name = '';
 
-  constructor(
+  constructor (
     private apiService: ApiService,
     private route: ActivatedRoute,
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     this.route.paramMap.subscribe((paramMap) => {
       this.apiService.getType(this.id)
         .subscribe((result: Type) => {
@@ -30,8 +29,7 @@ export class TypeShowPageComponent implements OnInit {
     });
   }
 
-  get id() {
+  get id () {
     return Number(this.route.snapshot.paramMap.get('id'));
   }
-
 }

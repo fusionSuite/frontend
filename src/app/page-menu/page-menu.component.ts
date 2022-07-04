@@ -22,26 +22,25 @@ import { Type } from 'src/app/interfaces/type';
 @Component({
   selector: '[app-page-menu]',
   templateUrl: './page-menu.component.html',
-  styleUrls: ['./page-menu.component.scss']
+  styleUrls: ['./page-menu.component.scss'],
 })
 export class PageMenuComponent implements OnInit {
-
   types: Type[] = [];
 
-  constructor(
+  constructor (
     private apiService: ApiService,
     private authService: AuthService,
     private router: Router,
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     this.apiService.getTypes()
       .subscribe((result: Type[]) => {
         this.types = result;
       });
   }
 
-  typeIcon(type: Type) {
+  typeIcon (type: Type) {
     switch (type.internalname) {
       case 'antivirus':
         return faShieldAlt;
@@ -66,7 +65,7 @@ export class PageMenuComponent implements OnInit {
     }
   }
 
-  get displayName() {
+  get displayName () {
     const token = this.authService.getToken();
     if (!token) {
       return '';
@@ -85,7 +84,7 @@ export class PageMenuComponent implements OnInit {
     }
   }
 
-  logout() {
+  logout () {
     this.authService.logout();
     this.router.navigate(['/login']);
   }

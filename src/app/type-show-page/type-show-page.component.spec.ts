@@ -8,9 +8,9 @@ describe('TypeShowPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TypeShowPageComponent ]
+      declarations: [TypeShowPageComponent],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(TypeShowPageComponent);
     component = fixture.componentInstance;

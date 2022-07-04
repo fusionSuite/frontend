@@ -7,18 +7,18 @@ interface Configuration {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SettingsService {
   private configuration: Configuration = {
     backendUrl: '',
   };
 
-  constructor(
+  constructor (
     private http: HttpClient,
   ) { }
 
-  public async loadConfiguration() {
+  public async loadConfiguration () {
     await this.http.get<Configuration>('config.json')
       .pipe(map((configuration: Configuration) => {
         this.configuration = configuration;
@@ -26,7 +26,7 @@ export class SettingsService {
       .toPromise();
   }
 
-  get backendUrl() {
+  get backendUrl () {
     return this.configuration.backendUrl;
   }
 }
