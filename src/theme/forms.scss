@@ -12,34 +12,38 @@ input {
   font-size: 1em;
   line-height: 1.5;
 
-  background-color: var(--color-primary4);
+  background-color: var(--color-grey3);
   border: none;
-  border-bottom: 2px solid var(--color-primary7);
+  border-bottom: 2px solid var(--color-primary9);
 
   transition:
     background-color 0.2s ease-in-out,
     border-color 0.2s ease-in-out;
 
   &:hover {
-    background-color: var(--color-primary3);
+    background-color: var(--color-grey4);
+    border-color: var(--color-primary10);
   }
 
   &:focus {
+    color: var(--color-primary12);
+
     background-color: var(--color-primary5);
-    border-bottom-color: var(--color-primary8);
   }
 
   &[aria-invalid = "true"] {
-    background-color: var(--color-error4);
-    border-color: var(--color-error7);
+    color: var(--color-error12);
+
+    background-color: var(--color-error3);
+    border-color: var(--color-error9);
 
     &:hover {
-      background-color: var(--color-error3);
+      background-color: var(--color-error4);
+      border-color: var(--color-error10);
     }
 
     &:focus {
       background-color: var(--color-error5);
-      border-color: var(--color-error8);
     }
   }
 }

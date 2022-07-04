@@ -2,14 +2,13 @@ button {
   display: inline-block;
   padding: 0.25rem 1rem;
 
-  color: var(--color-primary12);
+  color: var(--color-grey12);
   font-family: inherit;
-  font-weight: bold;
   font-size: 1em;
   line-height: 1.5;
 
-  background-color: var(--color-primary3);
-  border: none;
+  background-color: var(--color-grey3);
+  border: 1px solid var(--color-grey7);
   border-radius: 3px;
 
   transition:
@@ -19,18 +18,28 @@ button {
   cursor: pointer;
 
   &:hover {
-    background-color: var(--color-primary4);
+    background-color: var(--color-grey4);
+    border-color: var(--color-grey8);
   }
 
   &:active {
-    background-color: var(--color-primary5);
+    background-color: var(--color-grey5);
   }
 
   &.button--primary {
+    color: var(--color-primary12);
+    font-weight: bold;
+
     background-color: var(--color-primary9);
+    border-color: var(--color-primary7);
   }
 
   &.button--primary:hover {
     background-color: var(--color-primary10);
+    border-color: var(--color-primary8);
+  }
+
+  &.button--primary:focus {
+    outline-color: var(--color-primary8);
   }
 }
