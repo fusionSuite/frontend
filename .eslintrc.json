@@ -1,0 +1,23 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest/globals": true
+  },
+  "extends": [
+    "standard"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "plugins": [
+    "jest",
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "comma-dangle": ["error", "always-multiline"],
+    "no-useless-constructor": "off",
+    "semi": ["error", "always"]
+  }
+}
