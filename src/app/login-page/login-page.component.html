@@ -1,6 +1,6 @@
 <div class="page">
   <main class="page__content flow">
-    <h1>Log in to FusionSuite</h1>
+    <h1 i18n>Log in to FusionSuite</h1>
 
     <div class="page__inner">
       <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()" class="flow">
@@ -11,7 +11,7 @@
         >
           <div class="alert__title">
             <fa-icon icon="exclamation-circle"></fa-icon>
-            Error
+            <ng-container i18n>Error</ng-container>
           </div>
 
           <p class="alert__message">
@@ -20,7 +20,7 @@
         </div>
 
         <div>
-          <label for="username">Username</label>
+          <label for="username" i18n>Username</label>
           <input
             id="username"
             type="text"
@@ -37,15 +37,15 @@
             *ngIf="usernameIsInvalid"
           >
             <fa-icon icon="exclamation-circle"></fa-icon>
-            <span class="sr-only">Error:</span>
-            <span *ngIf="formControls.username.hasError('required')">
+            <span class="sr-only" i18n>Error:</span>
+            <span *ngIf="formControls.username.hasError('required')" i18n>
               The username is required.
             </span>
           </div>
         </div>
 
         <div>
-          <label for="password">Password</label>
+          <label for="password" i18n>Password</label>
           <input
             id="password"
             type="password"
@@ -62,15 +62,15 @@
             *ngIf="passwordIsInvalid"
           >
             <fa-icon icon="exclamation-circle"></fa-icon>
-            <span class="sr-only">Error:</span>
-            <span *ngIf="formControls.password.hasError('required')">
+            <span class="sr-only" i18n>Error:</span>
+            <span *ngIf="formControls.password.hasError('required')" i18n>
               The password is required.
             </span>
           </div>
         </div>
 
         <div class="form__actions">
-          <button type="submit" class="button--primary">Login</button>
+          <button type="submit" class="button--primary" i18n>Login</button>
         </div>
       </form>
     </div>

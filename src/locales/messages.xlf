@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="6159784952431060057" datatype="html">
+        <source>FusionSuite</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app-routing.module.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home-page/home-page.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1068180392980395479" datatype="html">
+        <source>Log in to FusionSuite</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app-routing.module.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8650499415827640724" datatype="html">
+        <source>Type</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app-routing.module.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6619478028055446531" datatype="html">
+        <source> It works! </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home-page/home-page.component.html</context>
+          <context context-type="linenumber">9,11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/type-show-page/type-show-page.component.html</context>
+          <context context-type="linenumber">9,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1519954996184640001" datatype="html">
+        <source>Error</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5248717555542428023" datatype="html">
+        <source>Username</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4606091236515013460" datatype="html">
+        <source>Error:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="86087505018521613" datatype="html">
+        <source> The username is required. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="linenumber">41,43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1431416938026210429" datatype="html">
+        <source>Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5050048058261668004" datatype="html">
+        <source> The password is required. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="linenumber">66,68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2454050363478003966" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2681586038936504024" datatype="html">
+        <source>Home FusionSuite</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page-menu/page-menu.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7507948636555938109" datatype="html">
+        <source>Log out</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page-menu/page-menu.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

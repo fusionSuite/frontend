@@ -35,6 +35,11 @@ endif
 	@sed -i 's#https://backend.example.com#$(BACKEND_URL)#' src/config.json
 	@echo 'All good! You can edit the backend URL in the src/config.json file if you need.'
 
+.PHONY: i18n-extract
+i18n-extract: ## Update locale files
+	ng extract-i18n --out-file src/locales/messages.xlf
+	yarn xliffmerge -p .xliffmerge.json
+
 .PHONY: help
 help:
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
