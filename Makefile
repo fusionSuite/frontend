@@ -12,6 +12,16 @@ build: ## Build the assets for production
 test: ## Run the test suite
 	yarn test
 
+.PHONY: lint
+lint: ## Run the linters on the source code
+	yarn eslint --ext js,ts src
+	yarn stylelint "**/*.{css,scss}"
+
+.PHONY: lint-fix
+lint-fix: ## Fix the errors detected by the linters
+	yarn eslint --fix --ext js,ts src/
+	yarn stylelint --fix "**/*.{css,scss}"
+
 .PHONY: install
 install: ## Install the dependencies
 ifndef BACKEND_URL

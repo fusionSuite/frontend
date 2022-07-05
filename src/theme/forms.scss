@@ -31,7 +31,7 @@ input {
     background-color: var(--color-primary5);
   }
 
-  &[aria-invalid = "true"] {
+  &[aria-invalid="true"] {
     color: var(--color-error12);
 
     background-color: var(--color-error3);

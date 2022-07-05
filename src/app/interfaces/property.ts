@@ -1,4 +1,4 @@
-import { ListValue } from "./list-value";
+import { ListValue } from './list-value';
 
 export interface Property {
   id: number;

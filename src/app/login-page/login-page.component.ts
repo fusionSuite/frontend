@@ -8,12 +8,12 @@ import { catchError } from 'rxjs/operators';
 
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
-import FormStatus from 'src/app/utils/form-status';
+import { FormStatus } from 'src/app/utils/form-status';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss']
+  styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
   loginForm = new FormGroup({
@@ -28,72 +28,72 @@ export class LoginPageComponent implements OnInit {
   });
 
   formSubmitted = false;
-  formStatus = FormStatus.Initial;
+  formStatus: FormStatus = 'Initial';
   formError = '';
 
-  constructor(
+  constructor (
     private apiService: ApiService,
     private authService: AuthService,
     private router: Router,
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
   }
 
-  onFormSubmit() {
+  onFormSubmit () {
     this.formSubmitted = true;
 
     if (!this.canSubmit) {
       return;
     }
 
-    this.formStatus = FormStatus.Pending;
+    this.formStatus = 'Pending';
     this.formError = '';
 
     this.apiService.login(
       this.formControls.username.value,
-      this.formControls.password.value
+      this.formControls.password.value,
     ).pipe(
-        catchError((error: HttpErrorResponse) => {
-          this.formStatus = FormStatus.Initial;
-          this.formError = error.error.message;
-          return throwError(() => new Error(error.error.message));
-        })
-      )
+      catchError((error: HttpErrorResponse) => {
+        this.formStatus = 'Initial';
+        this.formError = error.error.message;
+        return throwError(() => new Error(error.error.message));
+      }),
+    )
       .subscribe((result: any) => {
         // Save the token to use it later
         this.authService.login(result.token);
 
         // Reset the form to its initial state
-        this.formStatus = FormStatus.Initial;
+        this.formStatus = 'Initial';
         this.loginForm.reset();
         this.formSubmitted = false;
 
         // And redirect the user to the home page
         this.router.navigate(['/']);
-      })
+      });
   }
 
-  get formControls() {
+  get formControls () {
     return this.loginForm.controls;
   }
 
-  get canSubmit() {
+  get canSubmit () {
     return (
-      this.formStatus === FormStatus.Initial &&
+      this.formStatus === 'Initial' &&
       !this.usernameIsInvalid &&
       !this.passwordIsInvalid
     );
   }
 
-  get usernameIsInvalid() {
+  get usernameIsInvalid () {
     return this.formControls.username?.invalid && (
       this.formControls.username?.touched ||
       this.formSubmitted
     );
   }
 
-  get passwordIsInvalid() {
+  get passwordIsInvalid () {
     return this.formControls.password?.invalid && (
       this.formControls.password?.touched ||
       this.formSubmitted
