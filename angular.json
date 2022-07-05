@@ -13,10 +13,24 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": {
+          "code": "en-US",
+          "baseHref": "/frontend/en-US/"
+        },
+        "locales": {
+          "fr": {
+            "translation": "src/locales/messages.fr-FR.xlf",
+            "baseHref": "/frontend/fr-FR/"
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "localize": true,
+            "i18nMissingTranslation": "error",
             "outputPath": "dist/frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -57,6 +71,7 @@
               "sourceMap": true
             },
             "development": {
+              "localize": ["en-US"],
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
