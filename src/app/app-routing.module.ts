@@ -11,19 +11,19 @@ import { TypeShowPageComponent } from './type-show-page/type-show-page.component
 const routes: Routes = [
   {
     path: '',
-    title: 'FusionSuite',
+    title: $localize `FusionSuite`,
     component: HomePageComponent,
     canActivate: [LoggedInGuard],
   },
   {
     path: 'login',
-    title: 'Log in to Fusion Suite',
+    title: $localize `Log in to FusionSuite`,
     component: LoginPageComponent,
     canActivate: [NotLoggedInGuard],
   },
   {
     path: 'types/:id',
-    title: 'Type',
+    title: $localize `Type`,
     component: TypeShowPageComponent,
     canActivate: [LoggedInGuard],
   },
