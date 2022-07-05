@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { ApiService } from 'src/app/services/api.service';
 
@@ -17,6 +18,7 @@ export class TypeShowPageComponent implements OnInit {
   constructor (
     private apiService: ApiService,
     private route: ActivatedRoute,
+    private title: Title,
   ) { }
 
   ngOnInit (): void {
@@ -25,6 +27,7 @@ export class TypeShowPageComponent implements OnInit {
         .subscribe((result: Type) => {
           this.type = result;
           this.name = this.type.name;
+          this.title.setTitle(this.name);
         });
     });
   }
