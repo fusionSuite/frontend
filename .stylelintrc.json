@@ -3,6 +3,8 @@
     "stylelint-config-standard-scss"
   ],
 
+  "ignoreFiles": ["**/*.{ts,js,html}"],
+
   "plugins": [
     "stylelint-order"
   ],
