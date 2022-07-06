@@ -1,0 +1,7 @@
+<div [class]="'page page--' + layout" id="page-focus" tabindex="-1" [attr.aria-label]="title">
+  <nav *ngIf="shouldShowNavigation()" class="page__nav flow" app-page-menu></nav>
+
+  <main class="page__content flow">
+    <ng-content></ng-content>
+  </main>
+</div>

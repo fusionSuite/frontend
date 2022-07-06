@@ -3,6 +3,12 @@
   min-height: 100vh;
 }
 
+.page--simple {
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .page__nav {
   --color-nav-bg: var(--sky11);
   --color-nav-bg-dark: var(--sky12);
