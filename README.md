@@ -1,27 +1,52 @@
-# Frontend
+# FusionSuite Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.2.
+This is the repository for the frontend of FusionSuite. It is developed with
+[TypeScript](https://www.typescriptlang.org/) and [Angular](https://angular.io/).
 
-## Development server
+This document is intended for developers. For more information, please see
+[the official links](#official-links).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Quick start
 
-## Code scaffolding
+Make sure to have Node.js 16 and Yarn installed on your system.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Install the dependencies:
 
-## Build
+```console
+$ make install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Start the development server:
 
-## Running unit tests
+```console
+$ make start
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Build the assets for production:
 
-## Running end-to-end tests
+```console
+$ make build
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Run the tests suite and linters:
 
-## Further help
+```console
+$ make lint
+$ # or make lint-fix
+$ make test
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To update the internationalized files:
+
+```console
+$ make i18n-extract
+```
+
+## Official links
+
+- website: [fusionsuite.org](https://fusionsuite.org) ([code](https://github.com/fusionSuite/fusionsuite.org))
+- documentation: [fusionsuite.org/documentation](https://fusionsuite.org/documentation/) ([code](https://github.com/fusionSuite/documentation))
+- community: [Discord](https://discord.gg/Kj72FwAKTC)
+- bugtracker: [github.com/FusionSuite/FusionSuite](https://github.com/fusionSuite/FusionSuite)
+- backend code: [github.com/FusionSuite/backend](https://github.com/fusionSuite/backend)
+- frontend code: [github.com/FusionSuite/frontend](https://github.com/fusionSuite/frontend)
