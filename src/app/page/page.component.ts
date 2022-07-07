@@ -27,6 +27,13 @@ export class PageComponent implements OnInit {
     });
   }
 
+  focusContent () {
+    const content = document.querySelector('#content-focus') as HTMLElement | null;
+    if (content) {
+      content.focus();
+    }
+  }
+
   shouldShowNavigation () {
     return this.layout === 'normal';
   }

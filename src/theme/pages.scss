@@ -120,3 +120,32 @@
   background-color: var(--color-grey1);
   border-top: 1px solid var(--color-grey6);
 }
+
+.accessibility-nav {
+  position: absolute;
+  z-index: 100;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+
+  width: 1px;
+  height: 1px;
+  padding: 0.5rem;
+
+  color: var(--color-primary12);
+  font-size: 1.1rem;
+  text-decoration: none;
+
+  background-color: var(--color-primary1);
+  border-radius: 5px;
+
+  &:focus {
+    top: 0.25rem;
+    left: 0.25rem;
+
+    clip: auto;
+
+    width: auto;
+    height: auto;
+  }
+}
