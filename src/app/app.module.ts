@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -9,11 +9,17 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { SettingsService } from './services/settings.service';
+
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { PageMenuComponent } from './page-menu/page-menu.component';
 import { TypeShowPageComponent } from './type-show-page/type-show-page.component';
 import { PageComponent } from './page/page.component';
+
+function initializeApp (settings: SettingsService) {
+  return () => settings.loadConfiguration();
+}
 
 @NgModule({
   declarations: [
@@ -31,7 +37,14 @@ import { PageComponent } from './page/page.component';
     FontAwesomeModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [SettingsService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
