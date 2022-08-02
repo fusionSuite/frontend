@@ -13,6 +13,7 @@ import { SettingsService } from './services/settings.service';
 
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { OrganizationsCreatePageComponent } from './pages/organizations/organizations-create-page/organizations-create-page.component';
 import { TypeShowPageComponent } from './pages/type-show-page/type-show-page.component';
 
 import { PageComponent } from './layout/page/page.component';
@@ -32,6 +33,7 @@ function initializeApp (settings: SettingsService) {
 
     PageComponent,
     PageMenuComponent,
+    OrganizationsCreatePageComponent,
   ],
   imports: [
     AppRoutingModule,

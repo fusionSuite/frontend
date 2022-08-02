@@ -23,6 +23,18 @@ export class ApiService {
     });
   }
 
+  public organizationCreate (name: string, parentId: number = 1) {
+    return this.http.post(this.settingsService.backendUrl + '/v1/items', {
+      name,
+      parent_id: parentId,
+      type_id: 1,
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
+
   public getTypes () {
     return this.http.get<Type[]>(this.settingsService.backendUrl + '/v1/config/types', {
       headers: {

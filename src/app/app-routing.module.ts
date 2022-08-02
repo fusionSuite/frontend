@@ -6,6 +6,7 @@ import { NotLoggedInGuard } from './guards/not-logged-in.guard';
 
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { OrganizationsCreatePageComponent } from './pages/organizations/organizations-create-page/organizations-create-page.component';
 import { TypeShowPageComponent } from './pages/type-show-page/type-show-page.component';
 
 const routes: Routes = [
@@ -20,6 +21,12 @@ const routes: Routes = [
     title: $localize `Log in to FusionSuite`,
     component: LoginPageComponent,
     canActivate: [NotLoggedInGuard],
+  },
+  {
+    path: 'organizations/new',
+    title: $localize `New organization`,
+    component: OrganizationsCreatePageComponent,
+    canActivate: [LoggedInGuard],
   },
   {
     path: 'types/:id',
