@@ -11,11 +11,12 @@ import { AppComponent } from './app.component';
 
 import { SettingsService } from './services/settings.service';
 
-import { HomePageComponent } from './home-page/home-page.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { PageMenuComponent } from './page-menu/page-menu.component';
-import { TypeShowPageComponent } from './type-show-page/type-show-page.component';
-import { PageComponent } from './page/page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { TypeShowPageComponent } from './pages/type-show-page/type-show-page.component';
+
+import { PageComponent } from './layout/page/page.component';
+import { PageMenuComponent } from './layout/page-menu/page-menu.component';
 
 function initializeApp (settings: SettingsService) {
   return () => settings.loadConfiguration();
@@ -24,11 +25,13 @@ function initializeApp (settings: SettingsService) {
 @NgModule({
   declarations: [
     AppComponent,
+
     HomePageComponent,
     LoginPageComponent,
-    PageMenuComponent,
     TypeShowPageComponent,
+
     PageComponent,
+    PageMenuComponent,
   ],
   imports: [
     AppRoutingModule,
