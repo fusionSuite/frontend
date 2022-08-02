@@ -13,7 +13,7 @@ import { FormStatus } from 'src/app/utils/form-status';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss'],
+  styleUrls: [],
 })
 export class LoginPageComponent implements OnInit {
   loginForm = new FormGroup({

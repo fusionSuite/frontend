@@ -8,7 +8,7 @@ export type Layout = 'normal' | 'simple';
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
-  styleUrls: ['./page.component.scss'],
+  styleUrls: [],
 })
 export class PageComponent implements OnInit {
   @Input() title: string = '';

@@ -9,7 +9,7 @@ import { Type } from 'src/app/interfaces/type';
 @Component({
   selector: 'app-type-show-page',
   templateUrl: './type-show-page.component.html',
-  styleUrls: ['./type-show-page.component.scss'],
+  styleUrls: [],
 })
 export class TypeShowPageComponent implements OnInit {
   type: Type|null = null;

@@ -22,7 +22,7 @@ import { Type } from 'src/app/interfaces/type';
 @Component({
   selector: '[app-page-menu]',
   templateUrl: './page-menu.component.html',
-  styleUrls: ['./page-menu.component.scss'],
+  styleUrls: [],
 })
 export class PageMenuComponent implements OnInit {
   types: Type[] = [];
