@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+    node:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        command: node_modules/.bin/ng serve --host 0.0.0.0
+        ports:
+          - "4200:4200"
+        working_dir: /app
+        volumes:
+            - ..:/app:z
+        user: $USER
+
+networks:
+  default:
+    name: fusionsuite-network
+    external: true
