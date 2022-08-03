@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { SettingsService } from 'src/app/services/settings.service';
 
+import { IItem } from 'src/app/interfaces/item';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,12 +23,20 @@ export class ApiService {
     });
   }
 
-  public organizationCreate (name: string, parentId: number = 1) {
+  public organizationCreate (name: string, parentId: number) {
     return this.http.post(this.settingsService.backendUrl + '/v1/items', {
       name,
       parent_id: parentId,
       type_id: 1,
     }, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
+
+  public organizationList () {
+    return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/1', {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
