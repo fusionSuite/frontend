@@ -1,35 +1,58 @@
 .DEFAULT_GOAL := help
 
+USER = $(shell id -u):$(shell id -g)
+
+ifdef DOCKER
+	NG = ./docker/bin/ng
+	YARN = ./docker/bin/yarn
+else
+	NG = ng
+	YARN = yarn
+endif
+
+.PHONY: start
+docker-start: ## Start the development server with Docker
+	@echo "Running webserver on http://localhost:4200"
+	docker-compose -p fusionsuite-frontend -f docker/docker-compose.yml up
+
+.PHONY: docker-clean
+docker-clean: ## Clean the Docker stuff
+	docker-compose -p fusionsuite-frontend -f docker/docker-compose.yml down
+
 .PHONY: start
 start: ## Start the development server
-	yarn start
+	$(YARN) start
 
 .PHONY: build
 build: ## Build the assets for production
-	yarn build
+	$(YARN) build
 
 .PHONY: test
 test: ## Run the test suite
-	yarn test
+	$(YARN) test
 
 .PHONY: lint
 lint: ## Run the linters on the source code
-	yarn eslint --ext js,ts src
-	yarn stylelint "src/**/*.{css,scss}"
+	$(YARN) eslint --ext js,ts src
+	$(YARN) stylelint "src/**/*.{css,scss}"
 
 .PHONY: lint-fix
 lint-fix: ## Fix the errors detected by the linters
-	yarn eslint --fix --ext js,ts src/
-	yarn stylelint --fix "src/**/*.{css,scss}"
+	$(YARN) eslint --fix --ext js,ts src/
+	$(YARN) stylelint --fix "src/**/*.{css,scss}"
 
 .PHONY: install
 install: ## Install the dependencies
-	yarn install
+	$(YARN) install
+ifdef DOCKER
+	cp src/config.sample.json src/config.json
+	sed -i 's#https://backend.example.com#http://localhost:8000#' src/config.json
+endif
 
 .PHONY: i18n-extract
 i18n-extract: ## Update locale files
-	ng extract-i18n --out-file src/locales/messages.xlf
-	yarn xliffmerge -p .xliffmerge.json
+	$(NG) extract-i18n --out-file src/locales/messages.xlf
+	$(YARN) xliffmerge -p .xliffmerge.json
 
 .PHONY: help
 help:
