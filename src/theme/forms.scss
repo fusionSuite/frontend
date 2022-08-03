@@ -48,6 +48,56 @@ input {
   }
 }
 
+select {
+  width: 100%;
+  padding: 0.2rem;
+
+  color: inherit;
+  font-family: inherit;
+  font-size: 1em;
+  text-overflow: ellipsis;
+
+  background-color: var(--color-grey3);
+  border: none;
+  border-bottom: 2px solid var(--color-primary9);
+
+  transition:
+    background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out;
+
+  @media (min-width: 800px) {
+    width: auto;
+    min-width: 50%;
+  }
+
+  &:hover {
+    background-color: var(--color-grey4);
+    border-color: var(--color-primary10);
+  }
+
+  &:focus {
+    color: var(--color-primary12);
+
+    background-color: var(--color-primary5);
+  }
+
+  &[aria-invalid="true"] {
+    color: var(--color-error12);
+
+    background-color: var(--color-error3);
+    border-color: var(--color-error9);
+
+    &:hover {
+      background-color: var(--color-error4);
+      border-color: var(--color-error10);
+    }
+
+    &:focus {
+      background-color: var(--color-error5);
+    }
+  }
+}
+
 .form__actions {
   display: flex;
 

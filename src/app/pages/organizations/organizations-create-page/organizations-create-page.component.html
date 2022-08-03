@@ -4,7 +4,7 @@
   </header>
 
   <div class="page__inner">
-    <form [formGroup]="newOrganizationForm" (ngSubmit)="onFormSubmit()" class="flow wrapper wrapper--small">
+    <form *ngIf="organizationsLoaded && organizations.length > 0" [formGroup]="newOrganizationForm" (ngSubmit)="onFormSubmit()" class="flow wrapper wrapper--small">
       <div
         class="alert alert--error"
         role="alert"
@@ -45,9 +45,57 @@
         </div>
       </div>
 
+      <div>
+        <label for="parent-id" i18n>Parent organization</label>
+
+        <select
+          id="parent-id"
+          required
+          formControlName="parentId"
+          [attr.aria-invalid]="parentIdIsInvalid"
+          [attr.aria-errormessage]="parentIdIsInvalid ? 'parent-id-error' : null"
+        >
+          <option *ngFor="let organization of organizations" [value]="organization.id">
+            {{ formatOrganizationName(organization) }}
+          </option>
+        </select>
+
+        <div
+          class="form__error"
+          id="parent-id-error"
+          role="alert"
+          *ngIf="parentIdIsInvalid"
+        >
+          <fa-icon icon="exclamation-circle"></fa-icon>
+          <span class="sr-only" i18n>Error:</span>
+          <span *ngIf="formControls.parentId.hasError('required')" i18n>
+            The parent organization is required.
+          </span>
+        </div>
+      </div>
+
       <div class="form__actions">
         <button type="submit" class="button--primary" i18n>Create an organization</button>
       </div>
     </form>
+
+    <div *ngIf="!organizationsLoaded" class="loader flow">
+      <div class="loader__spinner"></div>
+
+      <p class="loader__message" i18n>
+        Loading of organizations…
+      </p>
+    </div>
+
+    <div *ngIf="organizationsLoaded && organizations.length === 0" class="wrapper alert alert--error" role="alert">
+      <div class="alert__title">
+          <fa-icon icon="exclamation-circle"></fa-icon>
+          <ng-container i18n>Error</ng-container>
+      </div>
+
+      <p class="alert__message" i18n>
+        You don’t have the permission to create new organizations.
+      </p>
+    </div>
   </div>
 </app-page>

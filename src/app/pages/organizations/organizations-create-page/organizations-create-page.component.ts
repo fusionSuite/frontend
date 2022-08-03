@@ -8,6 +8,9 @@ import { catchError } from 'rxjs/operators';
 import { NotificationsService } from 'src/app/notifications/notifications.service';
 import { ApiService } from 'src/app/services/api.service';
 import { FormStatus } from 'src/app/utils/form-status';
+import { OrganizationsSorter } from 'src/app/utils/organizations-sorter';
+
+import { IItem } from 'src/app/interfaces/item';
 
 @Component({
   selector: 'app-organizations-create-page',
@@ -15,8 +18,15 @@ import { FormStatus } from 'src/app/utils/form-status';
   styleUrls: [],
 })
 export class OrganizationsCreatePageComponent implements OnInit {
+  organizationsLoaded = false;
+  organizations: IItem[] = [];
+
   newOrganizationForm = new FormGroup({
     name: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    parentId: new FormControl('1', {
       nonNullable: true,
       validators: [Validators.required],
     }),
@@ -32,6 +42,21 @@ export class OrganizationsCreatePageComponent implements OnInit {
   ) { }
 
   ngOnInit (): void {
+    this.loadOrganizations();
+  }
+
+  loadOrganizations () {
+    this.apiService.organizationList()
+      .subscribe((result: IItem[]) => {
+        const organizationsSorter = new OrganizationsSorter();
+        this.organizations = organizationsSorter.sort(result);
+
+        if (this.organizations.length > 0) {
+          this.formControls.parentId.setValue(String(this.organizations[0].id));
+        }
+
+        this.organizationsLoaded = true;
+      });
   }
 
   onFormSubmit () {
@@ -46,6 +71,7 @@ export class OrganizationsCreatePageComponent implements OnInit {
 
     this.apiService.organizationCreate(
       this.formControls.name.value,
+      parseInt(this.formControls.parentId.value, 10),
     ).pipe(
       catchError((error: HttpErrorResponse) => {
         this.formStatus = 'Initial';
@@ -58,6 +84,7 @@ export class OrganizationsCreatePageComponent implements OnInit {
       this.newOrganizationForm.reset();
       this.formSubmitted = false;
       this.notificationsService.success($localize `The organization has been created successfully.`);
+      this.loadOrganizations();
     });
   }
 
@@ -68,7 +95,8 @@ export class OrganizationsCreatePageComponent implements OnInit {
   get canSubmit () {
     return (
       this.formStatus === 'Initial' &&
-      !this.nameIsInvalid
+      !this.nameIsInvalid &&
+      !this.parentIdIsInvalid
     );
   }
 
@@ -77,5 +105,20 @@ export class OrganizationsCreatePageComponent implements OnInit {
       this.formControls.name?.touched ||
       this.formSubmitted
     );
+  }
+
+  get parentIdIsInvalid () {
+    return this.formControls.parentId?.invalid && (
+      this.formControls.parentId?.touched ||
+      this.formSubmitted
+    );
+  }
+
+  formatOrganizationName (orga: IItem) {
+    // treepath length is a multiple of 4
+    const baseTreeDepth = this.organizations[0].treepath.length;
+    const treeDepth = orga.treepath.length - baseTreeDepth;
+    // prepend *non-breakable* spaces to the organization name
+    return ' '.repeat(treeDepth) + orga.name;
   }
 }
