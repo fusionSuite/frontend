@@ -1,0 +1,55 @@
+<app-page i18n-page-title page-title="Organizations">
+  <header class="page__header">
+    <h1 i18n>Organizations</h1>
+  </header>
+
+  <div class="page__inner flow">
+    <a class="a--action" [routerLink]="['/organizations/new']">
+      <fa-icon icon="plus" [fixedWidth]="true"></fa-icon>
+      <ng-container i18n>
+        Create an organization
+      </ng-container>
+    </a>
+
+    <table>
+      <thead>
+        <tr>
+          <th i18n>
+            Name
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let organization of organizations">
+          <td>
+            <span
+              *ngFor="let parentOrga of parentOrganizations(organization)"
+              class="text--secondary"
+            >
+              {{ parentOrga.name }} /
+            </span>
+
+            {{ organization.name }}
+          </td>
+        </tr>
+
+        <tr *ngIf="!organizationsLoaded">
+          <td colspan="2" class="loader flow">
+            <div class="loader__spinner"></div>
+
+            <p class="loader__message" i18n>
+              Loading of organizations…
+            </p>
+          </td>
+        </tr>
+
+        <tr *ngIf="organizationsLoaded && organizations.length === 0" class="tr--placeholder">
+          <td colspan="2" i18n>
+            There are no organizations to show.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</app-page>

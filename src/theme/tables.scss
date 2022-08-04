@@ -1,0 +1,37 @@
+table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+thead {
+  text-align: left;
+
+  background-color: var(--color-grey3);
+  border-bottom: 1px solid var(--color-grey6);
+}
+
+th,
+td {
+  padding: 0.5rem;
+
+  font-size: 0.9rem;
+}
+
+tr:nth-child(even) {
+  background-color: var(--color-grey2);
+}
+
+tr.tr--placeholder {
+  background-color: var(--color-grey2);
+
+  td {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    color: var(--color-grey11);
+    font-size: 1.1rem;
+    font-style: italic;
+    text-align: center;
+  }
+}

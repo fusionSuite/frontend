@@ -8,6 +8,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { OrganizationsCreatePageComponent } from './pages/organizations/organizations-create-page/organizations-create-page.component';
+import { OrganizationsListPageComponent } from './pages/organizations/organizations-list-page/organizations-list-page.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,12 @@ const routes: Routes = [
     canActivate: [NotLoggedInGuard],
   },
 
+  {
+    path: 'organizations',
+    title: $localize `Organizations`,
+    component: OrganizationsListPageComponent,
+    canActivate: [LoggedInGuard],
+  },
   {
     path: 'organizations/new',
     title: $localize `New organization`,
