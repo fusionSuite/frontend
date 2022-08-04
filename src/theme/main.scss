@@ -4,6 +4,7 @@
 @import "buttons";
 @import "forms";
 @import "pages";
+@import "notifications";
 
 *,
 *::before,
@@ -52,4 +53,8 @@ body {
 
   width: 1px;
   height: 1px;
+}
+
+p {
+  margin: 0;
 }

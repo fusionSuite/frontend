@@ -1,0 +1,48 @@
+.notifications {
+  position: fixed;
+  z-index: 999;
+  top: 1rem;
+  right: 1rem;
+
+  width: 300px;
+}
+
+.notifications__button {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+
+  text-align: left;
+
+  box-shadow: 1px 2px 2px var(--color-grey8);
+  border: none;
+  border-radius: 10px;
+
+  .notifications__alert--error & {
+    color: var(--color-error12);
+
+    background-color: var(--color-error4);
+  }
+
+  .notifications__alert--success & {
+    color: var(--color-success12);
+
+    background-color: var(--color-success4);
+  }
+
+  .notifications__alert--error &:hover {
+    background-color: var(--color-error5);
+  }
+
+  .notifications__alert--error &:active {
+    background-color: var(--color-error6);
+  }
+
+  .notifications__alert--success &:hover {
+    background-color: var(--color-success5);
+  }
+
+  .notifications__alert--success &:active {
+    background-color: var(--color-success6);
+  }
+}
