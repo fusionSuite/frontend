@@ -16,6 +16,12 @@ td {
   padding: 0.5rem;
 
   font-size: 0.9rem;
+
+  &.col--actions {
+    width: 5rem;
+
+    text-align: center;
+  }
 }
 
 tr:nth-child(even) {

@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+import { NotificationsService } from 'src/app/notifications/notifications.service';
 import { ApiService } from 'src/app/services/api.service';
 import { OrganizationsSorter } from 'src/app/utils/organizations-sorter';
 
@@ -15,8 +21,11 @@ export class OrganizationsListPageComponent implements OnInit {
   organizations: IItem[] = [];
   organizationsByIds: {[index: number]: IItem} = {};
 
+  deleteForm = new FormGroup({});
+
   constructor (
     private apiService: ApiService,
+    private notificationsService: NotificationsService,
   ) { }
 
   ngOnInit (): void {
@@ -24,11 +33,7 @@ export class OrganizationsListPageComponent implements OnInit {
       .subscribe((result: IItem[]) => {
         const organizationsSorter = new OrganizationsSorter();
         this.organizations = organizationsSorter.sort(result);
-
-        result.forEach((organization) => {
-          this.organizationsByIds[organization.id] = organization;
-        });
-
+        this.organizationsByIds = this.indexOrganizations(this.organizations);
         this.organizationsLoaded = true;
       });
   }
@@ -46,5 +51,40 @@ export class OrganizationsListPageComponent implements OnInit {
       }
     }
     return parents;
+  }
+
+  deleteOrganization (organization: IItem) {
+    if (!window.confirm($localize `Do you really want to delete the organization “${organization.name}”?`)) {
+      return;
+    }
+
+    this.apiService.organizationDelete(organization.id)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.notificationsService.error(error.error.message);
+          return throwError(() => new Error(error.error.message));
+        }),
+      ).subscribe((result: any) => {
+        // Filter the list of organizations to remove the deleted organization
+        // and its children.
+        this.organizations = this.organizations.filter((orga) => {
+          const parentOrgas = this.parentOrganizations(orga);
+          const isChild = parentOrgas.some((parentOrga) => {
+            return parentOrga.id === organization.id;
+          });
+          return orga.id !== organization.id && !isChild;
+        });
+        this.organizationsByIds = this.indexOrganizations(this.organizations);
+
+        this.notificationsService.success($localize `The organization has been deleted successfully.`);
+      });
+  }
+
+  indexOrganizations (organizations: IItem[]) {
+    const orgasByIds: {[index: number]: IItem} = {};
+    organizations.forEach((organization) => {
+      orgasByIds[organization.id] = organization;
+    });
+    return orgasByIds;
   }
 }
