@@ -1,0 +1,26 @@
+a {
+  color: var(--color-primary11);
+}
+
+.a--action {
+  padding: 0.3rem;
+
+  text-decoration: none;
+
+  border: 0.1em solid currentcolor;
+  border-radius: 5px;
+
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--color-primary3);
+  }
+}
+
+.a--back {
+  padding: 0.3rem;
+
+  &::before {
+    content: "← ";
+  }
+}

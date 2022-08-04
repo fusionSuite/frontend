@@ -1,6 +1,12 @@
 <app-page i18n-page-title page-title="New organization">
-  <header class="page__header">
+  <header class="page__header flow flow--small">
     <h1 i18n>New organization</h1>
+
+    <div>
+      <a class="a--back" [routerLink]="['/organizations']" i18n>
+        Back to organizations
+      </a>
+    </div>
   </header>
 
   <div class="page__inner">

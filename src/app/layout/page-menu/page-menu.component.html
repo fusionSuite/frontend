@@ -3,6 +3,14 @@
 </a>
 
 <ul class="page__nav-container flow">
+  <li class="page__nav-item">
+    <a class="page__nav-link" [routerLink]="['/organizations']" routerLinkActive="active" ariaCurrentWhenActive="page">
+      <fa-icon icon="users" size="xs" [fixedWidth]="true"></fa-icon>
+      <ng-container i18n>
+        Organizations
+      </ng-container>
+    </a>
+  </li>
 </ul>
 
 <div class="page__nav-bottom">
