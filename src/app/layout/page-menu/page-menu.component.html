@@ -3,12 +3,6 @@
 </a>
 
 <ul class="page__nav-container flow">
-  <li class="page__nav-item" *ngFor="let type of types">
-    <a class="page__nav-link" [routerLink]="['/types', type.id]" routerLinkActive="active" ariaCurrentWhenActive="page">
-      <fa-icon [icon]="typeIcon(type)" size="xs" [fixedWidth]="true"></fa-icon>
-      {{ type.name }}
-    </a>
-  </li>
 </ul>
 
 <div class="page__nav-bottom">
