@@ -1,4 +1,4 @@
-<div [class]="'page page--' + layout" id="page-focus" tabindex="-1" [attr.aria-label]="title">
+<div [class]="'page page--' + pageLayout" id="page-focus" tabindex="-1" [attr.aria-label]="pageTitle">
   <a class="accessibility-nav" routerLink="." (click)="focusContent()" i18n>Skip to main content</a>
 
   <nav *ngIf="shouldShowNavigation()" class="page__nav flow" app-page-menu></nav>
