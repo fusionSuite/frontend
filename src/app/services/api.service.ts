@@ -35,6 +35,14 @@ export class ApiService {
     });
   }
 
+  public organizationDelete (id: number) {
+    return this.http.delete(this.settingsService.backendUrl + '/v1/items/' + id, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
+
   public organizationList () {
     return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/1', {
       headers: {

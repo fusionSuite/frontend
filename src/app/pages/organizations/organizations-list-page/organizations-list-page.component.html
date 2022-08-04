@@ -17,6 +17,14 @@
           <th i18n>
             Name
           </th>
+
+          <th class="col--actions">
+            <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
+
+            <span class="sr-only" i18n>
+              Actions
+            </span>
+          </th>
         </tr>
       </thead>
 
@@ -31,6 +39,18 @@
             </span>
 
             {{ organization.name }}
+          </td>
+
+          <td class="col--actions">
+            <form *ngIf="organization.parent_id != null" [formGroup]="deleteForm" (ngSubmit)="deleteOrganization(organization)">
+              <button type="submit" i18n-title title="Delete {{ organization.name }}">
+                <fa-icon icon="trash" [fixedWidth]="true"></fa-icon>
+
+                <span class="sr-only" i18n>
+                  Delete {{ organization.name }}
+                </span>
+              </button>
+            </form>
           </td>
         </tr>
 
