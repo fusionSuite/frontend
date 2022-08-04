@@ -1,0 +1,11 @@
+<div class="notifications flow">
+  <p
+    *ngFor="let notification of notifications"
+    class="notifications__alert notifications__alert--{{ notification.status }}"
+    role="alert"
+  >
+    <button class="notifications__button" (click)="closeNotification(notification)">
+      {{ notification.message }}
+    </button>
+  </p>
+</div>
