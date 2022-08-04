@@ -11,8 +11,8 @@ export type Layout = 'normal' | 'simple';
   styleUrls: [],
 })
 export class PageComponent implements OnInit {
-  @Input() title: string = '';
-  @Input() layout: Layout = 'normal';
+  @Input('page-title') pageTitle: string = '';
+  @Input('page-layout') pageLayout: Layout = 'normal';
 
   constructor (
     private router: Router,
@@ -35,6 +35,6 @@ export class PageComponent implements OnInit {
   }
 
   shouldShowNavigation () {
-    return this.layout === 'normal';
+    return this.pageLayout === 'normal';
   }
 }
