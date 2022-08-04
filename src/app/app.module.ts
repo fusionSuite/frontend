@@ -13,7 +13,6 @@ import { SettingsService } from './services/settings.service';
 
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { TypeShowPageComponent } from './pages/type-show-page/type-show-page.component';
 
 import { PageComponent } from './layout/page/page.component';
 import { PageMenuComponent } from './layout/page-menu/page-menu.component';
@@ -28,7 +27,6 @@ function initializeApp (settings: SettingsService) {
 
     HomePageComponent,
     LoginPageComponent,
-    TypeShowPageComponent,
 
     PageComponent,
     PageMenuComponent,
