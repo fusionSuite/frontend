@@ -18,21 +18,27 @@ export class PageMenuComponent implements OnInit {
   }
 
   get displayName () {
+    const defaultUsername = $localize `Anonymous`;
+
     const token = this.authService.getToken();
     if (!token) {
-      return '';
+      return defaultUsername;
     }
 
     const splitToken = token.split('.');
     if (splitToken.length !== 3) {
-      return '';
+      return defaultUsername;
     }
 
     try {
       const decodedPayload = JSON.parse(atob(splitToken[1]));
-      return decodedPayload.displayname || '';
+      if (decodedPayload.firstname && decodedPayload.lastname) {
+        return decodedPayload.firstname + ' ' + decodedPayload.lastname;
+      } else {
+        return defaultUsername;
+      }
     } catch (error) {
-      return '';
+      return defaultUsername;
     }
   }
 
