@@ -6,6 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
+import { LayoutModule } from 'src/app/layout/layout.module';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -13,9 +15,6 @@ import { SettingsService } from './services/settings.service';
 
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
-
-import { PageComponent } from './layout/page/page.component';
-import { PageMenuComponent } from './layout/page-menu/page-menu.component';
 
 function initializeApp (settings: SettingsService) {
   return () => settings.loadConfiguration();
@@ -27,15 +26,13 @@ function initializeApp (settings: SettingsService) {
 
     HomePageComponent,
     LoginPageComponent,
-
-    PageComponent,
-    PageMenuComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
     FontAwesomeModule,
+    LayoutModule,
     ReactiveFormsModule,
   ],
   providers: [

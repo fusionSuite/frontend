@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { PageComponent } from 'src/app/layout/page/page.component';
+import { LayoutModule } from 'src/app/layout/layout.module';
 
 import { LoginPageComponent } from './login-page.component';
 
@@ -16,10 +16,10 @@ describe('LoginPageComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         LoginPageComponent,
-        PageComponent,
       ],
       imports: [
         HttpClientTestingModule,
+        LayoutModule,
         ReactiveFormsModule,
         RouterTestingModule,
       ],
