@@ -16,8 +16,6 @@ import { SettingsService } from './services/settings.service';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
-import { OrganizationsCreatePageComponent } from './pages/organizations/organizations-create-page/organizations-create-page.component';
-import { OrganizationsListPageComponent } from './pages/organizations/organizations-list-page/organizations-list-page.component';
 
 import { NotificationsComponent } from './notifications/notifications.component';
 
@@ -32,8 +30,6 @@ function initializeApp (settings: SettingsService) {
     HomePageComponent,
     LoginPageComponent,
     NotFoundPageComponent,
-    OrganizationsCreatePageComponent,
-    OrganizationsListPageComponent,
 
     NotificationsComponent,
   ],
