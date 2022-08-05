@@ -3,6 +3,19 @@
   // see https://www.radix-ui.com/docs/colors/palette-composition/understanding-the-scale
 
   // Radix colors
+  --green1: hsl(136deg 50% 98.9%);
+  --green2: hsl(138deg 62.5% 96.9%);
+  --green3: hsl(139deg 55.2% 94.5%);
+  --green4: hsl(140deg 48.7% 91%);
+  --green5: hsl(141deg 43.7% 86%);
+  --green6: hsl(143deg 40.3% 79%);
+  --green7: hsl(146deg 38.5% 69%);
+  --green8: hsl(151deg 40.2% 54.1%);
+  --green9: hsl(151deg 55% 41.5%);
+  --green10: hsl(152deg 57.5% 37.6%);
+  --green11: hsl(153deg 67% 28.5%);
+  --green12: hsl(155deg 40% 14%);
+
   --red1: hsl(359deg 100% 99.4%);
   --red2: hsl(359deg 100% 98.6%);
   --red3: hsl(360deg 100% 96.8%);
@@ -51,38 +64,46 @@
   --color-grey2: var(--slate2);
   --color-primary1: var(--sky1);
   --color-primary2: var(--sky2);
+  --color-success1: var(--green1);
+  --color-success2: var(--green2);
 
   // Component backgrounds (+1 for call-to-action components)
   // normal states
   --color-error3: var(--red3);
   --color-grey3: var(--slate3);
   --color-primary3: var(--sky3);
+  --color-success3: var(--green3);
 
   // hover states
   --color-error4: var(--red4);
   --color-grey4: var(--slate4);
   --color-primary4: var(--sky4);
+  --color-success4: var(--green4);
 
   // pressed or selected states
   --color-error5: var(--red5);
   --color-grey5: var(--slate5);
   --color-primary5: var(--sky5);
+  --color-success5: var(--green5);
 
   // Borders
   // subtle borders for non-interactive components
   --color-error6: var(--red6);
   --color-grey6: var(--slate6);
   --color-primary6: var(--sky6);
+  --color-success6: var(--green6);
 
   // borders for interactive components, focus rings
   --color-error7: var(--red7);
   --color-grey7: var(--slate7);
   --color-primary7: var(--sky7);
+  --color-success7: var(--green7);
 
   // border for interactive components in hover state
   --color-error8: var(--red8);
   --color-grey8: var(--slate8);
   --color-primary8: var(--sky8);
+  --color-success8: var(--green8);
 
   // Solid backgrounds
   // Main backgrounds in normal state (e.g. header backgrounds, coloured
@@ -90,20 +111,24 @@
   --color-error9: var(--red9);
   --color-grey9: var(--slate9);
   --color-primary9: var(--sky9);
+  --color-success9: var(--green9);
 
   // Main backgrounds in hover state
   --color-error10: var(--red10);
   --color-grey10: var(--slate10);
   --color-primary10: var(--sky10);
+  --color-success10: var(--green10);
 
   // Text
   // low-contrast text
   --color-error11: var(--red11);
   --color-grey11: var(--slate11);
   --color-primary11: var(--sky11);
+  --color-success11: var(--green11);
 
   // high-contrast text
   --color-error12: var(--red12);
   --color-grey12: var(--slate12);
   --color-primary12: var(--sky12);
+  --color-success12: var(--green12);
 }
