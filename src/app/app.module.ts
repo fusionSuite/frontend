@@ -15,6 +15,7 @@ import { SettingsService } from './services/settings.service';
 
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 function initializeApp (settings: SettingsService) {
   return () => settings.loadConfiguration();
@@ -26,6 +27,7 @@ function initializeApp (settings: SettingsService) {
 
     HomePageComponent,
     LoginPageComponent,
+    NotFoundPageComponent,
   ],
   imports: [
     AppRoutingModule,

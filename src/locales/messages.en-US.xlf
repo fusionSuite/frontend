@@ -10,11 +10,11 @@
           <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/home-page/home-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/home-page/home-page.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/home-page/home-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/home-page/home-page.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
@@ -26,31 +26,35 @@
           <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8650499415827640724" datatype="html">
-        <source>Type</source>
-        <target state="final">Type</target>
+      <trans-unit id="2275328567992347600" datatype="html">
+        <source>Page not found</source>
+        <target state="final">Page not found</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app-routing.module.ts</context>
           <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/not-found-page/not-found-page.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/not-found-page/not-found-page.component.html</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6619478028055446531" datatype="html">
         <source> It works! </source>
         <target state="final"> It works! </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/home-page/home-page.component.html</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/type-show-page/type-show-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/home-page/home-page.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
@@ -58,7 +62,7 @@
         <source>Error</source>
         <target state="final">Error</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
@@ -66,7 +70,7 @@
         <source>Username</source>
         <target state="final">Username</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
@@ -74,11 +78,11 @@
         <source>Error:</source>
         <target state="final">Error:</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
           <context context-type="linenumber">41</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
           <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
@@ -86,7 +90,7 @@
         <source> The username is required. </source>
         <target state="final"> The username is required. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
           <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
@@ -94,7 +98,7 @@
         <source>Password</source>
         <target state="final">Password</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
           <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
@@ -102,7 +106,7 @@
         <source> The password is required. </source>
         <target state="final"> The password is required. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
@@ -110,15 +114,31 @@
         <source>Login</source>
         <target state="final">Login</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
           <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5401867940002169262" datatype="html">
+        <source> The page you’re looking for doesn’t exist. </source>
+        <target state="final"> The page you’re looking for doesn’t exist. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/not-found-page/not-found-page.component.html</context>
+          <context context-type="linenumber">7,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6278982046865843260" datatype="html">
+        <source> Back to the home page </source>
+        <target state="final"> Back to the home page </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/not-found-page/not-found-page.component.html</context>
+          <context context-type="linenumber">12,14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2681586038936504024" datatype="html">
         <source>Home FusionSuite</source>
         <target state="final">Home FusionSuite</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/page-menu/page-menu.component.html</context>
+          <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
@@ -126,15 +146,15 @@
         <source>Log out</source>
         <target state="final">Log out</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/page-menu/page-menu.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.html</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1914592173926880968" datatype="html">
         <source>Skip to main content</source>
         <target state="final">Skip to main content</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/page/page.component.html</context>
+          <context context-type="sourcefile">src/app/layout/page/page.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
