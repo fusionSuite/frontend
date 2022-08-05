@@ -6,6 +6,7 @@ import { NotLoggedInGuard } from './guards/not-logged-in.guard';
 
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
     title: $localize `Log in to FusionSuite`,
     component: LoginPageComponent,
     canActivate: [NotLoggedInGuard],
+  },
+  {
+    path: '**',
+    title: $localize `Page not found`,
+    component: NotFoundPageComponent,
   },
 ];
 

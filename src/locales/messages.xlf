@@ -9,11 +9,11 @@
           <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/home-page/home-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/home-page/home-page.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/home-page/home-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/home-page/home-page.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
@@ -24,104 +24,122 @@
           <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8650499415827640724" datatype="html">
-        <source>Type</source>
+      <trans-unit id="2275328567992347600" datatype="html">
+        <source>Page not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app-routing.module.ts</context>
           <context context-type="linenumber">26</context>
         </context-group>
-      </trans-unit>
-      <trans-unit id="6619478028055446531" datatype="html">
-        <source> It works! </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/home-page/home-page.component.html</context>
-          <context context-type="linenumber">6,8</context>
+          <context context-type="sourcefile">src/app/pages/not-found-page/not-found-page.component.html</context>
+          <context context-type="linenumber">1</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/type-show-page/type-show-page.component.html</context>
-          <context context-type="linenumber">6,8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="1519954996184640001" datatype="html">
-        <source>Error</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="5248717555542428023" datatype="html">
-        <source>Username</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="4606091236515013460" datatype="html">
-        <source>Error:</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
-          <context context-type="linenumber">41</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
-          <context context-type="linenumber">66</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="86087505018521613" datatype="html">
-        <source> The username is required. </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
-          <context context-type="linenumber">42,44</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="1431416938026210429" datatype="html">
-        <source>Password</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
-          <context context-type="linenumber">49</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="5050048058261668004" datatype="html">
-        <source> The password is required. </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
-          <context context-type="linenumber">67,69</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="2454050363478003966" datatype="html">
-        <source>Login</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/login-page/login-page.component.html</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="sourcefile">src/app/pages/not-found-page/not-found-page.component.html</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2681586038936504024" datatype="html">
         <source>Home FusionSuite</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/page-menu/page-menu.component.html</context>
+          <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7507948636555938109" datatype="html">
         <source>Log out</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/page-menu/page-menu.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.html</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1914592173926880968" datatype="html">
         <source>Skip to main content</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/page/page.component.html</context>
+          <context context-type="sourcefile">src/app/layout/page/page.component.html</context>
           <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6619478028055446531" datatype="html">
+        <source> It works! </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/home-page/home-page.component.html</context>
+          <context context-type="linenumber">6,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1519954996184640001" datatype="html">
+        <source>Error</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5248717555542428023" datatype="html">
+        <source>Username</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4606091236515013460" datatype="html">
+        <source>Error:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="86087505018521613" datatype="html">
+        <source> The username is required. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
+          <context context-type="linenumber">42,44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1431416938026210429" datatype="html">
+        <source>Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5050048058261668004" datatype="html">
+        <source> The password is required. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
+          <context context-type="linenumber">67,69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2454050363478003966" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5401867940002169262" datatype="html">
+        <source> The page you’re looking for doesn’t exist. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/not-found-page/not-found-page.component.html</context>
+          <context context-type="linenumber">7,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6278982046865843260" datatype="html">
+        <source> Back to the home page </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/not-found-page/not-found-page.component.html</context>
+          <context context-type="linenumber">12,14</context>
         </context-group>
       </trans-unit>
     </body>
