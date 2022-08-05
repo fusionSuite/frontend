@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { PageComponent } from 'src/app/layout/page/page.component';
+
 import { TypeShowPageComponent } from './type-show-page.component';
 
 describe('TypeShowPageComponent', () => {
@@ -10,7 +12,10 @@ describe('TypeShowPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TypeShowPageComponent],
+      declarations: [
+        PageComponent,
+        TypeShowPageComponent,
+      ],
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
