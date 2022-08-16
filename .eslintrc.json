@@ -8,7 +8,10 @@
     "standard"
   ],
   "globals": {
-    "$localize": "readonly"
+    "$localize": "readonly",
+    "before": "readonly",
+    "cy": "readonly",
+    "Cypress": "readonly"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

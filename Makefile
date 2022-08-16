@@ -49,7 +49,7 @@ test: ## Run the test suite
 
 .PHONY: lint
 lint: ## Run the linters on the source code
-	$(YARN) eslint --ext js,ts src
+	$(YARN) eslint --ext js,ts src cypress
 	$(YARN) stylelint "src/**/*.{css,scss}"
 
 .PHONY: lint-fix
