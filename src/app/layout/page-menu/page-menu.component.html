@@ -2,12 +2,21 @@
   <img i18n-alt alt="Home FusionSuite" src="assets/logo.png" width="200">
 </a>
 
-<ul class="page__nav-container flow">
+<ul class="page__nav-container flow flow--small">
   <li class="page__nav-item">
     <a class="page__nav-link" [routerLink]="['/organizations']" routerLinkActive="active" ariaCurrentWhenActive="page">
       <fa-icon icon="users" size="xs" [fixedWidth]="true"></fa-icon>
       <ng-container i18n>
         Organizations
+      </ng-container>
+    </a>
+  </li>
+
+  <li class="page__nav-item">
+    <a class="page__nav-link" [routerLink]="['/users']" routerLinkActive="active" ariaCurrentWhenActive="page">
+      <fa-icon icon="user" size="xs" [fixedWidth]="true"></fa-icon>
+      <ng-container i18n>
+        Users
       </ng-container>
     </a>
   </li>

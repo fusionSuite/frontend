@@ -9,10 +9,12 @@ import { LayoutModule } from 'src/app/layout/layout.module';
 import { UsersRoutingModule } from './users-routing.module';
 
 import { UsersCreatePageComponent } from './users-create-page/users-create-page.component';
+import { UsersListPageComponent } from './users-list-page/users-list-page.component';
 
 @NgModule({
   declarations: [
     UsersCreatePageComponent,
+    UsersListPageComponent,
   ],
   imports: [
     CommonModule,

@@ -92,4 +92,13 @@ export class ApiService {
       },
     });
   }
+
+  public userList () {
+    const typeId = this.settingsService.typeId('users');
+    return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/' + typeId, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
 }
