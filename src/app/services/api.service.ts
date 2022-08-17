@@ -60,4 +60,36 @@ export class ApiService {
       },
     });
   }
+
+  public userCreate (name: string, firstname: string, lastname: string, organizationId: number) {
+    const typeId = this.settingsService.typeId('users');
+
+    const properties = [];
+    if (firstname) {
+      const firstnamePropertyId = this.settingsService.propertyId('userfirstname');
+      properties.push({
+        property_id: firstnamePropertyId,
+        value: firstname,
+      });
+    }
+
+    if (lastname) {
+      const lastnamePropertyId = this.settingsService.propertyId('userlastname');
+      properties.push({
+        property_id: lastnamePropertyId,
+        value: lastname,
+      });
+    }
+
+    return this.http.post(this.settingsService.backendUrl + '/v1/items', {
+      name,
+      organization_id: organizationId,
+      type_id: typeId,
+      properties,
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
 }
