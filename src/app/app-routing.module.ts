@@ -28,6 +28,11 @@ const routes: Routes = [
   },
 
   {
+    path: 'users',
+    loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule),
+  },
+
+  {
     path: '**',
     title: $localize `Page not found`,
     component: NotFoundPageComponent,

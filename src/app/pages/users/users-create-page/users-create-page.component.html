@@ -1,0 +1,101 @@
+<app-page i18n-page-title page-title="New user">
+  <header class="page__header flow flow--small">
+    <h1 i18n>New user</h1>
+  </header>
+
+  <div class="page__inner">
+    <form *ngIf="organizationsLoaded && organizations.length > 0" [formGroup]="newUserForm" (ngSubmit)="onFormSubmit()" class="flow wrapper wrapper--small">
+      <div
+        class="alert alert--error"
+        role="alert"
+        *ngIf="formError"
+      >
+        <div class="alert__title">
+          <fa-icon icon="exclamation-circle"></fa-icon>
+          <ng-container i18n>Error</ng-container>
+        </div>
+
+        <p class="alert__message">
+          {{ formError }}
+        </p>
+      </div>
+
+      <div>
+        <label for="name" i18n>Username</label>
+        <input
+          id="name"
+          type="text"
+          required
+          formControlName="name"
+          [attr.aria-invalid]="nameIsInvalid"
+          [attr.aria-errormessage]="nameIsInvalid ? 'name-error' : null"
+        >
+
+        <div
+          class="form__error"
+          id="name-error"
+          role="alert"
+          *ngIf="nameIsInvalid"
+        >
+          <fa-icon icon="exclamation-circle"></fa-icon>
+          <span class="sr-only" i18n>Error:</span>
+          <span *ngIf="formControls.name.hasError('required')" i18n>
+            The name is required.
+          </span>
+        </div>
+      </div>
+
+      <div>
+        <label for="organization-id" i18n>Main organization</label>
+
+        <select
+          id="organization-id"
+          required
+          formControlName="organizationId"
+          [attr.aria-invalid]="organizationIdIsInvalid"
+          [attr.aria-errormessage]="organizationIdIsInvalid ? 'organization-id-error' : null"
+        >
+          <option *ngFor="let organization of organizations" [value]="organization.id">
+            {{ formatOrganizationName(organization) }}
+          </option>
+        </select>
+
+        <div
+          class="form__error"
+          id="organization-id-error"
+          role="alert"
+          *ngIf="organizationIdIsInvalid"
+        >
+          <fa-icon icon="exclamation-circle"></fa-icon>
+          <span class="sr-only" i18n>Error:</span>
+          <span *ngIf="formControls.organizationId.hasError('required')" i18n>
+            The organization is required.
+          </span>
+        </div>
+      </div>
+
+      <div class="form__actions">
+        <button type="submit" class="button--primary" i18n>Create a user</button>
+      </div>
+    </form>
+
+    <div *ngIf="!organizationsLoaded" class="loader flow">
+      <div class="loader__spinner"></div>
+
+      <p class="loader__message" i18n>
+        Loading of organizations…
+      </p>
+    </div>
+
+    <div *ngIf="organizationsLoaded && organizations.length === 0" class="wrapper alert alert--error" role="alert">
+      <div class="alert__title">
+          <fa-icon icon="exclamation-circle"></fa-icon>
+          <ng-container i18n>Error</ng-container>
+      </div>
+
+      <p class="alert__message" i18n>
+        You don’t have the permission to create new users.
+      </p>
+    </div>
+  </div>
+</app-page>

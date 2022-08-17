@@ -60,4 +60,18 @@ export class ApiService {
       },
     });
   }
+
+  public userCreate (name: string, organizationId: number) {
+    const typeId = this.settingsService.typeId('users');
+
+    return this.http.post(this.settingsService.backendUrl + '/v1/items', {
+      name,
+      organization_id: organizationId,
+      type_id: typeId,
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
 }
