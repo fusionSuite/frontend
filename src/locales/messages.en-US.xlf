@@ -39,7 +39,7 @@
         <target state="final">Page not found</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app-routing.module.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/not-found-page/not-found-page.component.html</context>
@@ -65,6 +65,14 @@
           <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="5248717555542428023" datatype="html">
         <source>Username</source>
@@ -84,6 +92,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
           <context context-type="linenumber">66</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="86087505018521613" datatype="html">
@@ -134,6 +150,178 @@
           <context context-type="linenumber">12,14</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2765507593757945216" datatype="html">
+        <source>New organization</source>
+        <target state="final">New organization</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-routing.module.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1056017373280289759" datatype="html">
+        <source> Back to organizations </source>
+        <target state="final"> Back to organizations </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
+          <context context-type="linenumber">6,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5243233792859835904" datatype="html">
+        <source>Organization name</source>
+        <target state="final">Organization name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2934308315407468791" datatype="html">
+        <source> The name is required. </source>
+        <target state="final"> The name is required. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
+          <context context-type="linenumber">48,50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1900206707470585659" datatype="html">
+        <source>Parent organization</source>
+        <target state="final">Parent organization</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="275151463888178522" datatype="html">
+        <source> The parent organization is required. </source>
+        <target state="final"> The parent organization is required. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
+          <context context-type="linenumber">77,79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7613280841129007257" datatype="html">
+        <source>Create an organization</source>
+        <target state="final">Create an organization</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2659754301310886129" datatype="html">
+        <source> Loading of organizations… </source>
+        <target state="final"> Loading of organizations… </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
+          <context context-type="linenumber">91,93</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
+          <context context-type="linenumber">61,63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1437145504608861991" datatype="html">
+        <source> You don’t have the permission to create new organizations. </source>
+        <target state="final"> You don’t have the permission to create new organizations. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
+          <context context-type="linenumber">102,104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2024202534854752781" datatype="html">
+        <source>The organization has been created successfully.</source>
+        <target state="final">The organization has been created successfully.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.ts</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8539325943407755549" datatype="html">
+        <source>Organizations</source>
+        <target state="final">Organizations</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-routing.module.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6851468806127365254" datatype="html">
+        <source> Create an organization </source>
+        <target state="final"> Create an organization </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
+          <context context-type="linenumber">9,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8778616811237742446" datatype="html">
+        <source> Name </source>
+        <target state="final"> Name </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
+          <context context-type="linenumber">17,19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4360239040231802726" datatype="html">
+        <source> Actions </source>
+        <target state="final"> Actions </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
+          <context context-type="linenumber">24,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4168485708389700387" datatype="html">
+        <source>Delete <x id="INTERPOLATION" equiv-text="{{ organization.name }}"/></source>
+        <target state="final">Delete <x id="INTERPOLATION" equiv-text="{{ organization.name }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="860771627147100170" datatype="html">
+        <source> Delete <x id="INTERPOLATION" equiv-text="{{ organization.name }}"/> </source>
+        <target state="final"> Delete <x id="INTERPOLATION" equiv-text="{{ organization.name }}"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
+          <context context-type="linenumber">49,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3658263344318351354" datatype="html">
+        <source> There are no organizations to show. </source>
+        <target state="final"> There are no organizations to show. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
+          <context context-type="linenumber">68,70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6733076969739703830" datatype="html">
+        <source>Do you really want to delete the organization “<x id="PH" equiv-text="organization.name"/>”?</source>
+        <target state="final">Do you really want to delete the organization “<x id="PH" equiv-text="organization.name"/>”?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3864126936025461281" datatype="html">
+        <source>The organization has been deleted successfully.</source>
+        <target state="final">The organization has been deleted successfully.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.ts</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2681586038936504024" datatype="html">
         <source>Home FusionSuite</source>
         <target state="final">Home FusionSuite</target>
@@ -142,12 +330,28 @@
           <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="5761331429036325434" datatype="html">
+        <source> Organizations </source>
+        <target state="final"> Organizations </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.html</context>
+          <context context-type="linenumber">9,11</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="7507948636555938109" datatype="html">
         <source>Log out</source>
         <target state="final">Log out</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="358462242581945792" datatype="html">
+        <source>Anonymous</source>
+        <target state="final">Anonymous</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.ts</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1914592173926880968" datatype="html">
