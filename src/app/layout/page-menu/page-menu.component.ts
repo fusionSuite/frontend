@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
+
+import { IItem } from 'src/app/interfaces/item';
 
 @Component({
   selector: '[app-page-menu]',
@@ -9,36 +12,36 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: [],
 })
 export class PageMenuComponent implements OnInit {
+  organization: IItem|null = null;
+
   constructor (
     private authService: AuthService,
+    private apiService: ApiService,
     private router: Router,
   ) { }
 
   ngOnInit (): void {
+    this.apiService.organizationGet(this.organizationId)
+      .subscribe((result: IItem) => {
+        this.organization = result;
+      });
   }
 
   get displayName () {
-    const defaultUsername = $localize `Anonymous`;
-
-    const token = this.authService.getToken();
-    if (!token) {
-      return defaultUsername;
+    const tokenPayload = this.authService.getTokenPayload();
+    if (tokenPayload.firstname && tokenPayload.lastname) {
+      return tokenPayload.firstname + ' ' + tokenPayload.lastname;
+    } else {
+      return $localize `Anonymous`;
     }
+  }
 
-    const splitToken = token.split('.');
-    if (splitToken.length !== 3) {
-      return defaultUsername;
-    }
-
-    try {
-      const decodedPayload = JSON.parse(atob(splitToken[1]));
-      if (decodedPayload.firstname && decodedPayload.lastname) {
-        return decodedPayload.firstname + ' ' + decodedPayload.lastname;
-      } else {
-        return defaultUsername;
-      }
-    } catch (error) {
-      return defaultUsername;
+  get organizationId () {
+    const tokenPayload = this.authService.getTokenPayload();
+    if (tokenPayload.organization_id) {
+      return tokenPayload.organization_id;
+    } else {
+      return '';
     }
   }
 

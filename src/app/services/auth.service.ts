@@ -25,6 +25,24 @@ export class AuthService {
     return this.token;
   }
 
+  public getTokenPayload () {
+    const token = this.getToken();
+    if (!token) {
+      return {};
+    }
+
+    const splitToken = token.split('.');
+    if (splitToken.length !== 3) {
+      return {};
+    }
+
+    try {
+      return JSON.parse(atob(splitToken[1]));
+    } catch (error) {
+      return {};
+    }
+  }
+
   public logout () {
     this.token = '';
     window.localStorage.removeItem('authentication_token');
