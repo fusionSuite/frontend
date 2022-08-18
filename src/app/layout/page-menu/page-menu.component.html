@@ -14,10 +14,16 @@
 </ul>
 
 <div class="page__nav-bottom">
-  <span class="page__nav-username">
-    <fa-icon icon="user" size="xs" [fixedWidth]="true"></fa-icon>
-    {{ displayName }}
-  </span>
+  <div class="page__nav-bottom-extend">
+    <div class="page__nav-username">
+      <fa-icon icon="user" size="xs" [fixedWidth]="true"></fa-icon>
+      {{ displayName }}
+    </div>
+
+    <div class="page__nav-organization">
+      <small>{{ organization?.name }}</small>
+    </div>
+  </div>
 
   <button (click)="logout()">
     <fa-icon icon="sign-out-alt"></fa-icon>
