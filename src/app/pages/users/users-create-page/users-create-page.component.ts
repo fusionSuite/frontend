@@ -124,6 +124,13 @@ export class UsersCreatePageComponent implements OnInit {
     );
   }
 
+  fillUsername () {
+    const firstname = this.formControls.firstname.value.toLocaleLowerCase();
+    const lastname = this.formControls.lastname.value.toLocaleLowerCase();
+    const username = (firstname + ' ' + lastname).trim().replace(' ', '-');
+    this.formControls.name.setValue(username);
+  }
+
   formatOrganizationName (orga: IItem) {
     // treepath length is a multiple of 4
     const baseTreeDepth = this.organizations[0].treepath.length;
