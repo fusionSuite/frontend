@@ -26,6 +26,15 @@ export class UsersCreatePageComponent implements OnInit {
       nonNullable: true,
       validators: [Validators.required],
     }),
+
+    firstname: new FormControl('', {
+      nonNullable: true,
+    }),
+
+    lastname: new FormControl('', {
+      nonNullable: true,
+    }),
+
     organizationId: new FormControl('1', {
       nonNullable: true,
       validators: [Validators.required],
@@ -71,6 +80,8 @@ export class UsersCreatePageComponent implements OnInit {
 
     this.apiService.userCreate(
       this.formControls.name.value,
+      this.formControls.firstname.value,
+      this.formControls.lastname.value,
       parseInt(this.formControls.organizationId.value, 10),
     ).pipe(
       catchError((error: HttpErrorResponse) => {

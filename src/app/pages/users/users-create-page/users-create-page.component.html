@@ -26,6 +26,32 @@
         </p>
       </div>
 
+      <div class="cols">
+        <div>
+          <label for="firstname">
+            <ng-container i18n>First name</ng-container>
+            <span class="text--secondary" i18n> (optional)</span>
+          </label>
+          <input
+            id="firstname"
+            type="text"
+            formControlName="firstname"
+          >
+        </div>
+
+        <div>
+          <label for="lastname">
+            <ng-container i18n>Last name</ng-container>
+            <span class="text--secondary" i18n> (optional)</span>
+          </label>
+          <input
+            id="lastname"
+            type="text"
+            formControlName="lastname"
+          >
+        </div>
+      </div>
+
       <div>
         <label for="name" i18n>Username</label>
         <input
