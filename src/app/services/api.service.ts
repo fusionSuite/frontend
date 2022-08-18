@@ -93,6 +93,14 @@ export class ApiService {
     });
   }
 
+  public userDelete (id: number) {
+    return this.http.delete(this.settingsService.backendUrl + '/v1/items/' + id, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
+
   public userList () {
     const typeId = this.settingsService.typeId('users');
     return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/' + typeId, {
