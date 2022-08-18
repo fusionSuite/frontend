@@ -1,3 +1,5 @@
+import { IProperty } from './property';
+
 export interface IItem {
   id: number;
   id_bytype: number;
@@ -8,4 +10,5 @@ export interface IItem {
     id: number;
     name: string;
   };
+  properties: IProperty[];
 }

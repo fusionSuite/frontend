@@ -4,6 +4,8 @@ import { ApiService } from 'src/app/services/api.service';
 
 import { IItem } from 'src/app/interfaces/item';
 
+import { User } from 'src/app/models/user';
+
 @Component({
   selector: 'app-users-list-page',
   templateUrl: './users-list-page.component.html',
@@ -11,7 +13,7 @@ import { IItem } from 'src/app/interfaces/item';
 })
 export class UsersListPageComponent implements OnInit {
   usersLoaded = false;
-  users: IItem[] = [];
+  users: User[] = [];
 
   constructor (
     private apiService: ApiService,
@@ -20,8 +22,11 @@ export class UsersListPageComponent implements OnInit {
   ngOnInit (): void {
     this.apiService.userList()
       .subscribe((result: IItem[]) => {
-        this.users = result;
-        this.users.sort((u1, u2) => u1.name.localeCompare(u2.name));
+        const users = result;
+        users.sort((u1, u2) => u1.name.localeCompare(u2.name));
+        this.users = users.map((userValue) => {
+          return new User(userValue);
+        });
         this.usersLoaded = true;
       });
   }

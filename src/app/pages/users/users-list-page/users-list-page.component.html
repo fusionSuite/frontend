@@ -28,10 +28,13 @@
         <tr *ngFor="let user of users">
           <td>
             {{ user.name }}
+            <span *ngIf="user.displayName" class="text--secondary">
+              ({{ user.displayName }})
+            </span>
           </td>
 
           <td>
-            {{ user.organization.name }}
+            {{ user.organizationName }}
           </td>
         </tr>
 
