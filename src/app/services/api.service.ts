@@ -24,10 +24,11 @@ export class ApiService {
   }
 
   public organizationCreate (name: string, parentId: number) {
+    const typeId = this.settingsService.typeId('organization');
     return this.http.post(this.settingsService.backendUrl + '/v1/items', {
       name,
       parent_id: parentId,
-      type_id: 1,
+      type_id: typeId,
     }, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
@@ -52,7 +53,8 @@ export class ApiService {
   }
 
   public organizationList () {
-    return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/1', {
+    const typeId = this.settingsService.typeId('organization');
+    return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/' + typeId, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
