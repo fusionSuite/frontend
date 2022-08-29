@@ -36,15 +36,17 @@ export class SettingsService {
           if (error.status === 404) {
             // The configuration file is optional, so it's safe to ignore (404)
             // error here.
-            return of(null);
+            return of({});
           } else {
             return throwError(() => new Error(error.error.message));
           }
         }),
-      ).pipe(map((configuration: Configuration | null) => {
-        if (configuration && configuration.backendUrl) {
-          this.configuration = configuration;
-        }
+      ).pipe(map((configuration: Configuration | {}) => {
+        // Merge the default configuration with the configuration from the server.
+        this.configuration = {
+          ...this.configuration,
+          ...configuration,
+        };
       }))
       .toPromise();
 
