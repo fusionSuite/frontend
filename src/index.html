@@ -8,6 +8,16 @@
   <link rel="icon" type="image/png" href="assets/favicon.png" />
 </head>
 <body>
-  <app-root></app-root>
+  <app-root>
+    <div class="page page--simple">
+      <main class="page__content flow">
+        <div id="app-loading" class="loader">
+          <div class="loader__spinner"></div>
+        </div>
+
+        <p id="app-error" class="alert alert--error" role="alert" hidden></p>
+      </main>
+    </div>
+  </app-root>
 </body>
 </html>
