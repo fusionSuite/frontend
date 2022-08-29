@@ -4,6 +4,11 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+import { IProperty } from 'src/app/interfaces/property';
+import { IType } from 'src/app/interfaces/type';
+
+import { AuthService } from 'src/app/services/auth.service';
+
 interface Configuration {
   backendUrl: string;
 }
@@ -16,8 +21,12 @@ export class SettingsService {
     backendUrl: '/api',
   };
 
+  private propertiesIndexedByInternalname: {[key: string]: IProperty} = {};
+  private typesIndexedByInternalname: {[key: string]: IType} = {};
+
   constructor (
     private http: HttpClient,
+    private authService: AuthService,
   ) { }
 
   public async loadConfiguration () {
@@ -38,9 +47,45 @@ export class SettingsService {
         }
       }))
       .toPromise();
+
+    await this.http.get<IType[]>(this.configuration.backendUrl + '/v1/config/types', {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage = error.message;
+          if (error.error.message) {
+            errorMessage = error.error.message;
+          }
+
+          return throwError(() => new Error(errorMessage));
+        }),
+      ).pipe(map((types: IType[]) => {
+        this.typesIndexedByInternalname = {};
+        this.propertiesIndexedByInternalname = {};
+
+        types.forEach((type: IType) => {
+          this.typesIndexedByInternalname[type.internalname] = type;
+
+          type.properties.forEach((property: IProperty) => {
+            this.propertiesIndexedByInternalname[property.internalname] = property;
+          });
+        });
+      }))
+      .toPromise();
   }
 
   get backendUrl () {
     return this.configuration.backendUrl;
+  }
+
+  public typeId (internalName: string) {
+    return this.typesIndexedByInternalname[internalName]?.id;
+  }
+
+  public propertyId (internalName: string) {
+    return this.propertiesIndexedByInternalname[internalName]?.id;
   }
 }
