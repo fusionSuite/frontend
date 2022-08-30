@@ -11,6 +11,8 @@ import { OrganizationsSorter } from 'src/app/utils/organizations-sorter';
 
 import { IItem } from 'src/app/interfaces/item';
 
+import { Organization } from 'src/app/models/organization';
+
 @Component({
   selector: 'app-organizations-list-page',
   templateUrl: './organizations-list-page.component.html',
@@ -18,8 +20,8 @@ import { IItem } from 'src/app/interfaces/item';
 })
 export class OrganizationsListPageComponent implements OnInit {
   organizationsLoaded = false;
-  organizations: IItem[] = [];
-  organizationsByIds: {[index: number]: IItem} = {};
+  organizations: Organization[] = [];
+  organizationsByIds: {[index: number]: Organization} = {};
 
   deleteForm = new FormGroup({});
 
@@ -32,28 +34,24 @@ export class OrganizationsListPageComponent implements OnInit {
     this.apiService.organizationList()
       .subscribe((result: IItem[]) => {
         const organizationsSorter = new OrganizationsSorter();
-        this.organizations = organizationsSorter.sort(result);
+        const organizations = result.map((orgaItem) => new Organization(orgaItem));
+        this.organizations = organizationsSorter.sort(organizations);
         this.organizationsByIds = this.indexOrganizations(this.organizations);
         this.organizationsLoaded = true;
       });
   }
 
-  parentOrganizations (organization: IItem) {
+  parentOrganizations (organization: Organization) {
     const parents = [];
-    let parentId: number|null = organization.parent_id;
-    while (parentId != null) {
-      const parent: IItem|null = this.organizationsByIds[parentId];
-      if (parent) {
-        parents.unshift(parent);
-        parentId = parent.parent_id;
-      } else {
-        parentId = null;
-      }
+    let parent: Organization|null = this.organizationsByIds[organization.parentId];
+    while (parent != null) {
+      parents.unshift(parent);
+      parent = this.organizationsByIds[parent.parentId];
     }
     return parents;
   }
 
-  deleteOrganization (organization: IItem) {
+  deleteOrganization (organization: Organization) {
     if (!window.confirm($localize `Do you really want to delete the organization “${organization.name}”?`)) {
       return;
     }
@@ -80,8 +78,8 @@ export class OrganizationsListPageComponent implements OnInit {
       });
   }
 
-  indexOrganizations (organizations: IItem[]) {
-    const orgasByIds: {[index: number]: IItem} = {};
+  indexOrganizations (organizations: Organization[]) {
+    const orgasByIds: {[index: number]: Organization} = {};
     organizations.forEach((organization) => {
       orgasByIds[organization.id] = organization;
     });

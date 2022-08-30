@@ -5,12 +5,16 @@ export class Item {
   item: IItem;
 
   id: number;
+  parentId: number;
+  treepath: string;
   name: string;
   propertiesIndexedByInternalname: {[key: string]: IProperty} = {};
 
   constructor (item: IItem) {
     this.item = item;
     this.id = item.id;
+    this.parentId = item.parent_id != null ? item.parent_id : -1;
+    this.treepath = item.treepath != null ? item.treepath : '';
     this.name = item.name;
     this.item.properties.forEach((property) => {
       this.propertiesIndexedByInternalname[property.internalname] = property;

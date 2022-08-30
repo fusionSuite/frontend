@@ -1,25 +1,24 @@
-import { IItem } from 'src/app/interfaces/item';
+import { Organization } from 'src/app/models/organization';
 
 export class OrganizationsSorter {
-  sort (organizations: IItem[]): IItem[] {
+  sort (organizations: Organization[]): Organization[] {
     if (!organizations) {
       return [];
     }
 
     const orgasIds: number[] = [];
-    const orgasByParentId: {[index: number]: IItem[]} = {};
+    const orgasByParentId: {[index: number]: Organization[]} = {};
 
     // Initialize the lookup objects to find organizations and their children
     // easily.
     organizations.forEach((orga) => {
       orgasIds.push(orga.id);
 
-      const parentId = orga.parent_id != null ? orga.parent_id : -1;
-      if (orgasByParentId[parentId] == null) {
-        orgasByParentId[parentId] = [];
+      if (orgasByParentId[orga.parentId] == null) {
+        orgasByParentId[orga.parentId] = [];
       }
 
-      orgasByParentId[parentId].push(orga);
+      orgasByParentId[orga.parentId].push(orga);
     });
 
     // Get the root organization id. We first get the list of potential parent
@@ -40,8 +39,8 @@ export class OrganizationsSorter {
     return this.getChildrenOrganizationsOf(orgasByParentId, parseInt(rootId, 10));
   }
 
-  getChildrenOrganizationsOf (orgasByParentId: {[index: number]: IItem[]}, orgaId: number): IItem[] {
-    let sortedOrganizations: IItem[] = [];
+  getChildrenOrganizationsOf (orgasByParentId: {[index: number]: Organization[]}, orgaId: number): Organization[] {
+    let sortedOrganizations: Organization[] = [];
     const childrenOrganizations = orgasByParentId[orgaId];
 
     if (childrenOrganizations == null) {
@@ -49,12 +48,12 @@ export class OrganizationsSorter {
     }
 
     // First, sort children organizations by name
-    childrenOrganizations.sort((o1: IItem, o2: IItem) => {
+    childrenOrganizations.sort((o1: Organization, o2: Organization) => {
       return o1.name.localeCompare(o2.name);
     });
 
     // Then add the orga one by one with their own children organizations
-    childrenOrganizations.forEach((orga: IItem) => {
+    childrenOrganizations.forEach((orga: Organization) => {
       sortedOrganizations = [
         ...sortedOrganizations,
         orga,
