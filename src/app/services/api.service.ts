@@ -24,7 +24,7 @@ export class ApiService {
   }
 
   public organizationCreate (name: string, parentId: number) {
-    const typeId = this.settingsService.typeId('organization');
+    const typeId = this.settingsService.getTypeIdByInternalname('organization');
     return this.http.post(this.settingsService.backendUrl + '/v1/items', {
       name,
       parent_id: parentId,
@@ -53,7 +53,7 @@ export class ApiService {
   }
 
   public organizationList () {
-    const typeId = this.settingsService.typeId('organization');
+    const typeId = this.settingsService.getTypeIdByInternalname('organization');
     return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/' + typeId, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
@@ -62,11 +62,11 @@ export class ApiService {
   }
 
   public userCreate (name: string, firstname: string, lastname: string, organizationId: number) {
-    const typeId = this.settingsService.typeId('users');
+    const typeId = this.settingsService.getTypeIdByInternalname('users');
 
     const properties = [];
     if (firstname) {
-      const firstnamePropertyId = this.settingsService.propertyId('userfirstname');
+      const firstnamePropertyId = this.settingsService.getPropertyIdByInternalname('userfirstname');
       properties.push({
         property_id: firstnamePropertyId,
         value: firstname,
@@ -74,7 +74,7 @@ export class ApiService {
     }
 
     if (lastname) {
-      const lastnamePropertyId = this.settingsService.propertyId('userlastname');
+      const lastnamePropertyId = this.settingsService.getPropertyIdByInternalname('userlastname');
       properties.push({
         property_id: lastnamePropertyId,
         value: lastname,
@@ -102,7 +102,7 @@ export class ApiService {
   }
 
   public userList () {
-    const typeId = this.settingsService.typeId('users');
+    const typeId = this.settingsService.getTypeIdByInternalname('users');
     return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/' + typeId, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
