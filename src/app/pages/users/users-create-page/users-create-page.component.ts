@@ -6,12 +6,11 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { NotificationsService } from 'src/app/notifications/notifications.service';
-import { ApiService } from 'src/app/services/api.service';
+import { OrganizationsApi } from 'src/app/api/organizations';
+import { UsersApi } from 'src/app/api/users';
 import { FormStatus } from 'src/app/utils/form-status';
 import { OrganizationsSorter } from 'src/app/utils/organizations-sorter';
-
 import { IItem } from 'src/app/interfaces/item';
-
 import { Organization } from 'src/app/models/organization';
 
 @Component({
@@ -48,7 +47,8 @@ export class UsersCreatePageComponent implements OnInit {
   formError = '';
 
   constructor (
-    private apiService: ApiService,
+    private organizationsApi: OrganizationsApi,
+    private usersApi: UsersApi,
     private notificationsService: NotificationsService,
   ) { }
 
@@ -57,7 +57,7 @@ export class UsersCreatePageComponent implements OnInit {
   }
 
   loadOrganizations () {
-    this.apiService.organizationList()
+    this.organizationsApi.list()
       .subscribe((result: IItem[]) => {
         const organizationsSorter = new OrganizationsSorter();
         const organizations = result.map((orgaItem) => new Organization(orgaItem));
@@ -81,7 +81,7 @@ export class UsersCreatePageComponent implements OnInit {
     this.formStatus = 'Pending';
     this.formError = '';
 
-    this.apiService.userCreate(
+    this.usersApi.create(
       this.formControls.name.value,
       this.formControls.firstname.value,
       this.formControls.lastname.value,

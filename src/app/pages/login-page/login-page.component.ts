@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { ApiService } from 'src/app/services/api.service';
+import { ApiV1 } from 'src/app/api/v1';
 import { AuthService } from 'src/app/services/auth.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { FormStatus } from 'src/app/utils/form-status';
@@ -15,6 +15,7 @@ import { FormStatus } from 'src/app/utils/form-status';
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: [],
+  providers: [ApiV1],
 })
 export class LoginPageComponent implements OnInit {
   loginForm = new FormGroup({
@@ -33,7 +34,7 @@ export class LoginPageComponent implements OnInit {
   formError = '';
 
   constructor (
-    private apiService: ApiService,
+    private apiV1: ApiV1,
     private authService: AuthService,
     private settingsService: SettingsService,
     private router: Router,
@@ -52,7 +53,7 @@ export class LoginPageComponent implements OnInit {
     this.formStatus = 'Pending';
     this.formError = '';
 
-    this.apiService.login(
+    this.apiV1.postToken(
       this.formControls.username.value,
       this.formControls.password.value,
     ).pipe(

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ApiService } from 'src/app/services/api.service';
+import { OrganizationsApi } from 'src/app/api/organizations';
 import { AuthService } from 'src/app/services/auth.service';
-
 import { IItem } from 'src/app/interfaces/item';
 
 @Component({
@@ -16,12 +15,12 @@ export class PageMenuComponent implements OnInit {
 
   constructor (
     private authService: AuthService,
-    private apiService: ApiService,
+    private organizationsApi: OrganizationsApi,
     private router: Router,
   ) { }
 
   ngOnInit (): void {
-    this.apiService.organizationGet(this.organizationId)
+    this.organizationsApi.get(this.organizationId)
       .subscribe((result: IItem) => {
         this.organization = result;
       });

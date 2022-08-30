@@ -6,11 +6,9 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { NotificationsService } from 'src/app/notifications/notifications.service';
-import { ApiService } from 'src/app/services/api.service';
+import { OrganizationsApi } from 'src/app/api/organizations';
 import { OrganizationsSorter } from 'src/app/utils/organizations-sorter';
-
 import { IItem } from 'src/app/interfaces/item';
-
 import { Organization } from 'src/app/models/organization';
 
 @Component({
@@ -26,12 +24,12 @@ export class OrganizationsListPageComponent implements OnInit {
   deleteForm = new FormGroup({});
 
   constructor (
-    private apiService: ApiService,
+    private organizationsApi: OrganizationsApi,
     private notificationsService: NotificationsService,
   ) { }
 
   ngOnInit (): void {
-    this.apiService.organizationList()
+    this.organizationsApi.list()
       .subscribe((result: IItem[]) => {
         const organizationsSorter = new OrganizationsSorter();
         const organizations = result.map((orgaItem) => new Organization(orgaItem));
@@ -56,7 +54,7 @@ export class OrganizationsListPageComponent implements OnInit {
       return;
     }
 
-    this.apiService.organizationDelete(organization.id)
+    this.organizationsApi.delete(organization.id)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           this.notificationsService.error(error.error.message);
