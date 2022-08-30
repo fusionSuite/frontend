@@ -8,6 +8,7 @@ import { catchError } from 'rxjs/operators';
 
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { SettingsService } from 'src/app/services/settings.service';
 import { FormStatus } from 'src/app/utils/form-status';
 
 @Component({
@@ -34,6 +35,7 @@ export class LoginPageComponent implements OnInit {
   constructor (
     private apiService: ApiService,
     private authService: AuthService,
+    private settingsService: SettingsService,
     private router: Router,
   ) { }
 
@@ -60,9 +62,12 @@ export class LoginPageComponent implements OnInit {
         return throwError(() => new Error(error.error.message));
       }),
     )
-      .subscribe((result: any) => {
+      .subscribe(async (result: any) => {
         // Save the token to use it later
         this.authService.login(result.token);
+
+        // Load types in settings so we'll be able to manage items
+        await this.settingsService.loadTypes();
 
         // Reset the form to its initial state
         this.formStatus = 'Initial';

@@ -50,7 +50,13 @@ export class SettingsService {
       }))
       .toPromise();
 
-    await this.http.get<IType[]>(this.configuration.backendUrl + '/v1/config/types', {
+    if (this.authService.isLoggedIn()) {
+      await this.loadTypes();
+    }
+  }
+
+  public loadTypes () {
+    return this.http.get<IType[]>(this.configuration.backendUrl + '/v1/config/types', {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
