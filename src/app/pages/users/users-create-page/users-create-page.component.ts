@@ -12,6 +12,8 @@ import { OrganizationsSorter } from 'src/app/utils/organizations-sorter';
 
 import { IItem } from 'src/app/interfaces/item';
 
+import { Organization } from 'src/app/models/organization';
+
 @Component({
   selector: 'app-users-create-page',
   templateUrl: './users-create-page.component.html',
@@ -19,7 +21,7 @@ import { IItem } from 'src/app/interfaces/item';
 })
 export class UsersCreatePageComponent implements OnInit {
   organizationsLoaded = false;
-  organizations: IItem[] = [];
+  organizations: Organization[] = [];
 
   newUserForm = new FormGroup({
     name: new FormControl('', {
@@ -58,7 +60,8 @@ export class UsersCreatePageComponent implements OnInit {
     this.apiService.organizationList()
       .subscribe((result: IItem[]) => {
         const organizationsSorter = new OrganizationsSorter();
-        this.organizations = organizationsSorter.sort(result);
+        const organizations = result.map((orgaItem) => new Organization(orgaItem));
+        this.organizations = organizationsSorter.sort(organizations);
 
         if (this.organizations.length > 0) {
           this.formControls.organizationId.setValue(String(this.organizations[0].id));
@@ -124,18 +127,18 @@ export class UsersCreatePageComponent implements OnInit {
     );
   }
 
+  get baseOrganizationNameIndentation () {
+    if (this.organizations[0] != null) {
+      return this.organizations[0].treepath.length;
+    } else {
+      return 0;
+    }
+  }
+
   fillUsername () {
     const firstname = this.formControls.firstname.value.toLocaleLowerCase();
     const lastname = this.formControls.lastname.value.toLocaleLowerCase();
     const username = (firstname + ' ' + lastname).trim().replace(' ', '-');
     this.formControls.name.setValue(username);
-  }
-
-  formatOrganizationName (orga: IItem) {
-    // treepath length is a multiple of 4
-    const baseTreeDepth = this.organizations[0].treepath.length;
-    const treeDepth = orga.treepath.length - baseTreeDepth;
-    // prepend *non-breakable* spaces to the organization name
-    return ' '.repeat(treeDepth) + orga.name;
   }
 }

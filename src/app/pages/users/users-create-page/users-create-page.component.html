@@ -90,7 +90,7 @@
           [attr.aria-errormessage]="organizationIdIsInvalid ? 'organization-id-error' : null"
         >
           <option *ngFor="let organization of organizations" [value]="organization.id">
-            {{ formatOrganizationName(organization) }}
+            {{ organization.indentName(this.baseOrganizationNameIndentation) }}
           </option>
         </select>
 

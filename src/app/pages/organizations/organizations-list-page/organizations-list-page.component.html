@@ -42,7 +42,7 @@
           </td>
 
           <td class="col--actions">
-            <form *ngIf="organization.parent_id != null" [formGroup]="deleteForm" (ngSubmit)="deleteOrganization(organization)">
+            <form *ngIf="organization.parentId > 0" [formGroup]="deleteForm" (ngSubmit)="deleteOrganization(organization)">
               <button type="submit" i18n-title title="Delete {{ organization.name }}">
                 <fa-icon icon="trash" [fixedWidth]="true"></fa-icon>
 
