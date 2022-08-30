@@ -89,11 +89,11 @@ export class SettingsService {
     return this.configuration.backendUrl;
   }
 
-  public typeId (internalName: string) {
-    return this.typesIndexedByInternalname[internalName]?.id;
+  public getTypeIdByInternalname (internalname: string) {
+    return this.typesIndexedByInternalname[internalname]?.id;
   }
 
-  public propertyId (internalName: string) {
-    return this.propertiesIndexedByInternalname[internalName]?.id;
+  public getPropertyIdByInternalname (internalname: string) {
+    return this.propertiesIndexedByInternalname[internalname]?.id;
   }
 }
