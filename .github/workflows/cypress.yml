@@ -1,0 +1,133 @@
+name: Cypress
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  end-to-end:
+    runs-on: ubuntu-20.04
+
+    services:
+      mariadb:
+        image: mariadb:10.7
+        ports:
+          - 3306:3306
+        env:
+          MARIADB_DATABASE: fusionsuite
+          MARIADB_USER: fusionsuite
+          MARIADB_PASSWORD: fusionsuite
+          MARIADB_ROOT_PASSWORD: fusionsuite
+
+    steps:
+    # Install PHP and NodeJs
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+
+    - name: Use Node.js 16
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+        check-latest: true
+
+    # Setup a Nginx server
+    - name: Setup php-fpm
+      env:
+        version: '7.4'
+      run: |
+        sudo apt-get install php$version-fpm
+        sudo cp /usr/sbin/php-fpm$version /usr/bin/php-fpm
+        sudo service php$version-fpm start
+
+    - name: Install nginx
+      run: sudo apt-get install nginx
+
+    - name: Start nginx
+      run: sudo systemctl start nginx
+
+    # Setup the backend
+    - name: Checkout backend
+      uses: actions/checkout@v2
+      with:
+        repository: fusionSuite/backend
+        path: backend
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: "**/vendor"
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      working-directory: ./backend
+      run: make install
+
+    - name: Setup the application
+      working-directory: ./backend
+      run: |
+        make setup ENV_NAME=e2e \
+            DB_TYPE=MariaDB \
+            DB_HOST=127.0.0.1 \
+            DB_NAME=fusionsuite \
+            DB_USER=fusionsuite \
+            DB_PASS=fusionsuite \
+            DB_PORT=3306
+
+    # Build the frontend
+    - name: Checkout frontend
+      uses: actions/checkout@v2
+      with:
+        path: frontend
+
+    - name: Cache node dependencies
+      id: cache-node-modules
+      uses: actions/cache@v2
+      with:
+        path: "**/node_modules"
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
+
+    - name: Install dependencies
+      if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      working-directory: ./frontend
+      run: make install
+
+    - name: Build the frontend
+      working-directory: ./frontend
+      run: make build
+
+    - name: Configure backend URL
+      working-directory: ./frontend
+      run: |
+        cp src/config.sample.json dist/frontend/en-US/config.json
+        sed -i 's#https://backend.example.com#http://localhost/fusionsuite/backend#' dist/frontend/en-US/config.json
+
+    # Configure the Nginx server
+    - name: Remove default Nginx configuration
+      run: sudo rm /etc/nginx/sites-enabled/default
+
+    - name: Copy Nginx config file
+      working-directory: ./frontend
+      run: sudo cp cypress/ci-nginx.conf /etc/nginx/sites-enabled/fusionsuite.conf
+
+    - name: Reload nginx
+      run: |
+        sudo nginx -t
+        sudo systemctl reload nginx
+
+    # Execute Cypress tests
+    - name: Cypress run
+      uses: cypress-io/github-action@v4
+      with:
+        browser: chrome
+        working-directory: ./frontend
+      env:
+        cypress_base_url: 'http://frontend.localhost'
+        cypress_backend_server: 'http://backend.localhost'
+        cypress_backend_path: '../backend'
