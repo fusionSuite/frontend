@@ -28,7 +28,13 @@
   </header>
 
   <div class="page__inner">
-    <form *ngIf="organizationsLoaded && organizations.length > 0" [formGroup]="newOrganizationForm" (ngSubmit)="onFormSubmit()" class="flow wrapper wrapper--small">
+    <form
+      *ngIf="organizationsLoaded && organizations.length > 0"
+      [formGroup]="newOrganizationForm"
+      (ngSubmit)="onFormSubmit()"
+      class="flow wrapper wrapper--small"
+      data-cy="form-organizations-new"
+    >
       <div
         class="alert alert--error"
         role="alert"
@@ -48,6 +54,7 @@
         <label for="name" i18n>Organization name</label>
         <input
           id="name"
+          name="name"
           type="text"
           required
           formControlName="name"
@@ -74,6 +81,7 @@
 
         <select
           id="parent-id"
+          name="parent-id"
           required
           formControlName="parentId"
           [attr.aria-invalid]="parentIdIsInvalid"
@@ -99,7 +107,7 @@
       </div>
 
       <div class="form__actions">
-        <button type="submit" class="button--primary" i18n>Create an organization</button>
+        <button type="submit" class="button--primary" data-cy="submit" i18n>Create an organization</button>
       </div>
     </form>
 

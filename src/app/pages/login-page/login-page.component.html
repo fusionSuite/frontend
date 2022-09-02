@@ -22,7 +22,7 @@
   </header>
 
   <div class="page__inner">
-    <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()" class="flow">
+    <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()" class="flow" data-cy="form-login">
       <div
         class="alert alert--error"
         role="alert"
@@ -42,6 +42,7 @@
         <label for="username" i18n>Username</label>
         <input
           id="username"
+          name="username"
           type="text"
           required
           formControlName="username"
@@ -67,6 +68,7 @@
         <label for="password" i18n>Password</label>
         <input
           id="password"
+          name="password"
           type="password"
           required
           formControlName="password"
@@ -89,7 +91,7 @@
       </div>
 
       <div class="form__actions">
-        <button type="submit" class="button--primary" i18n>Login</button>
+        <button type="submit" class="button--primary" data-cy="submit" i18n>Login</button>
       </div>
     </form>
   </div>

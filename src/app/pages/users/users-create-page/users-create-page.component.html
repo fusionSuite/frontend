@@ -28,7 +28,13 @@
   </header>
 
   <div class="page__inner">
-    <form *ngIf="organizationsLoaded && organizations.length > 0" [formGroup]="newUserForm" (ngSubmit)="onFormSubmit()" class="flow wrapper wrapper--small">
+    <form
+      *ngIf="organizationsLoaded && organizations.length > 0"
+      [formGroup]="newUserForm"
+      (ngSubmit)="onFormSubmit()"
+      class="flow wrapper wrapper--small"
+      data-cy="form-users-new"
+    >
       <div
         class="alert alert--error"
         role="alert"
@@ -52,6 +58,7 @@
           </label>
           <input
             id="firstname"
+            name="firstname"
             type="text"
             formControlName="firstname"
             (input)="fillUsername()"
@@ -65,6 +72,7 @@
           </label>
           <input
             id="lastname"
+            name="lastname"
             type="text"
             formControlName="lastname"
             (input)="fillUsername()"
@@ -76,6 +84,7 @@
         <label for="name" i18n>Username</label>
         <input
           id="name"
+          name="name"
           type="text"
           required
           formControlName="name"
@@ -102,6 +111,7 @@
 
         <select
           id="organization-id"
+          name="organization-id"
           required
           formControlName="organizationId"
           [attr.aria-invalid]="organizationIdIsInvalid"
@@ -127,7 +137,7 @@
       </div>
 
       <div class="form__actions">
-        <button type="submit" class="button--primary" i18n>Create a user</button>
+        <button type="submit" class="button--primary" data-cy="submit" i18n>Create a user</button>
       </div>
     </form>
 

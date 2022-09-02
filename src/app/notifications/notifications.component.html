@@ -21,6 +21,7 @@
     *ngFor="let notification of notifications"
     class="notifications__alert notifications__alert--{{ notification.status }}"
     role="alert"
+    attr.data-cy="notification-{{ notification.status }}"
   >
     <button class="notifications__button" (click)="closeNotification(notification)">
       {{ notification.message }}

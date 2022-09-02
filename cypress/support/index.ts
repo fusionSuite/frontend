@@ -17,27 +17,23 @@
  */
 
 /// <reference types="cypress" />
-// ***********************************************
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
 
-Cypress.Commands.add('dbReset', () => {
-  cy.exec(`make -C ${Cypress.env('backend_path')} db-reset`);
-});
+declare namespace Cypress { // eslint-disable-line no-unused-vars
+  interface Chainable<Subject> { // eslint-disable-line no-unused-vars
+    /**
+     * Login to the application.
+     *
+     * @example
+     * cy.login('admin', 'admin')
+     */
+    login(login: string, password: string): Chainable<any>
 
-Cypress.Commands.add('login', (login, password) => {
-  cy.session([login, password], () => {
-    cy.request('POST', Cypress.env('backend_server') + '/v1/token', {
-      login,
-      password,
-    })
-      .its('body')
-      .then((result) => {
-        cy.window().then((win) => {
-          win.localStorage.setItem('authentication_token', result.token);
-        });
-      });
-  });
-});
+    /**
+     * Reset the database.
+     *
+     * @example
+     * cy.dbReset()
+     */
+    dbReset(): Chainable<any>
+  }
+}

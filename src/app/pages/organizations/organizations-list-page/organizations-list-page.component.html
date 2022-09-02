@@ -22,7 +22,7 @@
   </header>
 
   <div class="page__inner flow">
-    <a class="a--action" [routerLink]="['/organizations/new']">
+    <a class="a--action" [routerLink]="['/organizations/new']" data-cy="link-organizations-new">
       <fa-icon icon="plus" [fixedWidth]="true"></fa-icon>
       <ng-container i18n>
         Create an organization
@@ -46,8 +46,8 @@
         </tr>
       </thead>
 
-      <tbody>
-        <tr *ngFor="let organization of organizations">
+      <tbody data-cy="list-organizations">
+        <tr *ngFor="let organization of organizations" data-cy="item-organizations">
           <td>
             <span
               *ngFor="let parentOrga of parentOrganizations(organization)"
@@ -61,7 +61,12 @@
 
           <td class="col--actions">
             <form *ngIf="organization.parentId > 0" [formGroup]="deleteForm" (ngSubmit)="deleteOrganization(organization)">
-              <button type="submit" i18n-title title="Delete {{ organization.name }}">
+              <button
+                type="submit"
+                i18n-title
+                title="Delete {{ organization.name }}"
+                data-cy="button-organizations-delete"
+              >
                 <fa-icon icon="trash" [fixedWidth]="true"></fa-icon>
 
                 <span class="sr-only" i18n>

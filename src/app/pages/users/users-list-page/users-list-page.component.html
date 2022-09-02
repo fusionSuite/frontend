@@ -22,7 +22,7 @@
   </header>
 
   <div class="page__inner flow">
-    <a class="a--action" [routerLink]="['/users/new']">
+    <a class="a--action" [routerLink]="['/users/new']" data-cy="link-users-new">
       <fa-icon icon="plus" [fixedWidth]="true"></fa-icon>
       <ng-container i18n>
         Create a user
@@ -50,8 +50,8 @@
         </tr>
       </thead>
 
-      <tbody>
-        <tr *ngFor="let user of users">
+      <tbody data-cy="list-users">
+        <tr *ngFor="let user of users" data-cy="item-users">
           <td>
             {{ user.name }}
             <span *ngIf="user.displayName" class="text--secondary">
@@ -65,7 +65,12 @@
 
           <td class="col--actions">
             <form [formGroup]="deleteForm" (ngSubmit)="deleteUser(user)">
-              <button type="submit" i18n-title title="Delete {{ user.name }}">
+              <button
+                type="submit"
+                i18n-title
+                title="Delete {{ user.name }}"
+                data-cy="button-users-delete"
+              >
                 <fa-icon icon="trash" [fixedWidth]="true"></fa-icon>
 
                 <span class="sr-only" i18n>
