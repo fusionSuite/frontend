@@ -20,7 +20,7 @@ import { Organization } from 'src/app/models/organization';
 
 export class OrganizationsSorter {
   sort (organizations: Organization[]): Organization[] {
-    if (!organizations) {
+    if (organizations.length === 0) {
       return [];
     }
 
