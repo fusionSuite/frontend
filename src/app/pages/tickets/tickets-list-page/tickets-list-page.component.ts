@@ -16,11 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IListValue } from './list-value';
+import { Component, OnInit } from '@angular/core';
 
-export interface IProperty {
-  id: number;
-  internalname: string;
-  value: string;
-  listvalues: IListValue[];
+@Component({
+  selector: 'app-tickets-list-page',
+  templateUrl: './tickets-list-page.component.html',
+  styleUrls: [],
+})
+export class TicketsListPageComponent implements OnInit {
+  constructor () { }
+
+  ngOnInit (): void { }
 }

@@ -16,11 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IListValue } from './list-value';
+import { Injectable } from '@angular/core';
 
-export interface IProperty {
-  id: number;
-  internalname: string;
-  value: string;
-  listvalues: IListValue[];
+import { ApiV1 } from './v1';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class TicketsApi extends ApiV1 {
+  public create (name: string, description: string, statusValue: string, requesterId: number, assigneeId: number|null) {
+    const statusProperty = this.settingsService.getPropertyByInternalname('incidentstatus');
+    const status = statusProperty?.listvalues.find((s) => s.value === statusValue);
+
+    return this.postItem('incident', name, {
+      properties: this.buildProperties({
+        description,
+        incidentstatus: status?.id,
+        requestuser: requesterId,
+        technician: assigneeId,
+      }),
+    });
+  }
 }

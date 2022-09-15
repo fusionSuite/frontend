@@ -39,6 +39,21 @@
   <li class="page__nav-item">
     <a
       class="page__nav-link"
+      [routerLink]="['/tickets']"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+      data-cy="link-tickets"
+    >
+      <fa-icon icon="ticket-alt" size="xs" [fixedWidth]="true"></fa-icon>
+      <ng-container i18n>
+        Tickets
+      </ng-container>
+    </a>
+  </li>
+
+  <li class="page__nav-item">
+    <a
+      class="page__nav-link"
       [routerLink]="['/users']"
       routerLinkActive="active"
       ariaCurrentWhenActive="page"

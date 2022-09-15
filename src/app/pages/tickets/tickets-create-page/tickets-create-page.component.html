@@ -1,0 +1,239 @@
+<!--
+ - FusionSuite - Frontend
+ - Copyright (C) 2022 FusionSuite
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as published by
+ - the Free Software Foundation, either version 3 of the License, or
+ - any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<app-page i18n-page-title page-title="New ticket">
+  <header class="page__header flow flow--small">
+    <h1 i18n>New ticket</h1>
+
+    <div>
+      <a class="a--back" [routerLink]="['/tickets']" i18n>
+        Back to tickets
+      </a>
+    </div>
+  </header>
+
+  <div class="page__inner">
+    <form
+      *ngIf="usersLoaded && users.length > 0"
+      [formGroup]="newTicketForm"
+      (ngSubmit)="onFormSubmit()"
+      class="flow wrapper wrapper--small"
+      data-cy="form-tickets-new"
+    >
+      <div
+        class="alert alert--error"
+        role="alert"
+        *ngIf="formError"
+      >
+        <div class="alert__title">
+          <fa-icon icon="exclamation-circle"></fa-icon>
+          <ng-container i18n>Error</ng-container>
+        </div>
+
+        <p class="alert__message">
+          {{ formError }}
+        </p>
+      </div>
+
+      <div>
+        <label for="name" i18n>Ticket title</label>
+
+        <input
+          id="name"
+          name="name"
+          type="text"
+          required
+          formControlName="name"
+          [attr.aria-invalid]="nameIsInvalid"
+          [attr.aria-errormessage]="nameIsInvalid ? 'name-error' : null"
+        >
+
+        <div
+          class="form__error"
+          id="name-error"
+          role="alert"
+          *ngIf="nameIsInvalid"
+        >
+          <fa-icon icon="exclamation-circle"></fa-icon>
+          <span class="sr-only" i18n>Error:</span>
+          <span *ngIf="formControls.name.hasError('required')" i18n>
+            The title is required.
+          </span>
+        </div>
+      </div>
+
+      <div>
+        <editor
+          [init]="editorConfiguration"
+          name="description"
+          required
+          formControlName="description"
+          [attr.aria-invalid]="descriptionIsInvalid"
+          [attr.aria-errormessage]="descriptionIsInvalid ? 'description-error' : null"
+        ></editor>
+
+        <div
+          class="form__error"
+          id="description-error"
+          role="alert"
+          *ngIf="descriptionIsInvalid"
+        >
+          <fa-icon icon="exclamation-circle"></fa-icon>
+          <span class="sr-only" i18n>Error:</span>
+          <span *ngIf="formControls.description.hasError('required')" i18n>
+            The description is required.
+          </span>
+        </div>
+      </div>
+
+      <div class="cols">
+        <div>
+          <label for="requester-id">
+            <fa-icon icon="user" [fixedWidth]="true"></fa-icon>
+            <ng-container i18n>Requester</ng-container>
+          </label>
+
+          <select
+            id="requester-id"
+            name="requester-id"
+            required
+            formControlName="requesterId"
+            [attr.aria-invalid]="requesterIdIsInvalid"
+            [attr.aria-errormessage]="requesterIdIsInvalid ? 'requester-id-error' : null"
+          >
+            <option *ngFor="let requester of users" [value]="requester.id">
+              {{ requester.name }}
+              <ng-container *ngIf="requester.displayName">
+                ({{ requester.displayName }})
+              </ng-container>
+            </option>
+          </select>
+
+          <div
+            class="form__error"
+            id="requester-id-error"
+            role="alert"
+            *ngIf="requesterIdIsInvalid"
+          >
+            <fa-icon icon="exclamation-circle"></fa-icon>
+            <span class="sr-only" i18n>Error:</span>
+            <span *ngIf="formControls.requesterId.hasError('required')" i18n>
+              The requester is required.
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <label for="requester-id">
+            <fa-icon icon="headset" [fixedWidth]="true"></fa-icon>
+            <ng-container i18n>Assignee</ng-container>
+          </label>
+
+          <select
+            id="assignee-id"
+            name="assignee-id"
+            formControlName="assigneeId"
+            [attr.aria-invalid]="assigneeIdIsInvalid"
+            [attr.aria-errormessage]="assigneeIdIsInvalid ? 'assignee-id-error' : null"
+            (change)="handleAssigneeChange()"
+          >
+            <option value="" i18n>Unassigned</option>
+            <option *ngFor="let assignee of users" [value]="assignee.id">
+              {{ assignee.name }}
+              <ng-container *ngIf="assignee.displayName">
+                ({{ assignee.displayName }})
+              </ng-container>
+            </option>
+          </select>
+
+          <div
+            class="form__error"
+            id="assignee-id-error"
+            role="alert"
+            *ngIf="assigneeIdIsInvalid"
+          >
+            <fa-icon icon="exclamation-circle"></fa-icon>
+            <span class="sr-only" i18n>Error:</span>
+            <span *ngIf="formControls.assigneeId.hasError('required')" i18n>
+              The assignee is required.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label for="status">
+          <fa-icon icon="dot-circle" [fixedWidth]="true"></fa-icon>
+          <ng-container i18n>Status</ng-container>
+        </label>
+
+        <select
+          id="status"
+          name="status"
+          required
+          formControlName="status"
+          [attr.aria-invalid]="statusIsInvalid"
+          [attr.aria-errormessage]="statusIsInvalid ? 'status-error' : null"
+        >
+          <option value="New" i18n>New</option>
+          <option value="Assigned" i18n>Assigned</option>
+          <option value="In progress" i18n>In progress</option>
+          <option value="Pending" i18n>Pending</option>
+          <option value="Resolved" i18n>Resolved</option>
+          <option value="Closed" i18n>Closed</option>
+        </select>
+
+        <div
+          class="form__error"
+          id="status-error"
+          role="alert"
+          *ngIf="statusIsInvalid"
+        >
+          <fa-icon icon="exclamation-circle"></fa-icon>
+          <span class="sr-only" i18n>Error:</span>
+          <span *ngIf="formControls.status.hasError('required')" i18n>
+            The status is required.
+          </span>
+        </div>
+      </div>
+
+      <div class="form__actions">
+        <button type="submit" class="button--primary" data-cy="submit" i18n>Create a ticket</button>
+      </div>
+    </form>
+
+    <div *ngIf="!usersLoaded" class="loader flow">
+      <div class="loader__spinner"></div>
+
+      <p class="loader__message" i18n>
+        Loading of users…
+      </p>
+    </div>
+
+    <div *ngIf="usersLoaded && users.length === 0" class="wrapper alert alert--error" role="alert">
+      <div class="alert__title">
+          <fa-icon icon="exclamation-circle"></fa-icon>
+          <ng-container i18n>Error</ng-container>
+      </div>
+
+      <p class="alert__message" i18n>
+        You don’t have the permission to create new tickets.
+      </p>
+    </div>
+  </div>
+</app-page>
