@@ -45,8 +45,8 @@ export class ApiV1 {
   }
 
   protected listItems (typeInternalname: string) {
-    const typeId = this.settingsService.getTypeIdByInternalname(typeInternalname);
-    return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/' + typeId, {
+    const type = this.settingsService.getTypeByInternalname(typeInternalname);
+    return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/' + type?.id, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
@@ -62,7 +62,8 @@ export class ApiV1 {
   }
 
   protected postItem (typeInternalname: string, name: string, data: any) {
-    data.type_id = this.settingsService.getTypeIdByInternalname(typeInternalname);
+    const type = this.settingsService.getTypeByInternalname(typeInternalname);
+    data.type_id = type?.id;
     data.name = name;
 
     return this.http.post(this.settingsService.backendUrl + '/v1/items', data, {
@@ -88,10 +89,10 @@ export class ApiV1 {
 
     Object.entries(data).forEach(([propertyInternalname, propertyValue]) => {
       // Unknown properties and empty values are not returned.
-      const propertyId = this.settingsService.getPropertyIdByInternalname(propertyInternalname);
-      if (propertyId != null && propertyValue != null && propertyValue !== '') {
+      const property = this.settingsService.getPropertyByInternalname(propertyInternalname);
+      if (property != null && propertyValue != null && propertyValue !== '') {
         properties.push({
-          property_id: propertyId,
+          property_id: property.id,
           value: propertyValue,
         });
       }
