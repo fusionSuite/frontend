@@ -40,7 +40,8 @@
             "assets": [
               "src/favicon.ico",
               "src/config.json",
-              "src/assets"
+              "src/assets",
+              { "glob": "**/*", "input": "node_modules/tinymce", "output": "/tinymce/" }
             ],
             "styles": [
               "src/styles.scss"
@@ -114,7 +115,8 @@
             "assets": [
               "src/favicon.ico",
               "src/config.json",
-              "src/assets"
+              "src/assets",
+              { "glob": "**/*", "input": "node_modules/tinymce", "output": "/tinymce/" }
             ],
             "styles": [
               "src/styles.scss"
