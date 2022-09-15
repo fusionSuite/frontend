@@ -25,15 +25,15 @@ import { ApiV1 } from './v1';
 })
 export class TicketsApi extends ApiV1 {
   public create (name: string, description: string, statusValue: string, requesterId: number, assigneeId: number|null) {
-    const statusProperty = this.settingsService.getPropertyByInternalname('incidentstatus');
+    const statusProperty = this.settingsService.getPropertyByInternalname('ticketstatus');
     const status = statusProperty?.listvalues.find((s) => s.value === statusValue);
 
-    return this.postItem('incident', name, {
+    return this.postItem('ticket', name, {
       properties: this.buildProperties({
-        description,
-        incidentstatus: status?.id,
-        requestuser: requesterId,
-        technician: assigneeId,
+        ticketdescription: description,
+        ticketstatus: status?.id,
+        ticketrequester: requesterId,
+        ticketassignee: assigneeId,
       }),
     });
   }
