@@ -37,4 +37,8 @@ export class TicketsApi extends ApiV1 {
       }),
     });
   }
+
+  public get (id: number) {
+    return this.getItem(id);
+  }
 }

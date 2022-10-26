@@ -23,6 +23,7 @@ import { LoggedInGuard } from 'src/app/guards/logged-in.guard';
 
 import { TicketsCreatePageComponent } from './tickets-create-page/tickets-create-page.component';
 import { TicketsListPageComponent } from './tickets-list-page/tickets-list-page.component';
+import { TicketsEditPageComponent } from './tickets-edit-page/tickets-edit-page.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,12 @@ const routes: Routes = [
     path: 'new',
     title: $localize `New ticket`,
     component: TicketsCreatePageComponent,
+    canActivate: [LoggedInGuard],
+  },
+  {
+    path: ':id',
+    title: $localize `Edit ticket`,
+    component: TicketsEditPageComponent,
     canActivate: [LoggedInGuard],
   },
 ];

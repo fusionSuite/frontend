@@ -46,3 +46,38 @@
   margin-top: 0.5rem;
   margin-bottom: 0;
 }
+
+.status-information {
+  display: inline-flex;
+
+  min-width: 150px;
+  height: 40px;
+
+  margin-right: 10px;
+
+  align-items: center;
+
+  border: 1px solid;
+  border-radius: 20px;
+
+  fa-icon {
+    display: flex;
+    width: 40px;
+    height: 40px;
+
+    align-items: center;
+
+    border: 0;
+    border-radius: 50%;
+
+    svg {
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+
+  .content {
+    margin-right: 15px;
+    margin-left: 8px;
+  }
+}

@@ -68,6 +68,20 @@ input {
       background-color: var(--color-error5);
     }
   }
+
+  &[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--color-primary10);
+
+    &:hover {
+      border-color: none;
+    }
+
+    &:focus {
+      border-color: none;
+    }
+  }
 }
 
 select {

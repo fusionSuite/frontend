@@ -16,18 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IProperty } from './property';
-
-export interface IItem {
-  id: number;
-  id_bytype: number;
-  name: string;
-  parent_id: number|null;
-  treepath: string|null;
-  organization: {
-    id: number;
-    name: string;
-  };
-  properties: IProperty[];
-  created_at: string;
+export interface IPanel {
+  title: string;
+  icon: string;
+  values: {
+    title: string;
+    value: string[];
+    type: 'single'|'multiple'|'status'|'progressbar';
+  }[];
 }

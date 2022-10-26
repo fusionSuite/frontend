@@ -16,18 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IProperty } from './property';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
-export interface IItem {
-  id: number;
-  id_bytype: number;
-  name: string;
-  parent_id: number|null;
-  treepath: string|null;
-  organization: {
-    id: number;
-    name: string;
+export interface ITimelineitem {
+  user: {
+    firstName: string;
+    lastName: string;
+    id: number|null;
+    avatar: string|null;
+    function: 'tech'|'user'
   };
-  properties: IProperty[];
-  created_at: string;
+  icon: IconProp;
+  message: string;
+  sourceMessage: IconProp|null;
+  date: Date;
+  dateDistance: string;
+  type: 'message'|'event'
 }

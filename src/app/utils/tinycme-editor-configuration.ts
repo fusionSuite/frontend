@@ -15,5 +15,6 @@ export function buildEditorConfiguration (label: string) {
   return {
     ...defaultEditorConfiguration,
     iframe_aria_text: label,
+    css_content: 'tox-tinymce-noborder',
   };
 };

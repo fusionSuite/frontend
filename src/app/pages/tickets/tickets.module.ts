@@ -30,11 +30,13 @@ import { TicketsRoutingModule } from './tickets-routing.module';
 
 import { TicketsCreatePageComponent } from './tickets-create-page/tickets-create-page.component';
 import { TicketsListPageComponent } from './tickets-list-page/tickets-list-page.component';
+import { TicketsEditPageComponent } from './tickets-edit-page/tickets-edit-page.component';
 
 @NgModule({
   declarations: [
     TicketsCreatePageComponent,
     TicketsListPageComponent,
+    TicketsEditPageComponent,
   ],
   imports: [
     CommonModule,
