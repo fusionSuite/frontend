@@ -61,6 +61,14 @@ export class AuthService {
     }
   }
 
+  public storeRefreshToken (token: string) {
+    window.localStorage.setItem('authentication_refreshtoken', token);
+  }
+
+  public getRefreshToken () {
+    return window.localStorage.getItem('authentication_refreshtoken') || '';
+  }
+
   public logout () {
     this.token = '';
     window.localStorage.removeItem('authentication_token');

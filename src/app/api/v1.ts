@@ -38,6 +38,12 @@ export class ApiV1 {
     });
   }
 
+  public postRefreshToken (refreshtoken: string) {
+    return this.http.post(this.settingsService.backendUrl + '/v1/token', {
+      refreshtoken,
+    });
+  }
+
   protected listItems (typeInternalname: string) {
     const typeId = this.settingsService.getTypeIdByInternalname(typeInternalname);
     return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/' + typeId, {
