@@ -29,16 +29,16 @@ import { LayoutModule } from 'src/app/layout/layout.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { SettingsService } from './services/settings.service';
-
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 import { NotificationsComponent } from './notifications/notifications.component';
+import { httpInterceptorProviders } from './services/auth.interceptor';
+import { InitappService } from './services/initapp.service';
 
-function initializeApp (settings: SettingsService) {
-  return () => settings.loadConfiguration();
+function initializeApp (initapp: InitappService) {
+  return () => initapp.loadConfiguration();
 }
 
 @NgModule({
@@ -60,10 +60,11 @@ function initializeApp (settings: SettingsService) {
     ReactiveFormsModule,
   ],
   providers: [
+    httpInterceptorProviders,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
-      deps: [SettingsService],
+      deps: [InitappService],
       multi: true,
     },
   ],

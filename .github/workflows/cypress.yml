@@ -106,7 +106,7 @@ jobs:
       working-directory: ./frontend
       run: |
         cp src/config.sample.json dist/frontend/en-US/config.json
-        sed -i 's#https://backend.example.com#http://localhost/fusionsuite/backend#' dist/frontend/en-US/config.json
+        sed -i 's#https://backend.example.com#http://backend.localhost#' dist/frontend/en-US/config.json
 
     # Configure the Nginx server
     - name: Remove default Nginx configuration
