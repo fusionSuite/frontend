@@ -55,9 +55,11 @@ export class TicketsEditPageComponent implements OnInit {
   public expandedWriteBox :Boolean = false;
   public panels :IPanel[] = [];
   public showEvents :boolean = true;
+  public showConversation :boolean = true;
   public itemsList :ITimelineitem[] = [];
   public createdAt :string = '';
   public sortItems :string = 'newest';
+  public userInformationId :any = null;
 
   constructor (
     private ticketsApi: TicketsApi,
@@ -253,6 +255,14 @@ export class TicketsEditPageComponent implements OnInit {
     }
   }
 
+  public toggleDisplayConversation () {
+    if (this.showConversation) {
+      this.showConversation = false;
+    } else {
+      this.showConversation = true;
+    }
+  }
+
   private declarePanels () {
     // declare actors
     this.panels.push({
@@ -261,7 +271,7 @@ export class TicketsEditPageComponent implements OnInit {
       values: [
         {
           title: 'Requester',
-          value: ['Tony Stark'],
+          value: ['Tony Stark', 'John Doe'],
           type: 'multiple',
         },
         {
@@ -336,4 +346,22 @@ export class TicketsEditPageComponent implements OnInit {
     this.sortItems = event.target.value;
     this.sortItemsList();
   }
+
+  public setUserInformationId(id: any) {
+    this.userInformationId = id;
+  }
+
+  public onCloseUserInformation(event: any) {
+    console.log(event);
+    this.userInformationId = null;
+  }
+
+  public goToBottom() {
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+
+  public goToUp() {
+    window.scrollTo(0, 0);
+  }
+
 }

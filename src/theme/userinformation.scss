@@ -1,0 +1,95 @@
+/**
+ * FusionSuite - Frontend
+ * Copyright (C) 2022 FusionSuite
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+modal-useriformation {
+  z-index: 2;
+  position: absolute;
+  width: calc(100% - 320px);
+  height: 100%;
+  background-color: rgba(108, 122, 137, 0.9);
+  visibility: collapse;
+  box-shadow: rgba(14, 30, 37, 0.66) 0px 2px 4px 0px, rgba(14, 30, 37, 0.63) 0px 2px 16px 0px;
+  border-radius: 8px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  width: 1200px;
+  min-height: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+
+  .header {
+    height: 50px;
+    color: var(--color-grey10);
+    border-bottom: 1px solid var(--color-grey6);
+    font-size: 26px;
+    padding: 5px;
+    font-weight: bold;
+  }
+
+  .avatar-userinformation {
+    width: 220px;
+    height: 220px;
+    padding-top: 20px;
+    padding-left: 20px;  
+    border: 0;
+  
+    img {
+      width: 180px;
+      height: 180px;
+  
+      border: 1px solid var(--color-grey6);
+      border-radius: 50%;
+    }
+  }
+
+  .user-title {
+    color: var(--color-grey10);
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 18px;
+  }
+}
+
+.copyicon {
+  color: var(--color-grey8);
+  cursor: pointer;
+  margin-right: 5px;
+  float: right;
+}
+
+.userinfo-value {
+  border-bottom: 1px solid var(--color-grey7);
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+.userinfo-itemslist {
+  margin: 15px;
+  margin-left: 50px;
+  color: var(--color-grey10);
+}
+
+.userinfo-itemid {
+  min-width: 60px;
+  font-weight: bold;
+}

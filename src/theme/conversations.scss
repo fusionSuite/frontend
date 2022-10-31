@@ -76,6 +76,13 @@
 
   .header {
     background-color: var(--brown4);
+
+    .title {
+      .icon-info {
+        color: var(--brown8);
+        cursor: pointer;
+      }
+    }
   }
 
   .avatar {
@@ -99,6 +106,14 @@
 
   .header {
     background-color: var(--color-primary6);
+
+    .title {
+      .icon-info {
+        color: var(--color-primary8);
+        cursor: pointer;
+      }
+    }
+
   }
 }
 

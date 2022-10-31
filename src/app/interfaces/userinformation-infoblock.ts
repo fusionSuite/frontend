@@ -18,12 +18,9 @@
 
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
-export interface IPanel {
+export interface IUserinformationInfoblock {
   title: string;
   icon: IconProp;
-  values: {
-    title: string;
-    value: string[];
-    type: 'single'|'multiple'|'status'|'progressbar';
-  }[];
+  value: string;
+  type: 'normal'|'email'|'phone'|'link';
 }

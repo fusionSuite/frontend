@@ -17,6 +17,8 @@
  -->
 
 <app-page i18n-page-title page-title="Tickets">
+  <modal-useriformation [userId]="userInformationId" (closed)="onCloseUserInformation($event)" [style.visibility]="userInformationId == null ? 'collapse' : 'visible'"></modal-useriformation>
+
   <header class="page__header" *ngIf="itemLoaded">
     <h1 i18n>{{ item.name }} <span style="color: var(--color-grey11);margin-left: 10px;">#{{ item.id_bytype }}</span></h1>
     <div class="subtitle">
@@ -27,7 +29,12 @@
         </div>
       </div>
       <span><strong>{{ item.created_by.first_name }} {{ item.created_by.last_name}}</strong>
-      opened this <strong>request</strong> {{ createdAt }} • <strong>processing time</strong> is 4h47 • 2 messages</span>
+        <fa-icon icon="circle-info" [fixedWidth]="true" class="icon-info" style="color: var(--color-grey9);" (click)="setUserInformationId(item.created_by.id)"></fa-icon>
+        opened this <strong>request</strong> {{ createdAt }} • <strong>processing time</strong> is 4h47 • 2 messages</span>
+      <button type="submit" class="button" (click)="goToBottom()" style="margin-left: auto;margin-right: 20px;">
+        <fa-icon icon="arrows-down-to-line" [fixedWidth]="true"></fa-icon>
+        Bottom
+      </button>
     </div>
     <div class="subtitle">
       <div class="prefix">
@@ -60,6 +67,16 @@
                     Show events
                   </span>
                 </button>
+                <button type="submit" class="button" data-cy="submit" (click)="toggleDisplayConversation()" i18n>
+                  <span *ngIf="showConversation">
+                    <fa-icon icon="comment-slash" [fixedWidth]="true"></fa-icon>
+                    Hide conversation
+                  </span>
+                  <span *ngIf="!showConversation">
+                    <fa-icon icon="comment" [fixedWidth]="true"></fa-icon>
+                    Show conversation
+                  </span>
+                </button>
               </div>
               <div style="margin-left: auto;margin-right: 170px;float: right;">
                 <select
@@ -76,7 +93,7 @@
 
               <!-- Start timeline -->
               <div *ngFor="let item of itemsList">
-                <div *ngIf="item.type == 'message'" class="conversation-message" [ngClass]="'conversion-function-'+item.user.function">
+                <div *ngIf="item.type == 'message' && showConversation" class="conversation-message" [ngClass]="'conversion-function-'+item.user.function">
                   <div class="avatar">
                     <img src="assets/avatar.png">
                     <div class="user-type">
@@ -87,14 +104,14 @@
                     <div class="title">
                       <fa-icon *ngIf="item.sourceMessage != null" [icon]="item.sourceMessage" [fixedWidth]="true"></fa-icon>
                       {{ item.user.firstName }}
+                      <fa-icon icon="circle-info" [fixedWidth]="true" class="icon-info" (click)="setUserInformationId(item.user.id)"></fa-icon>
                     </div>
                     <div class="date-ago">{{ item.dateDistance }}
                       <fa-icon icon="ellipsis" [fixedWidth]="true"></fa-icon>
                     </div>
                   </div>
                   <div>
-                    <div class="content">
-                      {{ item.message }}
+                    <div class="content" [innerHTML]="item.message">
                     </div>
                   </div>
                 </div>
@@ -125,7 +142,7 @@
             <!-- Liste of panels -->
             <div class="panel-edit" *ngFor="let panel of panels">
               <div class="title">
-                <fa-icon icon="bolt" size="xs" [fixedWidth]="true"></fa-icon>
+                <fa-icon [icon]="panel.icon" size="xs" [fixedWidth]="true"></fa-icon>
                 {{ panel.title }}
               </div>
               <div class="edit-button">
@@ -138,7 +155,7 @@
                 </div>
                 <div class="subtitle" *ngIf="information.type == 'multiple'">{{ information.title }}</div>
                 <div *ngIf="information.type == 'multiple'">
-                  <div class="information" *ngFor="let value of information.value">{{ value }}</div>
+                  <div class="information">{{ information.value.join(', ') }}</div>
                 </div>
 
                 <div class="subtitle"  *ngIf="information.type == 'single'">{{ information.title }}: <span class="information">{{ information.value[0] }}</span></div>
@@ -149,6 +166,10 @@
         </tr>
       </table>
     </div>
+    <button type="submit" class="button" (click)="goToUp()" style="float: right;margin-right: 20px;">
+      <fa-icon icon="arrows-up-to-line" [fixedWidth]="true"></fa-icon>
+      Up
+    </button>
   </div>
 
   <ng-template #formAddMessage>
