@@ -61,7 +61,7 @@ export class ApiV1 {
     });
   }
 
-  protected postItem (typeInternalname: string, name: string, data: any) {
+  public postItem (typeInternalname: string, name: string, data: any) {
     const type = this.settingsService.getTypeByInternalname(typeInternalname);
     data.type_id = type?.id;
     data.name = name;

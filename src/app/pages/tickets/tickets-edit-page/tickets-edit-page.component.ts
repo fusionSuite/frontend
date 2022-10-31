@@ -24,6 +24,8 @@ import { IPanel } from 'src/app/interfaces/panel';
 import { buildEditorConfiguration } from 'src/app/utils/tinycme-editor-configuration';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { ITimelineitem } from 'src/app/interfaces/timelineitem';
+import { ApiV1 } from 'src/app/api/v1';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-tickets-edit-page',
@@ -35,17 +37,17 @@ export class TicketsEditPageComponent implements OnInit {
   public editorConfiguration = buildEditorConfiguration($localize `Description (Rich Text Area)`);
   public itemLoaded = false;
   public editTicketForm = new FormGroup({
-    description: new FormControl('', {
+    ticketmessagedescription: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required],
     }),
 
-    private: new FormControl(false, {
+    ticketmessageprivate: new FormControl(false, {
       nonNullable: true,
       validators: [Validators.required],
     }),
 
-    solution: new FormControl(false, {
+    ticketmessagesolution: new FormControl(false, {
       nonNullable: true,
       validators: [Validators.required],
     }),
@@ -63,6 +65,8 @@ export class TicketsEditPageComponent implements OnInit {
 
   constructor (
     private ticketsApi: TicketsApi,
+    private apiV1: ApiV1,
+    private settingsService: SettingsService,
   ) {
 
   }
@@ -362,6 +366,26 @@ export class TicketsEditPageComponent implements OnInit {
 
   public goToUp() {
     window.scrollTo(0, 0);
+  }
+
+  public submitMessage() {
+    // propertiesIndexedByInternalname
+    console.log(this.settingsService.getTypeByInternalname('ticketmessage'));
+    const type = this.settingsService.getTypeByInternalname('ticketmessage');
+    const properties = [];
+    let value = '';
+    for (let prop of type.properties) {
+      value = this.editTicketForm.get(prop.internalname)?.value;
+      if (value !== '') {
+        properties.push({
+          property_id: prop.id,
+          value
+        });
+      }
+    }
+
+    // post a 'incidentmessage'
+    this.apiV1.postItem('incidentmessage', '', {properties});
   }
 
 }
