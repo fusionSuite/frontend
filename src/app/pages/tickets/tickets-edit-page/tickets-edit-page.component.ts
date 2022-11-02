@@ -24,8 +24,10 @@ import { IPanel } from 'src/app/interfaces/panel';
 import { buildEditorConfiguration } from 'src/app/utils/tinycme-editor-configuration';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { ITimelineitem } from 'src/app/interfaces/timelineitem';
-import { ApiV1 } from 'src/app/api/v1';
+// import { ApiV1 } from 'src/app/api/v1';
 import { SettingsService } from 'src/app/services/settings.service';
+import { ItemsApi } from 'src/app/api/items';
+import { NotificationsService } from 'src/app/notifications/notifications.service';
 
 @Component({
   selector: 'app-tickets-edit-page',
@@ -37,17 +39,17 @@ export class TicketsEditPageComponent implements OnInit {
   public editorConfiguration = buildEditorConfiguration($localize `Description (Rich Text Area)`);
   public itemLoaded = false;
   public editTicketForm = new FormGroup({
-    ticketmessagedescription: new FormControl('', {
+    incidentmessagedescription: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required],
     }),
 
-    ticketmessageprivate: new FormControl(false, {
+    incidentmessageprivate: new FormControl(false, {
       nonNullable: true,
       validators: [Validators.required],
     }),
 
-    ticketmessagesolution: new FormControl(false, {
+    incidentmessagesolution: new FormControl(false, {
       nonNullable: true,
       validators: [Validators.required],
     }),
@@ -65,8 +67,9 @@ export class TicketsEditPageComponent implements OnInit {
 
   constructor (
     private ticketsApi: TicketsApi,
-    private apiV1: ApiV1,
+    private itemsApi: ItemsApi,
     private settingsService: SettingsService,
+    private notificationsService: NotificationsService,
   ) {
 
   }
@@ -220,6 +223,29 @@ export class TicketsEditPageComponent implements OnInit {
       type: 'event',
     });
 
+    // Push messages from the backend
+    for (let ticketMessage of this.item.properties[9].value) {
+      if (ticketMessage === null) {
+        continue;
+      }
+      itemsList.push({
+        user: {
+          firstName: ticketMessage.created_by.first_name,
+          lastName: ticketMessage.created_by.last_name,
+          id: ticketMessage.created_by.id,
+          avatar: null,
+          function: 'tech',
+        },
+        icon: 'ticket',
+        message: ticketMessage.properties[0].value,
+        sourceMessage: null, // null | mail | web | rule
+        date: new Date(ticketMessage.created_at),
+        dateDistance: formatDistanceToNow(new Date(ticketMessage.created_at), { addSuffix: true }),
+        type: 'message',
+      });
+    }
+
+
     this.itemsList = itemsList;
     this.sortItemsList();
   }
@@ -370,13 +396,13 @@ export class TicketsEditPageComponent implements OnInit {
 
   public submitMessage() {
     // propertiesIndexedByInternalname
-    console.log(this.settingsService.getTypeByInternalname('ticketmessage'));
-    const type = this.settingsService.getTypeByInternalname('ticketmessage');
+    console.log(this.settingsService.getTypeByInternalname('incidentmessage'));
+    const type = this.settingsService.getTypeByInternalname('incidentmessage');
     const properties = [];
     let value = '';
     for (let prop of type.properties) {
       value = this.editTicketForm.get(prop.internalname)?.value;
-      if (value !== '') {
+      if (value !== '' && value !== undefined) {
         properties.push({
           property_id: prop.id,
           value
@@ -385,7 +411,21 @@ export class TicketsEditPageComponent implements OnInit {
     }
 
     // post a 'incidentmessage'
-    this.apiV1.postItem('incidentmessage', '', {properties});
+    const typeLink = {
+      internalName: 'incidentmessage',
+      name: 'message',
+      properties,
+    };
+    const item = {
+      id: this.item.id,
+      propertyId: 96,
+    };
+    this.itemsApi.postItemAndLink(typeLink, item)
+    .then( (val) => {
+      this.notificationsService.success($localize `The message has been successfully posted.`);
+      this.editTicketForm.reset();
+      this.ngOnInit();
+    });
   }
 
 }

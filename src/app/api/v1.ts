@@ -22,6 +22,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { IItem } from 'src/app/interfaces/item';
+import { IItemResult } from '../interfaces/item-result';
 
 @Injectable()
 export class ApiV1 {
@@ -66,7 +67,7 @@ export class ApiV1 {
     data.type_id = type?.id;
     data.name = name;
 
-    return this.http.post(this.settingsService.backendUrl + '/v1/items', data, {
+    return this.http.post<IItemResult>(this.settingsService.backendUrl + '/v1/items', data, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
@@ -98,5 +99,17 @@ export class ApiV1 {
       }
     });
     return properties;
+  }
+
+  public postTypelinkToItem (itemId: number, linkPropertyId: number, linkItemId: number) {
+    return this.http.post(
+      this.settingsService.backendUrl + '/v1/items/' + itemId + '/property/' + linkPropertyId + '/typelinks',
+      { value: linkItemId },
+      {
+        headers: {
+          Authorization: 'Bearer ' + this.authService.getToken(),
+        },
+      },
+    );
   }
 }

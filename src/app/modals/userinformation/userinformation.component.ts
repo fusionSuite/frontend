@@ -110,7 +110,6 @@ export class UserinformationComponent implements OnChanges {
   public copyToClipboard(value: string) {
     navigator.clipboard.writeText(value);
     this.notificationsService.success($localize `The value has been copied in clipboard successfully.`);
-
   }
 
   public closeModal() {

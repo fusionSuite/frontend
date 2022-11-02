@@ -183,9 +183,9 @@
       <div style="width: 800px;" [ngClass]="{'addMessageBox': true, 'addMessageBoxExpanded': expandedWriteBox}">
         <editor
           [init]="editorConfiguration"
-          name="description"
+          name="incidentmessagedescription"
           required
-          formControlName="description"
+          formControlName="incidentmessagedescription"
           style="width: 800px;"
           (ngModelChange)="updateDescription($event)"
         ></editor>
@@ -195,11 +195,11 @@
             <td style="width: 140px;">
               <span>
                 <input
-                  id="private"
-                  name="private"
+                  id="incidentmessageprivate"
+                  name="incidentmessageprivate"
                   type="checkbox"
                   required
-                  formControlName="private"
+                  formControlName="incidentmessageprivate"
                 >
                 Private <fa-icon icon="user-secret" size="xs" [fixedWidth]="true"></fa-icon>
               </span>
@@ -208,11 +208,11 @@
             <td style="width: 140px;">
               <span>
                 <input
-                  id="solution"
-                  name="solution"
+                  id="incidentmessagesolution"
+                  name="incidentmessagesolution"
                   type="checkbox"
                   required
-                  formControlName="solution"
+                  formControlName="incidentmessagesolution"
                 >
                 Solution
               </span>
