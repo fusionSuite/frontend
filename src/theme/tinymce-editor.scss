@@ -1,0 +1,19 @@
+.tox-tinymce {
+  border-radius: 5px !important;
+  border-color: var(--color-grey7) !important;
+  border-bottom-color: var(--color-primary9) !important;
+
+  transition: border-color 0.2s ease-in-out;
+
+  &:hover {
+    border-bottom-color: var(--color-primary10) !important;
+  }
+
+  [aria-invalid="true"] & {
+    border-color: var(--color-error9) !important;
+
+    &:hover {
+      border-color: var(--color-error10) !important;
+    }
+  }
+}

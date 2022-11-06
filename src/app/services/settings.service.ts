@@ -43,6 +43,7 @@ export class SettingsService {
     return this.configuration.backendUrl;
   }
 
+
   public resetTypes () {
     this.typesIndexedByInternalname = {};
   }
@@ -63,7 +64,15 @@ export class SettingsService {
     return this.typesIndexedByInternalname[internalname]?.id;
   }
 
+  public getTypeByInternalname (internalname: string) {
+    return this.typesIndexedByInternalname[internalname];
+  }
+
   public getPropertyIdByInternalname (internalname: string) {
     return this.propertiesIndexedByInternalname[internalname]?.id;
+  }
+
+  public getPropertyByInternalname (internalname: string) {
+    return this.propertiesIndexedByInternalname[internalname];
   }
 }

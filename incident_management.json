@@ -1,0 +1,127 @@
+{
+  "license": [
+    " FusionSuite - Backend                                                       ",
+    " Copyright (C) 2022 FusionSuite                                              ",
+    "                                                                             ",
+    " This program is free software: you can redistribute it and/or modify        ",
+    " it under the terms of the GNU Affero General Public License as published by ",
+    " the Free Software Foundation, either version 3 of the License, or           ",
+    " any later version.                                                          ",
+    "                                                                             ",
+    " This program is distributed in the hope that it will be useful,             ",
+    " but WITHOUT ANY WARRANTY; without even the implied warranty of              ",
+    " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the                ",
+    " GNU Affero General Public License for more details.                         ",
+    "                                                                             ",
+    " You should have received a copy of the GNU Affero General Public License    ",
+    " along with this program.  If not, see <http://www.gnu.org/licenses/>.       "
+  ],
+  "types": [     
+    {
+      "name": "Ticket",
+      "internalname": "ticket",
+      "propertygroups": [
+        {
+          "name": "State",
+          "properties": [
+            {
+              "name": "Ticket status",
+              "internalname": "ticketstatus",
+              "valuetype": "list",
+              "regexformat": "",
+              "listvalues": ["New", "Assigned", "In progress", "Pending", "Resolved", "Closed"],
+              "unit": "",
+              "default": "New",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "People",
+          "properties": [
+            {
+              "name": "Ticket assignee",
+              "internalname": "ticketassignee",
+              "valuetype": "itemlink",
+              "regexformat": "",
+              "listvalues": [],
+              "unit": "",
+              "default": null,
+              "description": ""
+            },
+            {
+              "name": "Ticket requester",
+              "internalname": "ticketrequester",
+              "valuetype": "itemlink",
+              "regexformat": "",
+              "listvalues": [],
+              "unit": "",
+              "default": null,
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Information",
+          "properties": [
+            {
+              "name": "Ticket description",
+              "internalname": "ticketdescription",
+              "valuetype": "text",
+              "regexformat": "",
+              "listvalues": [],
+              "unit": "",
+              "default": "",
+              "description": ""
+            },
+            {
+              "name": "Ticket type",
+              "internalname": "tickettype",
+              "valuetype": "list",
+              "regexformat": "",
+              "listvalues": ["Incident", "Request"],
+              "unit": "",
+              "default": "Incident",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Classification",
+          "properties": [
+            {
+              "name": "Ticket priority",
+              "internalname": "ticketpriority",
+              "valuetype": "list",
+              "regexformat": "",
+              "listvalues": ["Very low", "Low", "Medium", "High", "Critical"],
+              "unit": "",
+              "default": "Medium",
+              "description": ""
+            },
+            {
+              "name": "Ticket urgency",
+              "internalname": "ticketurgency",
+              "valuetype": "list",
+              "regexformat": "",
+              "listvalues": ["Low", "Medium", "High"],
+              "unit": "",
+              "default": "Medium",
+              "description": ""
+            },
+            {
+              "name": "Ticket impact",
+              "internalname": "ticketimpact",
+              "valuetype": "list",
+              "regexformat": "",
+              "listvalues": ["Low", "Medium", "High"],
+              "unit": "",
+              "default": "Medium",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

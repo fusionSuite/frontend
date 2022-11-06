@@ -16,12 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IItem } from './item';
-import { IListValue } from './list-value';
-
-export interface IProperty {
+export interface IListValue {
   id: number;
-  internalname: string;
-  value: any;
-  listvalues: IListValue[];
+  value: string;
 }

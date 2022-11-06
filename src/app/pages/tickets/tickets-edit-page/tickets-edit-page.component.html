@@ -1,0 +1,305 @@
+<!--
+ - FusionSuite - Frontend
+ - Copyright (C) 2022 FusionSuite
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as published by
+ - the Free Software Foundation, either version 3 of the License, or
+ - any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<app-page i18n-page-title page-title="Tickets">
+  <modal-useriformation [userId]="userInformationId" (closed)="onCloseUserInformation($event)" [style.visibility]="userInformationId == null ? 'collapse' : 'visible'"></modal-useriformation>
+
+  <header class="page__header" *ngIf="itemLoaded">
+    <h1 i18n>{{ item.name }} <span style="color: var(--color-grey11);margin-left: 10px;">#{{ item.id_bytype }}</span></h1>
+    <div class="subtitle">
+      <div class="prefix">
+        <div class="status-information" style="background-color: #eddbf9; border-color: #e9c7ff">
+          <fa-icon icon="users-line" [fixedWidth]="true" style="background-color: #e9c7ff;"></fa-icon>
+          <span class="content">Assigned</span>
+        </div>
+      </div>
+      <span><strong>{{ item.created_by.first_name }} {{ item.created_by.last_name}}</strong>
+        <fa-icon icon="circle-info" [fixedWidth]="true" size="xs" class="icon-info" style="color: var(--color-grey9);" (click)="setUserInformationId(item.created_by.id)"></fa-icon>
+        opened this <strong>request</strong> {{ createdAt }} • <strong>processing time</strong> is 4h47 • 2 messages</span>
+      <button type="submit" class="button" (click)="goToBottom()" style="margin-left: auto;margin-right: 20px;">
+        <fa-icon icon="arrows-down-to-line" [fixedWidth]="true"></fa-icon>
+        Bottom
+      </button>
+    </div>
+    <div class="subtitle">
+      <div class="prefix">
+        <div class="status-information" style="background-color: var(--color-grey4); border-color: var(--color-grey7)">
+          <fa-icon icon="stopwatch" [fixedWidth]="true" style="background-color: var(--color-grey7);"></fa-icon>
+          <span class="content">H+4</span>
+        </div>
+      </div>
+      <span style="color: red;">
+        <fa-icon icon="circle-exclamation" size="lg" [fixedWidth]="true"></fa-icon>
+        SLA will end in 2 hours and 34 minutes
+      </span>
+    </div>
+  </header>
+
+  <div class="page__inner flow">
+    <div>
+      <table>
+        <tr>
+          <td style="width: 75%; vertical-align: top;">
+            <div class="bg-conversation">
+              <div style="margin-left: 80px;margin-bottom: 20px;float: left;">
+                <button type="submit" class="button" data-cy="submit" (click)="toggleDisplayEvents()" i18n>
+                  <span *ngIf="showEvents">
+                    <fa-icon icon="eye-slash" [fixedWidth]="true"></fa-icon>
+                    Hide events
+                  </span>
+                  <span *ngIf="!showEvents">
+                    <fa-icon icon="eye" [fixedWidth]="true"></fa-icon>
+                    Show events
+                  </span>
+                </button>
+                <button type="submit" class="button" data-cy="submit" (click)="toggleDisplayConversation()" style="margin-left: 10px;" i18n>
+                  <span *ngIf="showConversation">
+                    <fa-icon icon="comment-slash" [fixedWidth]="true"></fa-icon>
+                    Hide conversation
+                  </span>
+                  <span *ngIf="!showConversation">
+                    <fa-icon icon="comment" [fixedWidth]="true"></fa-icon>
+                    Show conversation
+                  </span>
+                </button>
+              </div>
+              <div style="margin-left: auto;margin-right: 170px;float: right;">
+                <select
+                  (change)="changeSort($event)"
+                >
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest first</option>
+                </select>
+              </div>
+
+              <div style="height: 60px"></div>
+
+              <div *ngIf="sortItems == 'newest';then formAddMessage"></div>
+
+              <!-- Start timeline -->
+              <div *ngFor="let item of itemsList">
+                <div *ngIf="item.type == 'message' && showConversation" class="conversation-message" [ngClass]="'conversion-function-'+item.user.function">
+                  <div class="avatar">
+                    <img src="assets/avatar.png">
+                    <div class="user-type">
+                      <fa-icon [icon]="item.icon" size="sm" [fixedWidth]="true"></fa-icon>
+                    </div>
+                  </div>
+                  <div [ngClass]="['header', item.private ? 'header-private' : '', item.solution ? 'header-solution' : '']">
+                    <div class="title">
+                      <fa-icon *ngIf="item.sourceMessage != null" [icon]="item.sourceMessage" [fixedWidth]="true"></fa-icon>
+                      {{ item.user.firstName }}
+                      <fa-icon icon="circle-info" [fixedWidth]="true" class="icon-info" (click)="setUserInformationId(item.user.id)"></fa-icon>
+                    </div>
+                    <span *ngIf="item.solution" style="color: rgb(142, 117, 253); font-weight: bold;border: 1px solid rgb(142, 117, 253); height: 26px; border-radius: 13px; padding-left: 8px; padding-right: 8px;">
+                      <!-- <fa-icon icon="block-question" [fixedWidth]="true"></fa-icon>
+                      <fa-icon icon="face-saluting" [fixedWidth]="true"></fa-icon> -->
+                      <fa-icon icon="bullhorn" [fixedWidth]="true"></fa-icon>
+                      It's a solution
+                    </span>
+                    <span *ngIf="item.private" style="color: var(--color-error9); font-weight: bold; border: 1px solid var(--color-error9); height: 26px; border-radius: 13px; padding-left: 8px; padding-right: 8px;">
+                      <fa-icon icon="user-secret" [fixedWidth]="true"></fa-icon>
+                      It's a private message
+                    </span>
+                    <div class="date-ago">{{ item.dateDistance }}
+                      <fa-icon icon="ellipsis" [fixedWidth]="true"></fa-icon>
+                    </div>
+                  </div>
+                  <div>
+                    <div *ngIf="item.solution" style="width: 100%; margin-left: auto; justify-content: center; display: flex; margin-top: 4px;">
+                      <button type="submit" class="button">
+                        <fa-icon icon="thumbs-up" [fixedWidth]="true" style="color: var(--color-success9);"></fa-icon>
+                        Accept
+                      </button>
+                      <button type="submit" class="button" style="margin-left: 4px;">
+                        <fa-icon icon="thumbs-down" [fixedWidth]="true" style="color: var(--color-error9);"></fa-icon>
+                        Refuse
+                      </button>
+                    </div>
+                    <div class="content" [innerHTML]="item.message">
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="item.type == 'event' && showEvents" class="event text--secondary">
+                  <div class="bubble">
+                    <fa-icon [icon]="item.icon" [fixedWidth]="true"></fa-icon>
+                  </div>
+                  <div class="content">
+                    <div class="user">{{ item.user.firstName }}</div>
+                    {{ item.message }}
+                  </div>
+                  <div class="date-ago">{{ item.dateDistance }}</div>
+                </div>
+              </div>
+
+              <div class="end" *ngIf="sortItems == 'oldest'">
+                <div class="end"></div>
+                <div *ngIf="sortItems == 'oldest';then formAddMessage" style="margin-top: 30px;"></div>
+                <div class="end"></div>
+              </div>
+
+              <div class="end"></div>
+
+            </div>
+          </td>
+          <td style="width: 25%; vertical-align: top;" class="text--secondary">
+            <!-- Liste of panelsNew -->
+            <div class="panel-edit" *ngFor="let panel of panelsNew">
+              <div class="title">
+                <fa-icon [icon]="panel.icon" size="xs" [fixedWidth]="true"></fa-icon>
+                {{ panel.title }}
+              </div>
+              <div *ngFor="let item of panel.items">
+                <div class="status" *ngIf="item.type == 'status'">
+                  <select *ngIf="item.valuetype === 'list'">
+                    <option *ngFor="let val of item.listvalues" [value]="val.id" [selected]="item.valueList !== undefined && val.id === item.valueList.id">{{ val.value }}</option>
+                  </select>
+
+                </div>
+                <div class="progressbar" *ngIf="item.type == 'progressbar' && item.listvalues.length === 2">
+                  <span [style.width.%]="calcPercentage(+item.listvalues[1].value, +item.listvalues[0].value)"></span>
+                </div>
+                <div class="subtitle" *ngIf="item.type == 'multiple'">{{ item.title }}</div>
+                <div *ngIf="item.type == 'multiple'">
+                  <div class="information"></div>
+                </div>
+
+                <div class="subtitle"  *ngIf="item.type == 'single'">
+                  <span style="min-width: 80px;">
+                    {{ item.title }}: 
+                  </span>
+                  <select *ngIf="item.valuetype === 'itemlink' && item.valueItemlink !== undefined && item.valueItemlink !== null && item.id < 98">
+                    <option *ngFor="let user of users" [value]="user.id" [selected]="item.valueItemlink !== undefined && item.valueItemlink.name === user.name">
+                      {{ displayUserName(user) }}
+                    </option>
+                  </select>
+                  <!-- TODO manage this better with type of item -->
+
+
+
+                  <select *ngIf="item.valuetype === 'list'" (change)="updateProperty($event, item.id)">
+                    <option *ngFor="let val of item.listvalues" [value]="val.id" [selected]="item.valueList !== undefined && val.id === item.valueList.id">{{ val.value }}</option>
+                  </select>
+
+                  <span class="information"></span></div>
+              </div>
+            </div>
+
+            <!-- Liste of panels -->
+            <div class="panel-edit" *ngFor="let panel of panels">
+              <div class="title">
+                <fa-icon [icon]="panel.icon" size="xs" [fixedWidth]="true"></fa-icon>
+                {{ panel.title }}
+              </div>
+              <div class="edit-button">
+                <fa-icon icon="gear" [fixedWidth]="true"></fa-icon>
+              </div>
+              <div *ngFor="let information of panel.values">
+                <div class="status" *ngIf="information.type == 'status'">{{ information.title }}</div>
+                <div class="progressbar" *ngIf="information.type == 'progressbar'">
+                  <span [style.width.%]="information.value[0]"></span>
+                </div>
+                <div class="subtitle" *ngIf="information.type == 'multiple'">{{ information.title }}</div>
+                <div *ngIf="information.type == 'multiple'">
+                  <div class="information">{{ information.value.join(', ') }}</div>
+                </div>
+
+                <div class="subtitle"  *ngIf="information.type == 'single'">{{ information.title }}: <span class="information">{{ information.value[0] }}</span></div>
+
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <button type="submit" class="button" (click)="goToUp()" style="float: right;margin-right: 20px;">
+      <fa-icon icon="arrows-up-to-line" [fixedWidth]="true"></fa-icon>
+      Up
+    </button>
+  </div>
+
+  <ng-template #formAddMessage>
+    <form
+      *ngIf="itemLoaded"
+      [formGroup]="editTicketForm"
+      (ngSubmit)="onFormSubmit()"
+      class="flow wrapper wrapper--small"
+      data-cy="form-tickets-edit"
+    >
+      <div style="width: 800px;" [ngClass]="{'addMessageBox': true, 'addMessageBoxExpanded': expandedWriteBox}">
+        <editor
+          [init]="editorConfiguration"
+          name="incidentmessagedescription"
+          required
+          formControlName="incidentmessagedescription"
+          style="width: 800px;"
+          (ngModelChange)="updateDescription($event)"
+        ></editor>
+
+        <table style="width: 100%">
+          <tr>
+            <td style="width: 140px;">
+              <span>
+                <input
+                  id="incidentmessageprivate"
+                  name="incidentmessageprivate"
+                  type="checkbox"
+                  required
+                  formControlName="incidentmessageprivate"
+                >
+                Private <fa-icon icon="user-secret" size="xs" [fixedWidth]="true"></fa-icon>
+              </span>
+            </td>
+
+            <td style="width: 140px;">
+              <span>
+                <input
+                  id="incidentmessagesolution"
+                  name="incidentmessagesolution"
+                  type="checkbox"
+                  required
+                  formControlName="incidentmessagesolution"
+                >
+                Solution
+              </span>
+            </td>
+
+            <td></td>
+
+            <td style="width: 240px;">
+              Status to 
+              <select style="max-width: 120px;">
+                <option>Pending</option>
+              </select>
+            </td>
+
+            <td style="width: 150px;">
+              <span class="form__actions">
+                <button type="submit" class="button--primary" data-cy="submit" (click)="submitMessage()" i18n>
+                  <fa-icon icon="paper-plane" [fixedWidth]="true"></fa-icon> Submit
+                </button>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </form>
+  </ng-template>
+
+</app-page>

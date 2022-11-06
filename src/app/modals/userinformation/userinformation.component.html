@@ -1,0 +1,78 @@
+<!--
+ - FusionSuite - Frontend
+ - Copyright (C) 2022 FusionSuite
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as published by
+ - the Free Software Foundation, either version 3 of the License, or
+ - any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<div *ngIf="userId !== null" style="padding: 50px;">
+
+  <div class="card">
+    <div class="header">
+      <fa-icon icon="id-card" [fixedWidth]="true"></fa-icon>
+      User information
+      <fa-icon icon="circle-xmark" [fixedWidth]="true" style="float: right; cursor: pointer;" (click)="closeModal()"></fa-icon>
+    </div>
+    <div style="display: flex;">
+      <div class="avatar-userinformation" style="flex-grow: 1;">
+        <img src="assets/avatar.png">
+      </div>
+      <div style="flex-grow: 4;">
+        <div *ngFor="let info of panelLeft">
+          <div class="user-title">
+            <fa-icon [icon]="info.icon" [fixedWidth]="true"></fa-icon>
+            {{ info.title }}
+          </div>
+
+          <div class="userinfo-value">
+            <span *ngIf="info.type == 'normal'">{{ info.value }}</span>
+            <a *ngIf="info.type == 'email'" [href]="'mailto:' + info.value">{{ info.value }}</a>
+            <a *ngIf="info.type == 'link'" [href]="info.value">{{ info.value }}</a>
+            <a *ngIf="info.type == 'phone'" [href]="'tel:' + info.value">{{ info.value }}</a>
+            <fa-icon icon="copy" [fixedWidth]="true" class="copyicon" (click)="copyToClipboard(info.value)"></fa-icon>
+          </div>
+        </div>
+      </div>
+      <div style="flex-grow: 4;">
+        <div *ngFor="let info of panelRight">
+          <div class="user-title">
+            <fa-icon [icon]="info.icon" [fixedWidth]="true"></fa-icon>
+            {{ info.title }}
+          </div>
+
+          <div class="userinfo-value">
+            <span *ngIf="info.type == 'normal'">{{ info.value }}</span>
+            <a *ngIf="info.type == 'email'" [href]="'mailto:' + info.value">{{ info.value }}</a>
+            <a *ngIf="info.type == 'link'" [href]="info.value">{{ info.value }}</a>
+            <a *ngIf="info.type == 'phone'" [href]="'tel:' + info.value">{{ info.value }}</a>
+            <fa-icon icon="copy" [fixedWidth]="true" class="copyicon" (click)="copyToClipboard(info.value)"></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="header">
+      <fa-icon icon="ticket" [fixedWidth]="true"></fa-icon>
+      Tickets
+    </div>
+    <div>
+      <div *ngFor="let ticket of tickets" class="userinfo-itemslist">
+        <span class="userinfo-itemid">#{{ ticket.id }}</span>
+        <span> - {{ ticket.name }}</span>
+      </div>
+    </div>
+  </div>
+</div>

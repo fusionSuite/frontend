@@ -16,12 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IItem } from './item';
-import { IListValue } from './list-value';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
-export interface IProperty {
-  id: number;
-  internalname: string;
-  value: any;
-  listvalues: IListValue[];
+export interface IUserinformationInfoblock {
+  title: string;
+  icon: IconProp;
+  value: string;
+  type: 'normal'|'email'|'phone'|'link';
 }

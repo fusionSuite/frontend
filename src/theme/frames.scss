@@ -1,0 +1,144 @@
+/**
+ * FusionSuite - Frontend
+ * Copyright (C) 2022 FusionSuite
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+.addMessageBox {
+  position: relative;
+
+  overflow: hidden;
+
+  height: 110px;
+
+  border: 2px solid #eee;
+  border-radius: 5px !important;
+}
+
+.addMessageBoxExpanded {
+  overflow: visible;
+
+  height: none;
+  min-height: 300px;
+
+  border: 2px solid #eee;
+  border-radius: 5px !important;
+}
+
+.panel-edit {
+  position: relative;
+
+  margin: 5px;
+  margin-bottom: 40px;
+
+  &::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: -20px;
+
+    width: 100%;
+
+    border: 1px solid var(--color-grey6);
+  }
+
+  .title {
+    float: left;
+
+    display: contents;
+
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .edit-button {
+    float: right;
+
+    color: var(--color-primary11);
+  }
+
+  .subtitle {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+  }
+
+  .status {
+    width: 100%;
+    height: 40px;
+    margin-top: 15px;
+
+    color: #000;
+
+    font-weight: bold;
+    line-height: 40px;
+    text-align: center;
+
+    background-color: var(--color-primary4);
+
+    border-radius: 5px;
+
+    select {
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+
+  .progressbar {
+    width: 95%;
+    height: 10px;
+    margin-top: 15px;
+    margin-left: 5px;
+
+    background-color: var(--color-grey10);
+
+    border-radius: 5px;
+
+    span {
+      display: block;
+      height: 10px;
+
+      background-color: var(--color-primary9);
+
+      border-radius: 5px;
+    }
+  }
+
+  .information {
+    color: var(--color-grey12);
+    font-size: 20px;
+    margin-left: 8px;
+  }
+
+  select {
+    background-color: unset;
+    color: #000000;
+    border-bottom: none;
+    font-size: 20px;
+
+    &:hover {
+      background-color: unset;
+      border: 0;
+    }
+
+    &:focus {
+      color: unset;
+      border: 0;
+  
+      background-color: unset;
+    }
+  }
+}

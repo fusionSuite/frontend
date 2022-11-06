@@ -51,6 +51,11 @@ const routes: Routes = [
   },
 
   {
+    path: 'tickets',
+    loadChildren: () => import('./pages/tickets/tickets.module').then(m => m.TicketsModule),
+  },
+
+  {
     path: '**',
     title: $localize `Page not found`,
     component: NotFoundPageComponent,

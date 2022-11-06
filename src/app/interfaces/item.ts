@@ -29,4 +29,5 @@ export interface IItem {
     name: string;
   };
   properties: IProperty[];
+  created_at: string;
 }
