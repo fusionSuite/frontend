@@ -20,7 +20,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TicketsApi } from 'src/app/api/tickets';
 import { IItem } from 'src/app/interfaces/item';
-import { IPanel } from 'src/app/interfaces/panel';
+import { IPanel, IPanelNew } from 'src/app/interfaces/panel';
 import { buildEditorConfiguration } from 'src/app/utils/tinycme-editor-configuration';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { ITimelineitem } from 'src/app/interfaces/timelineitem';
@@ -28,6 +28,11 @@ import { ITimelineitem } from 'src/app/interfaces/timelineitem';
 import { SettingsService } from 'src/app/services/settings.service';
 import { ItemsApi } from 'src/app/api/items';
 import { NotificationsService } from 'src/app/notifications/notifications.service';
+import { elementAt } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { IProperty } from 'src/app/interfaces/property';
+import { User } from 'src/app/models/user';
+import { UsersApi } from 'src/app/api/users';
 
 @Component({
   selector: 'app-tickets-edit-page',
@@ -58,24 +63,29 @@ export class TicketsEditPageComponent implements OnInit {
 
   public expandedWriteBox :Boolean = false;
   public panels :IPanel[] = [];
+  public panelsNew :IPanelNew[] = [];
   public showEvents :boolean = true;
   public showConversation :boolean = true;
   public itemsList :ITimelineitem[] = [];
   public createdAt :string = '';
   public sortItems :string = 'newest';
   public userInformationId :any = null;
+  public users: IItem[] = [];
 
   constructor (
     private ticketsApi: TicketsApi,
     private itemsApi: ItemsApi,
     private settingsService: SettingsService,
     private notificationsService: NotificationsService,
+    private route: ActivatedRoute,
+    private usersApi: UsersApi,
   ) {
 
   }
 
   ngOnInit (): void {
-    this.ticketsApi.get(3)
+    const id = this.route.snapshot.paramMap.get('id');
+    this.ticketsApi.get(Number(id))
       .subscribe((result: IItem) => {
         console.log(result);
         this.item = result;
@@ -85,6 +95,7 @@ export class TicketsEditPageComponent implements OnInit {
         this.declarePanels();
 
         this.itemLoaded = true;
+        this.loadUsers();
       });
   }
 
@@ -109,6 +120,8 @@ export class TicketsEditPageComponent implements OnInit {
       date: new Date('2022-10-10T15:18:03.000000Z'),
       dateDistance: formatDistanceToNow(new Date('2022-10-10T15:18:03.000000Z'), { addSuffix: true }),
       type: 'message',
+      private: false,
+      solution: false,
     });
 
     itemsList.push({
@@ -125,6 +138,8 @@ export class TicketsEditPageComponent implements OnInit {
       date: new Date('2022-10-07T09:24:03.000000Z'),
       dateDistance: formatDistanceToNow(new Date('2022-10-07T09:24:03.000000Z'), { addSuffix: true }),
       type: 'message',
+      private: false,
+      solution: false,
     });
 
     itemsList.push({
@@ -141,6 +156,8 @@ export class TicketsEditPageComponent implements OnInit {
       date: new Date('2022-10-05T09:19:03.000000Z'),
       dateDistance: formatDistanceToNow(new Date('2022-10-05T09:19:03.000000Z'), { addSuffix: true }),
       type: 'event',
+      private: false,
+      solution: false,
     });
 
     itemsList.push({
@@ -157,6 +174,8 @@ export class TicketsEditPageComponent implements OnInit {
       date: new Date('2022-10-05T09:19:03.000000Z'),
       dateDistance: formatDistanceToNow(new Date('2022-10-05T09:19:03.000000Z'), { addSuffix: true }),
       type: 'event',
+      private: false,
+      solution: false,
     });
 
     itemsList.push({
@@ -173,6 +192,8 @@ export class TicketsEditPageComponent implements OnInit {
       date: new Date('2022-10-10T11:54:03.000000Z'),
       dateDistance: formatDistanceToNow(new Date('2022-10-10T11:54:03.000000Z'), { addSuffix: true }),
       type: 'event',
+      private: false,
+      solution: false,
     });
 
     itemsList.push({
@@ -189,6 +210,8 @@ export class TicketsEditPageComponent implements OnInit {
       date: new Date('2022-10-03T16:18:03.000000Z'),
       dateDistance: formatDistanceToNow(new Date('2022-10-03T16:18:03.000000Z'), { addSuffix: true }),
       type: 'message',
+      private: false,
+      solution: false,
     });
 
     itemsList.push({
@@ -205,6 +228,8 @@ export class TicketsEditPageComponent implements OnInit {
       date: new Date('2022-10-10T11:59:03.000000Z'),
       dateDistance: formatDistanceToNow(new Date('2022-10-10T11:59:03.000000Z'), { addSuffix: true }),
       type: 'event',
+      private: false,
+      solution: false,
     });
 
     itemsList.push({
@@ -221,30 +246,52 @@ export class TicketsEditPageComponent implements OnInit {
       date: new Date('2022-10-12T17:22:03.000000Z'),
       dateDistance: formatDistanceToNow(new Date('2022-10-12T17:22:03.000000Z'), { addSuffix: true }),
       type: 'event',
+      private: false,
+      solution: false,
     });
 
     // Push messages from the backend
-    for (let ticketMessage of this.item.properties[9].value) {
-      if (ticketMessage === null) {
-        continue;
-      }
-      itemsList.push({
-        user: {
-          firstName: ticketMessage.created_by.first_name,
-          lastName: ticketMessage.created_by.last_name,
-          id: ticketMessage.created_by.id,
-          avatar: null,
-          function: 'tech',
-        },
-        icon: 'ticket',
-        message: ticketMessage.properties[0].value,
-        sourceMessage: null, // null | mail | web | rule
-        date: new Date(ticketMessage.created_at),
-        dateDistance: formatDistanceToNow(new Date(ticketMessage.created_at), { addSuffix: true }),
-        type: 'message',
-      });
-    }
+    const messageProp = this.getPropertyByInternalname(this.item, 'incidentmessagelinks');
+    if (messageProp !== undefined) {
+      for (let ticketMessage of messageProp.value) {
+        if (ticketMessage === null) {
+          continue;
+        }
+        const privateMessageItem = this.getPropertyByInternalname(ticketMessage, 'incidentmessageprivate');
+        const solutionMessageItem = this.getPropertyByInternalname(ticketMessage, 'incidentmessagesolution');
+        const messageItem = this.getPropertyByInternalname(ticketMessage, 'incidentmessagedescription');
+        let privateMessage = true;
+        let solutionMessage = false;
+        let message = '';
+        if (privateMessageItem !== undefined) {
+          privateMessage = privateMessageItem.value;
+        }
+        if (solutionMessageItem !== undefined) {
+          solutionMessage = solutionMessageItem.value;
+        }
+        if (messageItem !== undefined) {
+          message = messageItem.value;
+        }
 
+        itemsList.push({
+          user: {
+            firstName: ticketMessage.created_by.first_name,
+            lastName: ticketMessage.created_by.last_name,
+            id: ticketMessage.created_by.id,
+            avatar: null,
+            function: 'tech',
+          },
+          icon: 'ticket',
+          message: message,
+          sourceMessage: null, // null | mail | web | rule
+          date: new Date(ticketMessage.created_at),
+          dateDistance: formatDistanceToNow(new Date(ticketMessage.created_at), { addSuffix: true }),
+          type: 'message',
+          private: privateMessage,
+          solution: solutionMessage,
+        });
+      }
+    }
 
     this.itemsList = itemsList;
     this.sortItemsList();
@@ -294,48 +341,80 @@ export class TicketsEditPageComponent implements OnInit {
   }
 
   private declarePanels () {
+    this.panels = [];
+    this.panelsNew = [];
+    let items :any[] = [];
+
     // declare actors
-    this.panels.push({
+    items = [];
+    items = this.addItemToPanel(items, 'requestuser', 'single');
+    items = this.addItemToPanel(items, 'affecteduser', 'single');
+    items = this.addItemToPanel(items, 'userservice', 'single');
+
+    this.panelsNew.push({
       title: 'Actors',
       icon: 'user-group',
-      values: [
-        {
-          title: 'Requester',
-          value: ['Tony Stark', 'John Doe'],
-          type: 'multiple',
-        },
-        {
-          title: 'Assignee',
-          value: ['Steve Roger'],
-          type: 'multiple',
-        },
-      ],
+      items,
     });
 
     // declare priority
-    this.panels.push({
+    items = [];
+    items = this.addItemToPanel(items, 'incidentpriority', 'status');
+    items = this.addItemToPanel(items, 'urgency', 'single');
+    items = this.addItemToPanel(items, 'impact', 'single');
+    this.panelsNew.push({
       title: 'Priority',
       icon: 'bolt',
-      values: [
-        {
-          title: 'Low',
-          value: [],
-          type: 'status',
-        },
-        {
-          title: 'Upgency',
-          value: ['low'],
-          type: 'single',
-        },
-        {
-          title: 'Assignee',
-          value: ['normal'],
-          type: 'single',
-        },
-      ],
+      items,
+    });
+
+    // others
+    items = [];
+    items = this.addItemToPanel(items, 'incidentstatus', 'single');
+    items = this.addItemToPanel(items, 'incidentsla', 'single');
+    items = this.addItemToPanel(items, 'location', 'single');
+    items = this.addItemToPanel(items, 'incidentcategory', 'single');
+    items = this.addItemToPanel(items, 'provenance', 'single');
+    this.panelsNew.push({
+      title: 'Other properties',
+      icon: 'rectangle-list',
+      items,
     });
 
     // declare Contract
+    items = [];
+    items = this.addItemToPanel(items, 'contractlink', 'single');
+    if (items[0].valueList !== null) {
+      const totalTime = this.getPropertyByInternalname(items[0].valueList, 'contracttimebought');
+      const currentTime = this.getPropertyByInternalname(items[0].valueList, 'incidentmessagetime');
+      console.log(currentTime);
+      if (totalTime !== undefined && currentTime !== undefined) {
+        items.push({
+          title: '',
+          id: 0,
+          type: 'progressbar',
+          valuetype: 'list',
+          valueList: [],
+          listvalues: [
+            {
+              id: 0,
+              value: currentTime.value
+            },
+            {
+              id: 0,
+              value: totalTime.value
+            },
+          ],
+        });
+      }
+    }
+
+    this.panelsNew.push({
+      title: 'Contract',
+      icon: 'file-contract',
+      items,
+    });
+
     this.panels.push({
       title: 'Contract',
       icon: 'file-contract',
@@ -428,4 +507,65 @@ export class TicketsEditPageComponent implements OnInit {
     });
   }
 
+  public updateProperty(event: any, propertyId: number) {
+    this.itemsApi.patchItemProperty(this.item.id, propertyId, Number(event.target.value))
+      .subscribe((res) => {
+        console.log(res);
+        this.notificationsService.success($localize `The property udpated successfully.`);
+        this.editTicketForm.reset();
+        this.ngOnInit();
+      });
+  }
+
+  public calcPercentage(total: number, current: number) {
+    return Math.ceil((current * 100) / total);
+  }
+
+  private addItemToPanel(items: any[], internalname: string, type: string) {
+    const prop = this.item.properties.find((elem: any) => {
+      return elem.internalname === internalname;
+    });
+    if (prop !== undefined) {
+      let item: any = {
+        title: prop.name,
+        id: prop.id,
+        type,
+        valuetype: prop.valuetype,
+        valueList: prop.value,
+        listvalues: prop.listvalues,
+      }
+      if (prop.valuetype === 'list') {
+        item.valueList = prop.value;
+      }
+      if (prop.valuetype === 'itemlink') {
+        item.valueItemlink = prop.value;
+      }
+      items.push(item);
+    }
+    return items;
+  }
+
+  private getPropertyByInternalname(item: IItem, internalname: string) {
+    return item.properties.find((elem: IProperty) => {
+      return elem.internalname === internalname;
+    });
+  }
+
+  private loadUsers () {
+    this.users = [];
+    this.usersApi.list()
+      .subscribe((result: IItem[]) => {
+        this.users = result;
+        this.users.sort((u1, u2) => u1.name.localeCompare(u2.name));
+      });
+  }
+
+  public displayUserName(user: IItem) {
+    const firstName = this.getPropertyByInternalname(user, 'userfirstname');
+    const lastName = this.getPropertyByInternalname(user, 'userlastname');
+    if (firstName !== undefined && lastName!== undefined) {
+      return firstName.value + ' ' + lastName.value;
+    }
+    return '';
+  }
 }

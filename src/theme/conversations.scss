@@ -113,7 +113,14 @@
         cursor: pointer;
       }
     }
+  }
 
+  .header-private {
+    background: linear-gradient(to right, var(--color-primary6), var(--color-error9));
+  }
+
+  .header-solution {
+    background: linear-gradient(to right, var(--color-primary6), rgb(142, 117, 253));
   }
 }
 
@@ -155,6 +162,7 @@
 
     font-size: 18px;
     font-weight: bold;
+    min-width: 150px;
   }
 
   .date-ago {

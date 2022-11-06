@@ -56,7 +56,7 @@ export class ItemsApi extends ApiV1 {
       .toPromise();
     let linkId: any;
     if (itemId !== undefined) {
-      await this.postTypelinkToItem(item.id, item.propertyId, itemId)
+      await this.postItemlinkToItem(item.id, item.propertyId, itemId)
         .pipe()
         .pipe(map((res) => {
           console.log(res);

@@ -101,9 +101,9 @@ export class ApiV1 {
     return properties;
   }
 
-  public postTypelinkToItem (itemId: number, linkPropertyId: number, linkItemId: number) {
+  public postItemlinkToItem (itemId: number, linkPropertyId: number, linkItemId: number) {
     return this.http.post(
-      this.settingsService.backendUrl + '/v1/items/' + itemId + '/property/' + linkPropertyId + '/typelinks',
+      this.settingsService.backendUrl + '/v1/items/' + itemId + '/property/' + linkPropertyId + '/itemlinks',
       { value: linkItemId },
       {
         headers: {
@@ -112,4 +112,28 @@ export class ApiV1 {
       },
     );
   }
+
+  public postTypelinkToItem (itemId: number, linkPropertyId: number, linkTypeId: number) {
+    return this.http.post(
+      this.settingsService.backendUrl + '/v1/items/' + itemId + '/property/' + linkTypeId + '/typelinks',
+      { value: linkTypeId },
+      {
+        headers: {
+          Authorization: 'Bearer ' + this.authService.getToken(),
+        },
+      },
+    );
+  }
+
+  public patchItemProperty (itemId: number, propertiId: number, value: any) {
+    return this.http.patch<IItemResult>(
+      this.settingsService.backendUrl + '/v1/items/' + itemId + '/property/' + propertiId,
+      { value },
+      {
+        headers: {
+          Authorization: 'Bearer ' + this.authService.getToken(),
+        },
+    });
+  }
+
 }

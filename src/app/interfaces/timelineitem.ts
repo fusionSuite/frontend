@@ -31,5 +31,7 @@ export interface ITimelineitem {
   sourceMessage: IconProp|null;
   date: Date;
   dateDistance: string;
-  type: 'message'|'event'
+  type: 'message'|'event';
+  private: boolean;
+  solution: boolean;
 }

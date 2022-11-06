@@ -29,7 +29,7 @@
         </div>
       </div>
       <span><strong>{{ item.created_by.first_name }} {{ item.created_by.last_name}}</strong>
-        <fa-icon icon="circle-info" [fixedWidth]="true" class="icon-info" style="color: var(--color-grey9);" (click)="setUserInformationId(item.created_by.id)"></fa-icon>
+        <fa-icon icon="circle-info" [fixedWidth]="true" size="xs" class="icon-info" style="color: var(--color-grey9);" (click)="setUserInformationId(item.created_by.id)"></fa-icon>
         opened this <strong>request</strong> {{ createdAt }} • <strong>processing time</strong> is 4h47 • 2 messages</span>
       <button type="submit" class="button" (click)="goToBottom()" style="margin-left: auto;margin-right: 20px;">
         <fa-icon icon="arrows-down-to-line" [fixedWidth]="true"></fa-icon>
@@ -67,7 +67,7 @@
                     Show events
                   </span>
                 </button>
-                <button type="submit" class="button" data-cy="submit" (click)="toggleDisplayConversation()" i18n>
+                <button type="submit" class="button" data-cy="submit" (click)="toggleDisplayConversation()" style="margin-left: 10px;" i18n>
                   <span *ngIf="showConversation">
                     <fa-icon icon="comment-slash" [fixedWidth]="true"></fa-icon>
                     Hide conversation
@@ -100,17 +100,37 @@
                       <fa-icon [icon]="item.icon" size="sm" [fixedWidth]="true"></fa-icon>
                     </div>
                   </div>
-                  <div class="header">
+                  <div [ngClass]="['header', item.private ? 'header-private' : '', item.solution ? 'header-solution' : '']">
                     <div class="title">
                       <fa-icon *ngIf="item.sourceMessage != null" [icon]="item.sourceMessage" [fixedWidth]="true"></fa-icon>
                       {{ item.user.firstName }}
                       <fa-icon icon="circle-info" [fixedWidth]="true" class="icon-info" (click)="setUserInformationId(item.user.id)"></fa-icon>
                     </div>
+                    <span *ngIf="item.solution" style="color: rgb(142, 117, 253); font-weight: bold;border: 1px solid rgb(142, 117, 253); height: 26px; border-radius: 13px; padding-left: 8px; padding-right: 8px;">
+                      <!-- <fa-icon icon="block-question" [fixedWidth]="true"></fa-icon>
+                      <fa-icon icon="face-saluting" [fixedWidth]="true"></fa-icon> -->
+                      <fa-icon icon="bullhorn" [fixedWidth]="true"></fa-icon>
+                      It's a solution
+                    </span>
+                    <span *ngIf="item.private" style="color: var(--color-error9); font-weight: bold; border: 1px solid var(--color-error9); height: 26px; border-radius: 13px; padding-left: 8px; padding-right: 8px;">
+                      <fa-icon icon="user-secret" [fixedWidth]="true"></fa-icon>
+                      It's a private message
+                    </span>
                     <div class="date-ago">{{ item.dateDistance }}
                       <fa-icon icon="ellipsis" [fixedWidth]="true"></fa-icon>
                     </div>
                   </div>
                   <div>
+                    <div *ngIf="item.solution" style="width: 100%; margin-left: auto; justify-content: center; display: flex; margin-top: 4px;">
+                      <button type="submit" class="button">
+                        <fa-icon icon="thumbs-up" [fixedWidth]="true" style="color: var(--color-success9);"></fa-icon>
+                        Accept
+                      </button>
+                      <button type="submit" class="button" style="margin-left: 4px;">
+                        <fa-icon icon="thumbs-down" [fixedWidth]="true" style="color: var(--color-error9);"></fa-icon>
+                        Refuse
+                      </button>
+                    </div>
                     <div class="content" [innerHTML]="item.message">
                     </div>
                   </div>
@@ -139,6 +159,48 @@
             </div>
           </td>
           <td style="width: 25%; vertical-align: top;" class="text--secondary">
+            <!-- Liste of panelsNew -->
+            <div class="panel-edit" *ngFor="let panel of panelsNew">
+              <div class="title">
+                <fa-icon [icon]="panel.icon" size="xs" [fixedWidth]="true"></fa-icon>
+                {{ panel.title }}
+              </div>
+              <div *ngFor="let item of panel.items">
+                <div class="status" *ngIf="item.type == 'status'">
+                  <select *ngIf="item.valuetype === 'list'">
+                    <option *ngFor="let val of item.listvalues" [value]="val.id" [selected]="item.valueList !== undefined && val.id === item.valueList.id">{{ val.value }}</option>
+                  </select>
+
+                </div>
+                <div class="progressbar" *ngIf="item.type == 'progressbar' && item.listvalues.length === 2">
+                  <span [style.width.%]="calcPercentage(+item.listvalues[1].value, +item.listvalues[0].value)"></span>
+                </div>
+                <div class="subtitle" *ngIf="item.type == 'multiple'">{{ item.title }}</div>
+                <div *ngIf="item.type == 'multiple'">
+                  <div class="information"></div>
+                </div>
+
+                <div class="subtitle"  *ngIf="item.type == 'single'">
+                  <span style="min-width: 80px;">
+                    {{ item.title }}: 
+                  </span>
+                  <select *ngIf="item.valuetype === 'itemlink' && item.valueItemlink !== undefined && item.valueItemlink !== null && item.id < 98">
+                    <option *ngFor="let user of users" [value]="user.id" [selected]="item.valueItemlink !== undefined && item.valueItemlink.name === user.name">
+                      {{ displayUserName(user) }}
+                    </option>
+                  </select>
+                  <!-- TODO manage this better with type of item -->
+
+
+
+                  <select *ngIf="item.valuetype === 'list'" (change)="updateProperty($event, item.id)">
+                    <option *ngFor="let val of item.listvalues" [value]="val.id" [selected]="item.valueList !== undefined && val.id === item.valueList.id">{{ val.value }}</option>
+                  </select>
+
+                  <span class="information"></span></div>
+              </div>
+            </div>
+
             <!-- Liste of panels -->
             <div class="panel-edit" *ngFor="let panel of panels">
               <div class="title">

@@ -16,7 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { IItem } from './item';
 
 export interface IPanel {
   title: string;
@@ -25,5 +26,47 @@ export interface IPanel {
     title: string;
     value: string[];
     type: 'single'|'multiple'|'status'|'progressbar';
+    listvalues?: any;
+  }[];
+}
+
+export interface IPanelNew {
+  title: string;
+  icon: IconProp;
+  items: {
+    title: string;
+    id: number;
+    type: 'single'|'multiple'|'status'|'progressbar';
+    valuetype: 'string'|'integer'|'decimal'|'text'|'boolean'|'datetime'|'date'|'time'|'number'|'itemlink'|'itemlinks'|'typelink'|'typelinks'|'propertylink'|'list'|'password';
+    valueString?: string;
+    valueInteger?: number;
+    valueDecimal?: number;
+    valueText?: string;
+    valueBoolean?: boolean;
+    valueDatetime?: string;
+    valueDate?: string;
+    valueTime?: string;
+    valueNumber?: number;
+    valueItemlink?: IItem;
+    valueItemlinks?: IItem[];
+    valueTypelink?: {
+      // TODO
+    }[];
+    valueTypelinks?: {
+      // TODO - item?
+    }[];
+    valuePropertylink?: {
+      // TODO?
+    }[];
+    valueList?: {
+      id: number;
+      value: string;
+    };
+    valuePassword?: string;
+
+    listvalues: {
+      id: number;
+      value: string;
+    }[];
   }[];
 }
