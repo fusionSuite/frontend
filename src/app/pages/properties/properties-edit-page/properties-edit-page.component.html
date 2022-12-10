@@ -1,0 +1,167 @@
+<!--
+ - FusionSuite - Frontend
+ - Copyright (C) 2022 FusionSuite
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as published by
+ - the Free Software Foundation, either version 3 of the License, or
+ - any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<app-page i18n-page-title page-title="Edit property">
+  <header class="page__header flow flow--small">
+    <h1 *ngIf="property !== null">#{{ property.id }} - {{ property.name }}</h1>
+
+    <div class="subtitle" *ngIf="propertyLoaded && property !== null">
+      <span *ngIf="property.created_by !== null">
+        <strong>{{ property.created_by.first_name }} {{ property.created_by.last_name}}</strong>
+        <fa-icon icon="circle-info" [fixedWidth]="true" size="xs" class="icon-info" style="color: var(--color-grey9);"></fa-icon>
+        created this property {{ createdAt }}</span>
+        <span *ngIf="property.updated_by !== null"> • <strong>
+          {{ property.updated_by.first_name }} {{ property.updated_by.last_name}}</strong> updated this property {{ updatedAt }}
+      </span>
+    </div>
+
+    <div>
+      <a class="a--back" [routerLink]="['/config/properties']" i18n>
+        Back to properties
+      </a>
+    </div>
+    <div
+      class="form__container__editionmode"
+    >
+      <label class="form__switch">
+        <input
+          id="editionmode"
+          name="editionmode"
+          type="checkbox"
+          [checked]="editionmode"
+          (change)="editionmode = !editionmode"
+        >
+        <span class="slider" data-cy="property-edit-switch-button"
+        ></span>
+      </label>
+      <label
+        i18n
+        [class]="editionmode ? 'form__swith__label form__swith__label__enabled' : 'form__swith__label'"
+      >
+        Edition mode
+      </label>    
+    </div>
+  </header>
+
+  <div class="page__inner">
+    <div *ngIf="propertyLoaded && property !== null" class="form__edit">
+      <form
+        [formGroup]="formControls"
+        data-cy="form-properties-new"
+      >
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Name:</div>
+          <div
+            class="form__edit__item__value"
+            *ngIf="!editionmode"
+            data-cy="property-edit-name-textonly"
+          >
+            {{ property.name }}
+          </div>
+          <div class="form__edit__item__value" *ngIf="editionmode">
+            <input
+              [value]="property.name"
+              formControlName="name"
+              (change)="updateField('name')"
+              data-cy="property-edit-name-input"
+            >
+          </div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Internal name:</div>
+          <div class="form__edit__item__value">{{ property.internalname }}</div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Type of value:</div>
+          <div class="form__edit__item__value">{{ property.valuetype }}</div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Unit:</div>
+          <div class="form__edit__item__value" *ngIf="!editionmode">{{ property.unit }}</div>
+          <div class="form__edit__item__value" *ngIf="editionmode">
+            <input
+              [value]="property.unit"
+              formControlName="unit"
+              (change)="updateField('unit')"
+            >
+          </div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Can be null:</div>
+          <div class="form__edit__item__value">
+            <label class="form__switch">
+              <input
+                [value]="property.canbenull"
+                type="checkbox"
+                [checked]="property.canbenull"
+                [disabled]="!editionmode"
+                (change)="updateField('description')"
+              >
+              <span class="slider"></span>          
+            </label>
+          </div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Set current date:</div>
+          <div class="form__edit__item__value">{{ property.setcurrentdate }}</div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Regex validation:</div>
+          <div class="form__edit__item__value" *ngIf="!editionmode">{{ property.regexformat }}</div>
+          <div class="form__edit__item__value" *ngIf="editionmode">
+            <input
+              [value]="property.regexformat"
+              formControlName="regexformat"
+              (change)="updateField('regexformat')"
+            >
+          </div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>List of values:</div>
+          <div class="form__edit__item__value">{{ property.listvalues }}</div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Default value:</div>
+          <div class="form__edit__item__value">{{ property.default }}</div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Description:</div>
+          <div class="form__edit__item__value" *ngIf="!editionmode" innerHTML="{{ property.description }}"></div>
+          <div class="form__edit__item__value" *ngIf="editionmode">
+            <textarea
+              [value]="property.description"
+              formControlName="description"
+              (change)="updateField('description')"
+              rows="3"
+              cols="25"
+            ></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</app-page>

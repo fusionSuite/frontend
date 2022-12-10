@@ -31,6 +31,7 @@ function buildOrganization (id: number, name: string, parentId: number|null): Or
       name,
     },
     properties: [],
+    created_at: '',
   });
 }
 

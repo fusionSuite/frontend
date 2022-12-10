@@ -6,513 +6,739 @@
         <source>FusionSuite</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app-routing.module.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home-page/home-page.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home-page/home-page.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1068180392980395479" datatype="html">
         <source>Log in to FusionSuite</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app-routing.module.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">38</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
-          <context context-type="linenumber">3,4</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2275328567992347600" datatype="html">
         <source>Page not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app-routing.module.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">60</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/not-found-page/not-found-page.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/not-found-page/not-found-page.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2681586038936504024" datatype="html">
         <source>Home FusionSuite</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5761331429036325434" datatype="html">
         <source> Organizations </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.html</context>
-          <context context-type="linenumber">9,11</context>
+          <context context-type="linenumber">33,35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4228319514212568219" datatype="html">
         <source> Users </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.html</context>
-          <context context-type="linenumber">18,20</context>
+          <context context-type="linenumber">48,50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4001891076362297109" datatype="html">
+        <source> Properties </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.html</context>
+          <context context-type="linenumber">68,70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7507948636555938109" datatype="html">
         <source>Log out</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.html</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="358462242581945792" datatype="html">
         <source>Anonymous</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1914592173926880968" datatype="html">
         <source>Skip to main content</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/page/page.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6619478028055446531" datatype="html">
         <source> It works! </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home-page/home-page.component.html</context>
-          <context context-type="linenumber">6,8</context>
+          <context context-type="linenumber">24,26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1519954996184640001" datatype="html">
         <source>Error</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">33</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">125</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">127</context>
+          <context context-type="linenumber">155</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5248717555542428023" datatype="html">
         <source>Username</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
-          <context context-type="linenumber">24,25</context>
+          <context context-type="linenumber">42</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4606091236515013460" datatype="html">
         <source>Error:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
-          <context context-type="linenumber">41,42</context>
+          <context context-type="linenumber">60</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
-          <context context-type="linenumber">66,67</context>
+          <context context-type="linenumber">86</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">72</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-create-page/properties-create-page.component.html</context>
+          <context context-type="linenumber">117</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">102</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">104</context>
+          <context context-type="linenumber">132</context>
         </context-group>
       </trans-unit>
       <trans-unit id="86087505018521613" datatype="html">
         <source> The username is required. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">62,63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1431416938026210429" datatype="html">
         <source>Password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
-          <context context-type="linenumber">49,50</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5050048058261668004" datatype="html">
         <source> The password is required. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">88,89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2454050363478003966" datatype="html">
         <source>Login</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/login-page/login-page.component.html</context>
-          <context context-type="linenumber">74,75</context>
+          <context context-type="linenumber">94</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5401867940002169262" datatype="html">
         <source> The page you’re looking for doesn’t exist. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/not-found-page/not-found-page.component.html</context>
-          <context context-type="linenumber">7,9</context>
+          <context context-type="linenumber">25,27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6278982046865843260" datatype="html">
         <source> Back to the home page </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/not-found-page/not-found-page.component.html</context>
-          <context context-type="linenumber">12,14</context>
+          <context context-type="linenumber">30,32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2765507593757945216" datatype="html">
         <source>New organization</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-routing.module.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1056017373280289759" datatype="html">
         <source> Back to organizations </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
-          <context context-type="linenumber">6,8</context>
+          <context context-type="linenumber">24,26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5243233792859835904" datatype="html">
         <source>Organization name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2934308315407468791" datatype="html">
         <source> The name is required. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
-          <context context-type="linenumber">48,50</context>
+          <context context-type="linenumber">73,75</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">76,78</context>
+          <context context-type="linenumber">103,105</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1900206707470585659" datatype="html">
         <source>Parent organization</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="275151463888178522" datatype="html">
         <source> The parent organization is required. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
-          <context context-type="linenumber">77,79</context>
+          <context context-type="linenumber">103,105</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7613280841129007257" datatype="html">
         <source>Create an organization</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2659754301310886129" datatype="html">
         <source> Loading of organizations… </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
-          <context context-type="linenumber">91,93</context>
+          <context context-type="linenumber">117,119</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
-          <context context-type="linenumber">61,63</context>
+          <context context-type="linenumber">84,86</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">119,121</context>
+          <context context-type="linenumber">147,149</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1437145504608861991" datatype="html">
         <source> You don’t have the permission to create new organizations. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.html</context>
-          <context context-type="linenumber">102,104</context>
+          <context context-type="linenumber">128,130</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2024202534854752781" datatype="html">
         <source>The organization has been created successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-create-page/organizations-create-page.component.ts</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">105</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8539325943407755549" datatype="html">
         <source>Organizations</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-routing.module.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6851468806127365254" datatype="html">
         <source> Create an organization </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
-          <context context-type="linenumber">9,11</context>
+          <context context-type="linenumber">27,29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8778616811237742446" datatype="html">
         <source> Name </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
-          <context context-type="linenumber">17,19</context>
+          <context context-type="linenumber">35,37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
+          <context context-type="linenumber">35,37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
-          <context context-type="linenumber">17,19</context>
+          <context context-type="linenumber">35,37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4360239040231802726" datatype="html">
         <source> Actions </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
-          <context context-type="linenumber">24,26</context>
+          <context context-type="linenumber">42,44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
+          <context context-type="linenumber">42,44</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
-          <context context-type="linenumber">28,30</context>
+          <context context-type="linenumber">46,48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4168485708389700387" datatype="html">
         <source>Delete <x id="INTERPOLATION" equiv-text="{{ organization.name }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
+          <context context-type="linenumber">67</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="860771627147100170" datatype="html">
         <source> Delete <x id="INTERPOLATION" equiv-text="{{ organization.name }}"/> </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
-          <context context-type="linenumber">49,51</context>
+          <context context-type="linenumber">72,74</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
+          <context context-type="linenumber">72,74</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
-          <context context-type="linenumber">53,55</context>
+          <context context-type="linenumber">76,78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3658263344318351354" datatype="html">
         <source> There are no organizations to show. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
-          <context context-type="linenumber">68,70</context>
+          <context context-type="linenumber">91,93</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6733076969739703830" datatype="html">
         <source>Do you really want to delete the organization “<x id="PH" equiv-text="organization.name"/>”?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3864126936025461281" datatype="html">
         <source>The organization has been deleted successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1657488336094572012" datatype="html">
+        <source>New property</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-create-page/properties-create-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-create-page/properties-create-page.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-routing.module.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7778378325227194571" datatype="html">
+        <source> Back to properties </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-create-page/properties-create-page.component.html</context>
+          <context context-type="linenumber">24,26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
+          <context context-type="linenumber">34,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6893312086165198573" datatype="html">
+        <source> must be filled </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-create-page/properties-create-page.component.html</context>
+          <context context-type="linenumber">122,124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="484575547543185713" datatype="html">
+        <source> required </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-create-page/properties-create-page.component.html</context>
+          <context context-type="linenumber">125,127</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2499360345828685634" datatype="html">
+        <source>Create a property</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-create-page/properties-create-page.component.html</context>
+          <context context-type="linenumber">132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4204493646298208215" datatype="html">
+        <source>The property has been created successfully.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-create-page/properties-create-page.component.ts</context>
+          <context context-type="linenumber">208</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8043265691396795550" datatype="html">
+        <source>Edit property</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-routing.module.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7521523288312517873" datatype="html">
+        <source> Edition mode </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
+          <context context-type="linenumber">55,57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7658402240953727096" datatype="html">
+        <source>Name:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="91888534458202692" datatype="html">
+        <source>Internal name:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4757776676595688383" datatype="html">
+        <source>Type of value:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3688161184282846875" datatype="html">
+        <source>Unit:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4556172081682860211" datatype="html">
+        <source>Can be null:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="85195931455993054" datatype="html">
+        <source>Set current date:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
+          <context context-type="linenumber">125</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8065299861175662146" datatype="html">
+        <source>Regex validation:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
+          <context context-type="linenumber">130</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="443591334086063036" datatype="html">
+        <source>List of values:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
+          <context context-type="linenumber">142</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2965963774103444888" datatype="html">
+        <source>Default value:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
+          <context context-type="linenumber">147</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6996799422725544865" datatype="html">
+        <source>Description:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
+          <context context-type="linenumber">152</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6328045667055402821" datatype="html">
+        <source>The property has been updated successfully.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.ts</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8721861281513890587" datatype="html">
+        <source>Properties</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-routing.module.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1461399197778237904" datatype="html">
+        <source> Create a property </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
+          <context context-type="linenumber">27,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5627036671899398319" datatype="html">
+        <source> Loading of properties… </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
+          <context context-type="linenumber">84,86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2528241985098047703" datatype="html">
+        <source> There are no properties to show. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
+          <context context-type="linenumber">91,93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3845340795559068293" datatype="html">
+        <source>Do you really want to delete the property “<x id="PH" equiv-text="property.name"/>”?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7392202686121659382" datatype="html">
+        <source>The property has been deleted successfully.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.ts</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9220894978749198624" datatype="html">
         <source>New user</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-routing.module.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6940140960884268295" datatype="html">
         <source> Back to users </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">6,8</context>
+          <context context-type="linenumber">24,26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5342432350421167093" datatype="html">
         <source>First name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3683987907719228878" datatype="html">
         <source> (optional)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">57</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3586674587150281199" datatype="html">
         <source>Last name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5451710382399122662" datatype="html">
         <source>Main organization</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6054105917291240850" datatype="html">
         <source> The organization is required. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">105,107</context>
+          <context context-type="linenumber">133,135</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1525334987774465166" datatype="html">
         <source>Create a user</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">112</context>
+          <context context-type="linenumber">140</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8304688665352821987" datatype="html">
         <source> You don’t have the permission to create new users. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
-          <context context-type="linenumber">130,132</context>
+          <context context-type="linenumber">158,160</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2219269135978533399" datatype="html">
         <source>The user has been created successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.ts</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4555457172864212828" datatype="html">
         <source>Users</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
-          <context context-type="linenumber">1</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-routing.module.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6721783622639205720" datatype="html">
         <source> Create a user </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
-          <context context-type="linenumber">9,11</context>
+          <context context-type="linenumber">27,29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7291617695162503736" datatype="html">
         <source> Organization </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
-          <context context-type="linenumber">21,23</context>
+          <context context-type="linenumber">39,41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5970104799148685818" datatype="html">
         <source> Loading of users… </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
-          <context context-type="linenumber">65,67</context>
+          <context context-type="linenumber">88,90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6890812289295637592" datatype="html">
         <source> There are no users to show. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
-          <context context-type="linenumber">72,74</context>
+          <context context-type="linenumber">95,97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8332742064218767993" datatype="html">
         <source>Do you really want to delete the user “<x id="PH" equiv-text="user.name"/>”?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2646169429240945264" datatype="html">
         <source>The user has been deleted successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
     </body>

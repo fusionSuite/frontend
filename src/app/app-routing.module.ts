@@ -51,6 +51,11 @@ const routes: Routes = [
   },
 
   {
+    path: 'config/properties',
+    loadChildren: () => import('./pages/properties/properties.module').then(m => m.PropertiesModule),
+  },
+
+  {
     path: '**',
     title: $localize `Page not found`,
     component: NotFoundPageComponent,

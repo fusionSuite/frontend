@@ -16,15 +16,28 @@
  - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 
-<div class="notifications flow">
-  <p
+<div class="notifications">
+  <div
     *ngFor="let notification of notifications"
-    class="notifications__alert notifications__alert--{{ notification.status }}"
-    role="alert"
+    class="notifications__notification notifications__notification--{{ notification.status }}"
     attr.data-cy="notification-{{ notification.status }}"
   >
-    <button class="notifications__button" (click)="closeNotification(notification)">
-      {{ notification.message }}
-    </button>
-  </p>
+    <div class="notifications__notification__status">
+      <fa-icon icon="circle-check" *ngIf="notification.status === 'success'"></fa-icon>
+      <fa-icon icon="circle-xmark" *ngIf="notification.status === 'error'"></fa-icon>
+    </div>
+    <div class="notifications__notification__message">
+      <div class="notifications__notification__message__title">
+        {{ notification.status }}!
+      </div>
+      <div class="notifications__notification__message__message">
+        {{ notification.message }}
+      </div>
+    </div>
+    <fa-icon
+      icon="xmark"
+      class="notifications__notification__close"
+      (click)="closeNotification(notification)"
+    ></fa-icon>
+  </div>
 </div>

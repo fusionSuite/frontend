@@ -16,21 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// This file is required by karma.conf.ts and loads recursively all the .spec and framework files
-
-import 'zone.js/testing';
-import { getTestBed } from '@angular/core/testing';
-import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting,
-} from '@angular/platform-browser-dynamic/testing';
-
-// First, initialize the Angular testing environment.
-getTestBed().initTestEnvironment(
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting(),
-  {
-    errorOnUnknownElements: true,
-    errorOnUnknownProperties: true,
-  },
-);
+export interface ICreateProperty {
+  name: string;
+  // internalname: string|null;
+  valuetype: 'string'|'integer'|'decimal'|'text'|'boolean'|'datetime'|'date'|
+             'time'|'number'|'itemlink'|'itemlinks'|'typelink'|'typelinks'|
+             'propertylink'|'list'|'password'|'passwordhash';
+  unit: string|null;
+  description: string|null;
+  canbenull: boolean;
+  setcurrentdate: boolean|null;
+  regexformat: string|null;
+  listvalues: {
+    id: number;
+    value: string;
+  }[];
+  default: any|null;
+  // organization_id: number;
+  // sub_organization: boolean;
+}

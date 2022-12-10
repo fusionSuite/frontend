@@ -22,45 +22,69 @@
   top: 1rem;
   right: 1rem;
 
-  width: 300px;
+  display: flex;
+  width: 500px;
+
+  flex-direction: column;
+  gap: 10px;
 }
 
-.notifications__button {
-  display: block;
-  width: 100%;
-  padding: 1rem;
+.notifications__notification {
+  display: flex;
 
-  text-align: left;
+  padding-top: 15px;
+  padding-bottom: 15px;
 
-  box-shadow: 1px 2px 2px var(--color-grey8);
-  border: none;
-  border-radius: 10px;
+  flex-grow: 1;
+  justify-content: stretch;
+  gap: 10px;
 
-  .notifications__alert--error & {
-    color: var(--color-error12);
+  border: 1px solid;
+  border-radius: 8px;
+}
 
-    background-color: var(--color-error4);
-  }
+.notifications__notification__status {
+  width: 68px;
 
-  .notifications__alert--success & {
-    color: var(--color-success12);
+  padding-left: 15px;
 
-    background-color: var(--color-success4);
-  }
+  font-size: 48px;
+}
 
-  .notifications__alert--error &:hover {
-    background-color: var(--color-error5);
-  }
+.notifications__notification--error {
+  color: var(--color-error11);
 
-  .notifications__alert--error &:active {
-    background-color: var(--color-error6);
-  }
+  background-color: var(--color-error4);
+  border-color: var(--color-error11);
+}
 
-  .notifications__alert--success &:hover {
-    background-color: var(--color-success5);
-  }
+.notifications__notification--success {
+  color: var(--color-success11);
 
-  .notifications__alert--success &:active {
-    background-color: var(--color-success6);
-  }
+  background-color: var(--color-success4);
+  border-color: var(--color-success11);
+}
+
+.notifications__notification__message {
+  flex-grow: 1;
+
+  font-size: 15px;
+}
+
+.notifications__notification__message__title {
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.notifications__notification__message__message {
+  flex-grow: 1;
+}
+
+.notifications__notification__close {
+  width: 45px;
+
+  font-size: 20px;
+
+  cursor: pointer;
 }

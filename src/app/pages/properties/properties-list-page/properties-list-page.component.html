@@ -1,0 +1,98 @@
+<!--
+ - FusionSuite - Frontend
+ - Copyright (C) 2022 FusionSuite
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as published by
+ - the Free Software Foundation, either version 3 of the License, or
+ - any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<app-page i18n-page-title page-title="Properties">
+  <header class="page__header">
+    <h1 i18n>Properties</h1>
+  </header>
+
+  <div class="page__inner flow">
+    <a class="a--action" [routerLink]="['/config/properties/new']" data-cy="link-properties-new">
+      <fa-icon icon="plus" [fixedWidth]="true"></fa-icon>
+      <ng-container i18n>
+        Create a property
+      </ng-container>
+    </a>
+
+    <table>
+      <thead>
+        <tr>
+          <th i18n>
+            Name
+          </th>
+
+          <th class="col--actions">
+            <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
+
+            <span class="sr-only" i18n>
+              Actions
+            </span>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody data-cy="list-properties">
+        <tr *ngFor="let property of properties | sortBy:'asc':'name'" data-cy="item-properties">
+          <td>
+            <a
+              class="a--animation"
+              [routerLink]="['/config/properties/' + property.id]"
+              [id]="property.id"
+              [name]="property.name"
+            >
+              {{ property.name }}
+            </a>
+          </td>
+
+          <td class="col--actions">
+            <form [formGroup]="deleteForm" (ngSubmit)="deleteProperty(property)">
+              <button
+                type="submit"
+                i18n-title
+                title="Delete {{ property.name }}"
+                data-cy="button-property-delete"
+              >
+                <fa-icon icon="trash" [fixedWidth]="true"></fa-icon>
+
+                <span class="sr-only" i18n>
+                  Delete {{ property.name }}
+                </span>
+              </button>
+            </form>
+          </td>
+        </tr>
+
+        <tr *ngIf="!propertiesLoaded">
+          <td colspan="2" class="loader flow">
+            <div class="loader__spinner"></div>
+
+            <p class="loader__message" i18n>
+              Loading of properties…
+            </p>
+          </td>
+        </tr>
+
+        <tr *ngIf="propertiesLoaded && properties.length === 0" class="tr--placeholder">
+          <td colspan="2" i18n>
+            There are no properties to show.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</app-page>

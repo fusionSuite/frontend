@@ -1,0 +1,136 @@
+<!--
+ - FusionSuite - Frontend
+ - Copyright (C) 2022 FusionSuite
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as published by
+ - the Free Software Foundation, either version 3 of the License, or
+ - any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<app-page i18n-page-title page-title="New property">
+  <header class="page__header flow flow--small">
+    <h1 i18n>New property</h1>
+
+    <div>
+      <a class="a--back" [routerLink]="['/config/properties']" data-cy="back-to-properties-list" i18n>
+        Back to properties
+      </a>
+    </div>
+  </header>
+
+  <div class="page__inner">
+    <form
+      [formGroup]="newPropertyForm"
+      (ngSubmit)="onFormSubmit()"
+      class="flow wrapper wrapper--small"
+      data-cy="form-properties-new"
+    >
+      <div *ngFor="let element of elementsForm">
+        <div
+          *ngIf="element.type !== 'switch'"
+          class="form__container"
+          [attr.aria-invalid]="elementIsInvalid(element.name)"
+        >
+          <div class="form__container__sub">
+            <label
+              class="form__label"
+              [attr.aria-invalid]="elementIsInvalid(element.name)"
+            >
+            {{ element.label }}
+            </label>
+            <input
+              *ngIf="element.type === 'input'"
+              [id]="element.name"
+              [name]="element.name"
+              type="text"
+              [formControlName]="element.name"
+            >
+
+            <select
+              *ngIf="element.type === 'select'"
+              [id]="element.name"
+              [name]="element.name"
+              [formControlName]="element.name"
+            >
+              <option *ngFor="let type of types | keyvalue" [value]="type.key">
+                {{ type.value }}
+              </option>
+            </select>
+          </div>
+          <!-- radio -->
+
+          <!-- checkbox -->
+
+          <fa-icon
+            *ngIf="elementIsInvalid(element.name)"
+            class="form__trailling__icon form__error"
+            icon="exclamation-circle"
+          ></fa-icon>
+          <fa-icon
+            *ngIf="!elementIsInvalid(element.name) && !element.nonNullable"
+            class="form__trailling__icon"
+            [icon]="['far', 'circle-xmark']"
+            (click)="resetToNull(element.name)"
+          ></fa-icon>
+        </div>
+
+        <div
+          *ngIf="element.type === 'switch'"
+          class="form__container form__container__switch"
+          [attr.aria-invalid]="elementIsInvalid(element.name)"
+        >
+          <label
+            *ngIf="element.type === 'switch'"
+            class="form__switch"
+          >
+            <input
+              [id]="element.name"
+              [name]="element.name"
+              type="checkbox"
+              [formControlName]="element.name"
+            >
+            <span class="slider"></span>          
+          </label>
+
+          <label
+            class="form__swith__label"
+            [attr.aria-invalid]="elementIsInvalid(element.name)"
+          >
+          {{ element.label }}
+          </label>
+        </div>
+
+        <div
+          class="form__supporting_text"
+          id="name-error"
+          role="alert"
+        >
+          <span class="sr-only" i18n>Error:</span>
+          <span
+            *ngIf="elementHasError(element.name, 'required') && elementIsInvalid(element.name) && element.required"
+            class="form__error"
+            i18n
+          >
+            must be filled
+          </span>
+          <span *ngIf="!elementIsInvalid(element.name) && element.required" i18n>
+            required
+          </span>
+        </div>
+      </div>
+
+      <div class="form__actions">
+        <button type="submit" class="button--primary form__button__submit" data-cy="submit" i18n>Create a property</button>
+      </div>
+    </form>
+  </div>
+</app-page>
