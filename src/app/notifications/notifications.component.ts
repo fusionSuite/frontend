@@ -35,10 +35,14 @@ export class NotificationsComponent implements OnInit {
   ngOnInit (): void {
     this.notificationsService.subscribe((notification: Notification) => {
       this.notificationsByIds[notification.id] = notification;
+      let timeout = 10000;
+      if (notification.status === 'success') {
+        timeout = 4000;
+      }
 
       setTimeout(() => {
         this.closeNotification(notification);
-      }, 7000);
+      }, timeout);
     });
   }
 

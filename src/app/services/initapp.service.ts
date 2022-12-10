@@ -22,7 +22,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { IProperty } from 'src/app/interfaces/property';
+import { IItemproperty } from 'src/app/interfaces/itemproperty';
 import { IType } from 'src/app/interfaces/type';
 
 import { AuthService } from 'src/app/services/auth.service';
@@ -91,7 +91,7 @@ export class InitappService {
         types.forEach((type: IType) => {
           this.SettingsService.setTypeIndex(type.internalname, type);
 
-          type.properties.forEach((property: IProperty) => {
+          type.properties.forEach((property: IItemproperty) => {
             this.SettingsService.setPropertyIndex(property.internalname, property);
           });
         });

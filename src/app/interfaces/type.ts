@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IProperty } from './property';
+import { IItemproperty } from './itemproperty';
 
 export interface IType {
   id: number;
   internalname: string;
-  properties: IProperty[];
+  properties: IItemproperty[];
 }

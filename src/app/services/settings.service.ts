@@ -18,7 +18,7 @@
 
 import { Injectable } from '@angular/core';
 
-import { IProperty } from 'src/app/interfaces/property';
+import { IItemproperty } from 'src/app/interfaces/itemproperty';
 import { IType } from 'src/app/interfaces/type';
 
 interface Configuration {
@@ -33,7 +33,7 @@ export class SettingsService {
     backendUrl: '/api',
   };
 
-  private propertiesIndexedByInternalname: {[key: string]: IProperty} = {};
+  private propertiesIndexedByInternalname: {[key: string]: IItemproperty} = {};
   private typesIndexedByInternalname: {[key: string]: IType} = {};
 
   constructor (

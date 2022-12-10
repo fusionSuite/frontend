@@ -18,7 +18,7 @@
 
 describe('users', () => {
   beforeEach(() => {
-    cy.dbReset();
+    // cy.dbReset();
     cy.login('admin', 'admin');
   });
 

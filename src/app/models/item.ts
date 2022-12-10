@@ -17,7 +17,7 @@
  */
 
 import { IItem } from 'src/app/interfaces/item';
-import { IProperty } from 'src/app/interfaces/property';
+import { IItemproperty } from 'src/app/interfaces/itemproperty';
 
 export class Item {
   item: IItem;
@@ -26,7 +26,7 @@ export class Item {
   parentId: number;
   treepath: string;
   name: string;
-  propertiesIndexedByInternalname: {[key: string]: IProperty} = {};
+  propertiesIndexedByInternalname: {[key: string]: IItemproperty} = {};
 
   constructor (item: IItem) {
     this.item = item;

@@ -1,0 +1,92 @@
+/**
+ * FusionSuite - Frontend
+ * Copyright (C) 2022 FusionSuite
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+.form__edit {
+  display: flex;
+
+  flex-direction: column;
+  gap: 8px;
+
+  &__item {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    &__title {
+      min-width: 200px;
+      min-height: 40px;
+
+      color: var(--color-grey11);
+    }
+
+    &__value {
+      min-width: 300px;
+      min-height: 40px;
+      padding-left: 2px;
+
+      flex-grow: 1;
+
+      input {
+        padding-left: 0;
+
+        font-family: inherit;
+        font-size: 20px;
+
+        background-color: transparent;
+        border: none;
+        border-bottom: 2px solid var(--color-grey7);
+
+        &:focus {
+          border-bottom: 2px solid var(--color-primary10);
+          outline: none !important;
+        }
+      }
+
+      textarea {
+        padding-left: 0;
+
+        font-family: inherit;
+        font-size: 18px;
+
+        background-color: transparent;
+        border: none;
+        border-bottom: 2px solid var(--color-grey7);
+
+        &:focus {
+          border-bottom: 2px solid var(--color-primary10);
+          outline: none !important;
+        }
+      }
+    }
+  }
+}
+
+.form__container__editionmode {
+  display: flex;
+  min-height: 57px;
+  padding: 8px 16px;
+
+  align-items: center;
+
+  border: none;
+  gap: 10px;
+
+  &:focus {
+    outline: none !important;
+  }
+}

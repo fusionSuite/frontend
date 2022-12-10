@@ -52,6 +52,25 @@
   </li>
 </ul>
 
+<li class="page__nav-item">
+  <strong>Configuration</strong>
+</li>
+
+<li class="page__nav-item">
+  <a
+    class="page__nav-link"
+    [routerLink]="['/config/properties']"
+    routerLinkActive="active"
+    ariaCurrentWhenActive="page"
+    data-cy="link-properties"
+  >
+    <fa-icon icon="screwdriver-wrench" size="xs" [fixedWidth]="true"></fa-icon>
+    <ng-container i18n>
+      Properties
+    </ng-container>
+  </a>
+</li>
+
 <div class="page__nav-bottom">
   <div class="page__nav-bottom-extend">
     <div class="page__nav-username">
