@@ -22,7 +22,7 @@ ifdef DOCKER
 	NG = ./docker/bin/ng
 	YARN = ./docker/bin/yarn
 else
-	NG = ng
+	NG = ./node_modules/.bin/ng
 	YARN = yarn
 endif
 
