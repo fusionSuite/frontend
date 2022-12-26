@@ -30,6 +30,7 @@ import { PropertiesCreatePageComponent } from './properties-create-page/properti
 import { PropertiesListPageComponent } from './properties-list-page/properties-list-page.component';
 import { SortByPipe } from 'src/app/utils/sort-by.pipe';
 import { PropertiesEditPageComponent } from './properties-edit-page/properties-edit-page.component';
+import { TimelineComponent } from 'src/app/timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { PropertiesEditPageComponent } from './properties-edit-page/properties-e
     PropertiesListPageComponent,
     PropertiesEditPageComponent,
     SortByPipe,
+    TimelineComponent,
   ],
   imports: [
     CommonModule,

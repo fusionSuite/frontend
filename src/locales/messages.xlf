@@ -479,77 +479,77 @@
         <source>Name:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="91888534458202692" datatype="html">
         <source>Internal name:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4757776676595688383" datatype="html">
         <source>Type of value:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">92</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3688161184282846875" datatype="html">
         <source>Unit:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4556172081682860211" datatype="html">
         <source>Can be null:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit>
       <trans-unit id="85195931455993054" datatype="html">
         <source>Set current date:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8065299861175662146" datatype="html">
         <source>Regex validation:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">130</context>
+          <context context-type="linenumber">134</context>
         </context-group>
       </trans-unit>
       <trans-unit id="443591334086063036" datatype="html">
         <source>List of values:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">142</context>
+          <context context-type="linenumber">146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2965963774103444888" datatype="html">
         <source>Default value:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">147</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6996799422725544865" datatype="html">
         <source>Description:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">152</context>
+          <context context-type="linenumber">156</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6328045667055402821" datatype="html">
         <source>The property has been updated successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.ts</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">166</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8721861281513890587" datatype="html">
@@ -739,6 +739,27 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.ts</context>
           <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4935159344416216714" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span *ngIf=&quot;showEvents&quot;&gt;"/><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;fa-icon icon=&quot;eye-slash&quot; [fixedWidth]=&quot;true&quot;&gt;"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon&gt;"/> Hide events <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/><x id="START_TAG_SPAN_1" ctype="x-span_1" equiv-text="&lt;span *ngIf=&quot;!showEvents&quot;&gt;"/><x id="START_TAG_FA_ICON_1" ctype="x-fa_icon_1" equiv-text="&lt;fa-icon icon=&quot;eye&quot; [fixedWidth]=&quot;true&quot;&gt;"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon&gt;"/> Show events <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/timeline/timeline.component.html</context>
+          <context context-type="linenumber">28,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8634498507580108675" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span *ngIf=&quot;showConversation&quot;&gt;"/><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;fa-icon icon=&quot;comment-slash&quot; [fixedWidth]=&quot;true&quot;&gt;"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon&gt;"/> Hide conversation <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/><x id="START_TAG_SPAN_1" ctype="x-span_1" equiv-text="&lt;span *ngIf=&quot;!showConversation&quot;&gt;"/><x id="START_TAG_FA_ICON_1" ctype="x-fa_icon_1" equiv-text="&lt;fa-icon icon=&quot;comment&quot; [fixedWidth]=&quot;true&quot;&gt;"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon&gt;"/> Show conversation <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/timeline/timeline.component.html</context>
+          <context context-type="linenumber">39,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5512334500659434303" datatype="html">
+        <source><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;fa-icon icon=&quot;paper-plane&quot; [fixedWidth]=&quot;true&quot;&gt;"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon&gt;"/> Submit </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/timeline/timeline.component.html</context>
+          <context context-type="linenumber">179,180</context>
         </context-group>
       </trans-unit>
     </body>

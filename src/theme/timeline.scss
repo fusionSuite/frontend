@@ -1,0 +1,289 @@
+/**
+ * FusionSuite - Frontend
+ * Copyright (C) 2022 FusionSuite
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+.avatar {
+  position: absolute;
+
+  width: 56px;
+  height: 56px;
+  margin-left: -75px;
+
+  border: 0;
+
+  img {
+    width: 56px;
+    height: 56px;
+
+    border: 1px solid var(--color-primary6);
+    border-radius: 50%;
+  }
+
+  .user-type {
+    position: relative;
+    top: -27px;
+    left: 30px;
+
+    width: 30px;
+    height: 30px;
+
+    background-color: var(--color-primary3);
+    border: 1px solid var(--color-primary6);
+    border-radius: 50%;
+
+    fa-icon {
+      position: relative;
+      top: 4px;
+      left: 4px;
+
+      color: var(--color-grey11);
+    }
+  }
+}
+
+.conversation-message {
+  width: 900px;
+  margin-top: 30px;
+  margin-left: 80px;
+
+  font-size: 20;
+
+  background-color: #fff;
+  border-radius: 5px !important;
+
+  .content {
+    margin: 20px;
+  }
+
+  .date-ago {
+    margin-right: 20px;
+    margin-left: auto;
+  }
+
+  .header {
+    display: flex;
+    height: 40px;
+
+    align-items: center;
+  }
+
+  .title {
+    display: inline-block;
+
+    width: 150px;
+    margin-left: 20px;
+
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  &::before {
+    content: "";
+
+    position: absolute;
+
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-top: 12px;
+    margin-left: -8px;
+
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+  }
+}
+
+.conversion-function-user {
+  border: 1px solid var(--brown4);
+
+  &::before {
+    border-right: 8px solid var(--brown4);
+  }
+
+  .header {
+    background-color: var(--brown4);
+
+    .title {
+      .icon-info {
+        color: var(--brown8);
+
+        cursor: pointer;
+      }
+    }
+  }
+
+  .avatar {
+    img {
+      border: 1px solid var(--brown6);
+    }
+
+    .user-type {
+      background-color: var(--brown3);
+      border: 1px solid var(--brown4);
+    }
+  }
+}
+
+.conversion-function-tech {
+  border: 1px solid var(--color-primary6);
+
+  &::before {
+    border-right: 8px solid var(--color-primary6);
+  }
+
+  .header {
+    background-color: var(--color-primary6);
+
+    .title {
+      .icon-info {
+        color: var(--color-primary8);
+
+        cursor: pointer;
+      }
+    }
+  }
+
+  .header-private {
+    background: linear-gradient(to right, var(--color-primary6), var(--color-error9));
+  }
+
+  .header-solution {
+    background: linear-gradient(to right, var(--color-primary6), rgb(142 117 253));
+  }
+}
+
+.timeline {
+  background: linear-gradient(var(--color-grey6) 0 0) 20px;
+  background-repeat: no-repeat;
+  background-size: 2px 100%;
+
+  .end {
+    height: 30px;
+
+    background-color: #fbfcfd;
+  }
+
+  .sortselect {
+    float: right;
+
+    margin-right: 10px;
+    margin-left: auto;
+  }
+
+  .event {
+    margin-top: 30px;
+    margin-left: 0;
+
+    .bubble {
+      display: inline-grid;
+
+      width: 40px;
+      height: 40px;
+
+      justify-content: center;
+
+      background-color: #fff;
+
+      border: 1px solid var(--color-grey6);
+      border-radius: 50%;
+
+      fa-icon {
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+    }
+
+    .content {
+      display: flex;
+      margin-top: -30px;
+      margin-left: 50px;
+
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .user {
+      margin-top: 8px;
+      margin-right: 5px;
+
+      font-weight: bold;
+    }
+  }
+
+  &__conversation {
+    background: linear-gradient(var(--color-grey6) 0 0) 120px;
+    background-repeat: no-repeat;
+    background-size: 2px 100%;
+
+    .event {
+      width: 900px !important;
+      margin-left: 100px !important;
+    }
+
+    .sortselect {
+      margin-right: 170px !important;
+    }
+
+    form {
+      margin-left: 150px;
+
+      .addMessageBox {
+        position: relative;
+
+        overflow: hidden;
+
+        height: 90px;
+
+        border: 2px solid #eee;
+        border-radius: 5px !important;
+      }
+
+      .addMessageBoxExpanded {
+        overflow: visible;
+
+        height: none;
+        min-height: 300px;
+
+        border: 2px solid #eee;
+        border-radius: 5px !important;
+      }
+
+      .options {
+        display: flex;
+
+        margin: 5px;
+
+        flex-wrap: wrap;
+        gap: 10px 40px;
+
+        div {
+          display: block ruby;
+        }
+
+        .last {
+          margin-left: auto;
+        }
+      }
+
+      .editor {
+        min-height: 300px;
+        margin: 5px;
+      }
+    }
+  }
+}

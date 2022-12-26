@@ -23,6 +23,7 @@
 @import "alerts";
 @import "anchors";
 @import "buttons";
+@import "timeline";
 @import "forms";
 @import "formsedit";
 @import "loaders";
@@ -30,6 +31,8 @@
 @import "notifications";
 @import "tables";
 @import "text";
+@import "../node_modules/@toast-ui/editor/dist/toastui-editor.css";
+@import "../node_modules/@toast-ui/editor/dist/toastui-editor-viewer.css";
 
 *,
 *::before,
