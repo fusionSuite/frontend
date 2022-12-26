@@ -72,6 +72,26 @@
           outline: none !important;
         }
       }
+
+      select {
+        width: 100%;
+
+        color: inherit;
+        font-family: inherit;
+        font-size: 20px;
+        text-overflow: ellipsis;
+
+        appearance: none;
+
+        background-color: transparent;
+
+        border: none;
+        border-bottom: 2px solid var(--color-grey7);
+
+        &:focus {
+          outline: none !important;
+        }
+      }
     }
   }
 }

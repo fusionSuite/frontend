@@ -59,7 +59,11 @@
   </header>
 
   <div class="page__inner">
-    <div *ngIf="propertyLoaded && property !== null" class="form__edit">
+    <div *ngIf="propertyLoaded && property !== null" class="form__edit page__inner__cadre">
+      <div class="page__inner__title">
+        <fa-icon icon="circle-info" [fixedWidth]="true"></fa-icon>
+        Main
+      </div>
       <form
         [formGroup]="formControls"
         data-cy="form-properties-new"
@@ -163,5 +167,10 @@
         </div>
       </form>
     </div>
+    <app-timeline
+      *ngIf="property !== null && property.changes !== null"
+      [changes]="property.changes"
+      class="form__edit page__inner__cadre"
+    ></app-timeline>
   </div>
 </app-page>

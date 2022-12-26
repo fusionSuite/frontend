@@ -1,0 +1,186 @@
+<!--
+ - FusionSuite - Frontend
+ - Copyright (C) 2022 FusionSuite
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as published by
+ - the Free Software Foundation, either version 3 of the License, or
+ - any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<div class="page__inner__title" data-cy="timeline-title">
+  <fa-icon icon="timeline" [fixedWidth]="true"></fa-icon>
+  Timeline
+  <span class="page__inner__title__note">{{ changes.length }} modifications</span>
+</div>
+
+<div [ngClass]="['timeline', haveMessages ? 'timeline__conversation' : '']">
+  <div style="margin-left: 80px;margin-bottom: 20px;float: left;" *ngIf="haveMessages">
+    <button type="submit" class="button" data-cy="timeline-submit-showevent" (click)="toggleDisplayEvents()">
+      <span *ngIf="showEvents">
+        <fa-icon icon="eye-slash" [fixedWidth]="true"></fa-icon>
+        Hide events
+      </span>
+      <span *ngIf="!showEvents">
+        <fa-icon icon="eye" [fixedWidth]="true"></fa-icon>
+        Show events
+      </span>
+    </button>
+
+    <button type="submit" class="button" data-cy="timeline-submit-showconversation" (click)="toggleDisplayConversation()" style="margin-left: 10px;">
+      <span *ngIf="showConversation">
+        <fa-icon icon="comment-slash" [fixedWidth]="true"></fa-icon>
+        Hide conversation
+      </span>
+      <span *ngIf="!showConversation">
+        <fa-icon icon="comment" [fixedWidth]="true"></fa-icon>
+        Show conversation
+      </span>
+    </button>
+  </div>
+  <div class="sortselect form__edit__item__value">
+    <select
+      (change)="changeSort($event)"
+      data-cy="timeline-changesort"
+    >
+      <option value="newest">Newest First</option>
+      <option value="oldest">Oldest first</option>
+    </select>
+  </div>
+
+  <div style="height: 120px" *ngIf="haveMessages"></div>
+
+  <div *ngIf="haveMessages && sortItems == 'newest';then formAddMessage"></div>
+
+  <!-- Start timeline -->
+  <div *ngFor="let item of changes">
+    <!-- <div *ngIf="item.type == 'message' && showConversation" class="conversation-message" [ngClass]="'conversion-function-'+item.user.function">
+      <div class="avatar">
+        <img src="assets/avatar.png">
+        <div class="user-type">
+          <fa-icon [icon]="item.icon" size="sm" [fixedWidth]="true"></fa-icon>
+        </div>
+      </div>
+      <div [ngClass]="['header', item.private ? 'header-private' : '', item.solution ? 'header-solution' : '']">
+        <div class="title">
+          <fa-icon *ngIf="item.sourceMessage != null" [icon]="item.sourceMessage" [fixedWidth]="true"></fa-icon>
+          {{ item.user.firstName }}
+          <fa-icon icon="circle-info" [fixedWidth]="true" class="icon-info" (click)="setUserInformationId(item.user.id)"></fa-icon>
+        </div>
+        <span *ngIf="item.solution" style="color: rgb(142, 117, 253); font-weight: bold;border: 1px solid rgb(142, 117, 253); height: 26px; border-radius: 13px; padding-left: 8px; padding-right: 8px;">
+          // <fa-icon icon="block-question" [fixedWidth]="true"></fa-icon>
+          // <fa-icon icon="face-saluting" [fixedWidth]="true"></fa-icon>
+          <fa-icon icon="bullhorn" [fixedWidth]="true"></fa-icon>
+          It's a solution
+        </span>
+        <span *ngIf="item.private" style="color: var(--color-error9); font-weight: bold; border: 1px solid var(--color-error9); height: 26px; border-radius: 13px; padding-left: 8px; padding-right: 8px;">
+          <fa-icon icon="user-secret" [fixedWidth]="true"></fa-icon>
+          It's a private message
+        </span>
+        <div class="date-ago">{{ item.dateDistance }}
+          <fa-icon icon="ellipsis" [fixedWidth]="true"></fa-icon>
+        </div>
+      </div>
+      <div>
+        <div *ngIf="item.solution" style="width: 100%; margin-left: auto; justify-content: center; display: flex; margin-top: 4px;">
+          <button type="submit" class="button">
+            <fa-icon icon="thumbs-up" [fixedWidth]="true" style="color: var(--color-success9);"></fa-icon>
+            Accept
+          </button>
+          <button type="submit" class="button" style="margin-left: 4px;">
+            <fa-icon icon="thumbs-down" [fixedWidth]="true" style="color: var(--color-error9);"></fa-icon>
+            Refuse
+          </button>
+        </div>
+        <div class="content" [innerHTML]="item.message">
+        </div>
+      </div>
+    </div> -->
+
+    <div
+      *ngIf="item.customdata !== undefined && item.customdata.type == 'event' && showEvents"
+      class="event text--secondary"
+    >
+      <div style="display: contents;">
+        <span class="bubble">
+          <fa-icon [icon]="item.customdata.icon" [fixedWidth]="true"></fa-icon>
+        </span>
+        <span class="content">
+          <span data-cy="timeline-event">
+            <span class="user" *ngIf="item.user !== null">
+              {{ item.user.first_name }} {{ item.user.last_name }}
+            </span>
+            {{ item.message }}
+          </span>
+          <div class="date-ago">{{ item.customdata.dateDistance }}</div>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="end" *ngIf="sortItems == 'oldest'">
+    <div class="end"></div>
+    <!-- <div *ngIf="sortItems == 'oldest';then formAddMessage" style="margin-top: 30px;"></div> -->
+    <div class="end"></div>
+  </div>
+
+  <div class="end"></div>
+</div>
+
+<ng-template #formAddMessage>
+  <form
+    [formGroup]="addMessageForm"
+    (ngSubmit)="onFormSubmit()"
+    class="flow wrapper wrapper--small"
+    data-cy="timeline-addmessage-form"
+  >
+    <div [ngClass]="expandedWriteBox ? 'addMessageBoxExpanded' : 'addMessageBox'">
+      <div
+        id="editor"
+        #editor
+        class="editor"
+        (loaded)="loadEditor()"
+        name="message"
+        (focus)="updateDescription($event)"
+      >
+      </div>
+
+      <div formArrayName="options" class="options">
+        <div *ngFor="let option of messageOptions; let i = index">
+          {{ option.label }}
+          <input
+            [id]="option.name"
+            [name]="option.name"
+            type="checkbox"
+            [formControlName]="i"
+            *ngIf="option.type === 'checkbox'"
+          >
+          <select
+            style="max-width: 120px;"
+            [id]="option.name"
+            [name]="option.name"
+            type="checkbox"
+            [formControlName]="i"
+            *ngIf="option.type === 'select'"
+          >
+            <option *ngFor="let item of option.selectValues">{{ item }}</option>
+          </select>
+          <!-- <fa-icon icon="user-secret" size="xs" [fixedWidth]="true"></fa-icon> -->
+        </div>
+        <span class="form__actions last">
+          <button type="submit" class="button--primary" data-cy="timeline-submit-admessage" (click)="submitMessage()" i18n>
+            <fa-icon icon="paper-plane" [fixedWidth]="true"></fa-icon> Submit
+          </button>
+        </span>
+      </div>
+    </div>
+  </form>
+</ng-template>

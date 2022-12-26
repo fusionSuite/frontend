@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { IChange } from './change';
 import { IShortOrganization } from './short-organization';
 import { IShortUser } from './short-user';
 
@@ -44,4 +45,5 @@ export interface IProperty {
   default: any|null;
   organization: IShortOrganization;
   sub_organization: boolean;
+  changes: IChange[];
 }

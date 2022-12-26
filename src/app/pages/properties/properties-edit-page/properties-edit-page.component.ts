@@ -27,7 +27,7 @@ import { NotificationsService } from 'src/app/notifications/notifications.servic
 import { PropertiesApi } from 'src/app/api/properties';
 import { IProperty } from 'src/app/interfaces/property';
 import { ActivatedRoute } from '@angular/router';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { formatDistanceToNow, formatDistanceToNowStrict } from 'date-fns';
 import { IPanel } from 'src/app/interfaces/panel';
 
 @Component({
@@ -93,6 +93,20 @@ export class PropertiesEditPageComponent implements OnInit {
   public loadProperty () {
     this.propertiesApi.get(this.id)
       .subscribe(res => {
+        for (const change of res.changes) {
+          change.customdata = {
+            user: {
+              avatar: null,
+              function: 'user',
+            },
+            icon: 'user',
+            sourceMessage: null,
+            dateDistance: formatDistanceToNowStrict(new Date(change.created_at), { addSuffix: true }),
+            type: 'event',
+            private: false,
+            solution: false,
+          };
+        }
         this.property = res;
         this.udpateDateDistance();
         this.loopUdpateDateDistance();
