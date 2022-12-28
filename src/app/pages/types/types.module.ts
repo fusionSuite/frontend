@@ -18,34 +18,39 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { LayoutModule } from 'src/app/layout/layout.module';
 
-import { PropertiesRoutingModule } from './properties-routing.module';
+import { TypesRoutingModule } from './types-routing.module';
 
-import { PropertiesCreatePageComponent } from './properties-create-page/properties-create-page.component';
-import { PropertiesListPageComponent } from './properties-list-page/properties-list-page.component';
-import { PropertiesEditPageComponent } from './properties-edit-page/properties-edit-page.component';
+import { TypesListPageComponent } from './types-list-page/types-list-page.component';
+import { TypesCreatePageComponent } from './types-create-page/types-create-page.component';
+import { TypesImportPageComponent } from './types-import-page/types-import-page.component';
+import { TypesEditPageComponent } from './types-edit-page/types-edit-page.component';
 import { TimelineModule } from 'src/app/timeline/timeline.module';
 import { SortbypipeModule } from 'src/app/utils/sortbypipe.module';
+import { DragdropfileDirective } from 'src/app/directive/dragdropfile.directive';
 
 @NgModule({
   declarations: [
-    PropertiesCreatePageComponent,
-    PropertiesListPageComponent,
-    PropertiesEditPageComponent,
+    TypesListPageComponent,
+    TypesCreatePageComponent,
+    TypesImportPageComponent,
+    TypesEditPageComponent,
+    DragdropfileDirective,
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
     LayoutModule,
-    PropertiesRoutingModule,
+    TypesRoutingModule,
     ReactiveFormsModule,
     TimelineModule,
     SortbypipeModule,
+    FormsModule,
   ],
 })
-export class PropertiesModule { }
+export class TypesModule { }

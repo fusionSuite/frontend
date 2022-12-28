@@ -37,6 +37,8 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { NotificationsComponent } from './notifications/notifications.component';
 import { httpInterceptorProviders } from './services/auth.interceptor';
 import { InitappService } from './services/initapp.service';
+import { TimelineModule } from './timeline/timeline.module';
+import { SortbypipeModule } from './utils/sortbypipe.module';
 
 function initializeApp (initapp: InitappService) {
   return () => initapp.loadConfiguration();
@@ -59,6 +61,8 @@ function initializeApp (initapp: InitappService) {
     FontAwesomeModule,
     LayoutModule,
     ReactiveFormsModule,
+    TimelineModule,
+    SortbypipeModule,
   ],
   providers: [
     httpInterceptorProviders,

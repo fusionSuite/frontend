@@ -1,0 +1,45 @@
+<!--
+ - FusionSuite - Frontend
+ - Copyright (C) 2022 FusionSuite
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as published by
+ - the Free Software Foundation, either version 3 of the License, or
+ - any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<app-page i18n-page-title page-title="New type">
+  <div style="display: flex; flex-direction: column;height: 100%">
+    <header class="page__header flow flow--small">
+      <h1 i18n>Import types</h1>
+
+      <div>
+        <a class="a--back" [routerLink]="['/config/types']" data-cy="back-to-types-list" i18n>
+          Back to types
+        </a>
+      </div>
+    </header>
+
+    <div class="page__inner" style="height: 100%;">
+      <form class="form" style="flex-grow: 1;">
+        <div class="form__draganddrop" appDragdropfile (fileDropped)="onFileDropped($event)" data-cy="type-import-dragdropzone">
+          <div style="margin-top: 80px;" i18n>
+            Drag and drop file here
+          </div>
+          <div>
+            <label for="file" i18n>or<br></label>
+            <input type="file" id="file" (change)="handleFileInput($event)" data-cy="type-import-imputfile" />
+          </div>        
+        </div>
+      </form>
+    </div>
+  </div>
+</app-page>

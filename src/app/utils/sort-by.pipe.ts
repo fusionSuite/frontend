@@ -43,6 +43,6 @@ export class SortByPipe implements PipeTransform {
         return value.sort().reverse();
       }
     } // sort 1d array
-    return orderBy(value, [column], [order]);
+    return orderBy(value, [value => value[column].toLowerCase()], [order]);
   }
 }

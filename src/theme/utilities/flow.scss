@@ -17,11 +17,9 @@
  */
 
 .flow {
-  > * + * {
-    margin-top: 1rem;
-  }
+  margin-top: 1rem;
 
-  &.flow--small > * + * {
+  &.flow--small {
     margin-top: 0.5rem;
   }
 }

@@ -82,7 +82,7 @@ export class PropertiesCreatePageComponent implements OnInit {
   public elementsForm: IFormElement[] = [
     {
       name: 'name',
-      label: 'Proprty name',
+      label: 'Property name',
       type: 'input',
       nonNullable: true,
       required: true,

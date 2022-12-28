@@ -16,14 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export interface IFormElement {
-  name: string;
-  label: string;
-  type: 'input'|'select'|'radio'|'checkbox'|'switch';
-  nonNullable: boolean;
-  required: boolean;
-  dependency?: {
-    name: string;
-    value: any;
-  }
-}
+import { DragdropfileDirective } from './dragdropfile.directive';
+
+describe('DragdropfileDirective', () => {
+  it('should create an instance', () => {
+    const directive = new DragdropfileDirective();
+    expect(directive).toBeTruthy();
+  });
+});

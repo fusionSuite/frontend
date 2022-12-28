@@ -29,6 +29,20 @@
     }
   }
 
+  &__draganddrop {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    flex-direction: column;
+    justify-content: space-around;
+
+    text-align: center;
+
+    border: dashed 3px #0478a7;
+    border-radius: 8px;
+  }
+
   &_button__submit {
     width: 100%;
     height: 57px;

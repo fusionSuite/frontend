@@ -16,14 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export interface IFormElement {
+export interface ICreateType {
   name: string;
-  label: string;
-  type: 'input'|'select'|'radio'|'checkbox'|'switch';
-  nonNullable: boolean;
-  required: boolean;
-  dependency?: {
-    name: string;
-    value: any;
-  }
+  organization_id?: number;
+  sub_organization?: boolean;
+  tree?: boolean;
+  allowtreemultipleroots?: boolean;
+  unique_name?: boolean;
 }
