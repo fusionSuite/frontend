@@ -46,13 +46,13 @@
       </span>
     </button>
   </div>
-  <div class="sortselect form__edit__item__value">
+  <div class="sortselect form__edit__item__value" *ngIf="changes.length > 0">
     <select
       (change)="changeSort($event)"
       data-cy="timeline-changesort"
     >
-      <option value="newest">Newest First</option>
-      <option value="oldest">Oldest first</option>
+      <option value="newest" i18n>Newest First</option>
+      <option value="oldest" i18n>Oldest first</option>
     </select>
   </div>
 

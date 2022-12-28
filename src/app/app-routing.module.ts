@@ -56,6 +56,11 @@ const routes: Routes = [
   },
 
   {
+    path: 'config/types',
+    loadChildren: () => import('./pages/types/types.module').then(m => m.TypesModule),
+  },
+
+  {
     path: '**',
     title: $localize `Page not found`,
     component: NotFoundPageComponent,

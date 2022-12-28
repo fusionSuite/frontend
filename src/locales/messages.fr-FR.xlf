@@ -39,7 +39,7 @@
         <target>Page non trouvée</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/app-routing.module.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">65</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/not-found-page/not-found-page.component.html</context>
@@ -116,6 +116,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-create-page/properties-create-page.component.html</context>
           <context context-type="linenumber">117</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.html</context>
+          <context context-type="linenumber">114</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-create-page/users-create-page.component.html</context>
@@ -310,6 +314,10 @@
           <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
@@ -324,6 +332,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
           <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.html</context>
+          <context context-type="linenumber">46</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
@@ -342,6 +354,14 @@
           <context context-type="linenumber">67</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">185</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
           <context context-type="linenumber">71</context>
         </context-group>
@@ -356,6 +376,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
           <context context-type="linenumber">72</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">190</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.html</context>
+          <context context-type="linenumber">76</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
@@ -421,6 +449,10 @@
           <context context-type="sourcefile">src/app/pages/properties/properties-create-page/properties-create-page.component.html</context>
           <context context-type="linenumber">122</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.html</context>
+          <context context-type="linenumber">119</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="484575547543185713" datatype="html">
         <source> required </source>
@@ -428,6 +460,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-create-page/properties-create-page.component.html</context>
           <context context-type="linenumber">125</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.html</context>
+          <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2499360345828685634" datatype="html">
@@ -463,7 +499,11 @@
         <target state="new"> Edition mode </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7658402240953727096" datatype="html">
@@ -471,7 +511,7 @@
         <target state="new">Name:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="91888534458202692" datatype="html">
@@ -479,7 +519,7 @@
         <target state="new">Internal name:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4757776676595688383" datatype="html">
@@ -487,7 +527,7 @@
         <target state="new">Type of value:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">96</context>
+          <context context-type="linenumber">94</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3688161184282846875" datatype="html">
@@ -495,7 +535,7 @@
         <target state="new">Unit:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">101</context>
+          <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4556172081682860211" datatype="html">
@@ -503,7 +543,7 @@
         <target state="new">Can be null:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">113</context>
+          <context context-type="linenumber">111</context>
         </context-group>
       </trans-unit>
       <trans-unit id="85195931455993054" datatype="html">
@@ -511,7 +551,7 @@
         <target state="new">Set current date:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">129</context>
+          <context context-type="linenumber">127</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8065299861175662146" datatype="html">
@@ -519,7 +559,7 @@
         <target state="new">Regex validation:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">134</context>
+          <context context-type="linenumber">132</context>
         </context-group>
       </trans-unit>
       <trans-unit id="443591334086063036" datatype="html">
@@ -527,7 +567,7 @@
         <target state="new">List of values:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">146</context>
+          <context context-type="linenumber">144</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2965963774103444888" datatype="html">
@@ -535,7 +575,7 @@
         <target state="new">Default value:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">151</context>
+          <context context-type="linenumber">149</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6996799422725544865" datatype="html">
@@ -543,7 +583,7 @@
         <target state="new">Description:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.html</context>
-          <context context-type="linenumber">156</context>
+          <context context-type="linenumber">154</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6328045667055402821" datatype="html">
@@ -551,7 +591,7 @@
         <target state="new">The property has been updated successfully.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.ts</context>
-          <context context-type="linenumber">166</context>
+          <context context-type="linenumber">138</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8721861281513890587" datatype="html">
@@ -608,6 +648,330 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.ts</context>
           <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1843700545497088679" datatype="html">
+        <source>New type</source>
+        <target state="new">New type</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-import-page/types-import-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-routing.module.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4211226776814526840" datatype="html">
+        <source> Back to types </source>
+        <target state="new"> Back to types </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.html</context>
+          <context context-type="linenumber">24,26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">34,36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-import-page/types-import-page.component.html</context>
+          <context context-type="linenumber">26,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5578256881532370727" datatype="html">
+        <source>Create a type</source>
+        <target state="new">Create a type</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.html</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5219448837332558681" datatype="html">
+        <source>Type name</source>
+        <target state="new">Type name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.ts</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1834230483752094379" datatype="html">
+        <source>The type has been created successfully.</source>
+        <target state="new">The type has been created successfully.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.ts</context>
+          <context context-type="linenumber">183</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4686388797245235138" datatype="html">
+        <source>Edit type</source>
+        <target state="new">Edit type</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-routing.module.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8953033926734869941" datatype="html">
+        <source>Name</source>
+        <target state="new">Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5028006836458973222" datatype="html">
+        <source>Internal name</source>
+        <target state="new">Internal name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.ts</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3076687427621376223" datatype="html">
+        <source>Organization</source>
+        <target state="new">Organization</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.ts</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4138545079148319856" datatype="html">
+        <source>Type available on sub organizations</source>
+        <target state="new">Type available on sub organizations</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.ts</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7202303535546742953" datatype="html">
+        <source>Tree type</source>
+        <target state="new">Tree type</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.ts</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6466015094705804901" datatype="html">
+        <source>Allow to have multiple roots</source>
+        <target state="new">Allow to have multiple roots</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.ts</context>
+          <context context-type="linenumber">113</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7249351183018549675" datatype="html">
+        <source>Define the name of items unique</source>
+        <target state="new">Define the name of items unique</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-create-page/types-create-page.component.ts</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5139118152626940877" datatype="html">
+        <source>Tree</source>
+        <target state="new">Tree</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8140471090521721085" datatype="html">
+        <source>Allow multiple roots</source>
+        <target state="new">Allow multiple roots</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7433992871571599759" datatype="html">
+        <source>Unique name</source>
+        <target state="new">Unique name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">123</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8856905278208146821" datatype="html">
+        <source> <x id="ICU" equiv-text="{type.properties.length, plural, =1 {{{ type.properties.length }} property} other {{{ type.properties.length }} properties}}" xid="849192593829534729"/> </source>
+        <target state="new"> <x id="ICU" equiv-text="{properties, plural, =1 {{{ type.properties.length }} property} other {{{ type.properties.length }} properties} }" xid="849192593829534729"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">143,145</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2639698298741220873" datatype="html">
+        <source>{VAR_PLURAL, plural, =1 {<x id="INTERPOLATION"/> property} other {<x id="INTERPOLATION"/> properties}}</source>
+        <target state="new">{VAR_PLURAL, plural, =1 {<x id="INTERPOLATION"/> property} other {<x id="INTERPOLATION"/> properties}}</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">144</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8117657889567915898" datatype="html">
+        <source>Associate property</source>
+        <target state="new">Associate property</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">148</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2670023389881366038" datatype="html">
+        <source>Choose the property</source>
+        <target state="new">Choose the property</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">155</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="450534630192135626" datatype="html">
+        <source>The type has been updated successfully.</source>
+        <target state="new">The type has been updated successfully.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.ts</context>
+          <context context-type="linenumber">131</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5807959168736591321" datatype="html">
+        <source>The property has been associated successfully.</source>
+        <target state="new">The property has been associated successfully.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.ts</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1647167425408515622" datatype="html">
+        <source>The property has been removed successfully.</source>
+        <target state="new">The property has been removed successfully.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.ts</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8227518180408399341" datatype="html">
+        <source>Import types</source>
+        <target state="new">Import types</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-import-page/types-import-page.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1421843926108378914" datatype="html">
+        <source> Drag and drop file here </source>
+        <target state="new"> Drag and drop file here </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-import-page/types-import-page.component.html</context>
+          <context context-type="linenumber">35,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5890611733208469370" datatype="html">
+        <source>or<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br>"/></source>
+        <target state="new">or<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br>"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-import-page/types-import-page.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1690635810577093829" datatype="html">
+        <source>File is not a JSON file</source>
+        <target state="new">File is not a JSON file</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-import-page/types-import-page.component.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4030490925651697231" datatype="html">
+        <source>The tempalte has been imported successfully.</source>
+        <target state="new">The tempalte has been imported successfully.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-import-page/types-import-page.component.ts</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8374469771597239476" datatype="html">
+        <source>Types</source>
+        <target state="new">Types</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-routing.module.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5212965790179896924" datatype="html">
+        <source> Create a type </source>
+        <target state="new"> Create a type </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.html</context>
+          <context context-type="linenumber">27,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8154664535178161923" datatype="html">
+        <source> Import a template </source>
+        <target state="new"> Import a template </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.html</context>
+          <context context-type="linenumber">33,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5204998461164969" datatype="html">
+        <source> Loading of types… </source>
+        <target state="new"> Loading of types… </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4797957435042061349" datatype="html">
+        <source> There are no types to show. </source>
+        <target state="new"> There are no types to show. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.html</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8882533781509587322" datatype="html">
+        <source>Do you really want to delete the type “<x id="PH" equiv-text="type.name"/>”?</source>
+        <target state="new">Do you really want to delete the type “<x id="PH" equiv-text="type.name"/>”?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5145548178749502210" datatype="html">
+        <source>The type has been deleted successfully.</source>
+        <target state="new">The type has been deleted successfully.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.ts</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7939418129526205441" datatype="html">
+        <source>Import type</source>
+        <target state="new">Import type</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-routing.module.ts</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9220894978749198624" datatype="html">
@@ -766,20 +1130,20 @@
           <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4935159344416216714" datatype="html">
-        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span *ngIf=&quot;showEvents&quot;>"/><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;fa-icon icon=&quot;eye-slash&quot; [fixedWidth]=&quot;true&quot;>"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon>"/> Hide events <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/><x id="START_TAG_SPAN_1" ctype="x-span_1" equiv-text="&lt;span *ngIf=&quot;!showEvents&quot;>"/><x id="START_TAG_FA_ICON_1" ctype="x-fa_icon_1" equiv-text="&lt;fa-icon icon=&quot;eye&quot; [fixedWidth]=&quot;true&quot;>"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon>"/> Show events <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/></source>
-        <target state="new"><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span *ngIf=&quot;showEvents&quot;>"/><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;fa-icon icon=&quot;eye-slash&quot; [fixedWidth]=&quot;true&quot;>"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon>"/> Hide events <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/><x id="START_TAG_SPAN_1" ctype="x-span_1" equiv-text="&lt;span *ngIf=&quot;!showEvents&quot;>"/><x id="START_TAG_FA_ICON_1" ctype="x-fa_icon_1" equiv-text="&lt;fa-icon icon=&quot;eye&quot; [fixedWidth]=&quot;true&quot;>"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon>"/> Show events <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/></target>
+      <trans-unit id="4648752585309780786" datatype="html">
+        <source>Newest First</source>
+        <target state="new">Newest First</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/timeline/timeline.component.html</context>
-          <context context-type="linenumber">28,35</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8634498507580108675" datatype="html">
-        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span *ngIf=&quot;showConversation&quot;>"/><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;fa-icon icon=&quot;comment-slash&quot; [fixedWidth]=&quot;true&quot;>"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon>"/> Hide conversation <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/><x id="START_TAG_SPAN_1" ctype="x-span_1" equiv-text="&lt;span *ngIf=&quot;!showConversation&quot;>"/><x id="START_TAG_FA_ICON_1" ctype="x-fa_icon_1" equiv-text="&lt;fa-icon icon=&quot;comment&quot; [fixedWidth]=&quot;true&quot;>"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon>"/> Show conversation <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/></source>
-        <target state="new"><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span *ngIf=&quot;showConversation&quot;>"/><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;fa-icon icon=&quot;comment-slash&quot; [fixedWidth]=&quot;true&quot;>"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon>"/> Hide conversation <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/><x id="START_TAG_SPAN_1" ctype="x-span_1" equiv-text="&lt;span *ngIf=&quot;!showConversation&quot;>"/><x id="START_TAG_FA_ICON_1" ctype="x-fa_icon_1" equiv-text="&lt;fa-icon icon=&quot;comment&quot; [fixedWidth]=&quot;true&quot;>"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon>"/> Show conversation <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span>"/></target>
+      <trans-unit id="7788789394151316565" datatype="html">
+        <source>Oldest first</source>
+        <target state="new">Oldest first</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/timeline/timeline.component.html</context>
-          <context context-type="linenumber">39,46</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5512334500659434303" datatype="html">
@@ -787,7 +1151,7 @@
         <target state="new"><x id="START_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;fa-icon icon=&quot;paper-plane&quot; [fixedWidth]=&quot;true&quot;>"/><x id="CLOSE_TAG_FA_ICON" ctype="x-fa_icon" equiv-text="&lt;/fa-icon>"/> Submit </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/timeline/timeline.component.html</context>
-          <context context-type="linenumber">179,180</context>
+          <context context-type="linenumber">180</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2681586038936504024" datatype="html">
@@ -822,12 +1186,20 @@
           <context context-type="linenumber">68,70</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="1592398859878705650" datatype="html">
+        <source> Types </source>
+        <target state="new"> Types </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.html</context>
+          <context context-type="linenumber">81,83</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="7507948636555938109" datatype="html">
         <source>Log out</source>
         <target>Se déconnecter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layout/page-menu/page-menu.component.html</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
       <trans-unit id="358462242581945792" datatype="html">

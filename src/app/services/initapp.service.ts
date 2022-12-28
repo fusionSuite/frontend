@@ -22,11 +22,11 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { IItemproperty } from 'src/app/interfaces/itemproperty';
 import { IType } from 'src/app/interfaces/type';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { SettingsService } from './settings.service';
+import { IProperty } from '../interfaces/property';
 
 interface Configuration {
   backendUrl: string;
@@ -91,7 +91,7 @@ export class InitappService {
         types.forEach((type: IType) => {
           this.SettingsService.setTypeIndex(type.internalname, type);
 
-          type.properties.forEach((property: IItemproperty) => {
+          type.properties.forEach((property: IProperty) => {
             this.SettingsService.setPropertyIndex(property.internalname, property);
           });
         });

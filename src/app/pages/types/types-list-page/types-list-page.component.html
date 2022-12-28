@@ -1,0 +1,102 @@
+<!--
+ - FusionSuite - Frontend
+ - Copyright (C) 2022 FusionSuite
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as published by
+ - the Free Software Foundation, either version 3 of the License, or
+ - any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<app-page i18n-page-title page-title="Types">
+  <header class="page__header">
+    <h1 i18n>Types</h1>
+  </header>
+
+  <div class="page__inner flow">
+    <a class="a--action" [routerLink]="['/config/types/new']" data-cy="link-types-new">
+      <fa-icon icon="plus" [fixedWidth]="true"></fa-icon>
+      <ng-container i18n>
+        Create a type
+      </ng-container>
+    </a>
+    <a class="a--action" [routerLink]="['/config/types/import']" data-cy="link-types-import">
+      <fa-icon icon="plus" [fixedWidth]="true"></fa-icon>
+      <ng-container i18n>
+        Import a template
+      </ng-container>
+    </a>
+    <table>
+      <thead>
+        <tr>
+          <th i18n>
+            Name
+          </th>
+
+          <th class="col--actions">
+            <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
+            <span class="sr-only" i18n>
+              Actions
+            </span>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody data-cy="list-types">
+        <tr *ngFor="let type of types | sortBy:'asc':'name'" data-cy="item-types">
+          <td>
+            <a
+              class="a--animation"
+              [routerLink]="['/config/types/' + type.id]"
+              [id]="type.id"
+              [name]="type.name"
+            >
+              {{ type.name }}
+            </a>
+          </td>
+
+          <td class="col--actions">
+            <form [formGroup]="deleteForm" (ngSubmit)="deleteType(type)">
+              <button
+                type="submit"
+                i18n-title
+                title="Delete {{ type.name }}"
+                data-cy="button-type-delete"
+              >
+                <fa-icon icon="trash" [fixedWidth]="true"></fa-icon>
+
+                <span class="sr-only" i18n>
+                  Delete {{ type.name }}
+                </span>
+              </button>
+            </form>
+          </td>
+        </tr>
+
+        <tr *ngIf="!typesLoaded">
+          <td colspan="2" class="loader flow">
+            <div class="loader__spinner"></div>
+
+            <p class="loader__message" i18n>
+              Loading of types…
+            </p>
+          </td>
+        </tr>
+
+        <tr *ngIf="typesLoaded && types.length === 0" class="tr--placeholder">
+          <td colspan="2" i18n>
+            There are no types to show.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</app-page>

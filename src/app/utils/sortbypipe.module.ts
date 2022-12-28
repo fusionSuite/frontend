@@ -16,14 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export interface IFormElement {
-  name: string;
-  label: string;
-  type: 'input'|'select'|'radio'|'checkbox'|'switch';
-  nonNullable: boolean;
-  required: boolean;
-  dependency?: {
-    name: string;
-    value: any;
-  }
-}
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { SortByPipe } from './sort-by.pipe';
+
+@NgModule({
+  declarations: [
+    SortByPipe,
+  ],
+  imports: [
+    CommonModule,
+  ],
+  exports: [
+    SortByPipe,
+  ],
+})
+export class SortbypipeModule { }

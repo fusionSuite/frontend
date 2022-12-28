@@ -16,14 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export interface IFormElement {
-  name: string;
-  label: string;
-  type: 'input'|'select'|'radio'|'checkbox'|'switch';
-  nonNullable: boolean;
-  required: boolean;
-  dependency?: {
-    name: string;
-    value: any;
-  }
-}
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SortbypipeModule } from '../utils/sortbypipe.module';
+import { TimelineComponent } from './timeline.component';
+
+@NgModule({
+  declarations: [
+    TimelineComponent,
+  ],
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    ReactiveFormsModule,
+    SortbypipeModule,
+  ],
+  exports: [
+    TimelineComponent,
+  ],
+})
+export class TimelineModule { }

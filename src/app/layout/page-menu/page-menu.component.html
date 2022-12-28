@@ -69,6 +69,19 @@
       Properties
     </ng-container>
   </a>
+
+  <a
+    class="page__nav-link"
+    [routerLink]="['/config/types']"
+    routerLinkActive="active"
+    ariaCurrentWhenActive="page"
+    data-cy="link-types"
+  >
+    <fa-icon icon="screwdriver-wrench" size="xs" [fixedWidth]="true"></fa-icon>
+    <ng-container i18n>
+      Types
+    </ng-container>
+  </a>
 </li>
 
 <div class="page__nav-bottom">

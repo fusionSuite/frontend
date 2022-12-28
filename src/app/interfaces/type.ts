@@ -16,10 +16,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IItemproperty } from './itemproperty';
+import { IChange } from './change';
+import { IProperty } from './property';
+import { IShortUser } from './short-user';
 
 export interface IType {
   id: number;
+  name: string;
   internalname: string;
-  properties: IItemproperty[];
+  tree: boolean;
+  allowtreemultipleroots: boolean;
+  unique_name: boolean;
+  created_at: string;
+  updated_at: string|null;
+  deleted_at: string|null;
+  created_by: IShortUser|null;
+  updated_by: IShortUser|null;
+  deleted_by: IShortUser|null;
+  properties: IProperty[];
+  changes: IChange[];
 }

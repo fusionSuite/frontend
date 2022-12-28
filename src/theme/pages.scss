@@ -146,14 +146,13 @@
   flex-wrap: wrap;
   gap: 20px;
 
-  align-items: flex-start;
-
   background-color: var(--color-grey1);
   border-top: 1px solid var(--color-grey6);
 
   &__cadre {
     width: 750px;
     margin: 15px 8px;
+    padding: 0 12px;
 
     background:
       conic-gradient(from 180deg at top 2px right 2px, #0000 90deg, var(--sky11) 0) 100% 0 / 30px 30px

@@ -1,0 +1,204 @@
+<!--
+ - FusionSuite - Frontend
+ - Copyright (C) 2022 FusionSuite
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as published by
+ - the Free Software Foundation, either version 3 of the License, or
+ - any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<app-page i18n-page-title page-title="Edit type">
+  <header class="page__header flow flow--small">
+    <h1 *ngIf="type !== null">#{{ type.id }} - {{ type.name }}</h1>
+
+    <div class="subtitle" *ngIf="typeLoaded && type !== null">
+      <span *ngIf="type.created_by !== null">
+        <strong>{{ type.created_by.first_name }} {{ type.created_by.last_name}}</strong>
+        <fa-icon icon="circle-info" [fixedWidth]="true" size="xs" class="icon-info" style="color: var(--color-grey9);"></fa-icon>
+        created this type {{ createdAt }}</span>
+        <span *ngIf="type.updated_by !== null"> • <strong>
+          {{ type.updated_by.first_name }} {{ type.updated_by.last_name}}</strong> updated this type {{ updatedAt }}
+      </span>
+    </div>
+
+    <div>
+      <a class="a--back" [routerLink]="['/config/types']" data-cy="back-to-types-list" i18n>
+        Back to types
+      </a>
+    </div>
+    <div class="form__container__editionmode">
+      <label class="form__switch">
+        <input
+          id="editionmode"
+          name="editionmode"
+          type="checkbox"
+          [checked]="editionmode"
+          (change)="editionmode = !editionmode"
+        >
+        <span class="slider" data-cy="type-edit-switch-button"></span>
+      </label>
+      <label
+        [class]="editionmode ? 'form__swith__label form__swith__label__enabled' : 'form__swith__label'"
+        i18n
+      >
+        Edition mode
+      </label>    
+    </div>
+  </header>
+
+  <div class="page__inner">
+    <div *ngIf="typeLoaded && type !== null" class="form__edit page__inner__cadre">
+      <div class="page__inner__title">
+        <fa-icon icon="circle-info" [fixedWidth]="true"></fa-icon>
+        Main
+      </div>
+      <form
+        [formGroup]="formControls"
+        data-cy="form-types-new"
+      >
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Name</div>
+          <div
+            class="form__edit__item__value"
+            *ngIf="!editionmode"
+            data-cy="type-edit-name-textonly"
+          >
+            {{ type.name }}
+          </div>
+          <div class="form__edit__item__value" *ngIf="editionmode">
+            <input
+              [value]="type.name"
+              formControlName="name"
+              (change)="updateField('name')"
+              data-cy="type-edit-name-input"
+            >
+          </div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Internal name</div>
+          <div class="form__edit__item__value">{{ type.internalname }}</div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Tree</div>
+          <div class="form__edit__item__value">
+            <label class="form__switch">
+              <input
+                [value]="type.tree"
+                type="checkbox"
+                [checked]="type.tree"
+                [disabled]="true"
+              >
+              <span class="slider"></span>          
+            </label>
+          </div>
+        </div>
+
+        <div class="form__edit__item" *ngIf="type.tree">
+          <div class="form__edit__item__title" i18n>Allow multiple roots</div>
+          <div class="form__edit__item__value">
+            <label class="form__switch">
+              <input
+                [value]="type.allowtreemultipleroots"
+                type="checkbox"
+                [checked]="type.allowtreemultipleroots"
+                [disabled]="true"
+              >
+              <span class="slider"></span>          
+            </label>
+          </div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Unique name</div>
+          <div class="form__edit__item__value">
+            <label class="form__switch">
+              <input
+                [value]="type.unique_name"
+                type="checkbox"
+                [checked]="type.unique_name"
+                [disabled]="true"
+              >
+              <span class="slider"></span>          
+            </label>
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <div *ngIf="typeLoaded && type !== null" class="form__edit page__inner__cadre">
+      <div class="page__inner__title">
+        <fa-icon icon="tags" [fixedWidth]="true"></fa-icon>
+        Properties
+        <span class="page__inner__title__note" data-cy="type-edit-properties-note" i18n>
+          {type.properties.length, plural, =1 {{{ type.properties.length }} property} other {{{ type.properties.length }} properties}}         
+        </span>
+      </div>
+      <div class="sortselect form__edit__item" *ngIf="editionmode" style="margin: 0 35px;">
+        <div class="form__edit__item__title" i18n>Associate property</div>
+        <div class="form__edit__item__value">
+          <select
+            (change)="addProperty($event)"
+            data-cy="type-categories-selectadd"
+            [(ngModel)]="selectAddProperty"
+          >
+            <option selected disabled value="-1" i18n>Choose the property</option>
+            <option *ngFor="let prop of properties" [value]="prop.id">{{ prop.name }}</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <span *ngFor="let prop of type.properties|sortBy:'asc':'name'" class="propertylists">
+          <span class="propertylists__row">
+            <fa-icon icon="circle-dot" [fixedWidth]="true" size="xs" style="color: var(--color-grey9);"></fa-icon>
+            <a
+              class="a--animation"
+              [routerLink]="['/config/properties/' + prop.id]"
+              [id]="prop.id"
+              [name]="prop.name"
+              data-cy="type-edit-property"
+            >
+              {{ prop.name }}
+            </a>
+            <div class="propertylists__row__description">{{ prop.description }}</div>
+          </span>
+          
+          <form
+            [formGroup]="deletePropertyForm"
+            (ngSubmit)="deleteProperty(prop)"
+            style="margin: auto 0;"
+            *ngIf="editionmode"
+          >
+            <button
+              type="submit"
+              i18n-title
+              title="Delete {{ type.name }}"
+              data-cy="button-type-property-delete"
+            >
+              <fa-icon icon="trash" [fixedWidth]="true"></fa-icon>
+
+              <span class="sr-only" i18n>
+                Delete {{ type.name }}
+              </span>
+            </button>
+          </form>
+        </span>
+      </div>
+    </div>
+    <app-timeline
+      *ngIf="type !== null && type.changes !== null"
+      [changes]="type.changes"
+      class="form__edit page__inner__cadre"
+    ></app-timeline>
+  </div>
+</app-page>
