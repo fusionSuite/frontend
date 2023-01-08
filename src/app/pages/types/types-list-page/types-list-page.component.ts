@@ -36,6 +36,7 @@ export class TypesListPageComponent implements OnInit {
   public typesLoaded = false;
   public types: IType[] = [];
   public deleteForm = new FormGroup({});
+  public search: string = '';
 
   private typesByIds: {[index: number]: IType} = {};
 
@@ -69,6 +70,19 @@ export class TypesListPageComponent implements OnInit {
 
         this.notificationsService.success($localize `The type has been deleted successfully.`);
       });
+  }
+
+  public updateSearch (event: any) {
+    this.search = event.target.value;
+  }
+
+  public filterTypes () {
+    if (this.search !== '') {
+      return this.types.filter((type) => {
+        return type.name.toLowerCase().includes(this.search.toLowerCase());
+      });
+    }
+    return this.types;
   }
 
   private indexTypes (types: IType[]) {

@@ -17,6 +17,7 @@
  -->
 
 <app-page i18n-page-title page-title="Edit type">
+  <modal-iconchoice *ngIf="showIcons" (newIcon)="updateIcon($event)"></modal-iconchoice>
   <header class="page__header flow flow--small">
     <h1 *ngIf="type !== null">#{{ type.id }} - {{ type.name }}</h1>
 
@@ -134,6 +135,33 @@
           </div>
         </div>
 
+      <!-- Menu management TODO -->
+      <div class="form__edit__item">
+        <div class="form__edit__item__title" i18n>Menu</div>
+        <div
+          class="form__edit__item__value"
+          *ngIf="!editionmode"
+          data-cy="item-edit-name-textonly"
+        >
+          <select
+            (change)="menuChoice($event)"
+            *ngIf="!addmenu"
+          >
+            <option></option>
+            <option value="addmenu">
+              > add new menu
+            </option>
+            <option *ngFor="let mymenu of menu" [value]="mymenu.id">{{ mymenu.name }}</option>
+          </select>
+          <input
+            *ngIf="addmenu"
+            (keyup)="addMenu($event)"
+          >
+          <button (click)="showIcons = true">icon</button>
+        </div>
+      </div>
+
+
       </form>
     </div>
     <div *ngIf="typeLoaded && type !== null" class="form__edit page__inner__cadre">
@@ -198,7 +226,7 @@
     <app-timeline
       *ngIf="type !== null && type.changes !== null"
       [changes]="type.changes"
-      class="form__edit page__inner__cadre"
+      class="form__edit page__inner__cadre__timeline"
     ></app-timeline>
   </div>
 </app-page>

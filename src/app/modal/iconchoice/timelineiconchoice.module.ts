@@ -16,27 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IChange } from './change';
-import { IItemproperty } from './itemproperty';
-import { IItempropertygroup } from './itempropertygroup';
-import { IShortOrganization } from './short-organization';
-import { IShortUser } from './short-user';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Iconchoice } from './iconchoice.component';
 
-export interface IItem {
-  id: number;
-  id_bytype: number;
-  type_id: number;
-  name: string;
-  parent_id: number|null;
-  treepath: string|null;
-  organization: IShortOrganization;
-  properties: IItemproperty[];
-  propertygroups: IItempropertygroup[];
-  created_at: string;
-  updated_at: string|null;
-  deleted_at: string|null;
-  created_by: IShortUser|null;
-  updated_by: IShortUser|null;
-  deleted_by: IShortUser|null;
-  changes: IChange[];
-}
+@NgModule({
+  declarations: [
+    Iconchoice,
+  ],
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+  ],
+  exports: [
+    Iconchoice,
+  ],
+})
+export class IconchoiceModule { }

@@ -18,41 +18,34 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { LayoutModule } from 'src/app/layout/layout.module';
 
-import { TypesRoutingModule } from './types-routing.module';
+import { ItemsRoutingModule } from './items-routing.module';
 
-import { TypesListPageComponent } from './types-list-page/types-list-page.component';
-import { TypesCreatePageComponent } from './types-create-page/types-create-page.component';
-import { TypesImportPageComponent } from './types-import-page/types-import-page.component';
-import { TypesEditPageComponent } from './types-edit-page/types-edit-page.component';
 import { TimelineModule } from 'src/app/timeline/timeline.module';
 import { SortbypipeModule } from 'src/app/utils/sortbypipe.module';
-import { DragdropfileDirective } from 'src/app/directive/dragdropfile.directive';
-import { IconchoiceModule } from 'src/app/modal/iconchoice/timelineiconchoice.module';
+import { ItemsListPageComponent } from './items-list-page/items-list-page.component';
+import { ItemsCreatePageComponent } from './items-create-page/items-create-page.component';
+import { ItemsEditPageComponent } from './items-edit-page/items-edit-page.component';
 
 @NgModule({
   declarations: [
-    TypesListPageComponent,
-    TypesCreatePageComponent,
-    TypesImportPageComponent,
-    TypesEditPageComponent,
-    DragdropfileDirective,
+    ItemsListPageComponent,
+    ItemsCreatePageComponent,
+    ItemsEditPageComponent,
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
     LayoutModule,
-    TypesRoutingModule,
+    ItemsRoutingModule,
     ReactiveFormsModule,
     TimelineModule,
     SortbypipeModule,
-    FormsModule,
-    IconchoiceModule,
   ],
 })
-export class TypesModule { }
+export class ItemsModule { }
