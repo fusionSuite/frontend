@@ -22,6 +22,15 @@ import { Router } from '@angular/router';
 import { OrganizationsApi } from 'src/app/api/organizations';
 import { AuthService } from 'src/app/services/auth.service';
 import { IItem } from 'src/app/interfaces/item';
+import { TypesApi } from 'src/app/api/types';
+import { IType } from 'src/app/interfaces/type';
+import { MenucustomsApi } from 'src/app/api/menucustoms';
+import { MenusApi } from 'src/app/api/menus';
+import { IMenu } from 'src/app/interfaces/menu';
+import { NotificationsService } from 'src/app/notifications/notifications.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError, throwError } from 'rxjs';
+import { IMenucustom } from 'src/app/interfaces/menucustom';
 
 @Component({
   selector: '[app-page-menu]',
@@ -29,18 +38,57 @@ import { IItem } from 'src/app/interfaces/item';
   styleUrls: [],
 })
 export class PageMenuComponent implements OnInit {
-  organization: IItem|null = null;
+  public organization: IItem|null = null;
+  public types: IType[] = [];
+  public view: 'personal'|'business' = 'personal';
+  public menu: IMenu[] = [];
+  public menuCustom: IMenucustom[] = [];
+  public customitemsList: number[] = [];
+  public menuCustomLoaded: boolean = false;
+  public search: string = '';
+  private menuLoaded: boolean = false;
+  public currentRoute: string = '/';
+  public configurationExpanded: boolean = false;
 
   constructor (
     private authService: AuthService,
     private organizationsApi: OrganizationsApi,
+    private typesApi: TypesApi,
+    private menusApi: MenusApi,
+    private menucustomsApi: MenucustomsApi,
     private router: Router,
-  ) { }
+    private notificationsService: NotificationsService,
+  ) {
+    this.currentRoute = this.router.url;
+  }
 
   ngOnInit (): void {
+    this.view = this.authService.view;
+    if (this.authService.menucustom.length > 0) {
+      this.menuCustom = this.authService.menucustom;
+      this.menuCustomLoaded = true;
+      for (const item of this.menuCustom) {
+        this.customitemsList.push(item.menuitem.id);
+      }
+    }
+    if (this.authService.menu.length > 0) {
+      this.menu = this.authService.menu;
+      this.menuLoaded = true;
+    }
     this.organizationsApi.get(this.organizationId)
       .subscribe((result: IItem) => {
         this.organization = result;
+      });
+    this.typesApi.list()
+      .subscribe((result: IType[]) => {
+        this.types = result;
+        this.types.sort((u1, u2) => u1.name.localeCompare(u2.name));
+        if (!this.menuCustomLoaded) {
+          this.getCustomitemmenu();
+        }
+        if (!this.menuLoaded) {
+          this.getItemmenu();
+        }
       });
   }
 
@@ -60,6 +108,104 @@ export class PageMenuComponent implements OnInit {
     } else {
       return '';
     }
+  }
+
+  public changeView (view: 'personal'|'business') {
+    this.view = view;
+    this.authService.view = view;
+  }
+
+  public addMenuitemToCustom (item: any) {
+    if (item.id !== undefined) {
+      this.menucustomsApi.create(item.id)
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            this.notificationsService.error(error.error.message);
+            return throwError(() => new Error(error.error.message));
+          }),
+        ).subscribe((result: any) => {
+          this.notificationsService.success($localize `The menu item has been added to your personal menu.`);
+          this.authService.menucustom = [];
+          this.menuCustom = [];
+          this.getCustomitemmenu();
+        });
+    }
+  }
+
+  public deletMenuitemToCustom (item: any) {
+    if (item.id !== undefined) {
+      this.menucustomsApi.delete(item.id)
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            this.notificationsService.error(error.error.message);
+            return throwError(() => new Error(error.error.message));
+          }),
+        ).subscribe((result: any) => {
+          this.notificationsService.success($localize `The menu item has been removed from your personal menu.`);
+          this.authService.menucustom = [];
+          this.menuCustom = [];
+          this.getCustomitemmenu();
+        });
+    }
+  }
+
+  public updateSearch (event: any) {
+    this.search = event.target.value;
+  }
+
+  public filtered (items: any[]) {
+    return items.filter((item) => {
+      if (this.search === '') {
+        return item;
+      }
+      return item.name.toLowerCase().includes(this.search.toLowerCase());
+    });
+  }
+
+  public menuExpand (menu: IMenu) {
+    if (menu.expanded === undefined || !menu.expanded) {
+      menu.expanded = true;
+      // need disable expanded to all other menus
+      for (const mymenu of this.menu) {
+        if (mymenu.id !== menu.id) {
+          mymenu.expanded = false;
+        }
+      }
+    } else {
+      menu.expanded = false;
+    }
+  }
+
+  public changeRoute (currentRoute: string) {
+    this.currentRoute = currentRoute;
+  }
+
+  public parseIcon (icon: any) {
+    if (icon.includes('[')) {
+      return JSON.parse(icon);
+    } else {
+      return icon;
+    }
+  }
+
+  private getCustomitemmenu () {
+    this.menucustomsApi.list()
+      .subscribe((res: IMenucustom[]) => {
+        for (const item of res) {
+          this.menuCustom.push(item);
+          this.customitemsList.push(item.menuitem.id);
+        }
+      });
+  }
+
+  private getItemmenu () {
+    this.menusApi.list()
+      .subscribe((res: IMenu[]) => {
+        for (const menu of res) {
+          this.menu.push(menu);
+          this.authService.menu.push(menu);
+        }
+      });
   }
 
   logout () {

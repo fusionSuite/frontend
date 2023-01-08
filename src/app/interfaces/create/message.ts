@@ -16,27 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IChange } from './change';
-import { IItemproperty } from './itemproperty';
-import { IItempropertygroup } from './itempropertygroup';
-import { IShortOrganization } from './short-organization';
-import { IShortUser } from './short-user';
+import { ICreateMessageOption } from './message-option';
 
-export interface IItem {
-  id: number;
-  id_bytype: number;
-  type_id: number;
+export interface ICreateMessage {
+  label: string;
   name: string;
-  parent_id: number|null;
-  treepath: string|null;
-  organization: IShortOrganization;
-  properties: IItemproperty[];
-  propertygroups: IItempropertygroup[];
-  created_at: string;
-  updated_at: string|null;
-  deleted_at: string|null;
-  created_by: IShortUser|null;
-  updated_by: IShortUser|null;
-  deleted_by: IShortUser|null;
-  changes: IChange[];
+  options: ICreateMessageOption[];
 }

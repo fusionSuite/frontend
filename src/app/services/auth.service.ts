@@ -17,11 +17,16 @@
  */
 
 import { Injectable } from '@angular/core';
+import { IMenu } from '../interfaces/menu';
+import { IMenucustom } from '../interfaces/menucustom';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  public view: 'personal'|'business' = 'personal';
+  public menu: IMenu[] = [];
+  public menucustom: IMenucustom[] = [];
   constructor (
   ) { }
 

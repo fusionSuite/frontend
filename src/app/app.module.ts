@@ -24,6 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import { LayoutModule } from 'src/app/layout/layout.module';
 
@@ -39,6 +40,7 @@ import { httpInterceptorProviders } from './services/auth.interceptor';
 import { InitappService } from './services/initapp.service';
 import { TimelineModule } from './timeline/timeline.module';
 import { SortbypipeModule } from './utils/sortbypipe.module';
+import { IconchoiceModule } from './modal/iconchoice/timelineiconchoice.module';
 
 function initializeApp (initapp: InitappService) {
   return () => initapp.loadConfiguration();
@@ -63,6 +65,7 @@ function initializeApp (initapp: InitappService) {
     ReactiveFormsModule,
     TimelineModule,
     SortbypipeModule,
+    IconchoiceModule,
   ],
   providers: [
     httpInterceptorProviders,
@@ -77,6 +80,6 @@ function initializeApp (initapp: InitappService) {
 })
 export class AppModule {
   constructor (library: FaIconLibrary) {
-    library.addIconPacks(fas, far);
+    library.addIconPacks(fas, far, fab);
   }
 }

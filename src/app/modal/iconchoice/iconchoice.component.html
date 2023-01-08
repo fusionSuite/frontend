@@ -1,0 +1,52 @@
+<!--
+ - FusionSuite - Frontend
+ - Copyright (C) 2022 FusionSuite
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as published by
+ - the Free Software Foundation, either version 3 of the License, or
+ - any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+<div style="z-index: 2;position: absolute;">
+  <div style="border: 1px solid grey;border-radius: 4px;background-color: white;margin-right: 20px;">
+    <div style="margin-bottom: 10px;">
+      <input
+        (keyup)="updateSearch($event)">
+      <fa-icon
+        style="float: right;"
+        icon="search"
+        size="sm"
+        [fixedWidth]="true"
+      ></fa-icon>
+    </div>
+    <div style="display:flex;flex-wrap: wrap;gap: 10px;justify-content: space-around;">
+      <div
+        *ngFor="let icon of filterIcons()"
+        style="width: 140px;height: 110px; border: 1px solid var(--color-grey8);border-radius: 5px; color: var(--color-grey9);background-color: var(--color-grey2);text-align: center;cursor: pointer;"
+        (click)="chooseIcon(icon.name)"
+      >
+        <div style="margin-top: 8px;">
+          <fa-icon
+            [icon]="icon.name"
+            size="2xl"
+            [fixedWidth]="true"
+              
+          ></fa-icon>
+        </div>
+        <div style="margin-top: 8px;font-size: 16px;">        
+          {{ icon.label }}
+        </div>
+      </div>
+    </div>
+    <br>
+    Coin
+  </div>
+</div>

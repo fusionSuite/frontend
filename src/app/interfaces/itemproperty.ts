@@ -18,6 +18,14 @@
 
 export interface IItemproperty {
   id: number;
+  name: string;
   internalname: string;
-  value: string;
+  valuetype: 'string'|'integer'|'decimal'|'text'|'boolean'|'datetime'|'date'|
+             'time'|'number'|'itemlink'|'itemlinks'|'typelink'|'typelinks'|
+             'propertylink'|'list'|'password'|'passwordhash';
+  value: any;
+  listvalues: {
+    id: number;
+    value: string|number;
+  }[]|null;
 }
