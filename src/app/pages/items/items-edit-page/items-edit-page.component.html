@@ -1,0 +1,245 @@
+<!--
+ - FusionSuite - Frontend
+ - Copyright (C) 2022 FusionSuite
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as published by
+ - the Free Software Foundation, either version 3 of the License, or
+ - any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<app-page i18n-page-title page-title="Edit item">
+  <header class="page__header flow flow--small">
+    <h1 *ngIf="item !== null">#{{ item.id }} - {{ item.name }}</h1>
+
+    <div class="subtitle" *ngIf="itemLoaded && item !== null">
+      <span *ngIf="item.created_by !== null">
+        <strong>{{ item.created_by.first_name }} {{ item.created_by.last_name}}</strong>
+        <fa-icon icon="circle-info" [fixedWidth]="true" size="xs" class="icon-info" style="color: var(--color-grey9);"></fa-icon>
+        created this item {{ createdAt }}</span>
+        <span *ngIf="item.updated_by !== null"> • <strong>
+          {{ item.updated_by.first_name }} {{ item.updated_by.last_name}}</strong> updated this item {{ updatedAt }}
+      </span>
+    </div>
+
+    <div>
+      <a class="a--back" [routerLink]="['/items/laptop']" i18n>
+        Back to items
+      </a>
+    </div>
+    <div class="form__container__editionmode">
+      <label class="form__switch">
+        <input
+          id="editionmode"
+          name="editionmode"
+          type="checkbox"
+          [checked]="editionmode"
+          (change)="editionmode = !editionmode"
+        >
+        <span class="slider" data-cy="item-edit-switch-button"
+        ></span>
+      </label>
+      <label
+        i18n
+        [class]="editionmode ? 'form__swith__label form__swith__label__enabled' : 'form__swith__label'"
+      >
+        Edition mode
+      </label>
+    </div>
+  </header>
+
+  <div class="page__inner" *ngIf="itemLoaded && item !== null && !timelineView">
+    <div *ngIf="itemLoaded && item !== null" class="form__edit page__inner__cadre">
+      <div class="page__inner__title">
+        <fa-icon icon="circle-info" [fixedWidth]="true"></fa-icon>
+        Main
+      </div>
+      <form
+        [formGroup]="formControls"
+        data-cy="form-items-new"
+      >
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Name:</div>
+          <div
+            class="form__edit__item__value"
+            *ngIf="!editionmode"
+            data-cy="item-edit-name-textonly"
+          >
+            {{ item.name }}
+          </div>
+          <div class="form__edit__item__value" *ngIf="editionmode">
+            <input
+              [value]="item.name"
+              formControlName="name"
+              (change)="updateField('name')"
+              data-cy="item-edit-name-input"
+            >
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div *ngFor="let panel of panels" class="form__edit page__inner__cadre">
+      <div class="page__inner__title">
+        <fa-icon [icon]="panel.icon" [fixedWidth]="true"></fa-icon>
+        {{ panel.name }}
+        <span class="page__inner__title__note" data-cy="type-edit-properties-note" i18n>
+          {panel.items.length, plural, =1 {{{ panel.items.length }} property} other {{{ panel.items.length }} properties}}         
+        </span>
+      </div>
+      <form
+        [formGroup]="formPropertiesControls"
+        data-cy="form-types-new"
+      >
+        <div formArrayName="properties">
+          <div class="form__edit__item" *ngFor="let prop of groupProperties(panel.items); let i = index;">
+            <div class="form__edit__item__title" i18n>{{ prop.name }}</div>
+            <div
+              class="form__edit__item__value"
+              *ngIf="!editionmode"
+              data-cy="type-edit-name-textonly"
+            >
+              <span *ngIf="['string', 'integer', 'decimal', 'number'].includes(prop.valuetype)">
+                {{ prop.value }}
+              </span>
+              <span *ngIf="prop.valuetype === 'list' && prop.value !== null">
+                {{ prop.value.value }}
+              </span>
+
+
+
+              <fa-icon
+                [icon]="['far', 'clone']"
+                [fixedWidth]="true"
+                (click)="copyToClipboard(prop.value)"
+                style="color: var(--color-grey11);float: right;margin-right: 30px; cursor: pointer"
+                *ngIf="prop.value !== '' && prop.value !== null"
+              ></fa-icon>
+            </div>
+
+
+            <div class="form__edit__item__value" *ngIf="editionmode">
+              <input
+                [value]="prop.value"
+                data-cy="item-edit-property-input"
+                [formControlName]="i"
+                (change)="updateProperty($event, prop)"
+                *ngIf="['string', 'integer', 'decimal', 'number'].includes(prop.valuetype)"
+              >
+              <select
+                *ngIf="prop.valuetype === 'list'"
+              >
+                <option
+                  *ngFor="let val of prop.listvalues"
+                  [value]="val.id"
+                  [selected]="prop.value !== null && prop.value.id === val.id"
+                >{{ val.value }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <app-timeline
+      *ngIf="item !== null && item.changes !== null"
+      [changes]="item.changes"
+      class="form__edit page__inner__cadre__timeline"
+    ></app-timeline>
+  </div>
+
+  <div
+    class="page__inner"
+    *ngIf="itemLoaded && item !== null && timelineView"
+    >
+    <app-timeline
+      *ngIf="item !== null && item.changes !== null && timelineMessages.messages.length > 0"
+      [changes]="item.changes"
+      [haveMessages]=true
+      [messages]="timelineMessages"
+      (newMessageEvent)="addMessage($event)"
+      class="form__edit page__inner__cadre__timeline"
+      style="flex-grow: 1;width: 400px;"
+    ></app-timeline>
+    <div
+      style="display: flex; flex-direction: column;"
+    >
+    <div
+      *ngFor="let propgroup of item.propertygroups"
+      class="form__edit page__inner__cadre"
+      style="width: 400px;"
+    >
+      <div class="page__inner__title">
+        <fa-icon icon="tags" [fixedWidth]="true"></fa-icon>
+        {{ propgroup.name }}
+        <span class="page__inner__title__note" data-cy="type-edit-properties-note" i18n>
+          {propgroup.properties.length, plural, =1 {{{ propgroup.properties.length }} property} other {{{ propgroup.properties.length }} properties}}         
+        </span>
+      </div>
+      <form
+        [formGroup]="formPropertiesControls"
+        data-cy="form-types-new"
+      >
+        <!-- <div formArrayName="properties">
+          <div class="form__edit__item" *ngFor="let prop of groupProperties(propgroup.properties); let i = index;">
+            <div class="form__edit__item__title" i18n>{{ prop.name }}</div>
+            <div
+              class="form__edit__item__value"
+              *ngIf="!editionmode"
+              data-cy="type-edit-name-textonly"
+            >
+              <span *ngIf="['string', 'integer', 'decimal', 'number'].includes(prop.valuetype)">
+                {{ prop.value }}
+              </span>
+              <span *ngIf="prop.valuetype === 'list' && prop.value !== null">
+                {{ prop.value.value }}
+              </span>
+
+
+
+              <fa-icon
+                [icon]="['far', 'clone']"
+                [fixedWidth]="true"
+                (click)="copyToClipboard(prop.value)"
+                style="color: var(--color-grey11);float: right;margin-right: 30px; cursor: pointer"
+                *ngIf="prop.value !== '' && prop.value !== null"
+              ></fa-icon>
+            </div>
+
+
+            <div class="form__edit__item__value" *ngIf="editionmode">
+              <input
+                [value]="prop.value"
+                data-cy="item-edit-property-input"
+                [formControlName]="i"
+                (change)="updateProperty($event, prop)"
+                *ngIf="['string', 'integer', 'decimal', 'number'].includes(prop.valuetype)"
+              >
+              <select
+                *ngIf="prop.valuetype === 'list'"
+                (change)="updateProperty($event, prop)"
+              >
+                <option
+                  *ngFor="let val of prop.listvalues"
+                  [value]="val.id"
+                  [selected]="prop.value !== null && prop.value.id === val.id"
+                >{{ val.value }}</option>
+              </select>
+            </div>
+          </div>
+        </div> -->
+      </form>
+    </div>
+
+  </div>
+
+  </div>
+</app-page>

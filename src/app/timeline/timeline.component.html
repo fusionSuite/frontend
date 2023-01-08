@@ -16,7 +16,7 @@
  - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 
-<div class="page__inner__title" data-cy="timeline-title">
+<div class="page__inner__title__timeline" data-cy="timeline-title">
   <fa-icon icon="timeline" [fixedWidth]="true"></fa-icon>
   Timeline
   <span class="page__inner__title__note">{{ changes.length }} modifications</span>
@@ -142,7 +142,9 @@
     class="flow wrapper wrapper--small"
     data-cy="timeline-addmessage-form"
   >
-    <div [ngClass]="expandedWriteBox ? 'addMessageBoxExpanded' : 'addMessageBox'">
+    <div
+      [ngClass]="expandedWriteBox ? 'addMessageBoxExpanded' : 'addMessageBox'"
+    >
       <div
         id="editor"
         #editor
@@ -153,8 +155,8 @@
       >
       </div>
 
-      <div formArrayName="options" class="options">
-        <div *ngFor="let option of messageOptions; let i = index">
+      <div formArrayName="options" class="options" *ngIf="currentMessage !== null && currentMessage.options !== null">
+        <div *ngFor="let option of currentMessage.options; let i = index">
           {{ option.label }}
           <input
             [id]="option.name"

@@ -39,27 +39,26 @@ const routes: Routes = [
     component: LoginPageComponent,
     canActivate: [NotLoggedInGuard],
   },
-
   {
     path: 'organizations',
     loadChildren: () => import('./pages/organizations/organizations.module').then(m => m.OrganizationsModule),
   },
-
   {
     path: 'users',
     loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule),
   },
-
+  {
+    path: 'items',
+    loadChildren: () => import('./pages/items/items.module').then(m => m.ItemsModule),
+  },
   {
     path: 'config/properties',
     loadChildren: () => import('./pages/properties/properties.module').then(m => m.PropertiesModule),
   },
-
   {
     path: 'config/types',
     loadChildren: () => import('./pages/types/types.module').then(m => m.TypesModule),
   },
-
   {
     path: '**',
     title: $localize `Page not found`,

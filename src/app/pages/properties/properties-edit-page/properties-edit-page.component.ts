@@ -44,7 +44,7 @@ export class PropertiesEditPageComponent implements OnInit {
   public panels: IPanel[] = [];
   public editionmode: boolean = false;
   public formControls = new FormGroup({
-    name: new FormControl('toto', {
+    name: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required],
     }),

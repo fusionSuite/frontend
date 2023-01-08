@@ -31,6 +31,10 @@ import { formatDistanceToNow, formatDistanceToNowStrict } from 'date-fns';
 import { IPanel } from 'src/app/interfaces/panel';
 import { IProperty } from 'src/app/interfaces/property';
 import { PropertiesApi } from 'src/app/api/properties';
+import { AuthService } from 'src/app/services/auth.service';
+import { IMenu } from 'src/app/interfaces/menu';
+import { MenuitemsApi } from 'src/app/api/menuitems';
+import { MenusApi } from 'src/app/api/menus';
 
 @Component({
   selector: 'app-types-edit-page',
@@ -55,11 +59,18 @@ export class TypesEditPageComponent implements OnInit {
     }),
   });
 
+  public menu: IMenu[] = [];
+  public addmenu: boolean = false;
+  public showIcons: boolean = false;
+
   constructor (
     private typesApi: TypesApi,
+    private menusApi: MenusApi,
+    private menuitemsApi: MenuitemsApi,
     private propertiesApi: PropertiesApi,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
+    private authService: AuthService,
   ) {}
 
   ngOnInit (): void {
@@ -67,6 +78,7 @@ export class TypesEditPageComponent implements OnInit {
       const id = params.get('id');
       if (id !== null) {
         this.id = +id;
+        this.menu = this.authService.menu;
         this.loadType();
       }
     });
@@ -167,6 +179,74 @@ export class TypesEditPageComponent implements OnInit {
         this.notificationsService.success($localize `The property has been removed successfully.`);
         this.loadProperties();
       });
+  }
+
+  public menuChoice (event: any) {
+    console.log(event.target.value);
+    if (event.target.value === 'addmenu') {
+      this.addmenu = true;
+      return;
+    }
+
+    const data = {
+      name: this.type?.name,
+      icon: 'circle',
+      type_id: this.type?.id,
+      menu_id: parseInt(event.target.value),
+    };
+    this.menuitemsApi.create(data)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.notificationsService.error(error.error.message);
+          return throwError(() => new Error(error.error.message));
+        }),
+      ).subscribe((result: any) => {
+        this.notificationsService.success($localize `The type has been added to the menu successfully.`);
+      });
+  }
+
+  public addMenu (event: any) {
+    if (event.key === 'Enter') {
+      const data = {
+        name: event.target.value,
+        icon: '',
+      };
+      this.menusApi.create(data)
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            this.notificationsService.error(error.error.message);
+            return throwError(() => new Error(error.error.message));
+          }),
+        ).subscribe((result: any) => {
+          this.addmenu = false;
+          this.notificationsService.success($localize `The menu has been created successfully.`);
+        });
+    }
+  }
+
+  public updateIcon (event: any) {
+    console.log(event);
+    // get menuitems to find if yet in backend
+    this.menuitemsApi.list()
+      .subscribe((res) => {
+        console.log(res);
+        for (const item of res) {
+          if (item.type.id === this.id) {
+            this.menuitemsApi.update(item.id, { icon: JSON.stringify(event) })
+              .pipe(
+                catchError((error: HttpErrorResponse) => {
+                  this.notificationsService.error(error.error.message);
+                  return throwError(() => new Error(error.error.message));
+                }),
+              ).subscribe((result: any) => {
+                this.notificationsService.success($localize `The icon has been updated successfully.`);
+              });
+            break;
+          }
+        }
+      });
+
+    this.showIcons = false;
   }
 
   private loopUdpateDateDistance () {

@@ -1,9 +1,12 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IChange } from '../interfaces/change';
-import { ICreateMessageOption } from '../interfaces/create/message-option';
 import Editor from '@toast-ui/editor';
 import { formatDistanceToNowStrict } from 'date-fns';
+import { ICreateMessage } from '../interfaces/create/message';
+import { ICreateMessages } from '../interfaces/create/messages';
+import { ItemsApi } from '../api/items';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Component({
   selector: 'app-timeline',
@@ -12,12 +15,82 @@ import { formatDistanceToNowStrict } from 'date-fns';
 export class TimelineComponent implements OnChanges {
   @Input() changes: IChange[] = [];
   @Input() haveMessages: boolean = false;
-  @Input() messageOptions: ICreateMessageOption[] = [];
+  @Input() typeId: number = 0;
+  @Input() itemId: number = 0;
+  @Input() messages: ICreateMessages = {
+    messages: [],
+    defaultNane: '',
+  };
+
+  @Output() newMessageEvent = new EventEmitter<any>();
+
+  /*
+  # Specs for the message
+
+  ## option 1
+  
+    * have itemlinks in the main item
+    * options are properties on this itemlink
+    * define the property with the message (must be valuetype=text)
+    
+  ## option 2
+
+    * have itemlinks in the main item
+    * some option = another itenlinks
+    * define the property with the message (must be valuetype=text)
+
+    example
+      * ticketmessage (type)
+      * option solution -> ticketsolution (type)
+      * private -> ticketmessage (type) + private (property)
+
+  ## data format
+  in messagedefinition, can have multiple and define the default
+
+
+
+  ## who add messages in backend ?
+
+  2 choices:
+    * timeline
+    * item -> it must be this !!!
+
+  ticket -> message  (prop 10 itemlinks)  -> prop `private` in message (boolean)
+         -> solution (prop 11 itemlinks)
+
+  [
+    {
+      label: string;
+      name: string;
+      default: boolean;
+      options: ICreateMessageOption[];
+    }
+  ]
+
+  or more simple because it's page call the timeline add into backend
+  {
+    messages: {
+      label: string;
+      name: string;
+      options: {
+        label: string;
+        name: string;
+        type: 'checkbox'|'select';
+        selectValues: string[];
+        selectDefault: string;
+        checkboxDefault: boolean;
+      }[];
+    }[];
+    defaultNane: string;
+  }
+
+  */
 
   public showEvents :boolean = true;
   public showConversation :boolean = true;
   public sortItems :string = 'newest';
   public expandedWriteBox :Boolean = false;
+  public currentMessage: ICreateMessage|null = null;
   public addMessageForm = new FormGroup({
     message: new FormControl('', {
       nonNullable: true,
@@ -28,6 +101,11 @@ export class TimelineComponent implements OnChanges {
 
   public editorConfiguration: any;
   private loop: boolean = false;
+
+  constructor (
+    private itemsApi: ItemsApi,
+    private notificationsService: NotificationsService,
+  ) { }
 
   ngOnChanges () {
     for (const change of this.changes) {
@@ -40,6 +118,7 @@ export class TimelineComponent implements OnChanges {
       }
     }
     this.sortItemsList();
+    this.setCurrentMessage();
     this.setOptions();
     if (!this.loop) {
       this.loop = true;
@@ -100,6 +179,65 @@ export class TimelineComponent implements OnChanges {
   }
 
   public submitMessage () {
+    const message = this.editorConfiguration.getMarkdown();
+    const data = {
+      message,
+      name: this.currentMessage?.name,
+      options: [],
+    };
+    /*
+      message: '',
+      name: 'xxxxx',
+      options: [
+        {
+          name: 'incidentmessageprivate',
+          value: any
+        }
+      ]
+
+    */
+    this.newMessageEvent.emit(data);
+    // if (this.currentMessage !== null) {
+    //   // create item
+    //   const data: ICreateItem = {
+    //     name: 'test',
+    //     type_id: this.currentMessage?.type.id,
+    //   };
+    //   this.itemsApi.create(this.currentMessage?.type.internalname, data)
+    //     .pipe(
+    //       catchError((error: HttpErrorResponse) => {
+    //         this.notificationsService.error(error.error.message);
+    //         return throwError(() => new Error(error.error.message));
+    //       }),
+    //     ).subscribe((result: any) => {
+    //       this.notificationsService.success($localize `The item has been created successfully.`);
+
+    //       // attach item.id to the item property itemlinks
+    //       if (this.currentMessage !== null) {
+    //         this.itemsApi.updateProperty(result.id, this.currentMessage.propertyId, { message })
+    //           .pipe(
+    //             catchError((error: HttpErrorResponse) => {
+    //               this.notificationsService.error(error.error.message);
+    //               return throwError(() => new Error(error.error.message));
+    //             }),
+    //           ).subscribe((result2: any) => {
+    //             this.notificationsService.success($localize `The property has been updated successfully.`);
+    //             if (this.currentMessage !== null) {
+    //               this.itemsApi.createItemlink(this.itemId, this.currentMessage?.propertyId, result2.id)
+    //                 .pipe(
+    //                   catchError((error: HttpErrorResponse) => {
+    //                     this.notificationsService.error(error.error.message);
+    //                     return throwError(() => new Error(error.error.message));
+    //                   }),
+    //                 ).subscribe((result2: any) => {
+    //                   this.notificationsService.success($localize `The itenlink has been added successfully.`);
+    //                 });
+    //             }
+    //           });
+    //       }
+    //     });
+    // }
+
     // console.log(this.settingsService.getTypeByInternalname('incidentmessage'));
     // const type = this.settingsService.getTypeByInternalname('incidentmessage');
     // const properties = [];
@@ -145,10 +283,23 @@ export class TimelineComponent implements OnChanges {
     }
   }
 
+  private setCurrentMessage () {
+    for (const message of this.messages.messages) {
+      if (this.messages.defaultNane === message.name) {
+        this.currentMessage = message;
+        return;
+      }
+    }
+  }
+
   private setOptions () {
+    console.log(this.currentMessage);
+    if (this.currentMessage === null) {
+      return;
+    }
     this.addMessageForm.controls.options = new FormArray<FormControl>([]);
     const options = this.addMessageForm.controls.options;
-    for (const option of this.messageOptions) {
+    for (const option of this.currentMessage.options) {
       if (option.type === 'checkbox') {
         options.push(new FormControl(option.checkboxDefault));
       } else if (option.type === 'select') {
