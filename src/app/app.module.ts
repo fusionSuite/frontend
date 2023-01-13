@@ -41,6 +41,7 @@ import { InitappService } from './services/initapp.service';
 import { TimelineModule } from './timeline/timeline.module';
 import { SortbypipeModule } from './utils/sortbypipe.module';
 import { IconchoiceModule } from './modal/iconchoice/timelineiconchoice.module';
+import { SortablejsModule } from 'ngx-sortablejs';
 
 function initializeApp (initapp: InitappService) {
   return () => initapp.loadConfiguration();
@@ -66,6 +67,7 @@ function initializeApp (initapp: InitappService) {
     TimelineModule,
     SortbypipeModule,
     IconchoiceModule,
+    SortablejsModule.forRoot({ animation: 150 }),
   ],
   providers: [
     httpInterceptorProviders,

@@ -21,5 +21,6 @@ import { ICreateMessageOption } from './message-option';
 export interface ICreateMessage {
   label: string;
   name: string;
+  property_id: number;
   options: ICreateMessageOption[];
 }

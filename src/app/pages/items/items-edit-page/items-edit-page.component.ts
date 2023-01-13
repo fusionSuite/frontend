@@ -36,6 +36,7 @@ import { TypesApi } from 'src/app/api/types';
 import { TypepanelsApi } from 'src/app/api/typepanel';
 import { ITypepanel } from 'src/app/interfaces/typepanel';
 import { ITypepanelitem } from 'src/app/interfaces/typepanelitem';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-items-edit-page',
@@ -103,6 +104,7 @@ export class ItemsEditPageComponent implements OnInit {
             type: 'event',
             private: false,
             solution: false,
+            message: '',
           };
         }
         this.item = res;
@@ -115,7 +117,10 @@ export class ItemsEditPageComponent implements OnInit {
           const formProp = this.formPropertiesControls.controls.properties;
           formProp.push(new FormControl(prop.value));
         }
-        this.setMessages();
+        this.typesApi.get(res.type_id)
+          .subscribe((resType) => {
+            this.type = resType;
+          });
         this.itemLoaded = true;
       });
   }
@@ -159,6 +164,12 @@ export class ItemsEditPageComponent implements OnInit {
     if (this.item !== null) {
       if (['number', 'list'].includes(property.valuetype)) {
         value = parseInt(value);
+      } else if (property.valuetype === 'boolean') {
+        if (value === 'on') {
+          value = true;
+        } else {
+          value = false;
+        }
       }
       this.itemsApi.updateProperty(this.item?.id, property.id, { value })
         .pipe(
@@ -204,13 +215,14 @@ export class ItemsEditPageComponent implements OnInit {
    */
   public addMessage (event: any) {
     console.log(event);
+    // Object { message: "yolo le message", name: "incidentmessage", options: [] }
     const message = this.timelineMessages.messages.find(obj => {
       return obj.name === event.name;
     });
-    if (message !== undefined) {
+    if (message !== undefined && this.type !== null && this.item !== null) {
       const typeId = this.settingsService.getTypeIdByInternalname(message.name);
       this.itemsApi.create(message.name, {
-        name: 'test',
+        name: this.type.name + '-' + this.item.id,
         type_id: typeId,
       })
         .pipe(
@@ -220,11 +232,47 @@ export class ItemsEditPageComponent implements OnInit {
           }),
         ).subscribe((result: any) => {
           this.notificationsService.success($localize `The item has been created successfully.`);
-
-          // add message in prop of this item
-          // attach item to this itemlink(s)
+          for (const panel of this.panels) {
+            if (panel.displaytype === 'timeline') {
+              console.log(message);
+              for (const item of panel.items) {
+                console.log(item);
+                if (message.property_id === item.property_id && item.timeline_message !== null) {
+                  const dataProp = {
+                    value: event.message,
+                  };
+                  // add message in prop of this item
+                  this.itemsApi.updateProperty(result.id, item.timeline_message, dataProp)
+                    .subscribe(resProp => {
+                      console.log(resProp);
+                    });
+                  // add item created to itemlink(s) property of this item
+                  this.itemsApi.createItemlink(this.id, item.property_id, result.id)
+                    .subscribe(resPropMess => {
+                      console.log(resPropMess);
+                      this.loadItem();
+                    });
+                  return;
+                }
+              }
+            }
+          }
         });
     }
+  }
+
+  public parseIcon (icon: any) {
+    if (icon.includes('[')) {
+      return JSON.parse(icon);
+    } else {
+      return icon;
+    }
+  }
+
+  public standardPanels () {
+    return this.panels.filter((panel) => {
+      return panel.displaytype === 'default' && panel.items.length > 0;
+    });
   }
 
   private loopUdpateDateDistance () {
@@ -243,30 +291,101 @@ export class ItemsEditPageComponent implements OnInit {
     }
   }
 
+  /**
+   * Set messages to pass to the timelime
+   * @returns
+   */
   private setMessages () {
-    const typeId = this.settingsService.getTypeIdByInternalname('incidentmessage');
-    if (typeId !== null) {
-      this.typesApi.get(typeId)
-        .subscribe(res => {
-          this.timelineMessages.messages.push(
-            {
-              label: res.name,
-              name: res.internalname,
-              options: [
-                {
-                  label: 'Private message',
-                  name: 'incidentmessageprivate',
-                  type: 'checkbox',
-                  selectValues: [],
-                  selectDefault: '',
-                  checkboxDefault: false,
-                },
-              ],
-            },
-          );
-          this.timelineMessages.defaultNane = res.internalname;
-        });
+    // get the panel with type timeline
+    let newValue: string = '';
+    for (const panel of this.panels) {
+      if (panel.displaytype === 'timeline') {
+        for (const item of panel.items) {
+          // get property
+          const property = this.item?.properties.find(obj => {
+            return obj.id === item.property_id;
+          });
+          if (property !== undefined) {
+            // add message
+            this.timelineMessages.messages.push(
+              {
+                label: property.name,
+                name: 'incidentmessage', // in listvalue
+                property_id: property.id,
+                options: [],
+              },
+            );
+            this.timelineMessages.defaultNane = 'incidentmessage';
+            if (this.item === null) {
+              continue;
+            }
+            // get values and put in changes for display
+            for (const val of property.value) {
+              if (val === null) {
+                continue;
+              }
+              // convert new_value to json string
+              newValue = JSON.stringify({ id: val.id, name: val.name });
+              const message = val.properties.find((obj: IItemproperty) => {
+                return obj.id === item.timeline_message;
+              });
+              const functions = ['user', 'tech'];
+              for (const change of this.item.changes) {
+                if (change.new_value === newValue) {
+                  const randomNumber = Math.floor(Math.random() * functions.length);
+                  let func: 'user'|'tech' = 'user';
+                  if (functions[randomNumber] === 'tech') {
+                    func = 'tech';
+                  }
+                  let customIcon: IconProp = 'user';
+                  if (func === 'tech') {
+                    customIcon = 'headset';
+                  }
+                  change.customdata = {
+                    user: {
+                      avatar: null,
+                      function: func,
+                    },
+                    icon: customIcon,
+                    sourceMessage: 'envelope',
+                    dateDistance: formatDistanceToNowStrict(new Date(change.created_at), { addSuffix: true }),
+                    type: 'message',
+                    private: false,
+                    solution: false,
+                    message: message.value,
+                  };
+                }
+              }
+            }
+          }
+        }
+      }
     }
+    return;
+
+    // const typeId = this.settingsService.getTypeIdByInternalname('incidentmessage');
+    // if (typeId !== null) {
+    //   this.typesApi.get(typeId)
+    //     .subscribe(res => {
+    //       this.timelineMessages.messages.push(
+    //         {
+    //           label: res.name,
+    //           name: res.internalname,
+    //           options: [
+    //             {
+    //               label: 'Private message',
+    //               name: 'incidentmessageprivate',
+    //               type: 'checkbox',
+    //               selectValues: [],
+    //               selectDefault: '',
+    //               checkboxDefault: false,
+    //             },
+    //           ],
+    //         },
+    //       );
+    //       this.timelineMessages.defaultNane = res.internalname;
+    //     });
+    // }
   }
 
   private getDisplay () {
@@ -274,12 +393,12 @@ export class ItemsEditPageComponent implements OnInit {
       this.typepanelsApi.list(this.item.type_id)
         .subscribe((res) => {
           this.panels = res;
-          console.log(res);
           for (const panel of res) {
             if (panel.displaytype === 'timeline') {
               this.timelineView = true;
             }
           }
+          this.setMessages();
         });
     }
   }
