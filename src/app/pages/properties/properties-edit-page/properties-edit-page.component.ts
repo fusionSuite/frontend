@@ -105,6 +105,7 @@ export class PropertiesEditPageComponent implements OnInit {
             type: 'event',
             private: false,
             solution: false,
+            message: '',
           };
         }
         this.property = res;

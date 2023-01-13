@@ -39,5 +39,6 @@ export interface IChange {
     type: 'event'|'message';
     private: boolean,
     solution: boolean,
+    message: string;
   };
 }

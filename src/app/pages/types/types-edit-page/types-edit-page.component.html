@@ -157,7 +157,7 @@
             *ngIf="addmenu"
             (keyup)="addMenu($event)"
           >
-          <button (click)="showIcons = true">icon</button>
+          <button (click)="PanelIcon()">icon</button>
         </div>
       </div>
 
@@ -223,6 +223,89 @@
         </span>
       </div>
     </div>
+    <div class="form__edit page__inner__cadre">
+      <div class="page__inner__title">
+        <fa-icon icon="table-columns" [fixedWidth]="true"></fa-icon>
+        Panels
+        <span class="page__inner__title__note" data-cy="type-edit-properties-note" i18n>
+          configuration of the panels
+          <!-- {type.properties.length, plural, =1 {{{ type.properties.length }} property} other {{{ type.properties.length }} properties}}          -->
+        </span>
+      </div>
+      <button (click)="showPanelAddForm = true" *ngIf="!showPanelAddForm">
+        <fa-icon icon="circle-plus" [fixedWidth]="true"></fa-icon>
+        Add new panel
+      </button>
+      <div *ngIf="showPanelAddForm" class="form__edit__item">
+        <form
+          [formGroup]="formPanelControls"
+          (ngSubmit)="addPanel()"
+          data-cy="form-types-new"
+        >
+          <div class="form__edit__item">
+            <div class="form__edit__item__title" i18n>Name</div>
+            <div class="form__edit__item__value">
+              <input
+                formControlName="name"
+              >
+            </div>
+          </div>
+          <div class="form__edit__item">
+            <div class="form__edit__item__title" i18n>Icon</div>
+            <div class="form__edit__item__value">
+              <button type="button" (click)="showIcons = true">icon</button>
+            </div>
+          </div>
+          <div class="form__edit__item">
+            <label class="form__switch">
+              <input
+                id="panelTimeline"
+                name="panelTimeline"
+                formControlName="timeline"
+                type="checkbox"
+              >
+              <span class="slider" data-cy="type-edit-switch-button"></span>
+            </label>
+            <label
+              class="form__swith__label form__swith__label__enabled"
+              i18n
+            >
+              Timeline
+            </label>    
+      
+          </div>
+          <button style="float: right">Submit</button>
+        </form>
+      </div>
+
+
+      <div *ngIf="!showPanelAddForm">
+        <div *ngFor="let panel of panels; let i = index">
+          <div
+            style="border: 1px solid var(--sky11); margin-bottom: 10px;border-radius: 5px;"
+          >
+            <div
+              id="panelId-{{ panel.id }}"
+              [sortablejs]="panelSort[i]"
+              [sortablejsOptions]="panelOptions"
+            >
+              <span style="color: var(--sky11);font-weight: bold;padding-left: 5px;">
+                .:{{ panel.name }}
+              </span>
+              <div
+                id="propertyId-{{ item }}"
+                style="border: 1px solid var(--color-grey8); margin: 8px;border-radius: 5px; height: 30px;padding-left: 8px;color: var(--color-grey11);font-weight: bold;"
+                *ngFor="let item of panelSort[i]; let j = index"
+              >
+                <fa-icon icon="bars" [fixedWidth]="true"></fa-icon>
+                {{ getPropertyNameById(item) }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <app-timeline
       *ngIf="type !== null && type.changes !== null"
       [changes]="type.changes"

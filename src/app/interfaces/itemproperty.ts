@@ -20,6 +20,7 @@ export interface IItemproperty {
   id: number;
   name: string;
   internalname: string;
+  property_id: number,
   valuetype: 'string'|'integer'|'decimal'|'text'|'boolean'|'datetime'|'date'|
              'time'|'number'|'itemlink'|'itemlinks'|'typelink'|'typelinks'|
              'propertylink'|'list'|'password'|'passwordhash';
