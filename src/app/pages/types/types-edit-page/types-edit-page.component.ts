@@ -28,13 +28,16 @@ import { TypesApi } from 'src/app/api/types';
 import { IType } from 'src/app/interfaces/type';
 import { ActivatedRoute } from '@angular/router';
 import { formatDistanceToNow, formatDistanceToNowStrict } from 'date-fns';
-import { IPanel } from 'src/app/interfaces/panel';
 import { IProperty } from 'src/app/interfaces/property';
 import { PropertiesApi } from 'src/app/api/properties';
 import { AuthService } from 'src/app/services/auth.service';
 import { IMenu } from 'src/app/interfaces/menu';
 import { MenuitemsApi } from 'src/app/api/menuitems';
 import { MenusApi } from 'src/app/api/menus';
+import { ITypepanel } from 'src/app/interfaces/typepanel';
+import { TypepanelsApi } from 'src/app/api/typepanel';
+import * as Sortable from 'sortablejs';
+import { TypepanelitemsApi } from 'src/app/api/typepanelitem';
 
 @Component({
   selector: 'app-types-edit-page',
@@ -47,7 +50,7 @@ export class TypesEditPageComponent implements OnInit {
   public typeLoaded = false;
   public createdAt :string = '';
   public updatedAt :string = '';
-  public panels: IPanel[] = [];
+  public panels: ITypepanel[] = [];
   public editionmode: boolean = false;
   public deletePropertyForm = new FormGroup({});
   public properties: IProperty[] = [];
@@ -62,12 +65,45 @@ export class TypesEditPageComponent implements OnInit {
   public menu: IMenu[] = [];
   public addmenu: boolean = false;
   public showIcons: boolean = false;
+  public iconDestination: string = 'type';
+  public showPanelAddForm: boolean = false;
+  public panelOptions: Sortable.Options = {
+    group: 'testxx',
+    // onUpdate: (event: any) => {
+    //   this.sortPanelitems(event);
+    // },
+    onAdd: (event: any) => {
+      this.sortPanelitems(event);
+    },
+    // onRemove: (event: any) => {
+    //   this.sortPanelitems(event);
+    // },
+  };
+
+  public panelSort: any = [];
+
+  public formPanelControls = new FormGroup({
+    name: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    icon: new FormControl([], {
+      nonNullable: true,
+      validators: [],
+    }),
+    timeline: new FormControl(false, {
+      nonNullable: true,
+      validators: [],
+    }),
+  });
 
   constructor (
     private typesApi: TypesApi,
     private menusApi: MenusApi,
     private menuitemsApi: MenuitemsApi,
     private propertiesApi: PropertiesApi,
+    private typepanelsApi: TypepanelsApi,
+    private typepanelitemsApi: TypepanelitemsApi,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
     private authService: AuthService,
@@ -80,6 +116,7 @@ export class TypesEditPageComponent implements OnInit {
         this.id = +id;
         this.menu = this.authService.menu;
         this.loadType();
+        this.loadPanels();
       }
     });
   }
@@ -99,6 +136,7 @@ export class TypesEditPageComponent implements OnInit {
             type: 'event',
             private: false,
             solution: false,
+            message: '',
           };
         }
         this.type = res;
@@ -220,33 +258,81 @@ export class TypesEditPageComponent implements OnInit {
         ).subscribe((result: any) => {
           this.addmenu = false;
           this.notificationsService.success($localize `The menu has been created successfully.`);
+          this.loadType();
         });
     }
   }
 
   public updateIcon (event: any) {
     console.log(event);
-    // get menuitems to find if yet in backend
-    this.menuitemsApi.list()
-      .subscribe((res) => {
-        console.log(res);
-        for (const item of res) {
-          if (item.type.id === this.id) {
-            this.menuitemsApi.update(item.id, { icon: JSON.stringify(event) })
-              .pipe(
-                catchError((error: HttpErrorResponse) => {
-                  this.notificationsService.error(error.error.message);
-                  return throwError(() => new Error(error.error.message));
-                }),
-              ).subscribe((result: any) => {
-                this.notificationsService.success($localize `The icon has been updated successfully.`);
-              });
-            break;
+    if (this.iconDestination === 'type') {
+      // update formcrontrol value
+      this.formPanelControls.controls.icon.setValue(event);
+    } else if (this.iconDestination === 'panel') {
+      // get menuitems to find if yet in backend
+      this.menuitemsApi.list()
+        .subscribe((res) => {
+          console.log(res);
+          for (const item of res) {
+            if (item.type.id === this.id) {
+              this.menuitemsApi.update(item.id, { icon: JSON.stringify(event) })
+                .pipe(
+                  catchError((error: HttpErrorResponse) => {
+                    this.notificationsService.error(error.error.message);
+                    return throwError(() => new Error(error.error.message));
+                  }),
+                ).subscribe((result: any) => {
+                  this.notificationsService.success($localize `The icon has been updated successfully.`);
+                });
+              break;
+            }
           }
-        }
-      });
-
+        });
+    }
+    this.iconDestination = 'type';
     this.showIcons = false;
+  }
+
+  public PanelIcon () {
+    this.showIcons = true;
+    this.iconDestination = 'panel';
+  }
+
+  public addPanel () {
+    console.log(this.formPanelControls.controls);
+    let displaytype = 'default';
+    if (this.formPanelControls.controls.timeline.value) {
+      displaytype = 'timeline';
+    }
+    const data = {
+      name: this.formPanelControls.controls.name.value,
+      icon: JSON.stringify(this.formPanelControls.controls.icon.value),
+      displaytype,
+    };
+    this.typepanelsApi.create(this.id, data)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.notificationsService.error(error.error.message);
+          return throwError(() => new Error(error.error.message));
+        }),
+      ).subscribe((result: any) => {
+        this.loadPanels();
+        this.showPanelAddForm = false;
+        this.notificationsService.success($localize `The panel has been create successfully.`);
+      });
+  }
+
+  public getPropertyNameById (id: number) {
+    if (this.type !== null) {
+      const myProp = this.type.properties.find(prop => {
+        return prop.id === id;
+      });
+      if (myProp === undefined) {
+        return '??';
+      }
+      return myProp?.name;
+    }
+    return '';
   }
 
   private loopUdpateDateDistance () {
@@ -263,5 +349,47 @@ export class TypesEditPageComponent implements OnInit {
         this.updatedAt = formatDistanceToNow(new Date(this.type.updated_at), { addSuffix: true });
       }
     }
+  }
+
+  private loadPanels () {
+    if (this.id > 0) {
+      this.typepanelsApi.list(this.id)
+        .subscribe((res) => {
+          this.panels = res;
+          for (const panel of res) {
+            const ids = [];
+            for (const item of panel.items) {
+              ids.push(item.property_id);
+            }
+            this.panelSort.push(ids);
+          }
+        });
+    }
+  }
+
+  private sortPanelitems (event: any) {
+    console.log(event);
+    const propertyId = parseInt(event.item.id.replace('propertyId-', ''));
+    let panelitemId = 0;
+    for (const panel of this.panels) {
+      const prop = panel.items.find((obj) => {
+        return obj.property_id === propertyId;
+      });
+      if (prop !== undefined) {
+        panelitemId = prop.id;
+        break;
+      }
+    }
+    const typepanelFromId = parseInt(event.from.id.replace('panelId-', ''));
+    const typepanelId = parseInt(event.to.id.replace('panelId-', ''));
+    this.typepanelitemsApi.update(this.id, typepanelFromId, panelitemId, { typepanel_id: typepanelId })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.notificationsService.error(error.error.message);
+          return throwError(() => new Error(error.error.message));
+        }),
+      ).subscribe((result: any) => {
+        this.notificationsService.success($localize `The property has been moved successfully.`);
+      });
   }
 }

@@ -34,6 +34,7 @@ import { TimelineModule } from 'src/app/timeline/timeline.module';
 import { SortbypipeModule } from 'src/app/utils/sortbypipe.module';
 import { DragdropfileDirective } from 'src/app/directive/dragdropfile.directive';
 import { IconchoiceModule } from 'src/app/modal/iconchoice/timelineiconchoice.module';
+import { SortablejsModule } from 'ngx-sortablejs';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { IconchoiceModule } from 'src/app/modal/iconchoice/timelineiconchoice.mo
     SortbypipeModule,
     FormsModule,
     IconchoiceModule,
+    SortablejsModule,
   ],
 })
 export class TypesModule { }

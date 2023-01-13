@@ -18,7 +18,6 @@
 
 import { IChange } from './change';
 import { IItemproperty } from './itemproperty';
-import { IItempropertygroup } from './itempropertygroup';
 import { IShortOrganization } from './short-organization';
 import { IShortUser } from './short-user';
 
@@ -31,7 +30,6 @@ export interface IItem {
   treepath: string|null;
   organization: IShortOrganization;
   properties: IItemproperty[];
-  propertygroups: IItempropertygroup[];
   created_at: string;
   updated_at: string|null;
   deleted_at: string|null;
