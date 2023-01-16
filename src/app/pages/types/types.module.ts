@@ -35,6 +35,7 @@ import { SortbypipeModule } from 'src/app/utils/sortbypipe.module';
 import { DragdropfileDirective } from 'src/app/directive/dragdropfile.directive';
 import { IconchoiceModule } from 'src/app/modal/iconchoice/timelineiconchoice.module';
 import { SortablejsModule } from 'ngx-sortablejs';
+import { QuickaddMenuComponent } from 'src/app/modal/quickadd-menu/quickadd-menu.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { SortablejsModule } from 'ngx-sortablejs';
     TypesImportPageComponent,
     TypesEditPageComponent,
     DragdropfileDirective,
+    QuickaddMenuComponent,
   ],
   imports: [
     CommonModule,
