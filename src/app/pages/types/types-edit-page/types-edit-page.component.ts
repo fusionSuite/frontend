@@ -65,8 +65,8 @@ export class TypesEditPageComponent implements OnInit {
   public menu: IMenu[] = [];
   public addmenu: boolean = false;
   public showIcons: boolean = false;
-  public iconDestination: string = 'type';
   public showPanelAddForm: boolean = false;
+  public showQuickAddMenu: boolean = false;
   public panelOptions: Sortable.Options = {
     group: 'testxx',
     // onUpdate: (event: any) => {
@@ -264,38 +264,14 @@ export class TypesEditPageComponent implements OnInit {
   }
 
   public updateIcon (event: any) {
-    console.log(event);
-    if (this.iconDestination === 'type') {
-      // update formcrontrol value
-      this.formPanelControls.controls.icon.setValue(event);
-    } else if (this.iconDestination === 'panel') {
-      // get menuitems to find if yet in backend
-      this.menuitemsApi.list()
-        .subscribe((res) => {
-          console.log(res);
-          for (const item of res) {
-            if (item.type.id === this.id) {
-              this.menuitemsApi.update(item.id, { icon: JSON.stringify(event) })
-                .pipe(
-                  catchError((error: HttpErrorResponse) => {
-                    this.notificationsService.error(error.error.message);
-                    return throwError(() => new Error(error.error.message));
-                  }),
-                ).subscribe((result: any) => {
-                  this.notificationsService.success($localize `The icon has been updated successfully.`);
-                });
-              break;
-            }
-          }
-        });
+    if (event === null) {
+      this.showIcons = false;
+      return;
     }
-    this.iconDestination = 'type';
+    console.log(event);
+    // update formcrontrol value
+    this.formPanelControls.controls.icon.setValue(event);
     this.showIcons = false;
-  }
-
-  public PanelIcon () {
-    this.showIcons = true;
-    this.iconDestination = 'panel';
   }
 
   public addPanel () {
@@ -335,6 +311,14 @@ export class TypesEditPageComponent implements OnInit {
     return '';
   }
 
+  public parseIcon (icon: any) {
+    if (icon.includes('[')) {
+      return JSON.parse(icon);
+    } else {
+      return icon;
+    }
+  }
+
   private loopUdpateDateDistance () {
     setTimeout(() => {
       this.udpateDateDistance();
@@ -356,6 +340,7 @@ export class TypesEditPageComponent implements OnInit {
       this.typepanelsApi.list(this.id)
         .subscribe((res) => {
           this.panels = res;
+          this.panelSort = [];
           for (const panel of res) {
             const ids = [];
             for (const item of panel.items) {
@@ -390,6 +375,11 @@ export class TypesEditPageComponent implements OnInit {
         }),
       ).subscribe((result: any) => {
         this.notificationsService.success($localize `The property has been moved successfully.`);
+        this.loadPanels();
       });
+  }
+
+  reloadMenu (event: any) {
+    this.showQuickAddMenu = false;
   }
 }

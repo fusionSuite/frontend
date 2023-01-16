@@ -50,7 +50,7 @@ export class MenusApi {
   // }
 
   public create (data: any) {
-    return this.http.post(this.settingsService.backendUrl + '/v1/display/menu', data, {
+    return this.http.post<any>(this.settingsService.backendUrl + '/v1/display/menu', data, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
