@@ -15,38 +15,48 @@
  - You should have received a copy of the GNU Affero General Public License
  - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-<div style="z-index: 2;position: absolute;">
-  <div style="border: 1px solid grey;border-radius: 4px;background-color: white;margin-right: 20px;">
-    <div style="margin-bottom: 10px;">
-      <input
-        (keyup)="updateSearch($event)">
-      <fa-icon
-        style="float: right;"
-        icon="search"
-        size="sm"
-        [fixedWidth]="true"
-      ></fa-icon>
-    </div>
-    <div style="display:flex;flex-wrap: wrap;gap: 10px;justify-content: space-around;">
-      <div
-        *ngFor="let icon of filterIcons()"
-        style="width: 140px;height: 110px; border: 1px solid var(--color-grey8);border-radius: 5px; color: var(--color-grey9);background-color: var(--color-grey2);text-align: center;cursor: pointer;"
-        (click)="chooseIcon(icon.name)"
-      >
-        <div style="margin-top: 8px;">
-          <fa-icon
-            [icon]="icon.name"
-            size="2xl"
-            [fixedWidth]="true"
-              
-          ></fa-icon>
+<div class="dialog" style="z-index: 3;position: absolute;">
+  <div class="dialog__main">
+    <div class="form__edit page__inner__cadre" style="height: calc(100% - 10px);position: absolute;width: calc(100% - 10px);margin: 5px;">
+
+
+<!-- style="border: 1px solid grey;border-radius: 4px;background-color: white;margin-right: 20px;"> -->
+      <div style="margin-bottom: 10px;">
+        <input
+          (keyup)="updateSearch($event)">
+        <fa-icon
+          icon="search"
+          size="sm"
+          [fixedWidth]="true"
+        ></fa-icon>
+        <fa-icon
+          icon="xmark"
+          [fixedWidth]="true"
+          style="float: right;cursor: pointer;"
+          (click)="chooseIcon(null)"
+        ></fa-icon>
+
+      </div>
+      <div style="display:flex;flex-wrap: wrap;gap: 10px;">
+        <div
+          *ngFor="let icon of filterIcons() | slice:0:15;"
+          style="width: 140px;height: 110px; border: 1px solid var(--color-grey8);border-radius: 5px; color: var(--color-grey9);background-color: var(--color-grey2);text-align: center;cursor: pointer;"
+          (click)="chooseIcon(icon.name)"
+        >
+          <div style="margin-top: 8px;">
+            <fa-icon
+              [icon]="icon.name"
+              size="2xl"
+              [fixedWidth]="true"
+                
+            ></fa-icon>
+          </div>
+          <div style="margin-top: 8px;font-size: 16px;">        
+            {{ icon.label }}
+          </div>
         </div>
-        <div style="margin-top: 8px;font-size: 16px;">        
-          {{ icon.label }}
-        </div>
+        <div *ngIf="filterIcons().length > 15">Only the 15 first icons displayed of the {{ filterIcons().length -15 }}</div>
       </div>
     </div>
-    <br>
-    Coin
   </div>
 </div>
