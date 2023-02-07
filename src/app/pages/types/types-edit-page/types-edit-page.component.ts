@@ -63,7 +63,6 @@ export class TypesEditPageComponent implements OnInit {
   });
 
   public menu: IMenu[] = [];
-  public addmenu: boolean = false;
   public showIcons: boolean = false;
   public showPanelAddForm: boolean = false;
   public showQuickAddMenu: boolean = false;
@@ -81,6 +80,7 @@ export class TypesEditPageComponent implements OnInit {
   };
 
   public panelSort: any = [];
+  public panelItems: any = {};
 
   public formPanelControls = new FormGroup({
     name: new FormControl('', {
@@ -94,6 +94,13 @@ export class TypesEditPageComponent implements OnInit {
     timeline: new FormControl(false, {
       nonNullable: true,
       validators: [],
+    }),
+  });
+
+  public formMenuChoice = new FormGroup({
+    menuId: new FormControl('0', {
+      nonNullable: true,
+      validators: [Validators.required],
     }),
   });
 
@@ -115,6 +122,10 @@ export class TypesEditPageComponent implements OnInit {
       if (id !== null) {
         this.id = +id;
         this.menu = this.authService.menu;
+        const menuItem = this.getMenuItemOfThisType();
+        if (menuItem !== undefined) {
+          this.formMenuChoice.controls.menuId.setValue(menuItem.menu_id.toString());
+        }
         this.loadType();
         this.loadPanels();
       }
@@ -219,28 +230,53 @@ export class TypesEditPageComponent implements OnInit {
       });
   }
 
-  public menuChoice (event: any) {
-    console.log(event.target.value);
-    if (event.target.value === 'addmenu') {
-      this.addmenu = true;
-      return;
+  public menuChoice () {
+    const menuItem = this.getMenuItemOfThisType();
+    if (menuItem === undefined) {
+      // add it
+      const data = {
+        name: this.type?.name,
+        icon: 'signs-post',
+        type_id: this.type?.id,
+        menu_id: parseInt(this.formMenuChoice.controls.menuId.value),
+      };
+      this.menuitemsApi.create(data)
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            this.notificationsService.error(error.error.message);
+            return throwError(() => new Error(error.error.message));
+          }),
+        ).subscribe((result: any) => {
+          this.notificationsService.success($localize `The type has been added to the menu successfully.`);
+        });
+    } else {
+      if (parseInt(this.formMenuChoice.controls.menuId.value) === 0) {
+        // delete it
+        this.menuitemsApi.delete(menuItem.id)
+          .pipe(
+            catchError((error: HttpErrorResponse) => {
+              this.notificationsService.error(error.error.message);
+              return throwError(() => new Error(error.error.message));
+            }),
+          ).subscribe((result: any) => {
+            this.notificationsService.success($localize `The type has been deleted from the menu successfully.`);
+          });
+      } else {
+        // update it
+        const data = {
+          menu_id: parseInt(this.formMenuChoice.controls.menuId.value),
+        };
+        this.menuitemsApi.update(menuItem.id, data)
+          .pipe(
+            catchError((error: HttpErrorResponse) => {
+              this.notificationsService.error(error.error.message);
+              return throwError(() => new Error(error.error.message));
+            }),
+          ).subscribe((result: any) => {
+            this.notificationsService.success($localize `The type has been modified to the menu successfully.`);
+          });
+      }
     }
-
-    const data = {
-      name: this.type?.name,
-      icon: 'circle',
-      type_id: this.type?.id,
-      menu_id: parseInt(event.target.value),
-    };
-    this.menuitemsApi.create(data)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          this.notificationsService.error(error.error.message);
-          return throwError(() => new Error(error.error.message));
-        }),
-      ).subscribe((result: any) => {
-        this.notificationsService.success($localize `The type has been added to the menu successfully.`);
-      });
   }
 
   public addMenu (event: any) {
@@ -256,7 +292,6 @@ export class TypesEditPageComponent implements OnInit {
             return throwError(() => new Error(error.error.message));
           }),
         ).subscribe((result: any) => {
-          this.addmenu = false;
           this.notificationsService.success($localize `The menu has been created successfully.`);
           this.loadType();
         });
@@ -301,7 +336,7 @@ export class TypesEditPageComponent implements OnInit {
   public getPropertyNameById (id: number) {
     if (this.type !== null) {
       const myProp = this.type.properties.find(prop => {
-        return prop.id === id;
+        return prop.id === this.panelItems[id].property_id;
       });
       if (myProp === undefined) {
         return '??';
@@ -341,10 +376,12 @@ export class TypesEditPageComponent implements OnInit {
         .subscribe((res) => {
           this.panels = res;
           this.panelSort = [];
+          this.panelItems = {};
           for (const panel of res) {
             const ids = [];
             for (const item of panel.items) {
-              ids.push(item.property_id);
+              this.panelItems[item.id] = item;
+              ids.push(item.id);
             }
             this.panelSort.push(ids);
           }
@@ -354,19 +391,9 @@ export class TypesEditPageComponent implements OnInit {
 
   private sortPanelitems (event: any) {
     console.log(event);
-    const propertyId = parseInt(event.item.id.replace('propertyId-', ''));
-    let panelitemId = 0;
-    for (const panel of this.panels) {
-      const prop = panel.items.find((obj) => {
-        return obj.property_id === propertyId;
-      });
-      if (prop !== undefined) {
-        panelitemId = prop.id;
-        break;
-      }
-    }
-    const typepanelFromId = parseInt(event.from.id.replace('panelId-', ''));
-    const typepanelId = parseInt(event.to.id.replace('panelId-', ''));
+    const panelitemId = parseInt(event.item.id);
+    const typepanelFromId = parseInt(event.from.id);
+    const typepanelId = parseInt(event.to.id);
     this.typepanelitemsApi.update(this.id, typepanelFromId, panelitemId, { typepanel_id: typepanelId })
       .pipe(
         catchError((error: HttpErrorResponse) => {
@@ -375,8 +402,21 @@ export class TypesEditPageComponent implements OnInit {
         }),
       ).subscribe((result: any) => {
         this.notificationsService.success($localize `The property has been moved successfully.`);
-        this.loadPanels();
+        // this.loadPanels();
       });
+  }
+
+  private getMenuItemOfThisType () {
+    let menuItem;
+    for (const menu of this.menu) {
+      menuItem = menu.items.find(item => {
+        return item.type.id === this.id;
+      });
+      if (menuItem !== undefined) {
+        return menuItem;
+      }
+    }
+    return menuItem;
   }
 
   reloadMenu (event: any) {

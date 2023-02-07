@@ -44,9 +44,7 @@ export class PageMenuComponent implements OnInit {
   public menu: IMenu[] = [];
   public menuCustom: IMenucustom[] = [];
   public customitemsList: number[] = [];
-  public menuCustomLoaded: boolean = false;
   public search: string = '';
-  private menuLoaded: boolean = false;
   public currentRoute: string = '/';
   public configurationExpanded: boolean = false;
 
@@ -66,14 +64,12 @@ export class PageMenuComponent implements OnInit {
     this.view = this.authService.view;
     if (this.authService.menucustom.length > 0) {
       this.menuCustom = this.authService.menucustom;
-      this.menuCustomLoaded = true;
       for (const item of this.menuCustom) {
         this.customitemsList.push(item.menuitem.id);
       }
     }
     if (this.authService.menu.length > 0) {
       this.menu = this.authService.menu;
-      this.menuLoaded = true;
     }
     this.organizationsApi.get(this.organizationId)
       .subscribe((result: IItem) => {
@@ -83,12 +79,6 @@ export class PageMenuComponent implements OnInit {
       .subscribe((result: IType[]) => {
         this.types = result;
         this.types.sort((u1, u2) => u1.name.localeCompare(u2.name));
-        if (!this.menuCustomLoaded) {
-          this.getCustomitemmenu();
-        }
-        if (!this.menuLoaded) {
-          this.getItemmenu();
-        }
       });
   }
 
@@ -153,6 +143,12 @@ export class PageMenuComponent implements OnInit {
     this.search = event.target.value;
   }
 
+  public menuWithItems () {
+    return this.menu.filter((menu) => {
+      return menu.items.length > 0;
+    });
+  }
+
   public filtered (items: any[]) {
     return items.filter((item) => {
       if (this.search === '') {
@@ -194,16 +190,6 @@ export class PageMenuComponent implements OnInit {
         for (const item of res) {
           this.menuCustom.push(item);
           this.customitemsList.push(item.menuitem.id);
-        }
-      });
-  }
-
-  private getItemmenu () {
-    this.menusApi.list()
-      .subscribe((res: IMenu[]) => {
-        for (const menu of res) {
-          this.menu.push(menu);
-          this.authService.menu.push(menu);
         }
       });
   }
