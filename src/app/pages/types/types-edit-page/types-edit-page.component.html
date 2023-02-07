@@ -135,34 +135,6 @@
             </label>
           </div>
         </div>
-
-      <!-- Menu management TODO -->
-      <div class="form__edit__item">
-        <div class="form__edit__item__title" i18n>Menu</div>
-        <div
-          class="form__edit__item__value"
-          *ngIf="!editionmode"
-          data-cy="item-edit-name-textonly"
-        >
-          <select
-            (change)="menuChoice($event)"
-            *ngIf="!addmenu"
-          >
-            <option></option>
-            <option value="addmenu">
-              > add new menu
-            </option>
-            <option *ngFor="let mymenu of menu" [value]="mymenu.id">{{ mymenu.name }}</option>
-          </select>
-          <input
-            *ngIf="addmenu"
-            (keyup)="addMenu($event)"
-          >
-          <button type="button" (click)="showQuickAddMenu = !showQuickAddMenu">Add new menu</button>
-        </div>
-      </div>
-
-
       </form>
     </div>
     <div *ngIf="typeLoaded && type !== null" class="form__edit page__inner__cadre">
@@ -258,6 +230,7 @@
             </div>
           </div>
           <div class="form__edit__item">
+            <div class="form__edit__item__title" i18n>Timeline</div>
             <label class="form__switch">
               <input
                 id="panelTimeline"
@@ -267,13 +240,6 @@
               >
               <span class="slider" data-cy="type-edit-switch-button"></span>
             </label>
-            <label
-              class="form__swith__label form__swith__label__enabled"
-              i18n
-            >
-              Timeline
-            </label>    
-      
           </div>
           <button style="float: right">Submit</button>
         </form>
@@ -285,26 +251,69 @@
           <div
             style="border: 1px solid var(--sky11); margin-bottom: 10px;border-radius: 5px;"
           >
+            <span style="color: var(--sky11);font-weight: bold;padding-left: 5px;height: 35px;display: flex;align-items: center;gap: 8px;">
+              <fa-icon [icon]="parseIcon(panel.icon)" [fixedWidth]="true" *ngIf="parseIcon(panel.icon) !== ''"></fa-icon>
+              {{ panel.name }}
+            </span>
             <div
-              id="panelId-{{ panel.id }}"
+              data-id="{{ panel.id }}"
               [sortablejs]="panelSort[i]"
               [sortablejsOptions]="panelOptions"
             >
-              <span style="color: var(--sky11);font-weight: bold;padding-left: 5px;height: 35px;display: flex;align-items: center;gap: 8px;">
-                <fa-icon [icon]="parseIcon(panel.icon)" [fixedWidth]="true"></fa-icon>
-                {{ panel.name }}
-              </span>
               <div
-                id="propertyId-{{ item }}"
+                data-id="{{ item }}"
                 style="background-color: var(--color-grey3); margin: 8px;border-radius: 5px; height: 35px;padding-left: 8px;color: var(--color-grey11);font-weight: bold;display: flex;align-items: center;"
                 *ngFor="let item of panelSort[i]; let j = index"
               >
-                <fa-icon icon="bars" [fixedWidth]="true"></fa-icon>
+                <fa-icon icon="bars" [fixedWidth]="true" style="color: var(--sky11);margin-right: 8px;"></fa-icon>
                 {{ getPropertyNameById(item) }}
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="form__edit page__inner__cadre">
+      <div class="page__inner__title">
+        <fa-icon icon="bars" [fixedWidth]="true"></fa-icon>
+        Menu
+        <span class="page__inner__title__note" data-cy="type-edit-properties-note" i18n>
+          manage displaying in the menu
+        </span>
+      </div>
+    
+      <div clas="form__edit__item">
+        <form [formGroup]="formMenuChoice">
+          <div class="form__edit__item__title" i18n>Menu choice</div>
+          <div style="cursor: pointer;margin: 0px 31px;">
+            <input type="radio" value="0" formControlName="menuId" (change)="menuChoice()">
+            <fa-stack size="xs" style="color: var(--sky11);width: 1.2em;">
+              <fa-icon icon="bars" stackItemSize="1x"></fa-icon>
+              <fa-icon icon="slash" stackItemSize="1x"></fa-icon>
+            </fa-stack>          
+            <span class="form__edit__item__title" style="margin-left: 3px;" i18n>not in menu</span>
+          </div>
+          <div *ngFor="let mymenu of menu" style="cursor: pointer;margin: 15px 31px;">
+            <input type="radio" [value]="mymenu.id.toString()" formControlName="menuId" (change)="menuChoice()">
+            <fa-icon [icon]="parseIcon(mymenu.icon)" [fixedWidth]="true" size="xs" style="color: var(--sky11);" *ngIf="parseIcon(mymenu.icon) !== ''"></fa-icon>
+            <fa-icon icon="signs-post" [fixedWidth]="true" size="xs" style="color: var(--sky11);" *ngIf="parseIcon(mymenu.icon) === ''"></fa-icon>
+            <span class="form__edit__item__title">{{ mymenu.name }}</span>
+          </div>
+          <div (click)="showQuickAddMenu = !showQuickAddMenu" style="cursor: pointer;margin: 15px 31px;">
+            <fa-icon icon="circle-plus" [fixedWidth]="true" size="xs" style="color: var(--sky11); margin-left: 3px;"></fa-icon>
+            add new menu
+          </div>
+
+          <div class="form__edit__item__title" *ngIf="formMenuChoice.controls.menuId.value !== '0'" i18n>Icon</div>
+          <div
+            class="form__edit__item__value"
+          >
+            <!-- <button (click)="PanelIcon()" type="button" *ngIf="iconChosen === null">icon</button> -->
+            <fa-icon icon="bars" [fixedWidth]="true" size="2xl" style="color: var(--sky11);"></fa-icon>
+            <button type="button">Change the icon</button>
+          </div>
+        </form>
       </div>
     </div>
 

@@ -95,18 +95,21 @@
       </span>
     </li>
   </ul>
-  
-  
+    
   <ul class="page__nav-container flow flow--small" style="border: 0px;border: 0px;margin-top: 0;padding-top: 0;" *ngIf="view === 'business'">
-    <li class="page__nav-item" style="margin-bottom: 20px;" *ngFor="let submenu of menu">
-      <strong style="text-transform:capitalize" (click)="menuExpand(submenu)">{{ submenu.name }}</strong>
-      <fa-icon
-        style="float: right;margin-right: 8px;"
-        [icon]="((submenu.expanded !== undefined && submenu.expanded) || search !== '') ? 'angle-down' : 'angle-right'"
-        size="xs"
-        [fixedWidth]="true"
+    <li class="page__nav-item" style="margin-bottom: 20px;" *ngFor="let submenu of menuWithItems()">
+      <div
         (click)="menuExpand(submenu)"
-      ></fa-icon>
+        style="cursor: pointer;"
+      >
+        <strong style="text-transform:capitalize">{{ submenu.name }}</strong>
+        <fa-icon
+          style="float: right;margin-right: 8px;"
+          [icon]="((submenu.expanded !== undefined && submenu.expanded) || search !== '') ? 'angle-down' : 'angle-right'"
+          size="xs"
+          [fixedWidth]="true"
+        ></fa-icon>
+      </div>
       <div *ngIf="(submenu.expanded !== undefined && submenu.expanded) || search !== ''">
         <span
           class="page__nav-item"
@@ -152,14 +155,18 @@
   
   
     <span class="page__nav-item">
-      <strong i18n>Configuration</strong>
-      <fa-icon
-        style="float: right;margin-right: 8px;"
-        [icon]="(configurationExpanded || search !== '') ? 'angle-down' : 'angle-right'"
-        size="xs"
-        [fixedWidth]="true"
+      <div
         (click)="configurationExpanded = !configurationExpanded"
-      ></fa-icon>
+        style="cursor: pointer;"
+      >
+        <strong i18n>Configuration</strong>
+        <fa-icon
+          style="float: right;margin-right: 8px;"
+          [icon]="(configurationExpanded || search !== '') ? 'angle-down' : 'angle-right'"
+          size="xs"
+          [fixedWidth]="true"
+        ></fa-icon>
+      </div>
       <div *ngIf="configurationExpanded">
         <span class="page__nav-item">
           <a

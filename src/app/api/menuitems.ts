@@ -65,11 +65,11 @@ export class MenuitemsApi {
     });
   }
 
-  // public delete (id: number) {
-  //   return this.http.delete(this.settingsService.backendUrl + '/v1/config/types/' + id, {
-  //     headers: {
-  //       Authorization: 'Bearer ' + this.authService.getToken(),
-  //     },
-  //   });
-  // }
+  public delete (id: number) {
+    return this.http.delete(this.settingsService.backendUrl + '/v1/display/menu/item/' + id, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
 }

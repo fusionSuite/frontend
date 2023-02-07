@@ -31,5 +31,6 @@ export interface IMenu {
     name: string;
     position: number;
     type: IType;
+    menu_id: Number;
   }[];
 }
