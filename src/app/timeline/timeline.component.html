@@ -31,40 +31,24 @@
       (click)="goToBottom()"
     ></fa-icon>
 
-    <button type="submit" class="button" data-cy="timeline-submit-showevent" (click)="toggleDisplayEvents()">
-      <span *ngIf="showEvents">
-        <fa-icon icon="eye-slash" [fixedWidth]="true"></fa-icon>
-        Hide events
-      </span>
-      <span *ngIf="!showEvents">
-        <fa-icon icon="eye" [fixedWidth]="true"></fa-icon>
-        Show events
-      </span>
-    </button>
-
-    <button type="submit" class="button" data-cy="timeline-submit-showconversation" (click)="toggleDisplayConversation()" style="margin-left: 10px;">
-      <span *ngIf="showConversation">
-        <fa-icon icon="comment-slash" [fixedWidth]="true"></fa-icon>
-        Hide conversation
-      </span>
-      <span *ngIf="!showConversation">
-        <fa-icon icon="comment" [fixedWidth]="true"></fa-icon>
-        Show conversation
-      </span>
-    </button>
+    <span *ngIf="showEvents" (click)="toggleDisplayEvents()" style="cursor: pointer;margin-left: 75px;background-color: var(--sky11);color: white;height: 28px;display: inline-block;border-radius: 15px;padding-left: 8px;padding-right: 8px;">
+      <fa-icon icon="check" [fixedWidth]="true"></fa-icon>
+      events
+    </span>
+    <span *ngIf="!showEvents" (click)="toggleDisplayEvents()" style="cursor: pointer;margin-left: 75px;background-color: var(--color-grey8);color: white;height: 28px;display: inline-block;border-radius: 15px;padding-left: 8px;padding-right: 8px;">
+      events
+    </span>
+    <span *ngIf="showConversation" (click)="toggleDisplayConversation()" style="cursor: pointer;margin-left: 8px;background-color: var(--sky11);color: white;height: 28px;display: inline-block;border-radius: 15px;padding-left: 8px;padding-right: 8px;">
+      <fa-icon icon="check" [fixedWidth]="true"></fa-icon>
+      conversations
+    </span>
+    <span *ngIf="!showConversation" (click)="toggleDisplayConversation()" style="cursor: pointer;margin-left: 8px;background-color: var(--color-grey8);color: white;height: 28px;display: inline-block;border-radius: 15px;padding-left: 8px;padding-right: 8px;">
+      conversations
+    </span>
   </div>
-  <div class="sortselect form__edit__item__value" *ngIf="changes.length > 0">
-    <select
-      (change)="changeSort($event)"
-      data-cy="timeline-changesort"
-    >
-      <option value="newest" i18n>Newest First</option>
-      <option value="oldest" i18n>Oldest first</option>
-    </select>
-  </div>
-
-
-  <div style="height: 50px" *ngIf="haveMessages"></div>
+  <fa-icon [icon]="sortIcon()" [fixedWidth]="true" style="float: right;cursor: pointer;color: var(--sky11);margin-right: 120px;" (click)="changeSort()"></fa-icon>
+  
+  <div style="height: 30px" *ngIf="haveMessages"></div>
 
   <div *ngIf="haveMessages && sortItems == 'newest';then formAddMessage"></div>
 
@@ -119,7 +103,7 @@
     </div>
 
     <div
-      *ngIf="(item.customdata !== undefined && item.customdata.type == 'event' && showEvents) || (item.customdata !== undefined && item.customdata.type == 'message' && !showConversation)"
+      *ngIf="(item.customdata !== undefined && item.customdata.type == 'event' && showEvents) || (item.customdata !== undefined && item.customdata.type == 'message' && !showConversation && showEvents)"
       class="event text--secondary"
     >
       <div style="display: contents;">
@@ -165,6 +149,7 @@
         (loaded)="loadEditor()"
         name="message"
         (focus)="updateDescription($event)"
+        (focusout)="focusoutDescription()"
       >
       </div>
 

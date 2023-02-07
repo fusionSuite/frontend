@@ -96,7 +96,6 @@ export class TimelineComponent implements OnChanges {
     this.editorConfiguration.getMarkdown();
   }
 
-
   public toggleDisplayEvents () {
     this.showEvents = !this.showEvents;
   }
@@ -105,9 +104,20 @@ export class TimelineComponent implements OnChanges {
     this.showConversation = !this.showConversation;
   }
 
-  public changeSort (event :any) {
-    this.sortItems = event.target.value;
+  public changeSort () {
+    if (this.sortItems === 'newest') {
+      this.sortItems = 'oldest';
+    } else {
+      this.sortItems = 'newest';
+    }
     this.sortItemsList();
+  }
+
+  public sortIcon () {
+    if (this.sortItems === 'newest') {
+      return 'arrow-down-wide-short';
+    }
+    return 'arrow-down-short-wide';
   }
 
   public onFormSubmit () {
@@ -120,6 +130,13 @@ export class TimelineComponent implements OnChanges {
    */
   public updateDescription (description: Event) {
     this.expandedWriteBox = true;
+  }
+
+  public focusoutDescription () {
+    const message = this.editorConfiguration.getMarkdown();
+    if (message === '') {
+      this.expandedWriteBox = false;
+    }
   }
 
   public submitMessage () {

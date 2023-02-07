@@ -27,6 +27,10 @@ import { IType } from 'src/app/interfaces/type';
 import { AuthService } from 'src/app/services/auth.service';
 import { SettingsService } from './settings.service';
 import { IProperty } from '../interfaces/property';
+import { MenusApi } from '../api/menus';
+import { IMenu } from '../interfaces/menu';
+import { MenucustomsApi } from '../api/menucustoms';
+import { IMenucustom } from '../interfaces/menucustom';
 
 interface Configuration {
   backendUrl: string;
@@ -40,6 +44,8 @@ export class InitappService {
   constructor (
     private http: HttpClient,
     private authService: AuthService,
+    private menusApi: MenusApi,
+    private menucustomsApi: MenucustomsApi,
     public SettingsService: SettingsService,
   ) { }
 
@@ -66,6 +72,8 @@ export class InitappService {
 
     if (this.authService.isLoggedIn()) {
       await this.loadTypes();
+      await this.loadMenu();
+      await this.loadMenuCustom();
     }
   }
 
@@ -95,6 +103,26 @@ export class InitappService {
             this.SettingsService.setPropertyIndex(property.internalname, property);
           });
         });
+      }))
+      .toPromise();
+  }
+
+  public loadMenu () {
+    return this.menusApi.list()
+      .pipe(map((res: IMenu[]) => {
+        for (const menu of res) {
+          this.authService.menu.push(menu);
+        }
+      }))
+      .toPromise();
+  }
+
+  public loadMenuCustom () {
+    return this.menucustomsApi.list()
+      .pipe(map((res: IMenucustom[]) => {
+        for (const item of res) {
+          this.authService.menucustom.push(item);
+        }
       }))
       .toPromise();
   }
