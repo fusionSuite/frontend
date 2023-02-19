@@ -24,6 +24,7 @@
 @import "anchors";
 @import "buttons";
 @import "dialog";
+@import "workflow";
 @import "timeline";
 @import "forms";
 @import "formsedit";
@@ -35,6 +36,7 @@
 @import "text";
 @import "../node_modules/@toast-ui/editor/dist/toastui-editor.css";
 @import "../node_modules/@toast-ui/editor/dist/toastui-editor-viewer.css";
+@import "../node_modules/drawflow/dist/drawflow.min.css";
 
 *,
 *::before,
