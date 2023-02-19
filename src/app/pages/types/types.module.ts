@@ -31,6 +31,7 @@ import { TypesCreatePageComponent } from './types-create-page/types-create-page.
 import { TypesImportPageComponent } from './types-import-page/types-import-page.component';
 import { TypesEditPageComponent } from './types-edit-page/types-edit-page.component';
 import { TimelineModule } from 'src/app/timeline/timeline.module';
+import { WorkflowModule } from 'src/app/workflow/workflow.module';
 import { SortbypipeModule } from 'src/app/utils/sortbypipe.module';
 import { DragdropfileDirective } from 'src/app/directive/dragdropfile.directive';
 import { IconchoiceModule } from 'src/app/modal/iconchoice/timelineiconchoice.module';
@@ -53,6 +54,7 @@ import { QuickaddMenuComponent } from 'src/app/modal/quickadd-menu/quickadd-menu
     TypesRoutingModule,
     ReactiveFormsModule,
     TimelineModule,
+    WorkflowModule,
     SortbypipeModule,
     FormsModule,
     IconchoiceModule,
