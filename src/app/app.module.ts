@@ -39,9 +39,11 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { httpInterceptorProviders } from './services/auth.interceptor';
 import { InitappService } from './services/initapp.service';
 import { TimelineModule } from './timeline/timeline.module';
+import { WorkflowModule } from './workflow/workflow.module';
 import { SortbypipeModule } from './utils/sortbypipe.module';
 import { IconchoiceModule } from './modal/iconchoice/timelineiconchoice.module';
 import { SortablejsModule } from 'ngx-sortablejs';
+import { DndModule } from 'ngx-drag-drop';
 
 function initializeApp (initapp: InitappService) {
   return () => initapp.loadConfiguration();
@@ -65,9 +67,11 @@ function initializeApp (initapp: InitappService) {
     LayoutModule,
     ReactiveFormsModule,
     TimelineModule,
+    WorkflowModule,
     SortbypipeModule,
     IconchoiceModule,
     SortablejsModule.forRoot({ animation: 150 }),
+    DndModule,
   ],
   providers: [
     httpInterceptorProviders,

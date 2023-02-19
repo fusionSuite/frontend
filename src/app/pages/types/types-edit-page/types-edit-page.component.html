@@ -317,6 +317,12 @@
       </div>
     </div>
 
+    <app-workflow
+      class="form__edit page__inner__cadre__workflow"
+      [typeId]="id"
+    >
+    </app-workflow>
+
     <app-timeline
       *ngIf="type !== null && type.changes !== null"
       [changes]="type.changes"
