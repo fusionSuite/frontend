@@ -20,8 +20,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { lastValueFrom, throwError } from 'rxjs';
+import { catchError, map, take } from 'rxjs/operators';
 
 import { NotificationsService } from 'src/app/notifications/notifications.service';
 import { ActivatedRoute } from '@angular/router';
@@ -116,6 +116,13 @@ export class ItemsEditPageComponent implements OnInit {
         for (const prop of res.properties) {
           const formProp = this.formPropertiesControls.controls.properties;
           formProp.push(new FormControl(prop.value));
+          if (prop.valuetype === 'itemlink') {
+            // get the data
+            this.getItemsOfPropertyItemlink(prop)
+              .then((res) => {
+                prop.listvalues = res;
+              });
+          }
         }
         this.typesApi.get(res.type_id)
           .subscribe((resType) => {
@@ -160,9 +167,10 @@ export class ItemsEditPageComponent implements OnInit {
   //   }
   // }
   public updateProperty (event: any, property: IItemproperty) {
+    console.log(event);
     let value = event.target.value;
     if (this.item !== null) {
-      if (['number', 'list'].includes(property.valuetype)) {
+      if (['number', 'list', 'itemlink'].includes(property.valuetype)) {
         value = parseInt(value);
       } else if (property.valuetype === 'boolean') {
         if (value === 'on') {
@@ -273,6 +281,26 @@ export class ItemsEditPageComponent implements OnInit {
     return this.panels.filter((panel) => {
       return panel.displaytype === 'default' && panel.items.length > 0;
     });
+  }
+
+  public async getItemsOfPropertyItemlink (prop: any) {
+    // get type have same internalname than property
+    // const request = this.typesApi.get(this.settingsService.getTypeIdByInternalname(prop.internalname)).pipe(take(1));
+    // const type = await lastValueFrom<any>(request);
+    // get all items of this type
+    const listvalues: {
+      id: number;
+      value: string|number;
+    }[] = [];
+    const request = this.itemsApi.list(prop.internalname).pipe();
+    const items = await lastValueFrom<any>(request);
+    items.forEach((item: IItem) => {
+      listvalues.push({
+        id: item.id,
+        value: item.name,
+      });
+    });
+    return listvalues;
   }
 
   private loopUdpateDateDistance () {

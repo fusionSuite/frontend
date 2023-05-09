@@ -16,12 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+.selected {
+  box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+}
+
+.parent-drawflow:focus {
+  outline: unset !important;
+}
+
 .workflow {
   &__trigger {
     color: #000 !important;
 
-    background-color: var(--color-grey2) !important;
-    border: 2px solid var(--sky11) !important;
+    // background-color: var(--color-grey2) !important;
+    background-color: #fff !important;
+    border: 1px solid var(--color-grey6) !important;
     padding: 0 0 !important;
     width: unset !important;
     min-height: 70px !important;
@@ -29,7 +38,7 @@
 
     .outputs {
       .output {
-        border: 2px solid var(--sky11);
+        border: 2px solid var(--color-grey8);
         right: 9px !important;
         top: 10px !important;
         // width: 14px !important;
@@ -37,13 +46,9 @@
         // right: -8px !important;
       }
     }
-
-    .selected {
-      box-shadow: 10px 5px 5px #000 !important;
-    }
   }
 
-  &__node {
+  &__engine {
     width: unset !important;
     min-width: 140px !important;
     min-height: 70px !important;
@@ -51,16 +56,16 @@
 
     color: #000 !important;
 
-    background-color: var(--color-grey2) !important;
-
-    border: 1px solid var(--color-grey8) !important;
+    // background-color: var(--color-grey2) !important;
+    background-color: #fff !important;
+    border: 1px solid var(--color-grey6) !important;
 
     .outputs {
       .output {
         top: 10px !important;
         right: 10px !important;
 
-        border: 2px solid var(--sky11);
+        border: 2px solid var(--color-grey8);
       }
 
       .output_1 {
@@ -78,12 +83,8 @@
 
         background-color: #fff !important;
 
-        border: 2px solid var(--sky11);
+        border: 2px solid #f9c10a;
       }
-    }
-
-    .selected {
-      box-shadow: 10px 5px 5px #000 !important;
     }
   }
 
@@ -95,16 +96,16 @@
 
     color: #000 !important;
 
-    background-color: var(--brown2) !important;
-
-    border: 1px solid var(--brown8) !important;
+    // background-color: var(--brown2) !important;
+    background-color: #fff !important;
+    border: 1px solid var(--color-grey6) !important;
 
     .outputs {
       .output {
         top: 10px !important;
         right: 10px !important;
 
-        border: 2px solid var(--brown11);
+        border: 2px solid var(--color-grey8);
       }
 
       .output_1 {
@@ -122,12 +123,8 @@
 
         background-color: #fff !important;
 
-        border: 2px solid var(--brown11);
+        border: 2px solid #fe294d;
       }
-    }
-
-    .selected {
-      box-shadow: 10px 5px 5px #000 !important;
     }
   }
 
@@ -147,12 +144,14 @@
 
   &__btn {
     display: inline-block;
-    padding: 0.25rem 1rem;
-    margin-right: 8px;
+    padding: 1px 5px;
+    margin-left: 8px;
+    width: calc(100% - 16px);
+    margin-bottom: 4px;
 
     color: var(--color-grey12);
     font-family: inherit;
-    font-size: 1em;
+    font-size: 18px;
     line-height: 1.5;
 
     background-color: var(--color-grey3);
@@ -190,5 +189,129 @@
     &.button--primary:focus {
       outline-color: var(--color-primary8);
     }
+
+    fa-icon {
+      color: var(--sky11);
+    }
+  }
+}
+
+.drawflow_content_node {
+  .title {
+    background-color: #fff;
+    color: #000;
+    min-height: 25px;
+    min-width: 240px;
+    margin-top: 5px;
+    padding: 0 10px;
+    text-align: end;
+    color: var(--color-grey10);
+    text-transform: uppercase;
+    font-size: 16px;
+    border-bottom: 1px solid var(--color-grey6);
+  }
+
+  .content {
+    min-height: 40px;
+    padding: 0 18px;
+  }
+
+  .subtype {
+    top: -20px;
+    color: var(--color-grey10);
+    position: relative;
+  }
+
+  .bubble {
+    display: inline-grid;
+
+    width: 40px;
+    height: 40px;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    top: -20px;
+    position: relative;
+
+    fa-icon {
+      position: absolute;
+      margin-top: 7px;
+      margin-left: 5px;
+    }
+  }
+
+  .trigger {
+    background-color: var(--sky11);
+    color: #fff;
+  }
+
+  .engine {
+    background-color: #f9c10a;
+    color: #fff;
+  }
+
+  .action {
+    background-color: #fe294d;
+    color: #fff;
+  }
+
+  .synchrone {
+    float: right;
+    top: 3px;
+    border: 3px solid #7cbb06;
+    right: -8px;
+    cursor: pointer;
+
+    fa-icon:first-child {
+      color: var(--color-grey10);
+      left: -3px;
+      top: -2px;
+    }
+
+    fa-icon:nth-child(2) {
+      color: #7cbb06;
+      background-color: white;
+      top: 17px;
+      left: -12px;
+      width: 20px;
+      height: 20px;
+      padding-top: 2px;
+      border-radius: 10px;
+    }
+
+  }
+
+  .asynchrone {
+    float: right;
+    top: 3px;
+    border: 3px solid #fe9c00;
+    right: -8px;
+    cursor: pointer;
+
+    fa-icon:first-child {
+      color: var(--color-grey10);
+      left: -3px;
+      top: -2px;
+    }
+
+    fa-icon:nth-child(2) {
+      color: #fe9c00;
+      background-color: white;
+      top: 17px;
+      left: -12px;
+      width: 20px;
+      height: 20px;
+      padding-top: 2px;
+      border-radius: 10px;
+    }
+  }
+
+  .subcontent {
+    top: -20px;
+    font-weight: bold;
+    font-size: 22px;
+    position: relative;
   }
 }
