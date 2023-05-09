@@ -1,0 +1,25 @@
+<span style="font-weight: bold;color: #fff;background-color: var(--sky11);width: 100%;display: block;text-align: center;">
+  Trigger
+</span>
+<div class="form__edit__item" style="margin-left: 4px;margin-right: 4px;">
+  <div>
+    <div class="form__edit__item__titlesky" i18n>Name</div>
+    <div class="form__edit__item__value short">
+      <input>
+    </div>
+  </div>
+
+  <div>
+    <div class="form__edit__item__titlesky" i18n>Asynchronous</div>
+    <div class="form__edit__item__value short">
+      <label class="form__switch">
+        <input
+          [value]="async"
+          type="checkbox"
+          [checked]="async"
+        >
+        <span class="slider"></span>          
+      </label>
+    </div>
+  </div>
+</div>

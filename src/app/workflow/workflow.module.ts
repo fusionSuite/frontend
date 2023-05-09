@@ -23,10 +23,22 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SortbypipeModule } from '../utils/sortbypipe.module';
 import { WorkflowComponent } from './workflow.component';
 import { DndModule } from 'ngx-drag-drop';
+import { WorkflowTriggerComponent } from './triggers/workflowTrigger.component';
+import { WorkflowActionComponent } from './actions/workflowAction.component';
+import { WorkflowEngineComponent } from './engines/workflowEngine.component';
+import { WorkflowTriggerPanelComponent } from './triggers/workflowTriggerPanel.component';
+import { WorkflowEnginePanelComponent } from './engines/workflowEnginePanel.component';
+import { WorkflowActionPanelComponent } from './actions/workflowActionPanel.component';
 
 @NgModule({
   declarations: [
     WorkflowComponent,
+    WorkflowTriggerComponent,
+    WorkflowActionComponent,
+    WorkflowEngineComponent,
+    WorkflowEnginePanelComponent,
+    WorkflowTriggerPanelComponent,
+    WorkflowActionPanelComponent,
   ],
   imports: [
     CommonModule,

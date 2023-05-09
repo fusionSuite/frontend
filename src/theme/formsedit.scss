@@ -34,14 +34,25 @@
       color: var(--color-grey11);
     }
 
+    &__titlesky {
+      min-width: 200px;
+      margin-top: 8px;
+
+      color: var(--sky11);
+    }
+
     &__value {
-      min-width: 300px;
       min-height: 40px;
       padding-left: 2px;
 
       flex-grow: 1;
 
+      .short {
+        min-width: 100px;
+      }
+
       input {
+        width: 98%;
         padding-left: 0;
 
         font-family: inherit;
