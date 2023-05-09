@@ -1,0 +1,34 @@
+<div class="title">
+  {{data.type}}
+</div>
+<div class="content">
+  <span class="bubble action">
+    <fa-icon icon="wrench" [fixedWidth]="true" size="lg"></fa-icon>
+  </span>
+  <div class="subtype">
+    {{data.subtype}}
+  </div>
+  <div class="subcontent">
+    {{data.subtype}}
+    <!-- <br>
+    <div *ngIf="data.subtype === 'Create an item'">
+      <div class="sortselect form__edit__item" style="margin: 0 35px;">
+        <div class="form__edit__item__title" i18n>Data mapping</div>
+        <div class="form__edit__item__value">
+          <select>
+            <option selected disabled value="-1" i18n>Choose the mapping</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="data.subtype === 'Update an item'">
+      <input [(ngModel)]="field">
+      <input [(ngModel)]="value" (keyup.enter)="addDefinition()">
+    </div>
+    <div *ngIf="data.subtype === 'Go to another type (FusionInventory)'">
+      Type:
+      <input [(ngModel)]="value" (keyup.enter)="addDefinition()">
+    </div> -->
+    <!-- <button df-button>click!</button> -->
+  </div>
+</div>

@@ -1,0 +1,157 @@
+<span style="font-weight: bold;color: #fff;background-color: var(--sky11);width: 100%;display: block;text-align: center;">
+  Action
+</span>
+<div class="form__edit__item" style="margin-left: 4px;margin-right: 4px;">
+  <div>
+    <div class="form__edit__item__titlesky" i18n>Name</div>
+    <div class="form__edit__item__value short">
+      <input>
+    </div>
+  </div>
+
+  <div *ngIf="formElements.includes('field')">
+    <div class="form__edit__item__titlesky" i18n>Field</div>
+    <div class="form__edit__item__value short">
+      <select>
+        <optgroup  label="Type" *ngIf="fields.type.length > 0">
+          <option *ngFor="let opt of fields.type" [value]="opt.key">
+            {{opt.name}}
+          </option>
+        </optgroup>
+        <!-- <optgroup  label="FusionInventory" *ngIf="fields.fusioninventory.length > 0">
+          <option *ngFor="let opt of fields.fusioninventory" [value]="opt.key">
+            {{opt.name}}
+          </option>
+        </optgroup> -->
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="formElements.includes('value')">
+    <div class="form__edit__item__titlesky" i18n>Value</div>
+    <div class="form__edit__item__value short">
+      <input>
+    </div>
+  </div>
+
+  <div *ngIf="formElements.includes('function')">
+    <div class="form__edit__item__titlesky" i18n>Function</div>
+    <div class="form__edit__item__value short">
+      <select>
+        <option>Replace</option>
+        <option>Append (numeric)</option>
+        <option>Add</option>
+        <option>reset to default</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="formElements.includes('nextType')">
+    <div class="form__edit__item__titlesky" i18n>Next type for workflow</div>
+    <div class="form__edit__item__value short">
+      <select>
+        <option *ngFor="let type of types">
+          {{type.name}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="formElements.includes('fusioninventorydata')">
+    <div class="form__edit__item__titlesky" i18n>FusionInventory data</div>
+    <div class="form__edit__item__value short">
+      <select>
+        <option>Children</option>
+        <option>Current</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="formElements.includes('propertyId')">
+    <div class="form__edit__item__titlesky" i18n>Property</div>
+    <div class="form__edit__item__value short">
+      <select>
+        <option>none</option>
+        <option>software</option>
+      </select>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <div *ngIf="formElements.includes('source')">
+    <div class="form__edit__item__titlesky" i18n>Source of data</div>
+    <div class="form__edit__item__value short">
+      <select>
+        <option>Type</option>
+        <option>FusionInventory</option>
+      </select>
+    </div>
+  </div>
+
+
+  <div *ngIf="formElements.includes('operator')">
+    <div class="form__edit__item__titlesky" i18n>Operator</div>
+    <div class="form__edit__item__value short">
+      <select>
+        <option>contains</option>
+        <option>=</option>
+        <option>></option>
+        <option>>=</option>
+        <option><</option>
+        <option><=</option>
+        <option>!</option>
+        <option>regex</option>
+        <option>defined</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="formElements.includes('renamevalue')">
+    <div class="form__edit__item__titlesky" i18n>New value</div>
+    <div class="form__edit__item__value short">
+      <input>
+    </div>
+  </div>
+
+  <div *ngIf="formElements.includes('variable')">
+    <div class="form__edit__item__titlesky" i18n>Variable</div>
+    <div class="form__edit__item__value short">
+      <span style="color: var(--sky11);">&#123;</span>
+      <input style="width: 92%;">
+      <span style="color: var(--sky11);">&#125;</span>
+    </div>
+  </div>
+
+  <div *ngIf="formElements.includes('optionRecusriseloop')">
+    <div class="form__edit__item__titlesky" i18n>Recursive loop</div>
+    <div class="form__edit__item__value short">
+      <label class="form__switch">
+        <input
+          type="checkbox"
+        >
+        <span class="slider"></span>          
+      </label>
+    </div>
+  </div>
+
+  <div *ngIf="formElements.includes('optionDeletenotfound')">
+    <div class="form__edit__item__titlesky" i18n>Delete properties not found</div>
+    <div class="form__edit__item__value short">
+      <label class="form__switch">
+        <input
+          type="checkbox"
+        >
+        <span class="slider"></span>          
+      </label>
+    </div>
+  </div>
+
+</div>

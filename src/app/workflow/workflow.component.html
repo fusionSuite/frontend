@@ -16,129 +16,79 @@
  - along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 
-<div class="page__inner__title__timeline" data-cy="timeline-title">
-  <fa-icon icon="timeline" [fixedWidth]="true"></fa-icon>
+<div class="page__inner__title" data-cy="timeline-title">
+  <fa-icon icon="diagram-project" [fixedWidth]="true"></fa-icon>
   Workflow
-  <span class="page__inner__title__note"> modifications</span>
+  <span class="page__inner__title__note">powerful workflows used to execute actions</span>
 </div>
 
-<div class="form__edit__item__value">
-  Item triggers
-  <span
-    class="workflow__btn"
-    disabled
-    dndDraggable="Create an item"
-    dndType="trigger"
-    id="testtest"
-  >
-    <fa-icon icon="plus" [fixedWidth]="true"></fa-icon>
-    create
-  </span>
-  <span
-    class="workflow__btn"
-    disabled
-    dndDraggable="Update an item"
-    dndType="trigger"
-    id="testtest"
-  >
-    <fa-icon icon="pen" [fixedWidth]="true"></fa-icon>
-    update
-  </span>
-  <span
-    class="workflow__btn"
-    disabled
-    dndDraggable="Soft-delete an item"
-    dndType="trigger"
-    id="testtest"
-  >
-    <fa-icon icon="trash" [fixedWidth]="true"></fa-icon>
-    soft delete
-  </span>
-  <span
-    class="workflow__btn"
-    disabled
-    dndDraggable="Delete an item"
-    dndType="trigger"
-    id="testtest"
-  >
-    <fa-icon icon="xmark" [fixedWidth]="true"></fa-icon>
-    delete
-  </span>
-</div>
-
-<div class="form__edit__item__value">
-  Other triggers
-  <span
-    class="workflow__btn"
-    disabled
-    dndDraggable="datetime"
-    dndType="trigger"
-    id="testtest"
-  >
-    <fa-icon icon="calendar" [fixedWidth]="true"></fa-icon>
-    date & time
-  </span>
-  <span
-    class="workflow__btn"
-    disabled
-    dndDraggable="webhook"
-    dndType="trigger"
-    id="testtest"
-  >
-    webhook
-  </span>
-</div>
-
-<div class="form__edit__item__value">
-  Nodes
-  <span
-    class="workflow__btn"
-    disabled
-    dndDraggable="A rule"
-    dndType="node"
-    id="testtest"
-  >
-    <fa-icon icon="filter" [fixedWidth]="true"></fa-icon>
-    Rule
-  </span>
-</div>
-
-<div class="form__edit__item__value">
-  Actions
-  <span
-    class="workflow__btn"
-    disabled
-    dndDraggable="An action script"
-    dndType="action"
-    id="testtest"
-  >
-    <fa-icon icon="scroll" [fixedWidth]="true"></fa-icon>
-    Action script
-  </span>
-  <span
-    class="workflow__btn"
-    disabled
-    dndDraggable="Create an item"
-    dndType="action"
-    id="testtest"
-  >
-    <fa-icon icon="plus" [fixedWidth]="true"></fa-icon>
-    Create item
-  </span>
-</div>
-
-<div style="min-height: 500px;resize: vertical;">
-
-  <div
-    id="drawflowDiv"
-    style="border: 1px solid red;height: 100%;resize: vertical;"
-    dndDropzone
-    (dndDrop)="onDrop($event)"
-  >
+<div style="display: flex">
+  <div style="min-height: 850px;resize: vertical;flex-grow: 1;">
+    <div
+      id="drawflowDiv"
+      style="border: 1px solid var(--sky11);height: 100%;resize: vertical;"
+      dndDropzone
+      (dndDrop)="onDrop($event)"
+      adHost
+    >
+    </div>
+    <div class="workflow__barzoom">
+      <fa-icon icon="search-minus" [fixedWidth]="true" (click)="flowchart.zoom_out()"></fa-icon>
+      <fa-icon icon="search" [fixedWidth]="true" (click)="flowchart.zoom_reset()"></fa-icon>
+      <fa-icon icon="search-plus" [fixedWidth]="true" (click)="flowchart.zoom_in()"></fa-icon>
+    </div>
   </div>
-  <div class="workflow__barzoom">
-    <fa-icon icon="search-minus" [fixedWidth]="true" (click)="flowchart.zoom_out()"></fa-icon>
-    <fa-icon icon="search" [fixedWidth]="true" (click)="flowchart.zoom_reset()"></fa-icon>
-    <fa-icon icon="search-plus" [fixedWidth]="true" (click)="flowchart.zoom_in()"></fa-icon>
+  <div style="width: 210px;border-bottom: 1px solid var(--sky11);border-radius: 0px 5px 5px 0px;border-right: 1px solid var(--sky11);border-top: 1px solid var(--sky11);">
+    <div *ngIf="configPanel === 'blocks'">
+      <span style="font-weight: bold;color: #fff;background-color: var(--sky11);width: 100%;display: block;text-align: center;">
+        Blocks
+      </span>
+      <span>Trigger</span>
+      <div
+        *ngFor="let trigger of blocks.triggers"
+        class="workflow__btn"
+        [dndDraggable]="trigger.type"
+        dndType="trigger"
+        id="testtest"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        {{trigger.name}}
+      </div>
+      <span>Engine</span>
+      <div
+        *ngFor="let engine of blocks.engines"
+        class="workflow__btn"
+        [dndDraggable]="engine.type"
+        dndType="engine"
+        id="testtest"
+      >
+        <fa-icon icon="filter"></fa-icon>
+        {{engine.name}}
+      </div>
+      <span>Action</span>
+      <div
+        *ngFor="let action of blocks.actions"
+        class="workflow__btn"
+        [dndDraggable]="action.type"
+        dndType="action"
+        id="testtest"
+      >
+        <fa-icon icon="filter"></fa-icon>
+        {{action.name}}
+      </div>
+    </div>
+    <div *ngIf="configPanel === 'engine'">
+      <app-workflowEnginePanel [panelId]="panelId" [panelType]="panelType"></app-workflowEnginePanel>
+    </div>
+    <div *ngIf="configPanel === 'trigger'">
+      <app-workflowTriggerPanel
+        [panelId]="panelId"
+        [panelType]="panelType"
+        (changeTriggerData)="changeTriggerData($event)"
+      ></app-workflowTriggerPanel>
+    </div>
+    <div *ngIf="configPanel === 'action'">
+      <app-workflowActionPanel [panelId]="panelId" [panelType]="panelType"></app-workflowActionPanel>
+    </div>
   </div>
 </div>
