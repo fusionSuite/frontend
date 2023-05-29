@@ -37,43 +37,43 @@
   <div *ngIf="formElements.includes('function')">
     <div class="form__edit__item__titlesky" i18n>Function</div>
     <div class="form__edit__item__value short">
-      <select>
-        <option>Replace</option>
-        <option>Append (numeric)</option>
-        <option>Add</option>
-        <option>reset to default</option>
-      </select>
+      <ng-select>
+        <ng-option>Replace</ng-option>
+        <ng-option>Append (numeric)</ng-option>
+        <ng-option>Add</ng-option>
+        <ng-option>reset to default</ng-option>
+      </ng-select>
     </div>
   </div>
 
   <div *ngIf="formElements.includes('nextType')">
     <div class="form__edit__item__titlesky" i18n>Next type for workflow</div>
     <div class="form__edit__item__value short">
-      <select>
-        <option *ngFor="let type of types">
+      <ng-select>
+        <ng-option *ngFor="let type of types">
           {{type.name}}
-        </option>
-      </select>
+        </ng-option>
+      </ng-select>
     </div>
   </div>
 
   <div *ngIf="formElements.includes('fusioninventorydata')">
     <div class="form__edit__item__titlesky" i18n>FusionInventory data</div>
     <div class="form__edit__item__value short">
-      <select>
-        <option>Children</option>
-        <option>Current</option>
-      </select>
+      <ng-select>
+        <ng-option>Children</ng-option>
+        <ng-option>Current</ng-option>
+      </ng-select>
     </div>
   </div>
 
   <div *ngIf="formElements.includes('propertyId')">
     <div class="form__edit__item__titlesky" i18n>Property</div>
     <div class="form__edit__item__value short">
-      <select>
-        <option>none</option>
-        <option>software</option>
-      </select>
+      <ng-select>
+        <ng-option>none</ng-option>
+        <ng-option>software</ng-option>
+      </ng-select>
     </div>
   </div>
 
@@ -89,10 +89,10 @@
   <div *ngIf="formElements.includes('source')">
     <div class="form__edit__item__titlesky" i18n>Source of data</div>
     <div class="form__edit__item__value short">
-      <select>
-        <option>Type</option>
-        <option>FusionInventory</option>
-      </select>
+      <ng-select>
+        <ng-option>Type</ng-option>
+        <ng-option>FusionInventory</ng-option>
+      </ng-select>
     </div>
   </div>
 
@@ -100,17 +100,17 @@
   <div *ngIf="formElements.includes('operator')">
     <div class="form__edit__item__titlesky" i18n>Operator</div>
     <div class="form__edit__item__value short">
-      <select>
-        <option>contains</option>
-        <option>=</option>
-        <option>></option>
-        <option>>=</option>
-        <option><</option>
-        <option><=</option>
-        <option>!</option>
-        <option>regex</option>
-        <option>defined</option>
-      </select>
+      <ng-select>
+        <ng-option>contains</ng-option>
+        <ng-option>=</ng-option>
+        <ng-option>></ng-option>
+        <ng-option>>=</ng-option>
+        <ng-option><</ng-option>
+        <ng-option><=</ng-option>
+        <ng-option>!</ng-option>
+        <ng-option>regex</ng-option>
+        <ng-option>defined</ng-option>
+     </ng-select>
     </div>
   </div>
 

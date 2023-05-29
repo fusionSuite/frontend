@@ -44,6 +44,7 @@ import { SortbypipeModule } from './utils/sortbypipe.module';
 import { IconchoiceModule } from './modal/iconchoice/timelineiconchoice.module';
 import { SortablejsModule } from 'ngx-sortablejs';
 import { DndModule } from 'ngx-drag-drop';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 function initializeApp (initapp: InitappService) {
   return () => initapp.loadConfiguration();
@@ -66,6 +67,7 @@ function initializeApp (initapp: InitappService) {
     FontAwesomeModule,
     LayoutModule,
     ReactiveFormsModule,
+    NgSelectModule,
     TimelineModule,
     WorkflowModule,
     SortbypipeModule,

@@ -29,6 +29,7 @@ import { WorkflowEngineComponent } from './engines/workflowEngine.component';
 import { WorkflowTriggerPanelComponent } from './triggers/workflowTriggerPanel.component';
 import { WorkflowEnginePanelComponent } from './engines/workflowEnginePanel.component';
 import { WorkflowActionPanelComponent } from './actions/workflowActionPanel.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { WorkflowActionPanelComponent } from './actions/workflowActionPanel.comp
     CommonModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    NgSelectModule,
     FormsModule,
     SortbypipeModule,
     DndModule,
