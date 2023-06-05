@@ -89,7 +89,7 @@
 
     <div *ngFor="let panel of panels" class="form__edit page__inner__cadre">
       <div class="page__inner__title">
-        <fa-icon [icon]="parseIcon(panel.icon)" [fixedWidth]="true"></fa-icon>
+        <fa-icon [icon]="parseIcon(panel.icon)" [fixedWidth]="true" *ngIf="parseIcon(panel.icon) !== null"></fa-icon>
         {{ panel.name }}
         <span class="page__inner__title__note" data-cy="type-edit-properties-note" i18n>
           {panel.items.length, plural, =1 {{{ panel.items.length }} property} other {{{ panel.items.length }} properties}}         
@@ -182,7 +182,7 @@
       style="width: 400px;"
     >
       <div class="page__inner__title">
-        <fa-icon [icon]="parseIcon(panel.icon)" [fixedWidth]="true"></fa-icon>
+        <fa-icon [icon]="parseIcon(panel.icon)" [fixedWidth]="true" *ngIf="parseIcon(panel.icon) !== null"></fa-icon>
         {{ panel.name }}
         <span class="page__inner__title__note" data-cy="type-edit-properties-note" i18n>
           {panel.items.length, plural, =1 {{{ panel.items.length }} property} other {{{ panel.items.length }} properties}}         
@@ -192,9 +192,19 @@
         [formGroup]="formPropertiesControls"
         data-cy="form-types-new"
       >
-        <div formArrayName="properties">
-          <div class="form__edit__item" *ngFor="let prop of groupProperties(panel.items); let i = index;">
-            <div class="form__edit__item__title" i18n>{{ prop.name }}</div>
+        <div>
+          <div class="form__edit__item" *ngFor="let prop of groupProperties(panel.items); let i = index;"
+            (mouseover)="displayActionsProperty[prop.id] = true"
+            (mouseleave)="displayActionsProperty[prop.id] = false"
+          >
+            <div class="form__edit__item__title">
+              <div i18n>{{ prop.name }}</div>
+              <div style="font-size: 11px;" *ngIf="editionmode && displayActionsProperty[prop.id]">
+                <fa-icon icon="add" [fixedWidth]="true" size="sm"></fa-icon>Add new |
+                <fa-icon icon="rotate-left" [fixedWidth]="true" size="xs"></fa-icon>reset to default |
+                <fa-icon icon="xmark" [fixedWidth]="true" size="xs"></fa-icon>empty
+              </div>
+            </div>
             <div
               class="form__edit__item__value"
               *ngIf="!editionmode"
@@ -205,6 +215,9 @@
               </span>
               <span *ngIf="prop.valuetype === 'list' && prop.value !== null">
                 {{ prop.value.value }}
+              </span>
+              <span *ngIf="prop.valuetype === 'itemlink' && prop.value !== null">
+                {{ prop.value.name }}
               </span>
 
               <label class="form__switch" *ngIf="prop.valuetype === 'boolean'">
@@ -226,6 +239,15 @@
                 style="color: var(--color-grey11);float: right;margin-right: 30px; cursor: pointer"
                 *ngIf="prop.value !== '' && prop.value !== null"
               ></fa-icon>
+
+              <div *ngIf="prop.valuetype === 'itemlinks' && prop.value !== null">
+                <ul>
+                  <li *ngFor="let val of prop.value">
+                    {{ val.name}}
+                  </li>
+                </ul>
+              </div>
+
             </div>
 
 
@@ -233,7 +255,6 @@
               <input
                 [value]="prop.value"
                 data-cy="item-edit-property-input"
-                [formControlName]="i"
                 (change)="updateProperty($event, prop)"
                 *ngIf="['string', 'integer', 'decimal', 'number'].includes(prop.valuetype)"
               >
@@ -249,7 +270,7 @@
                 <span class="slider"></span>
               </label>
 
-              <select
+              <!-- <select
                 *ngIf="prop.valuetype === 'list'"
                 (change)="updateProperty($event, prop)"
               >
@@ -258,7 +279,41 @@
                   [value]="val.id"
                   [selected]="prop.value !== null && prop.value.id === val.id"
                 >{{ val.value }}</option>
-              </select>
+              </select> -->
+              <ng-select
+                *ngIf="prop.valuetype === 'list'"
+                [items]="prop.listvalues"
+                bindLabel="value"
+                bindValue="id"
+                [formControlName]="'prop' + prop.id.toString()"
+                (change)="updateProperty($event, prop)"
+              >
+              </ng-select>
+
+              <ng-select
+                *ngIf="prop.valuetype === 'itemlink'"
+                [items]="getItemsOfSelect(prop)"
+                bindLabel="name"
+                bindValue="id"
+                groupBy="type_id"
+                [formControlName]="'prop' + prop.id.toString()"
+                (change)="updateProperty($event, prop)"
+              >
+
+              </ng-select>
+
+              <ng-select
+                *ngIf="prop.valuetype === 'itemlinks'"
+                [items]="getItemsOfSelect(prop)"
+                bindLabel="name"
+                bindValue="id"
+                groupBy="type_id"
+                [multiple]="true"
+                [formControlName]="'prop' + prop.id.toString()"
+                (change)="updatePropertyItemlinks($event, prop)"
+              >
+
+              </ng-select>
             </div>
           </div>
         </div>

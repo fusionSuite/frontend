@@ -188,6 +188,7 @@ export class PropertiesCreatePageComponent implements OnInit {
       regexformat: this.formControls.regexformat.value,
       listvalues: [],
       default: this.formControls.default.value,
+      allowedtypes: [],
       // organization_id: 1,
       // sub_organization: true,
     };

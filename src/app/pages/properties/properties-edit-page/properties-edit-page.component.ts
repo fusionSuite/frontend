@@ -29,6 +29,8 @@ import { IProperty } from 'src/app/interfaces/property';
 import { ActivatedRoute } from '@angular/router';
 import { formatDistanceToNow, formatDistanceToNowStrict } from 'date-fns';
 import { IPanel } from 'src/app/interfaces/panel';
+import { SettingsService } from 'src/app/services/settings.service';
+import { IType } from 'src/app/interfaces/type';
 
 @Component({
   selector: 'app-properties-edit-page',
@@ -43,6 +45,7 @@ export class PropertiesEditPageComponent implements OnInit {
   public updatedAt :string = '';
   public panels: IPanel[] = [];
   public editionmode: boolean = false;
+  public types: IType[] = [];
   public formControls = new FormGroup({
     name: new FormControl('', {
       nonNullable: true,
@@ -72,12 +75,17 @@ export class PropertiesEditPageComponent implements OnInit {
       nonNullable: false,
       validators: [],
     }),
+    allowedtypes: new FormControl(<number[]>[], {
+      nonNullable: true,
+      validators: [],
+    }),
   });
 
   constructor (
     private propertiesApi: PropertiesApi,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
+    private settingsService: SettingsService,
   ) {}
 
   ngOnInit (): void {
@@ -86,6 +94,7 @@ export class PropertiesEditPageComponent implements OnInit {
       if (id !== null) {
         this.id = +id;
         this.loadProperty();
+        this.types = this.settingsService.getAllTypes();
       }
     });
   }
@@ -118,6 +127,8 @@ export class PropertiesEditPageComponent implements OnInit {
         this.formControls.controls.setcurrentdate.setValue(res.setcurrentdate);
         this.formControls.controls.regexformat.setValue(res.regexformat);
         this.formControls.controls.default.setValue(res.default);
+        const allowedtypesIds = res.allowedtypes.map(({ id }) => id);
+        this.formControls.controls.allowedtypes.setValue(allowedtypesIds);
 
         this.propertyLoaded = true;
       });
