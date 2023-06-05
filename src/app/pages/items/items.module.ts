@@ -31,6 +31,7 @@ import { SortbypipeModule } from 'src/app/utils/sortbypipe.module';
 import { ItemsListPageComponent } from './items-list-page/items-list-page.component';
 import { ItemsCreatePageComponent } from './items-create-page/items-create-page.component';
 import { ItemsEditPageComponent } from './items-edit-page/items-edit-page.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ItemsEditPageComponent } from './items-edit-page/items-edit-page.compon
     ReactiveFormsModule,
     TimelineModule,
     SortbypipeModule,
+    NgSelectModule,
   ],
 })
 export class ItemsModule { }

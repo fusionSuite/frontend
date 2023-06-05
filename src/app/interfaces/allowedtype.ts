@@ -16,20 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IShortType } from './short-type';
-
-export interface IItemproperty {
+export interface IAllowedtype {
   id: number;
   name: string;
   internalname: string;
-  property_id: number,
-  valuetype: 'string'|'integer'|'decimal'|'text'|'boolean'|'datetime'|'date'|
-             'time'|'number'|'itemlink'|'itemlinks'|'typelink'|'typelinks'|
-             'propertylink'|'list'|'password'|'passwordhash';
-  value: any;
-  listvalues: {
-    id: number;
-    value: string|number;
-  }[]|null;
-  allowedtypes: IShortType[];
 }

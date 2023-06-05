@@ -163,6 +163,24 @@
             ></textarea>
           </div>
         </div>
+
+        <div class="form__edit__item" *ngIf="['itemlink', 'itemlinks'].includes(property.valuetype)">
+          <div class="form__edit__item__title" i18n>Allowed types:</div>
+          <div class="form__edit__item__value">
+            <ng-select
+              [items]="types"
+              formControlName="allowedtypes"
+              [multiple]="true"
+              [closeOnSelect]="false"
+              [hideSelected]="true"
+              bindLabel="name"
+              bindValue="id"
+              (change)="updateField('allowedtypes')"
+              placeholder="Select types of items">
+            </ng-select>
+          </div>
+        </div>
+
       </form>
     </div>
     <app-timeline

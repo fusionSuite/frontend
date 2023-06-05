@@ -38,6 +38,7 @@ import { ITypepanel } from 'src/app/interfaces/typepanel';
 import { TypepanelsApi } from 'src/app/api/typepanel';
 import * as Sortable from 'sortablejs';
 import { TypepanelitemsApi } from 'src/app/api/typepanelitem';
+import { isNull } from 'lodash';
 
 @Component({
   selector: 'app-types-edit-page',
@@ -318,9 +319,10 @@ export class TypesEditPageComponent implements OnInit {
     const data = {
       name: this.formPanelControls.controls.name.value,
       icon: JSON.stringify(this.formPanelControls.controls.icon.value),
+      type_id: this.id,
       displaytype,
     };
-    this.typepanelsApi.create(this.id, data)
+    this.typepanelsApi.create(data)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           this.notificationsService.error(error.error.message);
@@ -347,7 +349,9 @@ export class TypesEditPageComponent implements OnInit {
   }
 
   public parseIcon (icon: any) {
-    if (icon.includes('[')) {
+    if (icon === null) {
+      return null;
+    } else if (icon.includes('[') && icon !== '[]') {
       return JSON.parse(icon);
     } else {
       return icon;
@@ -392,9 +396,8 @@ export class TypesEditPageComponent implements OnInit {
   private sortPanelitems (event: any) {
     console.log(event);
     const panelitemId = parseInt(event.item.id);
-    const typepanelFromId = parseInt(event.from.id);
     const typepanelId = parseInt(event.to.id);
-    this.typepanelitemsApi.update(this.id, typepanelFromId, panelitemId, { typepanel_id: typepanelId })
+    this.typepanelitemsApi.update(panelitemId, { typepanel_id: typepanelId })
       .pipe(
         catchError((error: HttpErrorResponse) => {
           this.notificationsService.error(error.error.message);
@@ -421,5 +424,10 @@ export class TypesEditPageComponent implements OnInit {
 
   reloadMenu (event: any) {
     this.showQuickAddMenu = false;
+  }
+
+  test (index: number) {
+    console.log(index);
+    console.log(this.panelSort[index]);
   }
 }

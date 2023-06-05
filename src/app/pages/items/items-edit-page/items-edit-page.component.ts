@@ -46,6 +46,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 export class ItemsEditPageComponent implements OnInit {
   public id: number = 0;
   public item: IItem|null = null;
+  public selectItems: any = {};
   public itemLoaded = false;
   public createdAt :string = '';
   public updatedAt :string = '';
@@ -59,6 +60,8 @@ export class ItemsEditPageComponent implements OnInit {
     defaultNane: '',
   };
 
+  public displayActionsProperty: {[key: number]: boolean} = {};
+
   public formControls = new FormGroup({
     name: new FormControl('', {
       nonNullable: true,
@@ -66,9 +69,7 @@ export class ItemsEditPageComponent implements OnInit {
     }),
   });
 
-  public formPropertiesControls = new FormGroup({
-    properties: new FormArray<FormControl>([]),
-  });
+  public formPropertiesControls = new FormGroup({});
 
   constructor (
     private itemsApi: ItemsApi,
@@ -113,17 +114,44 @@ export class ItemsEditPageComponent implements OnInit {
         this.udpateDateDistance();
         this.loopUdpateDateDistance();
         this.formControls.controls.name.setValue(res.name);
+        const formProp: {[key: string]: any} = {};
         for (const prop of res.properties) {
-          const formProp = this.formPropertiesControls.controls.properties;
-          formProp.push(new FormControl(prop.value));
-          if (prop.valuetype === 'itemlink') {
-            // get the data
-            this.getItemsOfPropertyItemlink(prop)
-              .then((res) => {
-                prop.listvalues = res;
-              });
+          this.displayActionsProperty[prop.id] = false;
+          // formProp.push(new FormControl(prop.value));
+          // if (prop.valuetype === 'itemlink') {
+          //   // get the data
+          //   this.getItemsOfPropertyItemlink(prop)
+          //     .then((res) => {
+          //       prop.listvalues = res;
+          //     });
+          // }
+          // try with new code:
+          if (['itemlink', 'itemlinks'].includes(prop.valuetype)) {
+            for (const shortItem of prop.allowedtypes) {
+              this.getItemsForType(shortItem.internalname);
+            }
+            formProp['prop' + prop.id.toString()] = new FormControl(prop.value);
+            if (prop.valuetype === 'itemlinks' && prop.value !== null) {
+              const listIds = [];
+              for (const itemOfValue of prop.value) {
+                listIds.push(itemOfValue.id);
+              }
+              formProp['prop' + prop.id.toString()] = new FormControl(listIds);
+            }
+            if (prop.valuetype === 'itemlink' && prop.value !== null) {
+              formProp['prop' + prop.id.toString()] = new FormControl(prop.value.id);
+            }
+          } else if (prop.valuetype === 'list') {
+            if (prop.value !== null && prop.value.id !== undefined) {
+              formProp['prop' + prop.id.toString()] = new FormControl(prop.value.id);
+            } else {
+              formProp['prop' + prop.id.toString()] = new FormControl(prop.value);
+            }
+          } else {
+            formProp['prop' + prop.id.toString()] = new FormControl(prop.value);
           }
         }
+        this.formPropertiesControls = new FormGroup(formProp);
         this.typesApi.get(res.type_id)
           .subscribe((resType) => {
             this.type = resType;
@@ -168,11 +196,16 @@ export class ItemsEditPageComponent implements OnInit {
   // }
   public updateProperty (event: any, property: IItemproperty) {
     console.log(event);
-    let value = event.target.value;
+    let value: any = '';
+    if (['number', 'list', 'itemlink'].includes(property.valuetype)) {
+      value = event.id;
+    } else if (property.valuetype === 'itemlinks') {
+      value = event;
+    } else {
+      value = event.target.value;
+    }
     if (this.item !== null) {
-      if (['number', 'list', 'itemlink'].includes(property.valuetype)) {
-        value = parseInt(value);
-      } else if (property.valuetype === 'boolean') {
+      if (property.valuetype === 'boolean') {
         if (value === 'on') {
           value = true;
         } else {
@@ -191,6 +224,11 @@ export class ItemsEditPageComponent implements OnInit {
           this.notificationsService.success($localize `The property has been updated successfully.`);
         });
     }
+  }
+
+  public updatePropertyItemlinks (event: IItem[], property: IItemproperty) {
+    const listIds = event.map(({ id }) => id);
+    this.updateProperty(listIds, property);
   }
 
   public copyToClipboard (value: any) {
@@ -270,7 +308,9 @@ export class ItemsEditPageComponent implements OnInit {
   }
 
   public parseIcon (icon: any) {
-    if (icon.includes('[')) {
+    if (icon === null) {
+      return null;
+    } else if (icon.includes('[')) {
       return JSON.parse(icon);
     } else {
       return icon;
@@ -283,24 +323,34 @@ export class ItemsEditPageComponent implements OnInit {
     });
   }
 
-  public async getItemsOfPropertyItemlink (prop: any) {
-    // get type have same internalname than property
-    // const request = this.typesApi.get(this.settingsService.getTypeIdByInternalname(prop.internalname)).pipe(take(1));
-    // const type = await lastValueFrom<any>(request);
-    // get all items of this type
-    const listvalues: {
-      id: number;
-      value: string|number;
-    }[] = [];
-    const request = this.itemsApi.list(prop.internalname).pipe();
-    const items = await lastValueFrom<any>(request);
-    items.forEach((item: IItem) => {
-      listvalues.push({
-        id: item.id,
-        value: item.name,
-      });
-    });
-    return listvalues;
+  // public async getItemsOfPropertyItemlink (prop: any) {
+  //   // get type have same internalname than property
+  //   // const request = this.typesApi.get(this.settingsService.getTypeIdByInternalname(prop.internalname)).pipe(take(1));
+  //   // const type = await lastValueFrom<any>(request);
+  //   // get all items of this type
+  //   const listvalues: {
+  //     id: number;
+  //     value: string|number;
+  //   }[] = [];
+  //   const request = this.itemsApi.list(prop.internalname).pipe();
+  //   const items = await lastValueFrom<any>(request);
+  //   items.forEach((item: IItem) => {
+  //     listvalues.push({
+  //       id: item.id,
+  //       value: item.name,
+  //     });
+  //   });
+  //   return listvalues;
+  // }
+
+  public getItemsOfSelect (property: IItemproperty) {
+    let items: IItem[] = [];
+    for (const shortItem of property.allowedtypes) {
+      if (shortItem.internalname in this.selectItems) {
+        items = items.concat(this.selectItems[shortItem.internalname]);
+      }
+    }
+    return items;
   }
 
   private loopUdpateDateDistance () {
@@ -389,8 +439,6 @@ export class ItemsEditPageComponent implements OnInit {
         }
       }
     }
-    return;
-
     // const typeId = this.settingsService.getTypeIdByInternalname('incidentmessage');
     // if (typeId !== null) {
     //   this.typesApi.get(typeId)
@@ -429,5 +477,15 @@ export class ItemsEditPageComponent implements OnInit {
           this.setMessages();
         });
     }
+  }
+
+  private getItemsForType (typeInternalname: string) {
+    if (typeInternalname in this.selectItems) {
+      return;
+    }
+    this.itemsApi.list(typeInternalname)
+      .subscribe((result: IItem[]) => {
+        this.selectItems[typeInternalname] = result;
+      });
   }
 }
