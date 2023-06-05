@@ -48,8 +48,8 @@ export class TypepanelitemsApi {
   //   });
   // }
 
-  public update (typeId: number, panelId: number, panelitemId: number, data: any) {
-    return this.http.patch(this.settingsService.backendUrl + '/v1/display/type/' + typeId + '/panel/' + panelId + '/item/' + panelitemId, data, {
+  public update (panelitemId: number, data: any) {
+    return this.http.patch(this.settingsService.backendUrl + '/v1/display/type/panelitems/' + panelitemId, data, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },

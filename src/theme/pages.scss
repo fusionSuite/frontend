@@ -211,10 +211,9 @@
 
 .page__inner {
   display: flex;
-  padding: 1rem;
+  padding: 12px;
 
   flex-wrap: wrap;
-  gap: 20px;
 
   background-color: var(--color-grey1);
   border-top: 1px solid var(--color-grey6);

@@ -66,4 +66,8 @@ export class SettingsService {
   public getPropertyIdByInternalname (internalname: string) {
     return this.propertiesIndexedByInternalname[internalname]?.id;
   }
+
+  public getAllTypes () {
+    return Object.values(this.typesIndexedByInternalname);
+  }
 }

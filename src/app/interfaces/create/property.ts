@@ -32,6 +32,7 @@ export interface ICreateProperty {
     value: string;
   }[];
   default: any|null;
+  allowedtypes: number[];
   // organization_id: number;
   // sub_organization: boolean;
 }

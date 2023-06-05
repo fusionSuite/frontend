@@ -34,7 +34,7 @@ export class TypepanelsApi {
   ) { }
 
   public list (typeId: number) {
-    return this.http.get<ITypepanel[]>(this.settingsService.backendUrl + '/v1/display/type/' + typeId + '/panel', {
+    return this.http.get<ITypepanel[]>(this.settingsService.backendUrl + '/v1/display/type/' + typeId + '/panels', {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
@@ -49,8 +49,8 @@ export class TypepanelsApi {
   //   });
   // }
 
-  public create (typeId: number, data: any) {
-    return this.http.post(this.settingsService.backendUrl + '/v1/display/type/' + typeId + '/panel', data, {
+  public create (data: any) {
+    return this.http.post(this.settingsService.backendUrl + '/v1/display/type/panels', data, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },

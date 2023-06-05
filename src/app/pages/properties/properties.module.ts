@@ -31,6 +31,7 @@ import { PropertiesListPageComponent } from './properties-list-page/properties-l
 import { PropertiesEditPageComponent } from './properties-edit-page/properties-edit-page.component';
 import { TimelineModule } from 'src/app/timeline/timeline.module';
 import { SortbypipeModule } from 'src/app/utils/sortbypipe.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { SortbypipeModule } from 'src/app/utils/sortbypipe.module';
     ReactiveFormsModule,
     TimelineModule,
     SortbypipeModule,
+    NgSelectModule,
   ],
 })
 export class PropertiesModule { }
