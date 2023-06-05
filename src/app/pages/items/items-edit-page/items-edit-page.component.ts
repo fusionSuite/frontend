@@ -55,6 +55,7 @@ export class ItemsEditPageComponent implements OnInit {
   public internalname: string = '';
   public type: IType|null = null;
   public timelineView: boolean = false;
+  public filterProperties: string = '';
   public timelineMessages: ICreateMessages = {
     messages: [],
     defaultNane: '',
@@ -248,7 +249,7 @@ export class ItemsEditPageComponent implements OnInit {
 
     if (this.item !== null) {
       return this.item.properties.filter((prop) => {
-        return properties.includes(prop.id);
+        return properties.includes(prop.id) && prop.name.toLowerCase().includes(this.filterProperties.toLowerCase());
       });
     }
     return [];
@@ -351,6 +352,14 @@ export class ItemsEditPageComponent implements OnInit {
       }
     }
     return items;
+  }
+
+  public updateFilterProperties (event: any) {
+    this.filterProperties = event.target.value;
+  }
+
+  public clearFilterProperties () {
+    this.filterProperties = '';
   }
 
   private loopUdpateDateDistance () {
