@@ -65,7 +65,12 @@
   </header>
 
   <div class="page__inner" *ngIf="itemLoaded && item !== null && !timelineView">
-    <div *ngIf="itemLoaded && item !== null" class="form__edit page__inner__cadre">
+    <div
+      *ngIf="itemLoaded && item !== null"
+      class="form__edit page__inner__cadre"
+      (mouseover)="setOnEditionmodePanel(0)"
+      (mouseleave)="setOffEditionmodePanel(0)"
+    >
       <div class="page__inner__title">
         <fa-icon icon="circle-info" [fixedWidth]="true"></fa-icon>
         Main
@@ -78,12 +83,12 @@
           <div class="form__edit__item__title" i18n>Name:</div>
           <div
             class="form__edit__item__value"
-            *ngIf="!editionmode"
+            *ngIf="!editionmode || !editionmodePanel['0']"
             data-cy="item-edit-name-textonly"
           >
             {{ item.name }}
           </div>
-          <div class="form__edit__item__value" *ngIf="editionmode">
+          <div class="form__edit__item__value" *ngIf="editionmode && editionmodePanel['0']">
             <input
               [value]="item.name"
               formControlName="name"
@@ -95,7 +100,12 @@
       </form>
     </div>
 
-    <div *ngFor="let panel of panels" class="form__edit page__inner__cadre">
+    <div
+      *ngFor="let panel of panels"
+      class="form__edit page__inner__cadre"
+      (mouseover)="setOnEditionmodePanel(panel.id)"
+      (mouseleave)="setOffEditionmodePanel(panel.id)"
+    >
       <div class="page__inner__title">
         <fa-icon [icon]="parseIcon(panel.icon)" [fixedWidth]="true" *ngIf="parseIcon(panel.icon) !== null"></fa-icon>
         {{ panel.name }}
@@ -113,7 +123,7 @@
               <div class="form__edit__item__title" i18n>{{ prop.name }}</div>
               <div
                 class="form__edit__item__value"
-                *ngIf="!editionmode"
+                *ngIf="!editionmode || !editionmodePanel[panel.id]"
                 data-cy="type-edit-name-textonly"
               >
                 <span *ngIf="['string', 'integer', 'decimal', 'number'].includes(prop.valuetype)">
@@ -125,20 +135,9 @@
                 <span *ngIf="prop.valuetype === 'itemlink' && prop.value !== null">
                   {{ prop.value.name }}
                 </span>
-
-
-
-                <fa-icon
-                  [icon]="['far', 'clone']"
-                  [fixedWidth]="true"
-                  (click)="copyToClipboard(prop.value)"
-                  style="color: var(--color-grey8);float: right;margin-right: 30px; cursor: pointer"
-                  *ngIf="prop.value !== '' && prop.value !== null"
-                ></fa-icon>
               </div>
 
-
-              <div class="form__edit__item__value" *ngIf="editionmode">
+              <div class="form__edit__item__value" *ngIf="editionmode && editionmodePanel[panel.id]">
                 <input
                   [value]="prop.value"
                   data-cy="item-edit-property-input"
@@ -180,9 +179,15 @@
                 >
 
                 </ng-select>
-
               </div>
-            </div>
+              <fa-icon
+                [icon]="['far', 'clone']"
+                [fixedWidth]="true"
+                (click)="copyToClipboard(prop.value)"
+                style="color: var(--color-grey8);float: right;margin-right: 10px; cursor: pointer"
+                *ngIf="prop.value !== '' && prop.value !== null"
+              ></fa-icon>
+        </div>
           </div>
         </form>
       </div>

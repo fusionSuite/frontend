@@ -52,6 +52,10 @@ export class ItemsEditPageComponent implements OnInit {
   public updatedAt :string = '';
   public panels: ITypepanel[] = [];
   public editionmode: boolean = false;
+  public editionmodePanel: any = {
+    0: false,
+  };
+
   public internalname: string = '';
   public type: IType|null = null;
   public timelineView: boolean = false;
@@ -362,6 +366,16 @@ export class ItemsEditPageComponent implements OnInit {
     this.filterProperties = '';
   }
 
+  public setOnEditionmodePanel (panelId: number) {
+    if (this.editionmode) {
+      this.editionmodePanel[panelId] = true;
+    }
+  }
+
+  public setOffEditionmodePanel (panelId: number) {
+    this.editionmodePanel[panelId] = false;
+  }
+
   private loopUdpateDateDistance () {
     setTimeout(() => {
       this.udpateDateDistance();
@@ -481,6 +495,7 @@ export class ItemsEditPageComponent implements OnInit {
             return panel.items.length > 0;
           });
           for (const panel of res) {
+            this.editionmodePanel[panel.id] = false;
             if (panel.displaytype === 'timeline') {
               this.timelineView = true;
               break;
