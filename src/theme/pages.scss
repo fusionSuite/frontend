@@ -274,9 +274,11 @@
     font-weight: bold;
     border-top: 2px solid var(--sky11);
     border-bottom: 2px solid var(--sky11);
+    // border-left: 2px solid var(--sky11);
     background: linear-gradient(117deg, #ffffff 0%, #ffffff 30%, var(--sky11) 100%);
     padding-top: 5px;
     padding-bottom: 5px;
+    padding-left: 5px;
 
     &__timeline {
       color: #ff0e95;
@@ -291,7 +293,8 @@
 
     &__note {
       font-size: 16px;
-      font-style: italic;
+      font-style: italic;     color: var(--color-grey11);
+ 
       font-weight: normal;
       float: right;
       color: white;
