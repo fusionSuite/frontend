@@ -25,6 +25,9 @@ describe('organizations', () => {
   it('creates and deletes organizations', () => {
     cy.visit('/');
 
+    cy.get('[data-cy="menu-configuration"]').click();
+    cy.get('[data-cy="link-organizations"]').should('exist');
+
     cy.get('[data-cy="link-organizations"]').click();
     cy.url().should('equal', Cypress.config('baseUrl') + '/organizations');
 
@@ -34,7 +37,9 @@ describe('organizations', () => {
     cy.url().should('equal', Cypress.config('baseUrl') + '/organizations/new');
 
     cy.get('[data-cy="form-organizations-new"] [name="name"]').type('Probesys');
-    cy.get('[data-cy="form-organizations-new"] [name="parent-id"]').select('My organization');
+    cy.get('[data-cy="form-organizations-new"] [name="parent-id"]').click();
+    cy.get('[data-cy="form-organizations-new"] [name="parent-id"]').type('My organizat').type('{enter}');
+
     cy.get('[data-cy="form-organizations-new"] [data-cy="submit"]').click();
 
     cy.get('[data-cy="notification-success"]').should('exist');

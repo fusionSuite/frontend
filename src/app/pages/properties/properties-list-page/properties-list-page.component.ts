@@ -36,6 +36,7 @@ export class PropertiesListPageComponent implements OnInit {
   propertiesLoaded = false;
   properties: IProperty[] = [];
   propertiesByIds: {[index: number]: IProperty} = {};
+  public search: string = '';
 
   deleteForm = new FormGroup({});
 
@@ -77,5 +78,18 @@ export class PropertiesListPageComponent implements OnInit {
       propsByIds[property.id] = property;
     });
     return propsByIds;
+  }
+
+  public updateSearch (event: any) {
+    this.search = event.target.value;
+  }
+
+  public filterProperties () {
+    if (this.search !== '') {
+      return this.properties.filter((property) => {
+        return property.name.toLowerCase().includes(this.search.toLowerCase());
+      });
+    }
+    return this.properties;
   }
 }

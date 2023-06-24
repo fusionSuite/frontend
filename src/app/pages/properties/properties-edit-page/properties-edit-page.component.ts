@@ -46,6 +46,7 @@ export class PropertiesEditPageComponent implements OnInit {
   public panels: IPanel[] = [];
   public editionmode: boolean = false;
   public types: IType[] = [];
+  public showQuickAddListvalue: boolean = false;
   public formControls = new FormGroup({
     name: new FormControl('', {
       nonNullable: true,
@@ -138,7 +139,11 @@ export class PropertiesEditPageComponent implements OnInit {
     if (this.property !== null) {
       const control = this.formControls.get(fieldName);
       if (control !== null) {
-        this.propertiesApi.update(this.property.id, { [fieldName]: control.value })
+        let value = control.value;
+        if (this.property.valuetype === 'list' && fieldName === 'default') {
+          value = this.getValueOfValuelist(value);
+        }
+        this.propertiesApi.update(this.property.id, { [fieldName]: value })
           .pipe(
             catchError((error: HttpErrorResponse) => {
               this.notificationsService.error(error.error.message);
@@ -151,6 +156,24 @@ export class PropertiesEditPageComponent implements OnInit {
           });
       }
     }
+  }
+
+  public getValueOfValuelist (defaultValue: number) {
+    if (this.property !== null) {
+      const value = this.property.listvalues.find(value => {
+        return value.id === defaultValue;
+      });
+      if (value !== null) {
+        return value?.value;
+      }
+    }
+    return '';
+  }
+
+  public reload (event: any) {
+    this.loadProperty();
+    this.types = this.settingsService.getAllTypes();
+    this.showQuickAddListvalue = false;
   }
 
   private loopUdpateDateDistance () {

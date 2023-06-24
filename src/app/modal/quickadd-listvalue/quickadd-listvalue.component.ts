@@ -17,88 +17,55 @@
  */
 
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnChanges, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { catchError, throwError } from 'rxjs';
-import { MenusApi } from 'src/app/api/menus';
-import { IMenu } from 'src/app/interfaces/menu';
+import { PropertiesApi } from 'src/app/api/properties';
 import { NotificationsService } from 'src/app/notifications/notifications.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { icons } from 'src/app/modal/iconchoice/iconlists';
-import { IFonticon } from 'src/app/interfaces/fonticon';
 
 @Component({
-  selector: 'modal-quickadd-menu',
-  templateUrl: './quickadd-menu.component.html',
+  selector: 'modal-quickadd-listvalue',
+  templateUrl: './quickadd-listvalue.component.html',
   styleUrls: [],
 })
-export class QuickaddMenuComponent implements OnChanges {
-  public showIcons: boolean = false;
-  public menu: IMenu[] = [];
-  public iconChosen = null;
-  public icons: IFonticon[] = icons;
+export class QuickaddListvalueComponent implements OnChanges {
   public formControls = new FormGroup({
-    name: new FormControl('', {
+    value: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required],
-    }),
-    icon: new FormControl<IFonticon|null>(null, {
       validators: [Validators.required],
     }),
   });
 
-  @Output() menuAdded = new EventEmitter<any>();
+  @Input() propertyId: number = 0;
+  @Output() newValuelist = new EventEmitter<any>();
 
   constructor (
-    private menusApi: MenusApi,
+    private propertiesApi: PropertiesApi,
     private notificationsService: NotificationsService,
     private authService: AuthService,
   ) {
-    this.iconChosen = null;
   }
 
   ngOnChanges (): void {
-    this.menu = this.authService.menu;
-    this.iconChosen = null;
-  }
-
-  public PanelIcon () {
-    this.showIcons = true;
-  }
-
-  public updateIcon (event: any) {
-    console.log(event);
-    this.iconChosen = event;
-    this.showIcons = false;
   }
 
   public close () {
-    this.menuAdded.emit('test');
+    this.newValuelist.emit('test');
   }
 
-  public chooseNewIcon () {
-    this.iconChosen = null;
-  }
-
-  public addMenu () {
-    const name = this.formControls.get('name');
-    const icon = this.formControls.get('icon');
-    if (name !== null) {
-      const data: any = {
-        name: name.value,
-      };
-      if (icon !== null && icon.value !== null && icon.value.name !== undefined) {
-        data.icon = icon.value.label;
-      }
-      this.menusApi.create(data)
+  public addValue () {
+    const value = this.formControls.get('value');
+    if (value !== null) {
+      this.propertiesApi.createListvalue(this.propertyId, value.value)
         .pipe(
           catchError((error: HttpErrorResponse) => {
             this.notificationsService.error(error.error.message);
             return throwError(() => new Error(error.error.message));
           }),
         ).subscribe((result: any) => {
-          this.notificationsService.success($localize `The menu has been created successfully.`);
-          this.menuAdded.emit('test');
+          this.notificationsService.success($localize `The valuelist has been created successfully.`);
+          this.newValuelist.emit('test');
         });
     }
   }

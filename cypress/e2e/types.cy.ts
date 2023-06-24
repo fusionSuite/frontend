@@ -17,12 +17,18 @@
  */
 
 describe('types', () => {
+  let descriptionID = 0;
+  let myNewPanelId = 0;
+
   beforeEach(() => {
     cy.login('admin', 'admin');
   });
 
   it('list types', () => {
     cy.visit('/');
+
+    cy.get('[data-cy="menu-configuration"]').click();
+    cy.get('[data-cy="link-types"]').should('exist');
 
     cy.get('[data-cy="link-types"]').click();
     cy.url().should('equal', Cypress.config('baseUrl') + '/config/types');
@@ -100,14 +106,31 @@ describe('types', () => {
     cy.get('[data-cy="type-edit-switch-button"]').click();
 
     // add property Address
+    cy.intercept({
+      method: 'GET',
+      url: '/api/v1/display/type/*/panels',
+    }).as('panelsAPIRes');
     cy.get('[data-cy="type-categories-selectadd"]').should('exist');
-    cy.get('[data-cy="type-categories-selectadd"]').select('Address');
+    cy.get('[data-cy="type-categories-selectadd"]').click();
+    cy.get('[data-cy="type-categories-selectadd"]').type('Addres').type('{enter}');
+    cy.wait('@panelsAPIRes')
+      .its('response.body')
+      .then((bodyJson) => {
+        for (const panel of bodyJson) {
+          for (const item of panel.items) {
+            if (item.property_id === 6) {
+              descriptionID = item.id;
+              return;
+            }
+          }
+        }
+      });
     cy.get('[data-cy="notification-success"]').should('exist');
     cy.get('[data-cy="close-notification-button"]').click();
     cy.wait(1000);
 
     // add property Description
-    cy.get('[data-cy="type-categories-selectadd"]').select('Description');
+    cy.get('[data-cy="type-categories-selectadd"]').type('Descriptio').type('{enter}');
     cy.get('[data-cy="notification-success"]').should('exist');
     cy.get('[data-cy="close-notification-button"]').click();
 
@@ -116,6 +139,82 @@ describe('types', () => {
     cy.get('[data-cy="timeline-event"]').eq(0).should('contain', 'added the property "Description"');
     cy.get('[data-cy="timeline-event"]').eq(1).should('contain', 'added the property "Address"');
   });
+
+  // refresh page to check property
+  // it('reload page and check property is right here', () => {
+  //   cy.visit('/config/types');
+
+  // });
+
+  // create panel
+  it('create a new panel', () => {
+    cy.visit('/config/types');
+
+    // pass in edition mode
+    cy.get('[data-cy="item-types"] [name="string type updated"]').click();
+    cy.get('[data-cy="type-edit-switch-button"]').should('exist');
+    cy.get('[data-cy="type-edit-switch-button"]').click();
+
+    // click on button to create a new panel
+    cy.get('[data-cy="type-edit-create-panel"]').click();
+    cy.get('[data-cy="form-types-new-panel"]').should('exist');
+    cy.get('[data-cy="form-types-new-panel"] [name="name"]').type('My very new panel');
+    cy.get('[data-cy="form-types-new-panel"] [name="icon"]').type('beer').type('{enter}');
+    cy.intercept({
+      method: 'POST',
+      url: '/api/v1/display/type/panels',
+    }).as('postNewPanelAPIRes');
+    cy.get('[data-cy="form-types-new-panel"] [data-cy="submit"]').click();
+    cy.wait('@postNewPanelAPIRes')
+      .its('response.body')
+      .then((bodyJson) => {
+        myNewPanelId = bodyJson.id;
+      });
+
+    cy.get('[data-cy="notification-success"]').should('exist');
+    cy.get('[data-cy="close-notification-button"]').click();
+
+    // check panel created
+    cy.get('[data-cy="form-types-list-panels"]').should('contain', 'My very new panel');
+  });
+
+  // change the property 'Description' to the new panel
+  it('drag and drop property of default panel to our new panel', () => {
+    // const dataTransfer = new DataTransfer();
+
+    cy.visit('/config/types');
+
+    // pass in edition mode
+    cy.get('[data-cy="item-types"] [name="string type updated"]').click();
+    cy.get('[data-cy="type-edit-switch-button"]').should('exist');
+    cy.get('[data-cy="type-edit-switch-button"]').click();
+    
+    // cy.get('[id="panelitem-' + descriptionID + '"]').trigger('dragstart', {
+    //   dataTransfer,
+    // });
+
+    // cy.get('[id="panel-' + myNewPanelId + '"]').trigger('drop', {
+    //   dataTransfer,
+    // });
+
+    cy.get('[id="panelitem-' + descriptionID + '"]').drag('[id="panel-' + myNewPanelId + '"]');
+
+    // check Description property in the new panel
+    cy.get('[id="panel-' + myNewPanelId + '"]').should('contain', 'Address');
+  });
+
+  // refresh the page and see property in right panel
+
+  // create a new menu (set the business menu a left to check add it)
+
+  // select this menu for this type
+
+  // type must be displayed without icon
+
+  // set the icon of the menu item
+
+  // type must be displayed with icon
+
 
   it('delete property in type', () => {
     cy.visit('/config/types');

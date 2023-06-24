@@ -31,6 +31,8 @@ import { NotificationsService } from 'src/app/notifications/notifications.servic
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 import { IMenucustom } from 'src/app/interfaces/menucustom';
+import { icons } from 'src/app/modal/iconchoice/iconlists';
+import { IFonticon } from 'src/app/interfaces/fonticon';
 
 @Component({
   selector: '[app-page-menu]',
@@ -40,13 +42,14 @@ import { IMenucustom } from 'src/app/interfaces/menucustom';
 export class PageMenuComponent implements OnInit {
   public organization: IItem|null = null;
   public types: IType[] = [];
-  public view: 'personal'|'business' = 'personal';
+  public view: 'personal'|'business'|'configuration' = 'personal';
   public menu: IMenu[] = [];
   public menuCustom: IMenucustom[] = [];
   public customitemsList: number[] = [];
   public search: string = '';
   public currentRoute: string = '/';
   public configurationExpanded: boolean = false;
+  public icons: IFonticon[] = icons;
 
   constructor (
     private authService: AuthService,
@@ -62,15 +65,7 @@ export class PageMenuComponent implements OnInit {
 
   ngOnInit (): void {
     this.view = this.authService.view;
-    if (this.authService.menucustom.length > 0) {
-      this.menuCustom = this.authService.menucustom;
-      for (const item of this.menuCustom) {
-        this.customitemsList.push(item.menuitem.id);
-      }
-    }
-    if (this.authService.menu.length > 0) {
-      this.menu = this.authService.menu;
-    }
+    this.loadMenus();
     this.organizationsApi.get(this.organizationId)
       .subscribe((result: IItem) => {
         this.organization = result;
@@ -80,6 +75,13 @@ export class PageMenuComponent implements OnInit {
         this.types = result;
         this.types.sort((u1, u2) => u1.name.localeCompare(u2.name));
       });
+
+    this.authService.reloadMenu.subscribe({
+      next: () => {
+        console.log('reloaded menu');
+        this.loadMenus();
+      },
+    });
   }
 
   get displayName () {
@@ -100,7 +102,28 @@ export class PageMenuComponent implements OnInit {
     }
   }
 
-  public changeView (view: 'personal'|'business') {
+  public loadMenus () {
+    this.customitemsList = [];
+    this.menu = [];
+    this.menuCustom = [];
+    if (this.authService.menucustom.length > 0) {
+      this.menuCustom = this.authService.menucustom;
+      for (const item of this.menuCustom) {
+        this.customitemsList.push(item.menuitem.id);
+      }
+    }
+    if (this.authService.menu.length > 0) {
+      this.menu = this.authService.menu;
+      for (const mymenu of this.menu) {
+        if (mymenu.items.length > 0) {
+          mymenu.expanded = true;
+          break;
+        }
+      }
+    }
+  }
+
+  public changeView (view: 'personal'|'business'|'configuration') {
     this.view = view;
     this.authService.view = view;
   }
@@ -177,10 +200,17 @@ export class PageMenuComponent implements OnInit {
   }
 
   public parseIcon (icon: any) {
-    if (icon.includes('[')) {
+    if (icon === null) {
+      return null;
+    } else if (icon.includes('[')) {
       return JSON.parse(icon);
     } else {
-      return icon;
+      // search icon for label in list
+      const myicon = this.icons.find(item => item.label === icon);
+      if (myicon === undefined) {
+        return null;
+      }
+      return myicon.name;
     }
   }
 

@@ -23,7 +23,6 @@ import { LoggedInGuard } from 'src/app/guards/logged-in.guard';
 
 import { TypesListPageComponent } from './types-list-page/types-list-page.component';
 import { TypesCreatePageComponent } from './types-create-page/types-create-page.component';
-import { TypesImportPageComponent } from './types-import-page/types-import-page.component';
 import { TypesEditPageComponent } from './types-edit-page/types-edit-page.component';
 
 const routes: Routes = [
@@ -37,12 +36,6 @@ const routes: Routes = [
     path: 'new',
     title: $localize `New type`,
     component: TypesCreatePageComponent,
-    canActivate: [LoggedInGuard],
-  },
-  {
-    path: 'import',
-    title: $localize `Import type`,
-    component: TypesImportPageComponent,
     canActivate: [LoggedInGuard],
   },
   {

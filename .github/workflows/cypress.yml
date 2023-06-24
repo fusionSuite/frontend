@@ -128,7 +128,7 @@ jobs:
         sudo systemctl reload nginx
 
     # Execute Cypress tests
-    - name: Cypress run
+    - name: Cypress run on 1024x768
       uses: cypress-io/github-action@v4
       with:
         browser: chrome
@@ -137,3 +137,17 @@ jobs:
         cypress_base_url: 'http://frontend.localhost'
         cypress_backend_server: 'http://backend.localhost'
         cypress_backend_path: '../backend'
+        cypress_viewport_width: 1024
+        cypress_viewport_height: 768
+
+    - name: Cypress run on 1280x1024
+      uses: cypress-io/github-action@v4
+      with:
+        browser: chrome
+        working-directory: ./frontend
+      env:
+        cypress_base_url: 'http://frontend.localhost'
+        cypress_backend_server: 'http://backend.localhost'
+        cypress_backend_path: '../backend'
+        cypress_viewport_width: 1280
+        cypress_viewport_height: 1024

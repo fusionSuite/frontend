@@ -30,6 +30,8 @@ import { FormStatus } from 'src/app/utils/form-status';
 import { OrganizationsSorter } from 'src/app/utils/organizations-sorter';
 import { IItem } from 'src/app/interfaces/item';
 import { Organization } from 'src/app/models/organization';
+import { RolesApi } from 'src/app/api/roles';
+import { IRole } from 'src/app/interfaces/role';
 
 @Component({
   selector: 'app-users-create-page',
@@ -39,6 +41,7 @@ import { Organization } from 'src/app/models/organization';
 export class UsersCreatePageComponent implements OnInit {
   organizationsLoaded = false;
   organizations: Organization[] = [];
+  roles: IRole[] = [];
 
   newUserForm = new FormGroup({
     name: new FormControl('', {
@@ -58,6 +61,8 @@ export class UsersCreatePageComponent implements OnInit {
       nonNullable: true,
       validators: [Validators.required],
     }),
+
+    roleId: new FormControl(0, {}),
   });
 
   formSubmitted = false;
@@ -66,15 +71,17 @@ export class UsersCreatePageComponent implements OnInit {
 
   constructor (
     private organizationsApi: OrganizationsApi,
+    private rolesApi: RolesApi,
     private usersApi: UsersApi,
     private notificationsService: NotificationsService,
   ) { }
 
   ngOnInit (): void {
     this.loadOrganizations();
+    this.loadRoles();
   }
 
-  loadOrganizations () {
+  private loadOrganizations () {
     this.organizationsApi.list()
       .subscribe((result: IItem[]) => {
         const organizationsSorter = new OrganizationsSorter();
@@ -89,13 +96,19 @@ export class UsersCreatePageComponent implements OnInit {
       });
   }
 
+  private loadRoles () {
+    this.rolesApi.list()
+      .subscribe((result: IRole[]) => {
+        this.roles = result;
+      });
+  }
+
   onFormSubmit () {
     this.formSubmitted = true;
 
     if (!this.canSubmit) {
       return;
     }
-
     this.formStatus = 'Pending';
     this.formError = '';
 
@@ -111,6 +124,13 @@ export class UsersCreatePageComponent implements OnInit {
         return throwError(() => new Error(error.error.message));
       }),
     ).subscribe((result: any) => {
+      // add the role if selected
+      const roleId = this.formControls.roleId.value;
+      if (roleId !== null && roleId > 0) {
+        this.rolesApi.addUser(roleId, result.id)
+          .subscribe((resRole) => {
+          });
+      }
       // Reset the form to its initial state
       this.formStatus = 'Initial';
       this.newUserForm.reset();
@@ -158,5 +178,10 @@ export class UsersCreatePageComponent implements OnInit {
     const lastname = this.formControls.lastname.value.toLocaleLowerCase();
     const username = (firstname + ' ' + lastname).trim().replace(' ', '-');
     this.formControls.name.setValue(username);
+  }
+
+  public getIndents (treepath: string) {
+    const levels: number = (treepath.length / 4) - 1;
+    return '\xA0\xA0\xA0'.repeat(levels);
   }
 }

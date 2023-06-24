@@ -477,10 +477,13 @@ export class ItemsEditPageComponent implements OnInit {
     if (this.item !== null) {
       this.typepanelsApi.list(this.item.type_id)
         .subscribe((res) => {
-          this.panels = res;
+          this.panels = res.filter((panel) => {
+            return panel.items.length > 0;
+          });
           for (const panel of res) {
             if (panel.displaytype === 'timeline') {
               this.timelineView = true;
+              break;
             }
           }
           this.setMessages();

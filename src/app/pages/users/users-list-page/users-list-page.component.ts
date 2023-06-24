@@ -27,6 +27,8 @@ import { NotificationsService } from 'src/app/notifications/notifications.servic
 import { UsersApi } from 'src/app/api/users';
 import { IItem } from 'src/app/interfaces/item';
 import { User } from 'src/app/models/user';
+import { RolesApi } from 'src/app/api/roles';
+import { IRole } from 'src/app/interfaces/role';
 
 @Component({
   selector: 'app-users-list-page',
@@ -36,12 +38,14 @@ import { User } from 'src/app/models/user';
 export class UsersListPageComponent implements OnInit {
   usersLoaded = false;
   users: User[] = [];
+  usersRoles: any = {};
 
   deleteForm = new FormGroup({});
 
   constructor (
     private usersApi: UsersApi,
     private notificationsService: NotificationsService,
+    private rolesApi: RolesApi,
   ) { }
 
   ngOnInit (): void {
@@ -50,6 +54,27 @@ export class UsersListPageComponent implements OnInit {
         this.users = result.map((userItem) => new User(userItem));
         this.users.sort((u1, u2) => u1.name.localeCompare(u2.name));
         this.usersLoaded = true;
+        for (const user of this.users) {
+          this.usersRoles[user.id] = [];
+        }
+        this.loadRoles();
+      });
+  }
+
+  private loadRoles () {
+    this.rolesApi.list()
+      .subscribe((result: IRole[]) => {
+        for (const role of result) {
+          for (const user of role.users) {
+            const myuser = this.users.find(item => item.id === user.id);
+            if (myuser !== undefined) {
+              this.usersRoles[user.id].push({
+                id: role.id,
+                name: role.name,
+              });
+            }
+          }
+        }
       });
   }
 

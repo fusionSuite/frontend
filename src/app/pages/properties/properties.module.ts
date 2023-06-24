@@ -32,12 +32,14 @@ import { PropertiesEditPageComponent } from './properties-edit-page/properties-e
 import { TimelineModule } from 'src/app/timeline/timeline.module';
 import { SortbypipeModule } from 'src/app/utils/sortbypipe.module';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { QuickaddListvalueComponent } from 'src/app/modal/quickadd-listvalue/quickadd-listvalue.component';
 
 @NgModule({
   declarations: [
     PropertiesCreatePageComponent,
     PropertiesListPageComponent,
     PropertiesEditPageComponent,
+    QuickaddListvalueComponent,
   ],
   imports: [
     CommonModule,

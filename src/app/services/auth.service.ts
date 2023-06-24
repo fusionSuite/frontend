@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { IMenu } from '../interfaces/menu';
 import { IMenucustom } from '../interfaces/menucustom';
 
@@ -24,9 +24,11 @@ import { IMenucustom } from '../interfaces/menucustom';
   providedIn: 'root',
 })
 export class AuthService {
-  public view: 'personal'|'business' = 'personal';
+  public view: 'personal'|'business'|'configuration' = 'personal';
   public menu: IMenu[] = [];
   public menucustom: IMenucustom[] = [];
+  public reloadMenu: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor (
   ) { }
 
@@ -77,5 +79,9 @@ export class AuthService {
   public logout () {
     this.token = '';
     window.localStorage.removeItem('authentication_token');
+  }
+
+  public menuChanges () {
+    this.reloadMenu.emit();
   }
 }
