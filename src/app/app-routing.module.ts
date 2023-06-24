@@ -25,6 +25,7 @@ import { NotLoggedInGuard } from './guards/not-logged-in.guard';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { TypesImportPageComponent } from './pages/types/types-import-page/types-import-page.component';
 
 const routes: Routes = [
   {
@@ -59,6 +60,13 @@ const routes: Routes = [
     path: 'config/types',
     loadChildren: () => import('./pages/types/types.module').then(m => m.TypesModule),
   },
+  {
+    path: 'config/templateimport',
+    title: $localize `Import type`,
+    component: TypesImportPageComponent,
+    canActivate: [LoggedInGuard],
+  },
+
   {
     path: '**',
     title: $localize `Page not found`,

@@ -25,6 +25,9 @@ describe('users', () => {
   it('creates and deletes users', () => {
     cy.visit('/');
 
+    cy.get('[data-cy="menu-configuration"]').click();
+    cy.get('[data-cy="link-users"]').should('exist');
+
     cy.get('[data-cy="link-users"]').click();
     cy.url().should('equal', Cypress.config('baseUrl') + '/users');
 
@@ -35,7 +38,8 @@ describe('users', () => {
 
     cy.get('[data-cy="form-users-new"] [name="firstname"]').type('Alix');
     cy.get('[data-cy="form-users-new"] [name="lastname"]').type('Prevost');
-    cy.get('[data-cy="form-users-new"] [name="organization-id"]').select('My organization');
+    cy.get('[data-cy="form-users-new"] [name="organization-id"]').click();
+    cy.get('[data-cy="form-users-new"] [name="organization-id"]').type('My organizat').type('{enter}');
     cy.get('[data-cy="form-users-new"] [data-cy="submit"]').click();
 
     cy.get('[data-cy="notification-success"]').should('exist');

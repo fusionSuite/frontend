@@ -140,4 +140,9 @@ export class OrganizationsCreatePageComponent implements OnInit {
       return 0;
     }
   }
+
+  public getIndents (treepath: string) {
+    const levels: number = (treepath.length / 4) - 1;
+    return '\xA0\xA0\xA0'.repeat(levels);
+  }
 }

@@ -23,6 +23,8 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 
+require('@4tw/cypress-drag-drop');
+
 Cypress.Commands.add('dbReset', () => {
   cy.exec(`make -C ${Cypress.env('backend_path')} db-reset`);
 });

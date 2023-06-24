@@ -69,7 +69,6 @@ describe('timeline in properties', () => {
 
   it('check timeline - oldest first', () => {
     cy.visit('/config/properties');
-
     cy.get('[data-cy="item-properties"] [name="village"]').click();
 
     cy.get('[data-cy="property-edit-switch-button"]').should('exist');

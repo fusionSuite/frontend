@@ -34,6 +34,9 @@
         <tr>
           <th i18n>
             Name
+            <span class="form__edit__item__value">
+              <input (keyup)="updateSearch($event)">
+            </span>  
           </th>
 
           <th class="col--actions">
@@ -47,7 +50,7 @@
       </thead>
 
       <tbody data-cy="list-properties">
-        <tr *ngFor="let property of properties | sortBy:'asc':'name'" data-cy="item-properties">
+        <tr *ngFor="let property of filterProperties() | sortBy:'asc':'name'" data-cy="item-properties">
           <td>
             <a
               class="a--animation"

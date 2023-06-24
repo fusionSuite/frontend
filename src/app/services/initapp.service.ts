@@ -110,6 +110,7 @@ export class InitappService {
   public loadMenu () {
     return this.menusApi.list()
       .pipe(map((res: IMenu[]) => {
+        this.authService.menu = [];
         for (const menu of res) {
           this.authService.menu.push(menu);
         }

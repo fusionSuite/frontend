@@ -42,9 +42,9 @@ import { TimelineModule } from './timeline/timeline.module';
 import { WorkflowModule } from './workflow/workflow.module';
 import { SortbypipeModule } from './utils/sortbypipe.module';
 import { IconchoiceModule } from './modal/iconchoice/timelineiconchoice.module';
-import { SortablejsModule } from 'ngx-sortablejs';
 import { DndModule } from 'ngx-drag-drop';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SortablejsModule } from '@dustfoundation/ngx-sortablejs';
 
 function initializeApp (initapp: InitappService) {
   return () => initapp.loadConfiguration();

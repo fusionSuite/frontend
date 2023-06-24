@@ -28,6 +28,7 @@ import { UsersRoutingModule } from './users-routing.module';
 
 import { UsersCreatePageComponent } from './users-create-page/users-create-page.component';
 import { UsersListPageComponent } from './users-list-page/users-list-page.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { UsersListPageComponent } from './users-list-page/users-list-page.compon
     LayoutModule,
     UsersRoutingModule,
     ReactiveFormsModule,
+    NgSelectModule,
   ],
 })
 export class UsersModule { }

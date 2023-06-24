@@ -81,7 +81,7 @@
       border-radius: 12px;
 
       &__item {
-        padding: 10px 18px;
+        padding: 10px 12px;
         transition: all 0.2s ease;
         cursor: pointer;
 
@@ -92,6 +92,10 @@
           border-radius: 9px;
 
           cursor: not-allowed;
+        }
+
+        &__config {
+          color: var(--red10);
         }
       }
     }
@@ -135,6 +139,10 @@
     background-color: white;
   }
 
+  &.config {
+    color: var(--red10);
+  }
+
   @media screen and (max-width: 1024px) {
     display: none;
   }
@@ -153,6 +161,10 @@
     color: var(--sky11);
 
     background-color: white;
+  }
+
+  &.config {
+    color: var(--red10);
   }
 
   &:focus {
@@ -221,26 +233,24 @@
   &__cadre {
     width: 750px;
     margin: 15px 8px;
-    padding: 0 12px;
 
     background:
-      conic-gradient(from 180deg at top 2px right 2px, #0000 90deg, var(--sky11) 0) 100% 0 / 30px 30px
+      conic-gradient(from 270deg at bottom 2px right 2px, #0000 90deg, var(--sky11) 0) 100% 100% / 30px 30px
       border-box no-repeat,
       conic-gradient(from 0deg at bottom 2px left 2px, #0000 90deg, var(--sky11) 0) 0 100% / 30px 30px
       border-box no-repeat;
-    border: 5px solid #0000;
+    // border: 5px solid #0000;
 
     &__timeline {
       width: 750px;
       margin: 15px 8px;
-      padding: 0 12px;
   
       background:
-        conic-gradient(from 180deg at top 2px right 2px, #0000 90deg, #ff0e95 0) 100% 0 / 30px 30px
+        conic-gradient(from 270deg at bottom 2px right 2px, #0000 90deg, #ff0e95 0) 100% 100% / 30px 30px
         border-box no-repeat,
         conic-gradient(from 0deg at bottom 2px left 2px, #0000 90deg, #ff0e95 0) 0 100% / 30px 30px
         border-box no-repeat;
-      border: 5px solid #0000;
+      // border: 5px solid #0000;
     }
 
     &__workflow {
@@ -262,19 +272,35 @@
     color: var(--sky11);
     font-size: 22px;
     font-weight: bold;
+    border-top: 2px solid var(--sky11);
+    border-bottom: 2px solid var(--sky11);
+    background: linear-gradient(117deg, #ffffff 0%, #ffffff 30%, var(--sky11) 100%);
+    padding-top: 5px;
+    padding-bottom: 5px;
 
     &__timeline {
       color: #ff0e95;
       font-size: 22px;
       font-weight: bold;
-    }
+      border-top: 2px solid #ff0e95;
+      border-bottom: 2px solid #ff0e95;
+      background: linear-gradient(117deg, #ffffff 0%, #ffffff 30%, #ff0e95 100%);
+      padding-top: 5px;
+      padding-bottom: 5px;
+      }
 
     &__note {
-      color: var(--color-grey11);
       font-size: 16px;
       font-style: italic;
       font-weight: normal;
+      float: right;
+      color: white;
+      margin-right: 10px;
     }
+  }
+
+  &__content {
+    padding: 0 8px;
   }
 }
 
@@ -305,10 +331,12 @@
     &.active {
       color: var(--sky11);
       background-color: white;
-  
+    }
+
+    &.config {
+      color: var(--red10);
     }
   }
-
 }
 
 

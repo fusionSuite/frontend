@@ -16,10 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-.flow {
-  // margin-top: 1rem;
-
-  &.flow--small {
-    margin-top: 0.5rem;
-  }
+export interface IRole {
+  id: number;
+  name: string;
+  users: {
+    id: number,
+    name: string,
+    first_name: string,
+    last_name: string,
+  }[],
 }

@@ -35,8 +35,9 @@ import { WorkflowModule } from 'src/app/workflow/workflow.module';
 import { SortbypipeModule } from 'src/app/utils/sortbypipe.module';
 import { DragdropfileDirective } from 'src/app/directive/dragdropfile.directive';
 import { IconchoiceModule } from 'src/app/modal/iconchoice/timelineiconchoice.module';
-import { SortablejsModule } from 'ngx-sortablejs';
 import { QuickaddMenuComponent } from 'src/app/modal/quickadd-menu/quickadd-menu.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SortablejsModule } from '@dustfoundation/ngx-sortablejs';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { QuickaddMenuComponent } from 'src/app/modal/quickadd-menu/quickadd-menu
     FormsModule,
     IconchoiceModule,
     SortablejsModule,
+    NgSelectModule,
   ],
 })
 export class TypesModule { }
