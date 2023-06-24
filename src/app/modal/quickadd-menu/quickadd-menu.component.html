@@ -51,7 +51,29 @@
         <div
           class="form__edit__item__value"
         >
-          <button (click)="PanelIcon()" type="button" *ngIf="iconChosen === null">icon</button>
+        <ng-select
+          [items]="icons"
+          formControlName="icon" 
+        >
+          <ng-template ng-label-tmp let-item="item">
+            <fa-icon
+              [icon]="item.name"
+              size="lg"
+              [fixedWidth]="true"
+            ></fa-icon>
+            {{ item.label }}
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+            <fa-icon
+              [icon]="item.name"
+              size="xl"
+              [fixedWidth]="true"
+            ></fa-icon>
+            {{ item.label }}
+          </ng-template>
+        </ng-select>
+
+        <!-- <button (click)="PanelIcon()" type="button" *ngIf="iconChosen === null">icon</button> -->
           <fa-icon [icon]="iconChosen" [fixedWidth]="true" size="2xl" *ngIf="iconChosen !== null" style="color: var(--sky11);"></fa-icon>
           <fa-icon icon="trash-can" [fixedWidth]="true" style="color: var(--red11); cursor: pointer;"  *ngIf="iconChosen !== null" (click)="chooseNewIcon()"></fa-icon>
         </div>

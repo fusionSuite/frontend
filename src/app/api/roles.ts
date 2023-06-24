@@ -16,10 +16,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-.flow {
-  // margin-top: 1rem;
+import { Injectable } from '@angular/core';
 
-  &.flow--small {
-    margin-top: 0.5rem;
+import { ApiV1 } from './v1';
+import { IRole } from '../interfaces/role';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class RolesApi extends ApiV1 {
+  public list () {
+    return this.http.get<IRole[]>(this.settingsService.backendUrl + '/v1/config/roles', {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
+
+  public addUser (roleId: number, userId: number) {
+    return this.http.post(this.settingsService.backendUrl + '/v1/config/roles/' + roleId + '/user/' + userId, {}, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
   }
 }

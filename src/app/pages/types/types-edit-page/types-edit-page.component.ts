@@ -38,7 +38,10 @@ import { ITypepanel } from 'src/app/interfaces/typepanel';
 import { TypepanelsApi } from 'src/app/api/typepanel';
 import * as Sortable from 'sortablejs';
 import { TypepanelitemsApi } from 'src/app/api/typepanelitem';
-import { isNull } from 'lodash';
+import { icons } from 'src/app/modal/iconchoice/iconlists';
+import { IFonticon } from 'src/app/interfaces/fonticon';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { InitappService } from 'src/app/services/initapp.service';
 
 @Component({
   selector: 'app-types-edit-page',
@@ -67,6 +70,7 @@ export class TypesEditPageComponent implements OnInit {
   public showIcons: boolean = false;
   public showPanelAddForm: boolean = false;
   public showQuickAddMenu: boolean = false;
+  public menuItemIcon: IconProp|null = null;
   public panelOptions: Sortable.Options = {
     group: 'testxx',
     // onUpdate: (event: any) => {
@@ -82,13 +86,14 @@ export class TypesEditPageComponent implements OnInit {
 
   public panelSort: any = [];
   public panelItems: any = {};
+  public icons: IFonticon[] = icons;
 
   public formPanelControls = new FormGroup({
     name: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    icon: new FormControl([], {
+    icon: new FormControl('', {
       nonNullable: true,
       validators: [],
     }),
@@ -99,7 +104,7 @@ export class TypesEditPageComponent implements OnInit {
   });
 
   public formMenuChoice = new FormGroup({
-    menuId: new FormControl('0', {
+    menuId: new FormControl<number>(0, {
       nonNullable: true,
       validators: [Validators.required],
     }),
@@ -115,6 +120,7 @@ export class TypesEditPageComponent implements OnInit {
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
     private authService: AuthService,
+    private initappService: InitappService,
   ) {}
 
   ngOnInit (): void {
@@ -122,11 +128,7 @@ export class TypesEditPageComponent implements OnInit {
       const id = params.get('id');
       if (id !== null) {
         this.id = +id;
-        this.menu = this.authService.menu;
-        const menuItem = this.getMenuItemOfThisType();
-        if (menuItem !== undefined) {
-          this.formMenuChoice.controls.menuId.setValue(menuItem.menu_id.toString());
-        }
+        this.loadMenus();
         this.loadType();
         this.loadPanels();
       }
@@ -196,24 +198,22 @@ export class TypesEditPageComponent implements OnInit {
     }
   }
 
-  public addProperty (event: any) {
-    const propertyId = event.target.value;
-    if (propertyId !== undefined) {
-      this.typesApi.associateProperty(this.id, propertyId)
-        .pipe(
-          catchError((error: HttpErrorResponse) => {
-            this.notificationsService.error(error.error.message);
-            this.selectAddProperty = -1;
-            return throwError(() => new Error(error.error.message));
-          }),
-        ).subscribe((result: any) => {
-          // Reset the form to its initial state
-          this.loadType();
-          this.notificationsService.success($localize `The property has been associated successfully.`);
-          this.loadProperties();
+  public addProperty (prop: IProperty) {
+    this.typesApi.associateProperty(this.id, prop.id)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.notificationsService.error(error.error.message);
           this.selectAddProperty = -1;
-        });
-    }
+          return throwError(() => new Error(error.error.message));
+        }),
+      ).subscribe((result: any) => {
+        // Reset the form to its initial state
+        this.loadType();
+        this.notificationsService.success($localize `The property has been associated successfully.`);
+        this.loadProperties();
+        this.selectAddProperty = -1;
+        this.loadPanels();
+      });
   }
 
   public deleteProperty (property: IProperty) {
@@ -228,6 +228,7 @@ export class TypesEditPageComponent implements OnInit {
         this.loadType();
         this.notificationsService.success($localize `The property has been removed successfully.`);
         this.loadProperties();
+        this.loadPanels();
       });
   }
 
@@ -239,7 +240,7 @@ export class TypesEditPageComponent implements OnInit {
         name: this.type?.name,
         icon: 'signs-post',
         type_id: this.type?.id,
-        menu_id: parseInt(this.formMenuChoice.controls.menuId.value),
+        menu_id: this.formMenuChoice.controls.menuId.value,
       };
       this.menuitemsApi.create(data)
         .pipe(
@@ -249,9 +250,15 @@ export class TypesEditPageComponent implements OnInit {
           }),
         ).subscribe((result: any) => {
           this.notificationsService.success($localize `The type has been added to the menu successfully.`);
+          this.initappService.loadMenu().then(() => {
+            this.initappService.loadMenuCustom().then(() => {
+              this.authService.menuChanges();
+              this.loadMenus();
+            });
+          });
         });
     } else {
-      if (parseInt(this.formMenuChoice.controls.menuId.value) === 0) {
+      if (this.formMenuChoice.controls.menuId.value === 0) {
         // delete it
         this.menuitemsApi.delete(menuItem.id)
           .pipe(
@@ -261,11 +268,17 @@ export class TypesEditPageComponent implements OnInit {
             }),
           ).subscribe((result: any) => {
             this.notificationsService.success($localize `The type has been deleted from the menu successfully.`);
+            this.initappService.loadMenu().then(() => {
+              this.initappService.loadMenuCustom().then(() => {
+                this.authService.menuChanges();
+                this.loadMenus();
+              });
+            });
           });
       } else {
         // update it
         const data = {
-          menu_id: parseInt(this.formMenuChoice.controls.menuId.value),
+          menu_id: this.formMenuChoice.controls.menuId.value,
         };
         this.menuitemsApi.update(menuItem.id, data)
           .pipe(
@@ -275,6 +288,12 @@ export class TypesEditPageComponent implements OnInit {
             }),
           ).subscribe((result: any) => {
             this.notificationsService.success($localize `The type has been modified to the menu successfully.`);
+            this.initappService.loadMenu().then(() => {
+              this.initappService.loadMenuCustom().then(() => {
+                this.authService.menuChanges();
+                this.loadMenus();
+              });
+            });
           });
       }
     }
@@ -304,7 +323,6 @@ export class TypesEditPageComponent implements OnInit {
       this.showIcons = false;
       return;
     }
-    console.log(event);
     // update formcrontrol value
     this.formPanelControls.controls.icon.setValue(event);
     this.showIcons = false;
@@ -318,7 +336,7 @@ export class TypesEditPageComponent implements OnInit {
     }
     const data = {
       name: this.formPanelControls.controls.name.value,
-      icon: JSON.stringify(this.formPanelControls.controls.icon.value),
+      icon: this.formPanelControls.controls.icon.value,
       type_id: this.id,
       displaytype,
     };
@@ -332,6 +350,10 @@ export class TypesEditPageComponent implements OnInit {
         this.loadPanels();
         this.showPanelAddForm = false;
         this.notificationsService.success($localize `The panel has been create successfully.`);
+        // reinit the form
+        this.formPanelControls.controls.name.setValue('');
+        this.formPanelControls.controls.icon.setValue('');
+        this.formPanelControls.controls.timeline.setValue(false);
       });
   }
 
@@ -350,11 +372,35 @@ export class TypesEditPageComponent implements OnInit {
 
   public parseIcon (icon: any) {
     if (icon === null) {
-      return null;
-    } else if (icon.includes('[') && icon !== '[]') {
+      return '';
+    } else if (icon.includes('[')) {
       return JSON.parse(icon);
     } else {
-      return icon;
+      // search icon for label in list
+      const myicon = this.icons.find(item => item.label === icon);
+      if (myicon === undefined) {
+        return '';
+      }
+      return myicon.name;
+    }
+  }
+
+  /**
+   * update the menu item icon of this type
+   */
+  public udpateMenuTypeIcon () {
+    // update icon
+    console.log(this.menuItemIcon);
+    const menuItem = this.getMenuItemOfThisType();
+    if (menuItem !== undefined) {
+      this.menuitemsApi.update(menuItem.id, { icon: this.menuItemIcon })
+        .subscribe((res) => {
+          this.initappService.loadMenu().then(() => {
+            this.initappService.loadMenuCustom().then(() => {
+              this.authService.menuChanges();
+            });
+          });
+        });
     }
   }
 
@@ -394,9 +440,8 @@ export class TypesEditPageComponent implements OnInit {
   }
 
   private sortPanelitems (event: any) {
-    console.log(event);
-    const panelitemId = parseInt(event.item.id);
-    const typepanelId = parseInt(event.to.id);
+    const panelitemId = parseInt(event.item.id.replace('panelitem-', ''));
+    const typepanelId = parseInt(event.to.id.replace('panel-', ''));
     this.typepanelitemsApi.update(panelitemId, { typepanel_id: typepanelId })
       .pipe(
         catchError((error: HttpErrorResponse) => {
@@ -423,11 +468,29 @@ export class TypesEditPageComponent implements OnInit {
   }
 
   reloadMenu (event: any) {
+    this.authService.menuChanges();
+    this.loadMenus();
     this.showQuickAddMenu = false;
   }
 
   test (index: number) {
     console.log(index);
     console.log(this.panelSort[index]);
+  }
+
+  private loadMenus () {
+    this.menu = this.authService.menu;
+    this.menu.unshift({
+      id: 0,
+      name: 'not in menu',
+      icon: 'bars',
+      position: 0,
+      items: [],
+    });
+    const menuItem = this.getMenuItemOfThisType();
+    if (menuItem !== undefined) {
+      this.formMenuChoice.controls.menuId.setValue(menuItem.menu_id);
+      this.menuItemIcon = menuItem.icon;
+    }
   }
 }

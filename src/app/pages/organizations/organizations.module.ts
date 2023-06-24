@@ -28,6 +28,7 @@ import { OrganizationsRoutingModule } from './organizations-routing.module';
 
 import { OrganizationsCreatePageComponent } from './organizations-create-page/organizations-create-page.component';
 import { OrganizationsListPageComponent } from './organizations-list-page/organizations-list-page.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { OrganizationsListPageComponent } from './organizations-list-page/organi
     LayoutModule,
     OrganizationsRoutingModule,
     ReactiveFormsModule,
+    NgSelectModule,
   ],
 })
 export class OrganizationsModule { }

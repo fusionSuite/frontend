@@ -148,14 +148,15 @@
       <div class="sortselect form__edit__item" *ngIf="editionmode" style="margin: 0 35px;">
         <div class="form__edit__item__title" i18n>Associate property</div>
         <div class="form__edit__item__value">
-          <select
+          <ng-select
+            [items]="properties"
             (change)="addProperty($event)"
-            data-cy="type-categories-selectadd"
+            bindLabel="name"
+            bindValue="id"
             [(ngModel)]="selectAddProperty"
+            data-cy="type-categories-selectadd"
           >
-            <option selected disabled value="-1" i18n>Choose the property</option>
-            <option *ngFor="let prop of properties" [value]="prop.id">{{ prop.name }}</option>
-          </select>
+          </ng-select>
         </div>
       </div>
       <div>
@@ -205,28 +206,62 @@
           <!-- {type.properties.length, plural, =1 {{{ type.properties.length }} property} other {{{ type.properties.length }} properties}}          -->
         </span>
       </div>
-      <button (click)="showPanelAddForm = true" *ngIf="!showPanelAddForm">
-        <fa-icon icon="circle-plus" [fixedWidth]="true"></fa-icon>
-        Add new panel
-      </button>
+      <div class="form__edit__item__title" style="min-height: 16px;display: flex;width: 100%;align-items: flex-end;">
+        <span
+        style="cursor: pointer;font-size: 14px;flex-grow: 1;text-align: end;margin-bottom: 1px;margin-right: 5px;"
+        >
+          <a
+            class="a--animation"
+            (click)="showPanelAddForm = true"
+            *ngIf="!showPanelAddForm && editionmode"
+            data-cy="type-edit-create-panel"
+          >
+            <fa-icon icon="add" [fixedWidth]="true" size="sm"></fa-icon>Add new
+          </a>
+        </span>
+      </div>
+
       <div *ngIf="showPanelAddForm" class="form__edit__item">
         <form
           [formGroup]="formPanelControls"
           (ngSubmit)="addPanel()"
-          data-cy="form-types-new"
+          data-cy="form-types-new-panel"
         >
           <div class="form__edit__item">
             <div class="form__edit__item__title" i18n>Name</div>
             <div class="form__edit__item__value">
               <input
                 formControlName="name"
+                name="name"
               >
             </div>
           </div>
           <div class="form__edit__item">
             <div class="form__edit__item__title" i18n>Icon</div>
             <div class="form__edit__item__value">
-              <button type="button" (click)="showIcons = true">icon</button>
+              <ng-select
+                [items]="icons"
+                bindValue="label"
+                formControlName="icon"
+                name="icon"
+              >
+                <ng-template ng-label-tmp let-item="item">
+                  <fa-icon
+                    [icon]="item.name"
+                    size="lg"
+                    [fixedWidth]="true"
+                  ></fa-icon>
+                  {{ item.label }}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                  <fa-icon
+                    [icon]="item.name"
+                    size="xl"
+                    [fixedWidth]="true"
+                  ></fa-icon>
+                  {{ item.label }}
+                </ng-template>
+              </ng-select>
             </div>
           </div>
           <div class="form__edit__item">
@@ -241,29 +276,81 @@
               <span class="slider" data-cy="type-edit-switch-button"></span>
             </label>
           </div>
-          <button style="float: right">Submit</button>
+          <button
+            style="float: right"
+            data-cy="submit"
+          >
+            Submit
+          </button>
         </form>
       </div>
 
 
-      <div *ngIf="!showPanelAddForm">
+      <div
+        *ngIf="!showPanelAddForm"
+        data-cy="form-types-list-panels"
+      >
         <div *ngFor="let panel of panels; let i = index">
 
           <div
             style="border: 1px solid var(--sky11); margin-bottom: 10px;border-radius: 5px;"
           >
             <span style="color: var(--sky11);font-weight: bold;padding-left: 5px;height: 35px;display: flex;align-items: center;gap: 8px;">
-              <fa-icon [icon]="parseIcon(panel.icon)" [fixedWidth]="true" *ngIf="parseIcon(panel.icon) !== null"></fa-icon>
+              <fa-icon
+                [icon]="parseIcon(panel.icon)"
+                [fixedWidth]="true"
+                *ngIf="panel.icon !== null"
+              ></fa-icon>
+              <fa-icon
+                icon="list-ul"
+                [fixedWidth]="true"
+                *ngIf="panel.icon === null"
+              ></fa-icon>
               {{ panel.name }}
+              <div 
+                class="form__edit__item__title"
+                style="min-height: 16px;display: flex;width: 100%;align-items: flex-end;font-weight: normal;"
+                *ngIf="panel.name !== 'Default'"
+              >
+                <span
+                style="cursor: pointer;font-size: 14px;flex-grow: 1;text-align: end;margin-bottom: 1px;margin-right: 5px;"
+                >
+                  <a
+                    class="a--animation"
+                    (click)="showPanelAddForm = true"
+                    *ngIf="!showPanelAddForm && editionmode"
+                    data-cy="type-edit-create-panel"
+                    style="color: var(--red10) !important;"
+                  >
+                    <fa-icon icon="xmark" [fixedWidth]="true" size="sm"></fa-icon>Delete
+                  </a>
+                </span>
+              </div>
             </span>
   
             <div
-              data-id="{{ panel.id }}"
-              [sortablejs]="panelSort[i]"
-              [sortablejsOptions]="panelOptions"
+              data-id="panel-{{ panel.id }}"
+              *ngIf="!editionmode"
             >
               <div
                 data-id="{{ item }}"
+                style="background-color: var(--color-grey3); margin: 8px;border-radius: 5px; height: 35px;padding-left: 8px;color: var(--color-grey11);font-weight: bold;display: flex;align-items: center;"
+                *ngFor="let item of panelSort[i]; let j = index"
+              >
+                <fa-icon icon="bars" [fixedWidth]="true" style="color: var(--sky11);margin-right: 8px;"></fa-icon>
+                {{ getPropertyNameById(item) }}
+              </div>
+            </div>
+            
+            <div
+              data-id="panel-{{ panel.id }}"
+              [sortablejs]="panelSort[i]"
+              [sortablejsOptions]="panelOptions"
+              *ngIf="editionmode"
+              style="min-height: 35px;"
+            >
+              <div
+                data-id="panelitem-{{ item }}"
                 style="background-color: var(--color-grey3); margin: 8px;border-radius: 5px; height: 35px;padding-left: 8px;color: var(--color-grey11);font-weight: bold;display: flex;align-items: center;"
                 *ngFor="let item of panelSort[i]; let j = index"
               >
@@ -286,9 +373,57 @@
       </div>
     
       <div clas="form__edit__item">
-        <form [formGroup]="formMenuChoice">
-          <div class="form__edit__item__title" i18n>Menu choice</div>
-          <div style="cursor: pointer;margin: 0px 31px;">
+        <form [formGroup]="formMenuChoice"
+        >
+            <div class="form__edit__item__title" i18n>Menu choice</div>
+            <div class="form__edit__item__title" style="min-height: 16px;display: flex;width: 100%;align-items: flex-end;">
+              <span
+              (click)="showQuickAddMenu = !showQuickAddMenu"
+              style="cursor: pointer;font-size: 14px;flex-grow: 1;text-align: end;margin-bottom: 1px;margin-right: 5px;"
+            >
+              <a class="a--animation">
+                <fa-icon icon="add" [fixedWidth]="true" size="sm"></fa-icon>Add new
+              </a>
+            </span>
+          </div>
+          <ng-select
+            [items]="menu"
+            bindValue="id"
+            formControlName="menuId"
+            (change)="menuChoice()"
+          >
+            <ng-template ng-label-tmp let-item="item">
+              <fa-icon
+                [icon]="parseIcon(item.icon)"
+                [fixedWidth]="true"
+                size="xl"
+                *ngIf="item.icon !== undefined && parseIcon(item.icon) !== null"
+              >
+              </fa-icon>
+              {{ item.name }}
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+              <fa-icon
+                [icon]="parseIcon(item.icon)"
+                [fixedWidth]="true"
+                size="xl"
+                *ngIf="item.icon !== undefined && parseIcon(item.icon) !== null && item.id > 0"
+              >
+              </fa-icon>
+              <fa-stack
+                size="xl"
+                style="width: 1.2em;"
+                *ngIf="item.icon !== undefined && parseIcon(item.icon) !== null && item.id === 0"
+              >
+                <fa-icon icon="bars" stackItemSize="1x"></fa-icon>
+                <fa-icon icon="slash" stackItemSize="1x"></fa-icon>
+              </fa-stack>          
+                {{ item.name }}
+            </ng-template>
+          </ng-select>
+
+
+          <!-- <div style="cursor: pointer;margin: 0px 31px;">
             <input type="radio" value="0" formControlName="menuId" (change)="menuChoice()">
             <fa-stack size="xs" style="color: var(--sky11);width: 1.2em;">
               <fa-icon icon="bars" stackItemSize="1x"></fa-icon>
@@ -301,21 +436,43 @@
             <fa-icon [icon]="parseIcon(mymenu.icon)" [fixedWidth]="true" size="xs" style="color: var(--sky11);" *ngIf="parseIcon(mymenu.icon) !== ''"></fa-icon>
             <fa-icon icon="signs-post" [fixedWidth]="true" size="xs" style="color: var(--sky11);" *ngIf="parseIcon(mymenu.icon) === ''"></fa-icon>
             <span class="form__edit__item__title">{{ mymenu.name }}</span>
-          </div>
-          <div (click)="showQuickAddMenu = !showQuickAddMenu" style="cursor: pointer;margin: 15px 31px;">
+          </div> -->
+          <!-- <div (click)="showQuickAddMenu = !showQuickAddMenu" style="cursor: pointer;margin: 15px 31px;">
             <fa-icon icon="circle-plus" [fixedWidth]="true" size="xs" style="color: var(--sky11); margin-left: 3px;"></fa-icon>
             add new menu
-          </div>
+          </div> -->
 
-          <div class="form__edit__item__title" *ngIf="formMenuChoice.controls.menuId.value !== '0'" i18n>Icon</div>
-          <div
-            class="form__edit__item__value"
-          >
-            <!-- <button (click)="PanelIcon()" type="button" *ngIf="iconChosen === null">icon</button> -->
-            <fa-icon icon="bars" [fixedWidth]="true" size="2xl" style="color: var(--sky11);"></fa-icon>
-            <button type="button">Change the icon</button>
-          </div>
         </form>
+        <br>
+        <div class="form__edit__item__title" *ngIf="formMenuChoice.controls.menuId.value !== 0" i18n>Icon of this type in menu</div>
+        <div
+          class="form__edit__item__value"
+          *ngIf="formMenuChoice.controls.menuId.value !== 0"
+        >
+          <ng-select
+            [items]="icons"
+            [(ngModel)]="menuItemIcon"
+            (change)="udpateMenuTypeIcon()"
+            bindValue="label"
+          >
+            <ng-template ng-label-tmp let-item="item">
+              <fa-icon
+                [icon]="item.name"
+                size="lg"
+                [fixedWidth]="true"
+              ></fa-icon>
+              {{ item.label }}
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+              <fa-icon
+                [icon]="item.name"
+                size="xl"
+                [fixedWidth]="true"
+              ></fa-icon>
+              {{ item.label }}
+            </ng-template>
+          </ng-select>
+        </div>
       </div>
     </div>
 

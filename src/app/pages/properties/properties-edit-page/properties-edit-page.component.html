@@ -17,6 +17,7 @@
  -->
 
 <app-page i18n-page-title page-title="Edit property">
+  <modal-quickadd-listvalue [propertyId]="id" (newValuelist)="reload($event)" *ngIf="showQuickAddListvalue"></modal-quickadd-listvalue>
   <header class="page__header flow flow--small">
     <h1 *ngIf="property !== null">#{{ property.id }} - {{ property.name }}</h1>
 
@@ -140,14 +141,53 @@
           </div>
         </div>
 
-        <div class="form__edit__item">
+        <div class="form__edit__item" *ngIf="property.valuetype === 'list'" style="margin-bottom: 12px;">
           <div class="form__edit__item__title" i18n>List of values:</div>
-          <div class="form__edit__item__value">{{ property.listvalues }}</div>
+          <div class="form__edit__item__value">
+            <div
+              class="form__edit__item__title"
+              style="min-height: 16px;display: flex;width: 100%;align-items: flex-end;"
+              *ngIf="editionmode"
+            >
+              <span
+              style="cursor: pointer;font-size: 14px;flex-grow: 1;text-align: start;margin-bottom: 1px;margin-right: 5px;"
+              >
+                <a
+                  class="a--animation"
+                  (click)="showQuickAddListvalue = true"
+                  *ngIf="!showQuickAddListvalue && editionmode"
+                  data-cy="type-edit-create-panel"
+                >
+                  <fa-icon icon="add" [fixedWidth]="true" size="sm"></fa-icon>Add new
+                </a>
+              </span>
+            </div>
+      
+            <div *ngFor="let listvalue of property.listvalues">
+              <fa-icon icon="circle-dot" [fixedWidth]="true" size="xs" style="color: var(--color-grey9);"></fa-icon>
+              {{ listvalue.value }}
+            </div>
+          </div>
         </div>
 
         <div class="form__edit__item">
           <div class="form__edit__item__title" i18n>Default value:</div>
-          <div class="form__edit__item__value">{{ property.default }}</div>
+          <div class="form__edit__item__value" *ngIf="!editionmode && property.valuetype !== 'list'">
+            {{ property.default }}
+          </div>
+          <div class="form__edit__item__value" *ngIf="!editionmode && property.valuetype === 'list'">
+            {{ getValueOfValuelist(property.default) }}
+          </div>
+          <div class="form__edit__item__value" *ngIf="editionmode && property.valuetype === 'list'">
+            <ng-select
+              [items]='property.listvalues'
+              bindLabel="value"
+              bindValue="id"
+              formControlName="default"
+              (change)="updateField('default')"
+            >              
+            </ng-select>
+          </div>
         </div>
 
         <div class="form__edit__item">

@@ -32,18 +32,30 @@
         Personal
       </div>
       <div
-      [class]="view === 'business' ? 'page__nav__view__item page__nav__view__item__active' : 'page__nav__view__item'"
-      (click)="changeView('business')"
+        [class]="view === 'business' ? 'page__nav__view__item page__nav__view__item__active' : 'page__nav__view__item'"
+        (click)="changeView('business')"
+        data-cy="menu-business"
         i18n
       >
         Business
+      </div>
+      <div 
+        [class]="view === 'configuration' ? 'page__nav__view__item page__nav__view__item__active page__nav__view__item__config' : 'page__nav__view__item'"
+        (click)="changeView('configuration')"
+        style="width: 42px;"
+        data-cy="menu-configuration"
+      >
+        <span>
+          <fa-icon icon="screwdriver-wrench" size="xl"></fa-icon>
+        </span>
       </div>
     </div>
   </ul>
   
   <span class="page__nav__search" *ngIf="view === 'business'">
     <input
-    (keyup)="updateSearch($event)"
+      (keyup)="updateSearch($event)"
+      placeholder="filter menus here"
     />
     <fa-icon
       style="float: right;"
@@ -53,24 +65,14 @@
     ></fa-icon>
   </span>
   
-  <span class="page__nav-item" style="margin-top: 8px;">
-    <a
-      class="page__nav-link"
-      routerLink="/"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{exact: true}"
-      ariaCurrentWhenActive="page"
-      data-cy="link-home"
-    >
-      <fa-icon icon="user" size="xs" [fixedWidth]="true"></fa-icon>
-      <ng-container i18n>
-        Home
-      </ng-container>
-    </a>
-  </span>
-  
   <ul class="page__nav-container flow flow--small" style="border: 0px;border: 0px;margin-top: 0;padding-top: 0;" *ngIf="view === 'personal'">
-  
+    <span *ngIf="menuCustom.length === 0" class="page__nav-link">
+      <fa-icon icon="house-user" size="xs" [fixedWidth]="true"></fa-icon>
+      <ng-container i18n>
+        No custom items
+      </ng-container>
+    </span>
+
     <li class="page__nav-item" style="margin-bottom: 20px;">
       <span class="page__nav-item" *ngFor="let custom of menuCustom">
         <a
@@ -80,7 +82,12 @@
           ariaCurrentWhenActive="page"
           data-cy="link-organizations"
         >
-          <fa-icon [icon]="parseIcon(custom.menuitem.icon)" size="xs" [fixedWidth]="true"></fa-icon>
+          <fa-icon
+            [icon]="parseIcon(custom.menuitem.icon)"
+            size="xs"
+            [fixedWidth]="true"
+            *ngIf="parseIcon(custom.menuitem.icon) !== null"
+          ></fa-icon>
           <ng-container>
             {{ custom.menuitem.name }}
           </ng-container>
@@ -109,6 +116,13 @@
           size="xs"
           [fixedWidth]="true"
         ></fa-icon>
+        <fa-icon
+          [icon]="parseIcon(submenu.icon)"
+          size="xs"
+          [fixedWidth]="true"
+          style="float: right;margin-right: 8px;"
+          *ngIf="parseIcon(submenu.icon) !== null"
+        ></fa-icon>
       </div>
       <div *ngIf="(submenu.expanded !== undefined && submenu.expanded) || search !== ''">
         <span
@@ -128,7 +142,12 @@
           data-cy="link-organizations"
           (click)="changeRoute('/items/' + item.type.internalname + '/list')"
         >
-          <fa-icon [icon]="parseIcon(item.icon)" size="xs" [fixedWidth]="true"></fa-icon>
+          <fa-icon
+            [icon]="parseIcon(item.icon)"
+            size="xs"
+            [fixedWidth]="true"
+            *ngIf="parseIcon(item.icon) !== null"
+          ></fa-icon>
           <ng-container>
             {{ item.name }}
           </ng-container>
@@ -152,27 +171,18 @@
       </span>
     </div>
     </li>
-  
-  
+  </ul>
+  <ul class="page__nav-container flow flow--small" style="border: 0px;border: 0px;margin-top: 0;padding-top: 0;" *ngIf="view === 'configuration'">
     <span class="page__nav-item">
-      <div
-        (click)="configurationExpanded = !configurationExpanded"
-        style="cursor: pointer;"
-      >
+      <div>
         <strong i18n>Configuration</strong>
-        <fa-icon
-          style="float: right;margin-right: 8px;"
-          [icon]="(configurationExpanded || search !== '') ? 'angle-down' : 'angle-right'"
-          size="xs"
-          [fixedWidth]="true"
-        ></fa-icon>
       </div>
-      <div *ngIf="configurationExpanded">
+      <div>
         <span class="page__nav-item">
           <a
             class="page__nav-link"
             [routerLink]="['/organizations']"
-            routerLinkActive="active"
+            routerLinkActive="active config"
             ariaCurrentWhenActive="page"
             data-cy="link-organizations"
           >
@@ -187,7 +197,7 @@
           <a
             class="page__nav-link"
             [routerLink]="['/users']"
-            routerLinkActive="active"
+            routerLinkActive="active config"
             ariaCurrentWhenActive="page"
             data-cy="link-users"
           >
@@ -202,7 +212,7 @@
           <a
             class="page__nav-link"
             [routerLink]="['/config/properties']"
-            routerLinkActive="active"
+            routerLinkActive="active config"
             ariaCurrentWhenActive="page"
             data-cy="link-properties"
           >
@@ -211,17 +221,34 @@
               Properties
             </ng-container>
           </a>
+        </span>
   
+        <span class="page__nav-item">
           <a
             class="page__nav-link"
             [routerLink]="['/config/types']"
-            routerLinkActive="active"
+            routerLinkActive="active config"
             ariaCurrentWhenActive="page"
             data-cy="link-types"
           >
             <fa-icon icon="screwdriver-wrench" size="xs" [fixedWidth]="true"></fa-icon>
             <ng-container i18n>
               Types
+            </ng-container>
+          </a>
+        </span>
+  
+        <span class="page__nav-item">
+          <a
+            class="page__nav-link"
+            [routerLink]="['/config/templateimport']"
+            routerLinkActive="active config"
+            ariaCurrentWhenActive="page"
+            data-cy="link-templateimport"
+          >
+            <fa-icon icon="file-import" size="xs" [fixedWidth]="true"></fa-icon>
+            <ng-container i18n>
+              Import template
             </ng-container>
           </a>
         </span>
@@ -258,7 +285,12 @@
       data-cy="link-organizations"
       style="width: 80px;display: block;height: 80px;padding-top: 10px;border-radius: 8px;"
     >
-      <fa-icon [icon]="parseIcon(custom.menuitem.icon)" size="2xl" [fixedWidth]="true"></fa-icon>
+      <fa-icon
+        [icon]="parseIcon(custom.menuitem.icon)"
+        size="2xl"
+        [fixedWidth]="true"
+        *ngIf="parseIcon(custom.menuitem.icon) !== null"
+      ></fa-icon>
       <br>
       <ng-container>
         {{ custom.menuitem.name }}

@@ -38,55 +38,58 @@
         </p>
       </div>
 
-      <div>
-        <label for="username" i18n>Username</label>
-        <input
-          id="username"
-          name="username"
-          type="text"
-          required
-          formControlName="username"
-          [attr.aria-invalid]="usernameIsInvalid"
-          [attr.aria-errormessage]="usernameIsInvalid ? 'username-error' : null"
-        >
-
-        <div
-          class="form__error"
-          id="username-error"
-          role="alert"
-          *ngIf="usernameIsInvalid"
-        >
-          <fa-icon icon="exclamation-circle"></fa-icon>
-          <span class="sr-only" i18n>Error:</span>
-          <span *ngIf="formControls.username.hasError('required')" i18n>
-            The username is required.
-          </span>
+      <div class="form__edit__item">
+        <label class="form__edit__item__title" for="username" i18n>Username</label>
+        <div class="form__edit__item__value">
+          <input
+            id="username"
+            name="username"
+            type="text"
+            required
+            formControlName="username"
+            [attr.aria-invalid]="usernameIsInvalid"
+            [attr.aria-errormessage]="usernameIsInvalid ? 'username-error' : null"
+          >
+          <div
+            class="form__error"
+            id="username-error"
+            role="alert"
+            *ngIf="usernameIsInvalid"
+          >
+            <fa-icon icon="exclamation-circle"></fa-icon>
+            <span class="sr-only" i18n>Error:</span>
+            <span *ngIf="formControls.username.hasError('required')" i18n>
+              The username is required.
+            </span>
+          </div>
         </div>
       </div>
 
-      <div>
-        <label for="password" i18n>Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          required
-          formControlName="password"
-          [attr.aria-invalid]="passwordIsInvalid"
-          [attr.aria-errormessage]="passwordIsInvalid ? 'password-error' : null"
-        >
+      <div class="form__edit__item">
+        <label class="form__edit__item__title" for="password" i18n>Password</label>
+        <div class="form__edit__item__value">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            formControlName="password"
+            [attr.aria-invalid]="passwordIsInvalid"
+            [attr.aria-errormessage]="passwordIsInvalid ? 'password-error' : null"
+          >
 
-        <div
-          class="form__error"
-          id="password-error"
-          role="alert"
-          *ngIf="passwordIsInvalid"
-        >
-          <fa-icon icon="exclamation-circle"></fa-icon>
-          <span class="sr-only" i18n>Error:</span>
-          <span *ngIf="formControls.password.hasError('required')" i18n>
-            The password is required.
-          </span>
+          <div
+            class="form__error"
+            id="password-error"
+            role="alert"
+            *ngIf="passwordIsInvalid"
+          >
+            <fa-icon icon="exclamation-circle"></fa-icon>
+            <span class="sr-only" i18n>Error:</span>
+            <span *ngIf="formControls.password.hasError('required')" i18n>
+              The password is required.
+            </span>
+          </div>
         </div>
       </div>
 

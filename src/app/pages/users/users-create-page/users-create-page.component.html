@@ -50,12 +50,12 @@
         </p>
       </div>
 
-      <div class="cols">
-        <div>
-          <label for="firstname">
-            <ng-container i18n>First name</ng-container>
-            <span class="text--secondary" i18n> (optional)</span>
-          </label>
+      <div class="form__edit__item">
+        <label class="form__edit__item__title" for="firstname">
+          <ng-container i18n>First name</ng-container>
+          <span class="text--secondary" i18n> (optional)</span>
+        </label>
+        <div class="form__edit__item__value">
           <input
             id="firstname"
             name="firstname"
@@ -64,12 +64,14 @@
             (input)="fillUsername()"
           >
         </div>
+      </div>
 
-        <div>
-          <label for="lastname">
-            <ng-container i18n>Last name</ng-container>
-            <span class="text--secondary" i18n> (optional)</span>
-          </label>
+      <div class="form__edit__item">
+        <label class="form__edit__item__title" for="lastname">
+          <ng-container i18n>Last name</ng-container>
+          <span class="text--secondary" i18n> (optional)</span>
+        </label>
+        <div class="form__edit__item__value">
           <input
             id="lastname"
             name="lastname"
@@ -80,47 +82,52 @@
         </div>
       </div>
 
-      <div>
-        <label for="name" i18n>Username</label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          required
-          formControlName="name"
-          [attr.aria-invalid]="nameIsInvalid"
-          [attr.aria-errormessage]="nameIsInvalid ? 'name-error' : null"
-        >
-
-        <div
-          class="form__error"
-          id="name-error"
-          role="alert"
-          *ngIf="nameIsInvalid"
-        >
-          <fa-icon icon="exclamation-circle"></fa-icon>
-          <span class="sr-only" i18n>Error:</span>
-          <span *ngIf="formControls.name.hasError('required')" i18n>
-            The name is required.
-          </span>
+      <div class="form__edit__item">
+        <label class="form__edit__item__title" for="name" i18n>Username</label>
+        <div class="form__edit__item__value">
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            formControlName="name"
+            [attr.aria-invalid]="nameIsInvalid"
+            [attr.aria-errormessage]="nameIsInvalid ? 'name-error' : null"
+          >
+          <div
+            class="form__error"
+            id="name-error"
+            role="alert"
+            *ngIf="nameIsInvalid"
+          >
+            <fa-icon icon="exclamation-circle"></fa-icon>
+            <span class="sr-only" i18n>Error:</span>
+            <span *ngIf="formControls.name.hasError('required')" i18n>
+              The name is required.
+            </span>
+          </div>
         </div>
       </div>
 
       <div>
         <label for="organization-id" i18n>Main organization</label>
 
-        <select
+        <ng-select
           id="organization-id"
           name="organization-id"
           required
           formControlName="organizationId"
           [attr.aria-invalid]="organizationIdIsInvalid"
           [attr.aria-errormessage]="organizationIdIsInvalid ? 'organization-id-error' : null"
+          [items]="organizations"
+          bindLabel="name"
+          bindValue="id"
         >
-          <option *ngFor="let organization of organizations" [value]="organization.id">
-            {{ organization.indentName(this.baseOrganizationNameIndentation) }}
-          </option>
-        </select>
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+            {{ getIndents(item.treepath) }}
+            {{ item.name }}
+          </ng-template>
+        </ng-select>
 
         <div
           class="form__error"
@@ -134,6 +141,18 @@
             The organization is required.
           </span>
         </div>
+      </div>
+
+      <div>
+        <label for="organization-id" i18n>Role</label>
+
+        <ng-select
+          [items] = "roles"
+          bindLabel="name"
+          bindValue="id"
+          formControlName="roleId"
+        >
+      </ng-select>
       </div>
 
       <div class="form__actions">

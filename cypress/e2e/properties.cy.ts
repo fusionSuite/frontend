@@ -25,6 +25,9 @@ describe('properties', () => {
   it('list properties', () => {
     cy.visit('/');
 
+    cy.get('[data-cy="menu-configuration"]').click();
+    cy.get('[data-cy="link-properties"]').should('exist');
+
     cy.get('[data-cy="link-properties"]').click();
     cy.url().should('equal', Cypress.config('baseUrl') + '/config/properties');
 

@@ -73,4 +73,20 @@ export class PropertiesApi {
       },
     });
   }
+
+  public createListvalue (id: number, value: string) {
+    return this.http.post(this.settingsService.backendUrl + '/v1/config/properties/' + id + '/listvalues', { value }, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
+
+  public deleteListvalue (id: number, listvalueId: number) {
+    return this.http.delete(this.settingsService.backendUrl + '/v1/config/properties/' + id + '/listvalues/' + listvalueId, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
 }

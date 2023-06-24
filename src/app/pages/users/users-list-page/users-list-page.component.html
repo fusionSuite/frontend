@@ -40,6 +40,10 @@
             Organization
           </th>
 
+          <th i18n>
+            Role
+          </th>
+
           <th class="col--actions">
             <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
 
@@ -61,6 +65,12 @@
 
           <td>
             {{ user.organizationName }}
+          </td>
+
+          <td>
+            <span *ngFor="let role of usersRoles[user.id]">
+              {{ role.name }}
+            </span>
           </td>
 
           <td class="col--actions">

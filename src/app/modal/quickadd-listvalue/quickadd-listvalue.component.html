@@ -1,0 +1,55 @@
+<!--
+ - FusionSuite - Frontend
+ - Copyright (C) 2022 FusionSuite
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU Affero General Public License as published by
+ - the Free Software Foundation, either version 3 of the License, or
+ - any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ - GNU Affero General Public License for more details.
+ -
+ - You should have received a copy of the GNU Affero General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+ <div class="dialog">
+  <div class="dialog__main">
+    <div class="form__edit page__inner__cadre" style="height: calc(100% - 10px);position: absolute;width: calc(100% - 10px);margin: 5px;">
+      <div class="page__inner__title">
+        <fa-icon icon="bars" [fixedWidth]="true"></fa-icon>
+        Quick add new listvalue
+        <fa-icon
+          icon="xmark"
+          [fixedWidth]="true"
+          style="float: right;cursor: pointer;"
+          (click)="close()"
+        ></fa-icon>
+      </div>
+      <form
+        [formGroup]="formControls"
+        (ngSubmit)="addValue()"
+      >
+
+      <div class="form__edit__item">
+        <div class="form__edit__item__title" i18n>Value</div>
+        <div
+          class="form__edit__item__value"
+        >
+          <input
+            [value]=""
+            formControlName="value"
+          >
+        </div>
+      </div>
+
+      <div class="form__actions">
+        <button class="button--primary" i18n>Add this value</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
