@@ -135,6 +135,10 @@
                 <span *ngIf="prop.valuetype === 'itemlink' && prop.value !== null">
                   {{ prop.value.name }}
                 </span>
+                <span *ngIf="prop.valuetype === 'date' && prop.value !== null">
+                  {{ prop.value }}
+                </span>
+                
               </div>
 
               <div class="form__edit__item__value" *ngIf="editionmode && editionmodePanel[panel.id]">
@@ -177,8 +181,21 @@
                   [formControlName]="'prop' + prop.id.toString()"
                   (change)="updatePropertyItemlinks($event, prop)"
                 >
-
                 </ng-select>
+
+                <input
+                  *ngIf="prop.valuetype === 'date'"
+                  [formControlName]="'prop' + prop.id.toString()"
+                  [owlDateTime]="datepicker"
+                  [owlDateTimeTrigger]="datepicker"
+                  placeholder="Date Time"
+                  (dateTimeChange)="updateProperty($event, prop)"
+                >
+                <owl-date-time
+                  pickerType="calendar"
+                  #datepicker
+                >
+              </owl-date-time>
               </div>
               <fa-icon
                 [icon]="['far', 'clone']"

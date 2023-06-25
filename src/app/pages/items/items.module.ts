@@ -32,6 +32,7 @@ import { ItemsListPageComponent } from './items-list-page/items-list-page.compon
 import { ItemsCreatePageComponent } from './items-create-page/items-create-page.component';
 import { ItemsEditPageComponent } from './items-edit-page/items-edit-page.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SortbypipeModule,
     NgSelectModule,
     FormsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
 })
 export class ItemsModule { }

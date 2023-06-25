@@ -45,6 +45,8 @@ import { IconchoiceModule } from './modal/iconchoice/timelineiconchoice.module';
 import { DndModule } from 'ngx-drag-drop';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SortablejsModule } from '@dustfoundation/ngx-sortablejs';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 function initializeApp (initapp: InitappService) {
   return () => initapp.loadConfiguration();
@@ -74,6 +76,9 @@ function initializeApp (initapp: InitappService) {
     IconchoiceModule,
     SortablejsModule.forRoot({ animation: 150 }),
     DndModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     httpInterceptorProviders,
