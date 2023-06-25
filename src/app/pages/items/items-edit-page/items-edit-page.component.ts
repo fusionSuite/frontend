@@ -25,7 +25,7 @@ import { catchError, map, take } from 'rxjs/operators';
 
 import { NotificationsService } from 'src/app/notifications/notifications.service';
 import { ActivatedRoute } from '@angular/router';
-import { formatDistanceToNow, formatDistanceToNowStrict } from 'date-fns';
+import { format, formatDistanceToNow, formatDistanceToNowStrict } from 'date-fns';
 import { IItem } from 'src/app/interfaces/item';
 import { ItemsApi } from 'src/app/api/items';
 import { IType } from 'src/app/interfaces/type';
@@ -206,6 +206,9 @@ export class ItemsEditPageComponent implements OnInit {
       value = event.id;
     } else if (property.valuetype === 'itemlinks') {
       value = event;
+    } else if (property.valuetype === 'date') {
+      const dateEvent = new Date(event.value);
+      value = format(dateEvent, 'yyyy-MM-dd');
     } else {
       value = event.target.value;
     }
