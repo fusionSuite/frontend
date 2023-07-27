@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { throwError } from 'rxjs';
@@ -163,7 +163,7 @@ export class PropertiesCreatePageComponent implements OnInit {
   constructor (
     private propertiesApi: PropertiesApi,
     private notificationsService: NotificationsService,
-  ) { }
+  ) {}
 
   ngOnInit (): void {
   }
@@ -205,6 +205,15 @@ export class PropertiesCreatePageComponent implements OnInit {
       // Reset the form to its initial state
       this.formStatus = 'Initial';
       this.newPropertyForm.reset();
+      this.newPropertyForm.get('name')?.setValue('');
+      this.newPropertyForm.get('internalname')?.setValue(null);
+      this.newPropertyForm.get('valuetype')?.setValue('string');
+      this.newPropertyForm.get('unit')?.setValue(null);
+      this.newPropertyForm.get('description')?.setValue('');
+      this.newPropertyForm.get('canbenull')?.setValue(true);
+      this.newPropertyForm.get('setcurrentdate')?.setValue(false);
+      this.newPropertyForm.get('regexformat')?.setValue('');
+      this.newPropertyForm.get('default')?.setValue(null);
       this.formSubmitted = false;
       this.notificationsService.success($localize `The property has been created successfully.`);
     });

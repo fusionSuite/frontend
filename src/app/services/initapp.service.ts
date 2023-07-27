@@ -121,6 +121,7 @@ export class InitappService {
   public loadMenuCustom () {
     return this.menucustomsApi.list()
       .pipe(map((res: IMenucustom[]) => {
+        this.authService.menucustom = [];
         for (const item of res) {
           this.authService.menucustom.push(item);
         }

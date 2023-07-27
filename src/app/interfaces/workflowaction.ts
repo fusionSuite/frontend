@@ -16,22 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IWorkflowengine } from './workflowengine';
-
 export interface IWorkflowaction {
   id: number;
   name: string;
-  action_type: string;
+  category: 'actionscript'|'createitem'|'updateitem'|'fusioninventorytoanothertype'|'associateitemtoproperty'|'createventdatetime';
   x: number;
   y: number;
   comment: string;
-  child_engine_connections_validate: IWorkflowengine[];
-  child_engine_connections_notvalidate: IWorkflowengine[];
-  child_action_connections_validate: IWorkflowaction[];
-  child_action_connections_notvalidate: IWorkflowaction[];
-  definitions: {
+  multiplegroups: boolean;
+  groups: any[];
+  children: {
     id: number;
-    field: string;
-    value: string;
+    name: string;
+    type: 'action';
+    category: string;
+  }[];
+  children_error: {
+    id: number;
+    name: string;
+    type: 'action';
+    category: string;
   }[];
 }

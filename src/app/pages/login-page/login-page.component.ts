@@ -89,6 +89,10 @@ export class LoginPageComponent implements OnInit {
         // Load types in settings so we'll be able to manage items
         await this.initappService.loadTypes();
 
+        // load menus
+        await this.initappService.loadMenu();
+        await this.initappService.loadMenuCustom();
+
         // Reset the form to its initial state
         this.formStatus = 'Initial';
         this.loginForm.reset();

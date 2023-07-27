@@ -21,6 +21,8 @@ import { Injectable } from '@angular/core';
 import { IWorkflowaction } from '../interfaces/workflowaction';
 import { AuthService } from '../services/auth.service';
 import { SettingsService } from '../services/settings.service';
+import { Observable } from 'rxjs';
+import { ICreateWorkflowaction } from '../interfaces/create/workflowaction';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +35,7 @@ export class WorkflowsactionApi {
     protected authService: AuthService,
   ) { }
 
-  public list (typeId: number) {
+  public list (typeId: number): Observable<IWorkflowaction[]> {
     return this.http.get<IWorkflowaction[]>(this.settingsService.backendUrl + '/v1/workflows/action/type/' + typeId, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
@@ -41,7 +43,7 @@ export class WorkflowsactionApi {
     });
   }
 
-  public get (id: number) {
+  public get (id: number): Observable<IWorkflowaction> {
     return this.http.get<IWorkflowaction>(this.settingsService.backendUrl + '/v1/workflows/action/' + id, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
@@ -49,7 +51,7 @@ export class WorkflowsactionApi {
     });
   }
 
-  public create (data: any) {
+  public create (data: ICreateWorkflowaction) {
     return this.http.post(this.settingsService.backendUrl + '/v1/workflows/action', data, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
@@ -65,6 +67,14 @@ export class WorkflowsactionApi {
     });
   }
 
+  public updateProperty (id: number, propertyId: number, value: any) {
+    return this.http.patch(this.settingsService.backendUrl + '/v1/workflows/action/' + id + '/property/' + propertyId, { value }, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
+
   public delete (id: number) {
     return this.http.delete(this.settingsService.backendUrl + '/v1/workflows/action/' + id, {
       headers: {
@@ -73,42 +83,19 @@ export class WorkflowsactionApi {
     });
   }
 
-  public createConnectionEngine (sourceId: number, destinationId: number, validate: boolean = true) {
+  public createConnection (sourceId: number, destinationId: number, validate: boolean = true) {
     const payload = {
       validate,
     };
-    return this.http.post(this.settingsService.backendUrl + '/v1/workflows/action/' + sourceId + '/connection/engine/' + destinationId, payload, {
+    return this.http.post(this.settingsService.backendUrl + '/v1/workflows/action/' + sourceId + '/connection/' + destinationId, payload, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
     });
   }
 
-  public createConnectionAction (sourceId: number, destinationId: number, validate: boolean = true) {
-    const payload = {
-      validate,
-    };
-    return this.http.post(this.settingsService.backendUrl + '/v1/workflows/action/' + sourceId + '/connection/action/' + destinationId, payload, {
-      headers: {
-        Authorization: 'Bearer ' + this.authService.getToken(),
-      },
-    });
-  }
-
-  public deleteConnection (sourceId: number, destinationId: number, worlflowtype: 'engine'|'action') {
-    return this.http.delete(this.settingsService.backendUrl + '/v1/workflows/action/' + sourceId + '/connection/' + worlflowtype + '/' + destinationId, {
-      headers: {
-        Authorization: 'Bearer ' + this.authService.getToken(),
-      },
-    });
-  }
-
-  public createDefinition (id: number, field: string, value: string) {
-    const data = {
-      field,
-      value,
-    };
-    return this.http.post(this.settingsService.backendUrl + '/v1/workflows/action/' + id + '/definition', data, {
+  public deleteConnection (sourceId: number, destinationId: number, connectionType: string) {
+    return this.http.delete(this.settingsService.backendUrl + '/v1/workflows/action/' + sourceId + '/connection/' + connectionType + '/' + destinationId, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
@@ -117,6 +104,22 @@ export class WorkflowsactionApi {
 
   public deleteDefinition (id: number, defId: number) {
     return this.http.delete(this.settingsService.backendUrl + '/v1/workflows/action/' + id + '/definition/' + defId, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
+
+  public addGroup (id: number) {
+    return this.http.post(this.settingsService.backendUrl + '/v1/workflows/action/' + id + '/group', {}, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
+
+  public deleteGroup (id: number, groupId: number) {
+    return this.http.delete(this.settingsService.backendUrl + '/v1/workflows/action/' + id + '/group/' + groupId, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },

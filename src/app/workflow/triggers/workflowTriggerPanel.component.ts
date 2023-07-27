@@ -26,7 +26,7 @@ export class WorkflowTriggerPanelComponent implements OnChanges {
     if (this.panelId > 0) {
       this.workflowtriggerApi.get(this.panelId)
         .subscribe((res) => {
-          this.async = res.async;
+          // this.async = res.async;
         });
     }
   }

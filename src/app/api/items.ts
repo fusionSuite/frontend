@@ -45,9 +45,13 @@ export class ItemsApi extends ApiV1 {
     });
   }
 
-  // public delete (id: number) {
-  //   return this.deleteItem(id);
-  // }
+  public delete (id: number) {
+    return this.http.delete(this.settingsService.backendUrl + '/v1/items/' + id, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
 
   public updateProperty (id: number, propertyId: number, data: any) {
     return this.http.patch(this.settingsService.backendUrl + '/v1/items/' + id + '/property/' + propertyId, data, {
