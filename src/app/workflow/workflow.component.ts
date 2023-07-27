@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApplicationRef, Component, createComponent, EnvironmentInjector, Injector, Input, OnChanges } from '@angular/core';
 import Drawflow from 'drawflow';
-import { catchError, forkJoin, throwError } from 'rxjs';
+import { catchError, forkJoin, of, throwError } from 'rxjs';
 import { WorkflowstriggerApi } from '../api/workflowstrigger';
 import { WorkflowsengineApi } from '../api/workflowsengine';
 import { WorkflowsactionApi } from '../api/workflowsaction';
@@ -9,6 +9,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { WorkflowActionComponent } from './actions/workflowAction.component';
 import { WorkflowEngineComponent } from './engines/workflowEngine.component';
 import { WorkflowTriggerComponent } from './triggers/workflowTrigger.component';
+import { IWorkflowsForkjoin } from '../interfaces/workflowForkjoin';
 
 @Component({
   selector: 'app-workflow',
@@ -35,22 +36,22 @@ export class WorkflowComponent implements OnChanges {
   public blocks = {
     triggers: [
       {
-        type: 'Create an item',
+        type: 'createitem',
         name: 'Created',
         icon: 'plus',
       },
       {
-        type: 'Update an item',
+        type: 'updateitem',
         name: 'Updated',
         icon: 'pen',
       },
       {
-        type: 'Soft-delete an item',
+        type: 'softdeleteitem',
         name: 'Soft deleted',
         icon: 'trash',
       },
       {
-        type: 'Delete an item',
+        type: 'deleteitem',
         name: 'Deleted',
         icon: 'xmark',
       },
@@ -65,25 +66,25 @@ export class WorkflowComponent implements OnChanges {
         icon: '',
       },
       {
-        type: 'FusionInventory inventory',
+        type: 'fusioninventory',
         name: 'FusionInventory inventory',
         icon: '',
       },
     ],
     engines: [
       {
-        type: 'Check criteria',
+        type: 'checkcriteria',
         name: 'Check criteria',
         icon: 'filter',
       },
       {
-        type: 'Get data',
+        type: 'getdata',
         name: 'Get data',
         icon: 'grip',
       },
       {
-        type: 'Rename',
-        name: 'Rename value',
+        type: 'transformdata',
+        name: 'Transform data',
         icon: 'grip',
       },
       {
@@ -91,35 +92,35 @@ export class WorkflowComponent implements OnChanges {
         name: 'Search item',
         icon: 'magnifying-glass',
       },
-      {
-        type: 'fusionforeachitem',
-        name: 'FusionInventory foreach item',
-        icon: '',
-      },
     ],
     actions: [
       {
-        type: 'An action script',
+        type: 'actionscript',
         name: 'Action script',
         icon: 'scroll',
       },
       {
-        type: 'Create an item',
+        type: 'createitem',
         name: 'Create item',
         icon: 'plus',
       },
       {
-        type: 'Update an item',
+        type: 'updateitem',
         name: 'Update item',
         icon: 'plus',
       },
       {
-        type: 'Go to another type (FusionInventory)',
+        type: 'fusioninventorytoanothertype',
         name: 'Go to another type (FusionInventory)',
         icon: 'plus',
       },
       {
-        type: 'Create event with datetime',
+        type: 'associateitemtoproperty',
+        name: 'Associate item to property of previous item',
+        icon: 'plus',
+      },
+      {
+        type: 'createventdatetime',
         name: 'Create event with datetime',
         icon: '',
       },
@@ -210,7 +211,7 @@ export class WorkflowComponent implements OnChanges {
           this.panelType = node.data.engine_type;
           this.configPanel = 'engine';
         } else if (node.data.type === 'trigger') {
-          this.panelType = node.data.trigger_type;
+          this.panelType = node.data.category;
           this.configPanel = 'trigger';
         } else if (node.data.type === 'action') {
           this.panelType = node.data.action_type;
@@ -224,119 +225,117 @@ export class WorkflowComponent implements OnChanges {
 
       // use forkjoin
       forkJoin({
-        triggerRes: this.workflowtriggerApi.list(this.typeId),
-        engineRes: this.workflowengineApi.list(this.typeId),
-        actionRes: this.workflowactionApi.list(this.typeId),
+        triggerRes: this.workflowtriggerApi.list(this.typeId).pipe(catchError(error => of(error))),
+        engineRes: this.workflowengineApi.list(this.typeId).pipe(catchError(error => of(error))),
+        actionRes: this.workflowactionApi.list(this.typeId).pipe(catchError(error => of(error))),
       })
-        .subscribe(({ triggerRes, engineRes, actionRes }) => {
+        .subscribe(({ triggerRes, engineRes, actionRes }: IWorkflowsForkjoin) => {
           this.enabledCreateConnection = false;
+          // trigger
           for (const workflow of triggerRes) {
             const html = document.createElement('div');
+            // const async = workflow.properties.find((item: any) => item.name === 'async');
+            const async = { value: true };
             const data = {
-              name: '',
+              name: workflow.name,
               id: workflow.id,
-              async: workflow.async,
+              async: async.value,
               type: 'trigger',
-              trigger_type: workflow.trigger_type,
+              trigger_type: workflow.category,
+              itemBackend: workflow,
             };
             this.flowchart.registerNode('test', html, null, null);
             this.flowchart.addNode('github', 0, 1, workflow.x, workflow.y, 'workflow__trigger', data, 'test', true);
           }
+          // engine
           for (const workflow of engineRes) {
             const html = document.createElement('div');
             const data = {
-              name: '',
+              name: workflow.name,
               id: workflow.id,
               type: 'engine',
-              engine_type: workflow.engine_type,
-              query: workflow.query,
+              engine_type: workflow.category,
+              query: '',
             };
             this.flowchart.registerNode('test', html, null, null);
             this.flowchart.addNode('github', 1, 2, workflow.x, workflow.y, 'workflow__engine', data, 'test', true);
           }
-          for (const workflow of actionRes) {
-            const html = document.createElement('div');
-            const data = {
-              name: '',
-              id: workflow.id,
-              type: 'action',
-              action_type: workflow.action_type,
-            };
-            this.flowchart.registerNode('test', html, null, null);
-            this.flowchart.addNode('github', 1, 2, workflow.x, workflow.y, 'workflow__action', data, 'test', true);
+          // action
+          if (typeof actionRes === 'string') {
+            console.log(actionRes);
+          } else {
+            for (const workflow of actionRes) {
+              const html = document.createElement('div');
+              const data = {
+                name: workflow.name,
+                id: workflow.id,
+                type: 'action',
+                action_type: workflow.category,
+              };
+              this.flowchart.registerNode('test', html, null, null);
+              this.flowchart.addNode('github', 1, 2, workflow.x, workflow.y, 'workflow__action', data, 'test', true);
+            }
           }
-
           // Get relationships
           setTimeout(() => {
             for (const workflow of triggerRes) {
-              for (const connection of workflow.child_engine_connections) {
-                const outputId = Object.keys(this.mappingNodeIdDBId.trigger).find(key => this.mappingNodeIdDBId.trigger[key] === workflow.id);
-                const inputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === connection.id);
-                if (outputId !== undefined && inputId !== undefined) {
-                  this.flowchart.addConnection(outputId, inputId, 'output_1', 'input_1');
-                }
-              }
-              for (const connection of workflow.child_action_connections) {
-                const outputId = Object.keys(this.mappingNodeIdDBId.trigger).find(key => this.mappingNodeIdDBId.trigger[key] === workflow.id);
-                const inputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === connection.id);
-                if (outputId !== undefined && inputId !== undefined) {
-                  this.flowchart.addConnection(outputId, inputId, 'output_1', 'input_1');
+              for (const connection of workflow.children) {
+                if (connection.type === 'engine') {
+                  const outputId = Object.keys(this.mappingNodeIdDBId.trigger).find(key => this.mappingNodeIdDBId.trigger[key] === workflow.id);
+                  const inputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === connection.id);
+                  if (outputId !== undefined && inputId !== undefined) {
+                    this.flowchart.addConnection(outputId, inputId, 'output_1', 'input_1');
+                  }
+                } else if (connection.type === 'action') {
+                  const outputId = Object.keys(this.mappingNodeIdDBId.trigger).find(key => this.mappingNodeIdDBId.trigger[key] === workflow.id);
+                  const inputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === connection.id);
+                  if (outputId !== undefined && inputId !== undefined) {
+                    this.flowchart.addConnection(outputId, inputId, 'output_1', 'input_1');
+                  }
                 }
               }
             }
             for (const workflow of engineRes) {
-              for (const connection of workflow.child_engine_connections_validate) {
-                const outputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === workflow.id);
-                const inputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === connection.id);
-                if (outputId !== undefined && inputId !== undefined) {
-                  this.flowchart.addConnection(outputId, inputId, 'output_1', 'input_1');
+              for (const connection of workflow.children) {
+                if (connection.type === 'engine') {
+                  const outputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === workflow.id);
+                  const inputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === connection.id);
+                  if (outputId !== undefined && inputId !== undefined) {
+                    this.flowchart.addConnection(outputId, inputId, 'output_1', 'input_1');
+                  }
+                } else if (connection.type === 'action') {
+                  const outputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === workflow.id);
+                  const inputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === connection.id);
+                  if (outputId !== undefined && inputId !== undefined) {
+                    this.flowchart.addConnection(outputId, inputId, 'output_1', 'input_1');
+                  }
                 }
               }
-              for (const connection of workflow.child_engine_connections_notvalidate) {
-                const outputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === workflow.id);
-                const inputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === connection.id);
-                if (outputId !== undefined && inputId !== undefined) {
-                  this.flowchart.addConnection(outputId, inputId, 'output_2', 'input_1');
-                }
-              }
-              for (const connection of workflow.child_action_connections_validate) {
-                const outputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === workflow.id);
-                const inputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === connection.id);
-                if (outputId !== undefined && inputId !== undefined) {
-                  this.flowchart.addConnection(outputId, inputId, 'output_1', 'input_1');
-                }
-              }
-              for (const connection of workflow.child_action_connections_notvalidate) {
-                const outputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === workflow.id);
-                const inputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === connection.id);
-                if (outputId !== undefined && inputId !== undefined) {
-                  this.flowchart.addConnection(outputId, inputId, 'output_2', 'input_1');
+              for (const connection of workflow.children_error) {
+                if (connection.type === 'engine') {
+                  const outputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === workflow.id);
+                  const inputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === connection.id);
+                  if (outputId !== undefined && inputId !== undefined) {
+                    this.flowchart.addConnection(outputId, inputId, 'output_2', 'input_1');
+                  }
+                } else if (connection.type === 'action') {
+                  const outputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === workflow.id);
+                  const inputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === connection.id);
+                  if (outputId !== undefined && inputId !== undefined) {
+                    this.flowchart.addConnection(outputId, inputId, 'output_2', 'input_1');
+                  }
                 }
               }
             }
             for (const workflow of actionRes) {
-              for (const connection of workflow.child_engine_connections_validate) {
-                const outputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === workflow.id);
-                const inputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === connection.id);
-                if (outputId !== undefined && inputId !== undefined) {
-                  this.flowchart.addConnection(outputId, inputId, 'output_1', 'input_1');
-                }
-              }
-              for (const connection of workflow.child_engine_connections_notvalidate) {
-                const outputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === workflow.id);
-                const inputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === connection.id);
-                if (outputId !== undefined && inputId !== undefined) {
-                  this.flowchart.addConnection(outputId, inputId, 'output_2', 'input_1');
-                }
-              }
-              for (const connection of workflow.child_action_connections_validate) {
+              for (const connection of workflow.children) {
                 const outputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === workflow.id);
                 const inputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === connection.id);
                 if (outputId !== undefined && inputId !== undefined) {
                   this.flowchart.addConnection(outputId, inputId, 'output_1', 'input_1');
                 }
               }
-              for (const connection of workflow.child_action_connections_notvalidate) {
+              for (const connection of workflow.children_error) {
                 const outputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === workflow.id);
                 const inputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === connection.id);
                 if (outputId !== undefined && inputId !== undefined) {
@@ -370,7 +369,7 @@ export class WorkflowComponent implements OnChanges {
         const backData = {
           name: ev.data,
           type_id: this.typeId,
-          trigger_type: ev.data,
+          category: ev.data,
           x,
           y,
         };
@@ -401,7 +400,7 @@ export class WorkflowComponent implements OnChanges {
         const backData = {
           name: ev.data,
           type_id: this.typeId,
-          engine_type: ev.data,
+          category: ev.data,
           x,
           y,
         };
@@ -432,7 +431,7 @@ export class WorkflowComponent implements OnChanges {
         const backData = {
           name: ev.data,
           type_id: this.typeId,
-          action_type: ev.data,
+          category: ev.data,
           query: '',
           x,
           y,
@@ -528,10 +527,12 @@ export class WorkflowComponent implements OnChanges {
         hostElement: document.getElementById('node-' + ev.id)?.querySelector('.drawflow_content_node')!,
       });
       dialogRef.setInput('data', {
+        name: ev.data.name,
         type: ev.data.type,
         subtype: ev.data.trigger_type,
         async: ev.data.async,
         id: ev.data.id,
+        itemBackend: ev.data.itemBackend,
       });
     } else if (ev.data.type === 'engine') {
       dialogRef = createComponent(WorkflowEngineComponent, {
@@ -539,6 +540,7 @@ export class WorkflowComponent implements OnChanges {
         hostElement: document.getElementById('node-' + ev.id)?.querySelector('.drawflow_content_node')!,
       });
       dialogRef.setInput('data', {
+        name: ev.data.name,
         type: ev.data.type,
         subtype: ev.data.engine_type,
         id: ev.data.id,
@@ -550,6 +552,7 @@ export class WorkflowComponent implements OnChanges {
         hostElement: document.getElementById('node-' + ev.id)?.querySelector('.drawflow_content_node')!,
       });
       dialogRef.setInput('data', {
+        name: ev.data.name,
         type: ev.data.type,
         subtype: ev.data.action_type,
         id: ev.data.id,
@@ -606,26 +609,11 @@ export class WorkflowComponent implements OnChanges {
     let connectionApi;
     if (output !== undefined && input !== undefined) {
       if (output.type === 'trigger') {
-        if (input.type === 'engine') {
-          connectionApi = this.workflowtriggerApi.createConnectionEngine(output.id, input.id);
-        }
-        if (input.type === 'action') {
-          connectionApi = this.workflowtriggerApi.createConnectionAction(output.id, input.id);
-        }
+        connectionApi = this.workflowtriggerApi.createConnection(output.id, input.id);
       } else if (output.type === 'engine') {
-        if (input.type === 'engine') {
-          connectionApi = this.workflowengineApi.createConnectionEngine(output.id, input.id, validate);
-        }
-        if (input.type === 'action') {
-          connectionApi = this.workflowengineApi.createConnectionAction(output.id, input.id, validate);
-        }
+        connectionApi = this.workflowengineApi.createConnection(output.id, input.id, validate);
       } else if (output.type === 'action') {
-        if (input.type === 'engine') {
-          connectionApi = this.workflowactionApi.createConnectionEngine(output.id, input.id, validate);
-        }
-        if (input.type === 'action') {
-          connectionApi = this.workflowactionApi.createConnectionAction(output.id, input.id, validate);
-        }
+        connectionApi = this.workflowactionApi.createConnection(output.id, input.id, validate);
       }
       if (connectionApi !== undefined) {
         connectionApi
@@ -646,7 +634,6 @@ export class WorkflowComponent implements OnChanges {
     let outputId;
     let inputId;
     let connectionApi;
-    let inputType: 'engine'|'action' = 'engine';
 
     if (this.mappingNodeIdDBId.trigger[data.output_id] !== undefined) {
       connectionApi = this.workflowtriggerApi;
@@ -663,11 +650,14 @@ export class WorkflowComponent implements OnChanges {
       inputId = this.mappingNodeIdDBId.engine[data.input_id];
     } else if (this.mappingNodeIdDBId.action[data.input_id] !== undefined) {
       inputId = this.mappingNodeIdDBId.action[data.input_id];
-      inputType = 'action';
     }
 
     if (outputId !== undefined && inputId !== undefined && connectionApi !== undefined) {
-      connectionApi.deleteConnection(outputId, inputId, inputType)
+      let connectionType = 'success';
+      if (data.output_class === 'output_2') {
+        connectionType = 'error';
+      }
+      connectionApi.deleteConnection(outputId, inputId, connectionType)
         .pipe(
           catchError((error: HttpErrorResponse) => {
             this.notificationsService.error(error.error.message);

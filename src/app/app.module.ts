@@ -45,8 +45,21 @@ import { IconchoiceModule } from './modal/iconchoice/timelineiconchoice.module';
 import { DndModule } from 'ngx-drag-drop';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SortablejsModule } from '@dustfoundation/ngx-sortablejs';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { OWL_DATE_TIME_FORMATS, OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OwlDayJsDateTimeModule } from '@danielmoncada/angular-datetime-picker-dayjs-adapter';
+
+// See the Day.js docs for the meaning of these formats:
+// https://day.js.org/docs/en/display/format
+export const MY_DAYJS_FORMATS = {
+  parseInput: 'YYYY-MM-DD LT',
+  fullPickerInput: 'YYYY-MM-DD LT',
+  datePickerInput: 'YYYY-MM-DD',
+  timePickerInput: 'LT',
+  monthYearLabel: 'MMM YYYY',
+  dateA11yLabel: 'YYYY-MM-DD',
+  monthYearA11yLabel: 'YYYY-MM-DD',
+};
 
 function initializeApp (initapp: InitappService) {
   return () => initapp.loadConfiguration();
@@ -79,6 +92,7 @@ function initializeApp (initapp: InitappService) {
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     BrowserAnimationsModule,
+    OwlDayJsDateTimeModule,
   ],
   providers: [
     httpInterceptorProviders,
@@ -88,6 +102,7 @@ function initializeApp (initapp: InitappService) {
       deps: [InitappService],
       multi: true,
     },
+    { provide: OWL_DATE_TIME_FORMATS, useValue: MY_DAYJS_FORMATS },
   ],
   bootstrap: [AppComponent],
 })

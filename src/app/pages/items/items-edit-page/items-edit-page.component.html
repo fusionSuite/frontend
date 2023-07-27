@@ -56,8 +56,8 @@
         </label>
       </span>
       <div class="form__edit__item__value" style="flex-grow: 1;text-align: right;color: var(--sky11);">
-        <fa-icon icon="magnifying-glass" [fixedWidth]="true"></fa-icon>
-        <input style="max-width: 250px;" placeholder="filter properties" [(ngModel)]="filterProperties" (keyup)="updateFilterProperties($event)">
+        <fa-icon icon="magnifying-glass" [fixedWidth]="true" style="padding: 6px;position: absolute;"></fa-icon>
+        <input style="max-width: 400px;padding-left: 35px;" placeholder="filter properties" [(ngModel)]="filterProperties" (keyup)="updateFilterProperties($event)">
         <fa-icon icon="xmark" [fixedWidth]="true" *ngIf="filterProperties !== ''" style="cursor: pointer;" (click)="clearFilterProperties()"></fa-icon>
         <span style="width: 25px;display: inline-block;" *ngIf="filterProperties === ''"></span>
     </div>
@@ -86,7 +86,9 @@
             *ngIf="!editionmode || !editionmodePanel['0']"
             data-cy="item-edit-name-textonly"
           >
-            {{ item.name }}
+            <span class="value">
+              {{ item.name }}
+            </span>
           </div>
           <div class="form__edit__item__value" *ngIf="editionmode && editionmodePanel['0']">
             <input
@@ -108,6 +110,7 @@
     >
       <div class="page__inner__title">
         <fa-icon [icon]="parseIcon(panel.icon)" [fixedWidth]="true" *ngIf="parseIcon(panel.icon) !== null"></fa-icon>
+        <fa-icon icon="rectangle-list" [fixedWidth]="true" *ngIf="parseIcon(panel.icon) === '' && panel.name === 'Default'"></fa-icon>
         {{ panel.name }}
         <span class="page__inner__title__note" data-cy="type-edit-properties-note" i18n>
           {panel.items.length, plural, =1 {{{ panel.items.length }} property} other {{{ panel.items.length }} properties}}         
@@ -126,19 +129,15 @@
                 *ngIf="!editionmode || !editionmodePanel[panel.id]"
                 data-cy="type-edit-name-textonly"
               >
-                <span *ngIf="['string', 'integer', 'decimal', 'number'].includes(prop.valuetype)">
+                <span class="value" *ngIf="['string', 'integer', 'decimal', 'number', 'date', 'datetime', 'time'].includes(prop.valuetype)">
                   {{ prop.value }}
                 </span>
-                <span *ngIf="prop.valuetype === 'list' && prop.value !== null">
+                <span class="value" *ngIf="prop.valuetype === 'list' && prop.value !== null">
                   {{ prop.value.value }}
                 </span>
-                <span *ngIf="prop.valuetype === 'itemlink' && prop.value !== null">
+                <span class="value" *ngIf="prop.valuetype === 'itemlink' && prop.value !== null">
                   {{ prop.value.name }}
                 </span>
-                <span *ngIf="prop.valuetype === 'date' && prop.value !== null">
-                  {{ prop.value }}
-                </span>
-                
               </div>
 
               <div class="form__edit__item__value" *ngIf="editionmode && editionmodePanel[panel.id]">
@@ -188,14 +187,29 @@
                   [formControlName]="'prop' + prop.id.toString()"
                   [owlDateTime]="datepicker"
                   [owlDateTimeTrigger]="datepicker"
-                  placeholder="Date Time"
+                  placeholder="select a date"
                   (dateTimeChange)="updateProperty($event, prop)"
                 >
                 <owl-date-time
                   pickerType="calendar"
                   #datepicker
                 >
-              </owl-date-time>
+                </owl-date-time>
+
+                <input
+                  *ngIf="prop.valuetype === 'datetime'"
+                  [formControlName]="'prop' + prop.id.toString()"
+                  [owlDateTime]="datetimepicker"
+                  [owlDateTimeTrigger]="datetimepicker"
+                  placeholder="select a date and time"
+                  (dateTimeChange)="updateProperty($event, prop)"
+                >
+                <owl-date-time
+                  [showSecondsTimer]="true"
+                  #datetimepicker
+                >
+                </owl-date-time>
+
               </div>
               <fa-icon
                 [icon]="['far', 'clone']"

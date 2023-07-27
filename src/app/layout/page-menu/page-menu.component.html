@@ -109,19 +109,19 @@
         (click)="menuExpand(submenu)"
         style="cursor: pointer;"
       >
+        <fa-icon
+          [icon]="parseIcon(submenu.icon)"
+          size="xs"
+          [fixedWidth]="true"
+          style="margin-right: 8px;"
+          *ngIf="parseIcon(submenu.icon) !== null"
+        ></fa-icon>
         <strong style="text-transform:capitalize">{{ submenu.name }}</strong>
         <fa-icon
           style="float: right;margin-right: 8px;"
           [icon]="((submenu.expanded !== undefined && submenu.expanded) || search !== '') ? 'angle-down' : 'angle-right'"
           size="xs"
           [fixedWidth]="true"
-        ></fa-icon>
-        <fa-icon
-          [icon]="parseIcon(submenu.icon)"
-          size="xs"
-          [fixedWidth]="true"
-          style="float: right;margin-right: 8px;"
-          *ngIf="parseIcon(submenu.icon) !== null"
         ></fa-icon>
       </div>
       <div *ngIf="(submenu.expanded !== undefined && submenu.expanded) || search !== ''">

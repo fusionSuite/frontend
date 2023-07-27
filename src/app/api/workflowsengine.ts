@@ -21,6 +21,8 @@ import { Injectable } from '@angular/core';
 import { IWorkflowengine } from '../interfaces/workflowengine';
 import { AuthService } from '../services/auth.service';
 import { SettingsService } from '../services/settings.service';
+import { Observable } from 'rxjs';
+import { ICreateWorkflowengine } from '../interfaces/create/workflowengine';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +35,7 @@ export class WorkflowsengineApi {
     protected authService: AuthService,
   ) { }
 
-  public list (typeId: number) {
+  public list (typeId: number): Observable<IWorkflowengine[]> {
     return this.http.get<IWorkflowengine[]>(this.settingsService.backendUrl + '/v1/workflows/engine/type/' + typeId, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
@@ -41,7 +43,7 @@ export class WorkflowsengineApi {
     });
   }
 
-  public get (id: number) {
+  public get (id: number): Observable<IWorkflowengine> {
     return this.http.get<IWorkflowengine>(this.settingsService.backendUrl + '/v1/workflows/engine/' + id, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
@@ -49,7 +51,7 @@ export class WorkflowsengineApi {
     });
   }
 
-  public create (data: any) {
+  public create (data: ICreateWorkflowengine) {
     return this.http.post(this.settingsService.backendUrl + '/v1/workflows/engine', data, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
@@ -65,6 +67,14 @@ export class WorkflowsengineApi {
     });
   }
 
+  public updateProperty (id: number, propertyId: number, value: any) {
+    return this.http.patch(this.settingsService.backendUrl + '/v1/workflows/engine/' + id + '/property/' + propertyId, { value }, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
+
   public delete (id: number) {
     return this.http.delete(this.settingsService.backendUrl + '/v1/workflows/engine/' + id, {
       headers: {
@@ -73,30 +83,43 @@ export class WorkflowsengineApi {
     });
   }
 
-  public createConnectionEngine (sourceId: number, destinationId: number, validate: boolean = true) {
+  public createConnection (sourceId: number, destinationId: number, validate: boolean = true) {
     const payload = {
       validate,
     };
-    return this.http.post(this.settingsService.backendUrl + '/v1/workflows/engine/' + sourceId + '/connection/engine/' + destinationId, payload, {
+    return this.http.post(this.settingsService.backendUrl + '/v1/workflows/engine/' + sourceId + '/connection/' + destinationId, payload, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
     });
   }
 
-  public createConnectionAction (sourceId: number, destinationId: number, validate: boolean = true) {
-    const payload = {
-      validate,
-    };
-    return this.http.post(this.settingsService.backendUrl + '/v1/workflows/engine/' + sourceId + '/connection/action/' + destinationId, payload, {
+  public deleteConnection (sourceId: number, destinationId: number, connectionType: string) {
+    return this.http.delete(this.settingsService.backendUrl + '/v1/workflows/engine/' + sourceId + '/connection/' + connectionType + '/' + destinationId, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
     });
   }
 
-  public deleteConnection (sourceId: number, destinationId: number, worlflowtype: 'engine'|'action') {
-    return this.http.delete(this.settingsService.backendUrl + '/v1/workflows/engine/' + sourceId + '/connection/' + worlflowtype + '/' + destinationId, {
+  public addGroup (id: number) {
+    return this.http.post(this.settingsService.backendUrl + '/v1/workflows/engine/' + id + '/group', {}, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
+
+  public deleteGroup (id: number, groupId: number) {
+    return this.http.delete(this.settingsService.backendUrl + '/v1/workflows/engine/' + id + '/group/' + groupId, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
+
+  public updateVariable (id: number, data: any) {
+    return this.http.patch(this.settingsService.backendUrl + '/v1/workflows/engine/' + id + '/variable', data, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },

@@ -21,6 +21,8 @@ import { Injectable } from '@angular/core';
 import { IWorkflowtrigger } from '../interfaces/workflowtrigger';
 import { AuthService } from '../services/auth.service';
 import { SettingsService } from '../services/settings.service';
+import { ICreateWorkflowtrigger } from '../interfaces/create/workflowtrigger';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +35,7 @@ export class WorkflowstriggerApi {
     protected authService: AuthService,
   ) { }
 
-  public list (typeId: number) {
+  public list (typeId: number): Observable<IWorkflowtrigger[]> {
     return this.http.get<IWorkflowtrigger[]>(this.settingsService.backendUrl + '/v1/workflows/trigger/type/' + typeId, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
@@ -49,7 +51,7 @@ export class WorkflowstriggerApi {
     });
   }
 
-  public create (data: any) {
+  public create (data: ICreateWorkflowtrigger) {
     return this.http.post(this.settingsService.backendUrl + '/v1/workflows/trigger', data, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
@@ -73,24 +75,24 @@ export class WorkflowstriggerApi {
     });
   }
 
-  public createConnectionEngine (sourceId: number, destinationId: number) {
-    return this.http.post(this.settingsService.backendUrl + '/v1/workflows/trigger/' + sourceId + '/connection/engine/' + destinationId, {}, {
+  public updateProperty (id: number, propertyId: number, value: any) {
+    return this.http.patch(this.settingsService.backendUrl + '/v1/workflows/trigger/' + id + '/property/' + propertyId, { value }, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
     });
   }
 
-  public createConnectionAction (sourceId: number, destinationId: number) {
-    return this.http.post(this.settingsService.backendUrl + '/v1/workflows/trigger/' + sourceId + '/connection/action/' + destinationId, {}, {
+  public createConnection (sourceId: number, destinationId: number) {
+    return this.http.post(this.settingsService.backendUrl + '/v1/workflows/trigger/' + sourceId + '/connection/' + destinationId, {}, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
     });
   }
 
-  public deleteConnection (sourceId: number, destinationId: number, worlflowtype: 'engine'|'action') {
-    return this.http.delete(this.settingsService.backendUrl + '/v1/workflows/trigger/' + sourceId + '/connection/' + worlflowtype + '/' + destinationId, {
+  public deleteConnection (sourceId: number, destinationId: number, connectionType: string) {
+    return this.http.delete(this.settingsService.backendUrl + '/v1/workflows/trigger/' + sourceId + '/connection/' + destinationId, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },

@@ -212,6 +212,12 @@
   padding: 1rem;
 
   flex: 1;
+
+  margin-left: 275px;
+
+  @media screen and (max-width: 1024px) {
+    margin-left: unset;
+  }
 }
 
 .page__header {
@@ -257,14 +263,12 @@
       // width: 100%;
       flex-basis: 100%;
       margin: 15px 8px;
-      padding: 0 12px;
   
       background:
         conic-gradient(from 180deg at top 2px right 2px, #0000 90deg, var(--sky11) 0) 100% 0 / 30px 30px
         border-box no-repeat,
         conic-gradient(from 0deg at bottom 2px left 2px, #0000 90deg, var(--sky11) 0) 0 100% / 30px 30px
         border-box no-repeat;
-      border: 5px solid #0000;
     }
   }
 
@@ -299,6 +303,7 @@
       float: right;
       color: white;
       margin-right: 10px;
+      margin-top: 2px;
     }
   }
 

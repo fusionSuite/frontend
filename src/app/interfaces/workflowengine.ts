@@ -16,18 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IWorkflowaction } from './workflowaction';
-
 export interface IWorkflowengine {
   id: number;
   name: string;
-  engine_type: string;
-  query: string;
+  category: 'checkcriteria'|'getdata'|'searchitem'|'transformdata';
   x: number;
   y: number;
   comment: string;
-  child_engine_connections_validate: IWorkflowengine[];
-  child_engine_connections_notvalidate: IWorkflowengine[];
-  child_action_connections_validate: IWorkflowaction[];
-  child_action_connections_notvalidate: IWorkflowaction[];
+  multiplegroups: boolean;
+  groups: any[];
+  children: {
+    id: number;
+    name: string;
+    type: 'engine'|'action';
+    category: string;
+  }[];
+  children_error: {
+    id: number;
+    name: string;
+    type: 'engine'|'action';
+    category: string;
+  }[];
+  variable: {
+    id: number;
+    name: string;
+    variabletype: 'simple'|'list';
+  }|null;
 }
