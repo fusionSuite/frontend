@@ -38,7 +38,7 @@
       <fa-icon icon="search-plus" [fixedWidth]="true" (click)="flowchart.zoom_in()"></fa-icon>
     </div>
   </div>
-  <div style="width: 210px;border-bottom: 1px solid var(--sky11);border-radius: 0px 5px 5px 0px;border-right: 1px solid var(--sky11);border-top: 1px solid var(--sky11);">
+  <div style="width: 310px;border-bottom: 1px solid var(--sky11);border-radius: 0px 5px 5px 0px;border-right: 1px solid var(--sky11);border-top: 1px solid var(--sky11);">
     <div *ngIf="configPanel === 'blocks'">
       <span style="font-weight: bold;color: #fff;background-color: var(--sky11);width: 100%;display: block;text-align: center;">
         Blocks
@@ -88,7 +88,7 @@
       ></app-workflowTriggerPanel>
     </div>
     <div *ngIf="configPanel === 'action'">
-      <app-workflowActionPanel [panelId]="panelId" [panelType]="panelType"></app-workflowActionPanel>
+      <app-workflowActionPanel [panelId]="panelId" [panelType]="panelType" [typeId]="typeId"></app-workflowActionPanel>
     </div>
   </div>
 </div>

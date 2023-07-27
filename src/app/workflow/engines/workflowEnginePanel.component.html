@@ -5,110 +5,120 @@
   <div>
     <div class="form__edit__item__titlesky" i18n>Name</div>
     <div class="form__edit__item__value short">
-      <input>
+      <input
+        [value]="workflow.name"
+        (change)="updateField($event)"  
+      >
     </div>
   </div>
 
-  <div *ngIf="formElements.includes('source')">
-    <div class="form__edit__item__titlesky" i18n>Source of data</div>
-    <div class="form__edit__item__value short">
-      <select>
-        <option>Type</option>
-        <option>FusionInventory</option>
-      </select>
-    </div>
+  <div style="font-size: 11px;flex-grow: 1;text-align: end;" *ngIf="workflow.multiplegroups">
+    <span style="float: left;color: var(--sky11);">
+      {{ workflow.groups.length }} groups
+    </span>
+    <a
+      class="a--animation"
+      (click)="addGroup()"
+      data-cy="workflow-action-add-group"
+    >
+      <fa-icon icon="add" [fixedWidth]="true" size="sm"></fa-icon>Add new
+    </a>
+    <span *ngIf="currentGroupIndex > 0">|</span>
+    <a
+      class="a--animation"
+      *ngIf="currentGroupIndex > 0"
+      (click)="deleteGroup(workflow.groups[currentGroupIndex].id)"
+      data-cy="workflow-action-delete-group"
+    >
+      <fa-icon icon="xmark" [fixedWidth]="true" size="xs"></fa-icon>delete
+    </a>
   </div>
-
-  <div *ngIf="formElements.includes('field')">
-    <div class="form__edit__item__titlesky" i18n>Field</div>
-    <div class="form__edit__item__value short">
-      <select>
-        <optgroup  label="Type" *ngIf="fields.type.length > 0">
-          <option *ngFor="let opt of fields.type" [value]="opt.key">
-            {{opt.name}}
-          </option>
-        </optgroup>
-        <optgroup  label="FusionInventory" *ngIf="fields.fusioninventory.length > 0">
-          <option *ngFor="let opt of fields.fusioninventory" [value]="opt.key">
-            {{opt.name}}
-          </option>
-        </optgroup>
-      </select>
-    </div>
+  <div style="font-size: 24px;font-weight: bold; color: var(--sky11);border-top: 2px solid var(--sky11);border-bottom: 2px solid var(--sky11);width: 100%;">
+    <span style="width: 25px;display: inline-block;">
+      <fa-icon
+        icon="chevron-left"
+        [fixedWidth]="true"
+        style="cursor: pointer;" 
+        (click)="previousGroup()"
+        *ngIf="workflow.groups.length > 1 && currentGroupIndex > 0"
+      ></fa-icon>
+    </span>
+    <fa-icon icon="sitemap" size="xs" [fixedWidth]="true"></fa-icon>
+    Group <span *ngIf="workflow.multiplegroups">#{{ currentGroupIndex }}</span>
+    <fa-icon 
+      icon="chevron-right" 
+      [fixedWidth]="true" 
+      style="float: right;cursor: pointer;" 
+      (click)="nextGroup()"
+      *ngIf="workflow.groups.length > 1 && currentGroupIndex < (workflow.groups.length - 1)"
+    ></fa-icon>
   </div>
-
-  <div *ngIf="formElements.includes('operator')">
-    <div class="form__edit__item__titlesky" i18n>Operator</div>
-    <div class="form__edit__item__value short">
-      <ng-select>
-        <ng-option>contains</ng-option>
-        <ng-option>=</ng-option>
-        <ng-option>></ng-option>
-        <ng-option>>=</ng-option>
-        <ng-option><</ng-option>
-        <ng-option><=</ng-option>
-        <ng-option>!</ng-option>
-        <ng-option>regex</ng-option>
-        <ng-option>defined</ng-option>
-     </ng-select>
-    </div>
-  </div>
-
-  <div *ngIf="formElements.includes('value')">
-    <div class="form__edit__item__titlesky" i18n>Value</div>
-    <div class="form__edit__item__value short">
-      <input>
-    </div>
-  </div>
-
-  <div *ngIf="formElements.includes('renamevalue')">
-    <div class="form__edit__item__titlesky" i18n>New value</div>
-    <div class="form__edit__item__value short">
-      <input>
-    </div>
-  </div>
-
-  <div *ngIf="formElements.includes('function')">
-    <div class="form__edit__item__titlesky" i18n>Function</div>
-    <div class="form__edit__item__value short">
-      <select>
-        <option>none</option>
-        <option>sum</option>
-      </select>
-    </div>
-  </div>
-
-  <div *ngIf="formElements.includes('variable')">
-    <div class="form__edit__item__titlesky" i18n>Variable</div>
-    <div class="form__edit__item__value short">
-      <span style="color: var(--sky11);">&#123;</span>
-      <input style="width: 92%;">
-      <span style="color: var(--sky11);">&#125;</span>
-    </div>
-  </div>
-
-  <div *ngIf="formElements.includes('optionRecusriseloop')">
-    <div class="form__edit__item__titlesky" i18n>Recursive loop</div>
-    <div class="form__edit__item__value short">
-      <label class="form__switch">
+  <div *ngFor="let property of workflow.groups[currentGroupIndex].properties" style="width: 100%;">
+    <div>
+      <div class="form__edit__item__titlesky" i18n>{{ property.name }}</div>
+      <div class="form__edit__item__value short">
         <input
-          type="checkbox"
+          [value]="property.value"
+          [id]="property.id"
+          [name]="property.name"
+          *ngIf="property.allowedvalues === null"
+          [(ngModel)]="property.value"
+          (change)="updateProperty(property)"
         >
-        <span class="slider"></span>          
-      </label>
+
+        <ng-select
+          *ngIf="property.allowedvalues !== null"
+          [id]="property.id"
+          [name]="property.name"
+          required
+          [items]="property.allowedvalues"
+          [(ngModel)]="property.value"
+          [clearable]="false"
+          (change)="updateProperty(property)"
+        >
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+            {{ item }}
+          </ng-template>
+        </ng-select>
+      </div>
     </div>
   </div>
 
-  <div *ngIf="formElements.includes('optionDeletenotfound')">
-    <div class="form__edit__item__titlesky" i18n>Delete properties not found</div>
-    <div class="form__edit__item__value short">
-      <label class="form__switch">
+  <div 
+    style="font-size: 24px;font-weight: bold; color: var(--sky11);border-top: 2px solid var(--sky11);border-bottom: 2px solid var(--sky11);width: 100%;"
+    *ngIf="workflow.variable !== null"    
+  >
+    <fa-icon icon="warehouse" size="xs" [fixedWidth]="true"></fa-icon>
+    Storage variable
+  </div>
+  <div *ngIf="workflow.variable !== null"  style="width: 100%;">
+    <div>
+      <div class="form__edit__item__titlesky" i18n>Name</div>
+      <div class="form__edit__item__value short">
         <input
-          type="checkbox"
+          [value]="workflow.variable.name"
+          name="variable name"
+          [(ngModel)]="workflow.variable.name"
+          (change)="updateVariable('', 'name')"
         >
-        <span class="slider"></span>          
-      </label>
+      </div>
+    </div>
+    <div>
+      <div class="form__edit__item__titlesky" i18n>type</div>
+      <div class="form__edit__item__value short">
+        <ng-select
+          name="variabletype"
+          required
+          [items]="['simple', 'list']"
+          [(ngModel)]="workflow.variable.variabletype"
+          [clearable]="false"
+          (change)="updateVariable($event, 'variabletype')"
+        >
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+            {{ item }}
+          </ng-template>
+        </ng-select>
+      </div>
     </div>
   </div>
-
 </div>

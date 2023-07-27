@@ -16,19 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export interface IWorkflowtrigger {
-  id: number;
+export interface ICreateWorkflowtrigger {
   name: string;
+  type_id: number;
   category: 'createitem'|'updateitem'|'softdeleteitem'|'deleteitem'|'datetime'|'webhook'|'fusioninventory';
-  x: number;
-  y: number;
-  comment: string;
-  multiplegroups: boolean;
-  groups: any[];
-  children: {
-    id: number;
-    name: string;
-    type: 'engine'|'action';
-    category: string;
-  }[];
+  x?: number;
+  y?: number;
+  comment?: string;
 }

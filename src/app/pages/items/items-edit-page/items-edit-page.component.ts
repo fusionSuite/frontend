@@ -37,6 +37,9 @@ import { TypepanelsApi } from 'src/app/api/typepanel';
 import { ITypepanel } from 'src/app/interfaces/typepanel';
 import { ITypepanelitem } from 'src/app/interfaces/typepanelitem';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { IFonticon } from 'src/app/interfaces/fonticon';
+import { icons } from 'src/app/modal/iconchoice/iconlists';
+import { IProperty } from 'src/app/interfaces/property';
 
 @Component({
   selector: 'app-items-edit-page',
@@ -66,6 +69,8 @@ export class ItemsEditPageComponent implements OnInit {
   };
 
   public displayActionsProperty: {[key: number]: boolean} = {};
+
+  public icons: IFonticon[] = icons;
 
   public formControls = new FormGroup({
     name: new FormControl('', {
@@ -152,6 +157,8 @@ export class ItemsEditPageComponent implements OnInit {
             } else {
               formProp['prop' + prop.id.toString()] = new FormControl(prop.value);
             }
+          } else if (prop.valuetype === 'datetime') {
+            formProp['prop' + prop.id.toString()] = new FormControl(new Date(prop.value));
           } else {
             formProp['prop' + prop.id.toString()] = new FormControl(prop.value);
           }
@@ -184,21 +191,6 @@ export class ItemsEditPageComponent implements OnInit {
     }
   }
 
-  // public updateProperty (index: number) {
-  //   if (this.item !== null) {
-  //     this.itemsApi.updateProperty(this.item?.id, this.item?.properties[index].id, { value: this.formPropertiesControls.controls.properties.at(index).value })
-  //       .pipe(
-  //         catchError((error: HttpErrorResponse) => {
-  //           this.notificationsService.error(error.error.message);
-  //           return throwError(() => new Error(error.error.message));
-  //         }),
-  //       ).subscribe((result: any) => {
-  //         // Reset the form to its initial state
-  //         this.loadItem();
-  //         this.notificationsService.success($localize `The property has been updated successfully.`);
-  //       });
-  //   }
-  // }
   public updateProperty (event: any, property: IItemproperty) {
     console.log(event);
     let value: any = '';
@@ -209,6 +201,9 @@ export class ItemsEditPageComponent implements OnInit {
     } else if (property.valuetype === 'date') {
       const dateEvent = new Date(event.value);
       value = format(dateEvent, 'yyyy-MM-dd');
+    } else if (property.valuetype === 'datetime') {
+      const dateEvent = new Date(event.value);
+      value = format(dateEvent, 'yyyy-MM-dd HH:mm:ss');
     } else {
       value = event.target.value;
     }
@@ -248,16 +243,20 @@ export class ItemsEditPageComponent implements OnInit {
     this.notificationsService.success($localize `The value has been copied in clipboard successfully.`);
   }
 
+  // Get properties in the panel (+ in the property search if defined)
   public groupProperties (items: ITypepanelitem[]) {
-    const properties: number[] = [];
-    for (const item of items) {
-      properties.push(item.property_id);
-    }
-
     if (this.item !== null) {
-      return this.item.properties.filter((prop) => {
-        return properties.includes(prop.id) && prop.name.toLowerCase().includes(this.filterProperties.toLowerCase());
-      });
+      const properties: IItemproperty[] = [];
+      items.sort((a, b) => a.position - b.position);
+      for (const item of items) {
+        const prop = this.item.properties.find((prop) => {
+          return prop.id === item.property_id;
+        });
+        if (prop !== undefined && prop.name.toLowerCase().includes(this.filterProperties.toLowerCase())) {
+          properties.push(prop);
+        }
+      }
+      return properties;
     }
     return [];
   }
@@ -317,11 +316,16 @@ export class ItemsEditPageComponent implements OnInit {
 
   public parseIcon (icon: any) {
     if (icon === null) {
-      return null;
+      return '';
     } else if (icon.includes('[')) {
       return JSON.parse(icon);
     } else {
-      return icon;
+      // search icon for label in list
+      const myicon = this.icons.find(item => item.label === icon);
+      if (myicon === undefined) {
+        return '';
+      }
+      return myicon.name;
     }
   }
 

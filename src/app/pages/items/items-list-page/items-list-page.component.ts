@@ -67,32 +67,36 @@ export class ItemsListPageComponent implements OnInit {
             this.id = type.id;
           });
 
-        // load items
-        this.itemsApi.list(this.internalname)
-          .subscribe((result: IItem[]) => {
-            this.items = result;
-            // this.propertiesByIds = this.indexProperties(this.properties);
-            this.itemsLoaded = true;
-          });
+        this.loadItems();
       }
     });
   }
 
-  deleteItem (item: IItem) {
-  //   if (!window.confirm($localize `Do you really want to delete the property “${property.name}”?`)) {
-  //     return;
-  //   }
-  //   this.propertiesApi.delete(property.id)
-  //     .pipe(
-  //       catchError((error: HttpErrorResponse) => {
-  //         this.notificationsService.error(error.error.message);
-  //         return throwError(() => new Error(error.error.message));
-  //       }),
-  //     ).subscribe((result: any) => {
-  //       this.propertiesByIds = this.indexProperties(this.properties);
+  private loadItems () {
+    // load items
+    this.itemsApi.list(this.internalname)
+      .subscribe((result: IItem[]) => {
+        this.items = result;
+        this.itemsLoaded = true;
+      });
+  }
 
-  //       this.notificationsService.success($localize `The property has been deleted successfully.`);
-  //     });
+  deleteItem (item: IItem) {
+    if (!window.confirm($localize `Do you really want to delete the item “${item.name}”?`)) {
+      return;
+    }
+    this.itemsApi.delete(item.id)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.notificationsService.error(error.error.message);
+          return throwError(() => new Error(error.error.message));
+        }),
+      ).subscribe((result: any) => {
+        this.itemsLoaded = false;
+        this.loadItems();
+
+        this.notificationsService.success($localize `The item has been deleted successfully.`);
+      });
   }
 
   // indexProperties (properties: IProperty[]) {
