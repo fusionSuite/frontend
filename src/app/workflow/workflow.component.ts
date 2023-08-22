@@ -140,6 +140,11 @@ export class WorkflowComponent implements OnChanges {
   };
 
   private enabledCreateConnection = true;
+  // links with key output, values = inputs + variables (so end to begin)
+  private links: any = {};
+  public variables: any = {};
+
+  private myDialogRef: any = {};
 
   constructor (
     private workflowtriggerApi:WorkflowstriggerApi,
@@ -211,7 +216,8 @@ export class WorkflowComponent implements OnChanges {
           this.panelType = node.data.engine_type;
           this.configPanel = 'engine';
         } else if (node.data.type === 'trigger') {
-          this.panelType = node.data.category;
+          console.log(node.data);
+          this.panelType = node.data.trigger_type;
           this.configPanel = 'trigger';
         } else if (node.data.type === 'action') {
           this.panelType = node.data.action_type;
@@ -233,6 +239,7 @@ export class WorkflowComponent implements OnChanges {
           this.enabledCreateConnection = false;
           // trigger
           for (const workflow of triggerRes) {
+            this.variables[workflow.id] = [];
             const html = document.createElement('div');
             // const async = workflow.properties.find((item: any) => item.name === 'async');
             const async = { value: true };
@@ -249,6 +256,7 @@ export class WorkflowComponent implements OnChanges {
           }
           // engine
           for (const workflow of engineRes) {
+            this.variables[workflow.id] = [];
             const html = document.createElement('div');
             const data = {
               name: workflow.name,
@@ -265,6 +273,7 @@ export class WorkflowComponent implements OnChanges {
             console.log(actionRes);
           } else {
             for (const workflow of actionRes) {
+              this.variables[workflow.id] = [];
               const html = document.createElement('div');
               const data = {
                 name: workflow.name,
@@ -302,12 +311,14 @@ export class WorkflowComponent implements OnChanges {
                   const inputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === connection.id);
                   if (outputId !== undefined && inputId !== undefined) {
                     this.flowchart.addConnection(outputId, inputId, 'output_1', 'input_1');
+                    this.setLink(connection.id, workflow.id, workflow.variable);
                   }
                 } else if (connection.type === 'action') {
                   const outputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === workflow.id);
                   const inputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === connection.id);
                   if (outputId !== undefined && inputId !== undefined) {
                     this.flowchart.addConnection(outputId, inputId, 'output_1', 'input_1');
+                    this.setLink(connection.id, workflow.id, workflow.variable);
                   }
                 }
               }
@@ -317,12 +328,14 @@ export class WorkflowComponent implements OnChanges {
                   const inputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === connection.id);
                   if (outputId !== undefined && inputId !== undefined) {
                     this.flowchart.addConnection(outputId, inputId, 'output_2', 'input_1');
+                    this.setLink(connection.id, workflow.id, workflow.variable);
                   }
                 } else if (connection.type === 'action') {
                   const outputId = Object.keys(this.mappingNodeIdDBId.engine).find(key => this.mappingNodeIdDBId.engine[key] === workflow.id);
                   const inputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === connection.id);
                   if (outputId !== undefined && inputId !== undefined) {
                     this.flowchart.addConnection(outputId, inputId, 'output_2', 'input_1');
+                    this.setLink(connection.id, workflow.id, workflow.variable);
                   }
                 }
               }
@@ -333,6 +346,7 @@ export class WorkflowComponent implements OnChanges {
                 const inputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === connection.id);
                 if (outputId !== undefined && inputId !== undefined) {
                   this.flowchart.addConnection(outputId, inputId, 'output_1', 'input_1');
+                  this.setLink(connection.id, workflow.id, null);
                 }
               }
               for (const connection of workflow.children_error) {
@@ -340,9 +354,11 @@ export class WorkflowComponent implements OnChanges {
                 const inputId = Object.keys(this.mappingNodeIdDBId.action).find(key => this.mappingNodeIdDBId.action[key] === connection.id);
                 if (outputId !== undefined && inputId !== undefined) {
                   this.flowchart.addConnection(outputId, inputId, 'output_2', 'input_1');
+                  this.setLink(connection.id, workflow.id, null);
                 }
               }
             }
+            this.getAllVariables();
             this.flowchart.zoom_out();
             this.flowchart.zoom_out();
             this.flowchart.zoom_out();
@@ -519,7 +535,7 @@ export class WorkflowComponent implements OnChanges {
 
   private onNodeCreated (ev: any) {
     const appRef = this.injector.get(ApplicationRef);
-    let dialogRef;
+    let dialogRef: any;
 
     if (ev.data.type === 'trigger') {
       dialogRef = createComponent(WorkflowTriggerComponent, {
@@ -533,6 +549,9 @@ export class WorkflowComponent implements OnChanges {
         async: ev.data.async,
         id: ev.data.id,
         itemBackend: ev.data.itemBackend,
+      });
+      dialogRef.instance.testResult.subscribe((res: any) => {
+        this.setTestResult(res, dialogRef);
       });
     } else if (ev.data.type === 'engine') {
       dialogRef = createComponent(WorkflowEngineComponent, {
@@ -561,6 +580,7 @@ export class WorkflowComponent implements OnChanges {
       return;
     }
 
+    this.myDialogRef[ev.data.id] = dialogRef;
     appRef.attachView(dialogRef.hostView);
     this.mappingNodeIdDBId[ev.data.type][ev.id] = ev.data.id;
   }
@@ -598,9 +618,9 @@ export class WorkflowComponent implements OnChanges {
 
   private onConnectionCreated (data: any) {
     console.log(data);
-    let validate: boolean = true;
+    let success: boolean = true;
     if (data.output_class === 'output_2') {
-      validate = false;
+      success = false;
     }
     // get type of workflow and the backend id (in the mapping) of the output
     const output = this.getTypeAndBackendId(data.output_id);
@@ -611,9 +631,9 @@ export class WorkflowComponent implements OnChanges {
       if (output.type === 'trigger') {
         connectionApi = this.workflowtriggerApi.createConnection(output.id, input.id);
       } else if (output.type === 'engine') {
-        connectionApi = this.workflowengineApi.createConnection(output.id, input.id, validate);
+        connectionApi = this.workflowengineApi.createConnection(output.id, input.id, success);
       } else if (output.type === 'action') {
-        connectionApi = this.workflowactionApi.createConnection(output.id, input.id, validate);
+        connectionApi = this.workflowactionApi.createConnection(output.id, input.id, success);
       }
       if (connectionApi !== undefined) {
         connectionApi
@@ -695,5 +715,53 @@ export class WorkflowComponent implements OnChanges {
 
   public clickMe (ev: Event) {
     console.log(ev);
+  }
+
+  private setLink (outputId: number, inputId: number, variable: any|null) {
+    if (!(outputId in this.links)) {
+      this.links[outputId] = [];
+    }
+
+    this.links[outputId].push(
+      {
+        inputId,
+        variable,
+      },
+    );
+  }
+
+  private getAllVariables () {
+    for (const workflowId in this.variables) {
+      this.variables[workflowId] = this.getVariablesByLinks(parseInt(workflowId, 10));
+    }
+  }
+
+  private getVariablesByLinks (inputId: number, variables: string[] = []) {
+    if (inputId in this.links) {
+      for (const output of this.links[inputId]) {
+        variables = this.getVariablesByLinks(output.outputId, variables);
+        variables.push(output.variable);
+      }
+    }
+    return variables;
+  }
+
+  /**
+   * Manage the workflows tests from trigger FusionInventory
+   *
+   * @param data
+   */
+  public setTestResult (data: any, dialogRef: any) {
+    for (const id in this.myDialogRef) {
+      this.myDialogRef[id].setInput('testingData', undefined);
+    }
+    for (const testingData of data) {
+      let currentData = this.myDialogRef[testingData.workflowId].instance.testingData;
+      if (currentData === undefined) {
+        currentData = [];
+      }
+      currentData.push(testingData);
+      this.myDialogRef[testingData.workflowId].setInput('testingData', currentData);
+    }
   }
 }

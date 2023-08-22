@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { WorkflowstriggerApi } from 'src/app/api/workflowstrigger';
 
@@ -8,6 +8,10 @@ import { WorkflowstriggerApi } from 'src/app/api/workflowstrigger';
 })
 export class WorkflowTriggerComponent {
   @Input() data: any;
+  @Input() testingData: any;
+  @Output() testResult = new EventEmitter<any>();
+
+  public tested = false;
 
   constructor (
     private workflowtriggerApi:WorkflowstriggerApi,
@@ -28,5 +32,13 @@ export class WorkflowTriggerComponent {
           // this.notificationsService.success($localize `The item has been updated successfully.`);
         });
     }
+  }
+
+  public runtest () {
+    this.workflowtriggerApi.testTrigger(this.data.id)
+      .subscribe((res:any) => {
+        this.tested = true;
+        this.testResult.emit(res);
+      });
   }
 }

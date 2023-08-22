@@ -27,9 +27,13 @@ import { WorkflowTriggerComponent } from './triggers/workflowTrigger.component';
 import { WorkflowActionComponent } from './actions/workflowAction.component';
 import { WorkflowEngineComponent } from './engines/workflowEngine.component';
 import { WorkflowTriggerPanelComponent } from './triggers/workflowTriggerPanel.component';
-import { WorkflowEnginePanelComponent } from './engines/workflowEnginePanel.component';
 import { WorkflowActionPanelComponent } from './actions/workflowActionPanel.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { WorkflowCheckcriteriaPanelComponent } from './engines/workflowCheckcriteriaPanel.component';
+import { WorkflowGetdataPanelComponent } from './engines/workflowGetdataPanel.component';
+import { WorkflowSearchitemPanelComponent } from './engines/workflowSearchitemPanel.component';
+import { WorkflowTransformdataPanelComponent } from './engines/workflowTransformdataPanel.component';
+import { WorkflowFusioninventoryPanelComponent } from './triggers/workflowFusioninventoryPanel.component';
 
 @NgModule({
   declarations: [
@@ -37,9 +41,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
     WorkflowTriggerComponent,
     WorkflowActionComponent,
     WorkflowEngineComponent,
-    WorkflowEnginePanelComponent,
+    WorkflowCheckcriteriaPanelComponent,
+    WorkflowGetdataPanelComponent,
+    WorkflowSearchitemPanelComponent,
+    WorkflowTransformdataPanelComponent,
     WorkflowTriggerPanelComponent,
     WorkflowActionPanelComponent,
+    WorkflowFusioninventoryPanelComponent,
   ],
   imports: [
     CommonModule,

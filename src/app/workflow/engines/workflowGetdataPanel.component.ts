@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TypesApi } from 'src/app/api/types';
+import { FormControl, FormGroup } from '@angular/forms';
 import { WorkflowsengineApi } from 'src/app/api/workflowsengine';
 import { IType } from 'src/app/interfaces/type';
 import { IWorkflowengine } from 'src/app/interfaces/workflowengine';
+import { SettingsService } from 'src/app/services/settings.service';
 
 export interface IFields {
   key: string;
@@ -16,12 +16,14 @@ export interface IFieldsGroup {
 }
 
 @Component({
-  selector: 'app-workflowEnginePanel',
-  templateUrl: './workflowEnginePanel.component.html',
+  selector: 'app-workflowGetdataPanel',
+  templateUrl: './workflowGetdataPanel.component.html',
 })
-export class WorkflowEnginePanelComponent implements OnChanges {
+export class WorkflowGetdataPanelComponent implements OnChanges {
   @Input() panelId: number = 0;
   @Input() panelType: string = '';
+  @Input() variables: any = [];
+  @Input() typeId: number = 0;
   @Input() workflow: IWorkflowengine = {
     id: 0,
     name: '',
@@ -36,7 +38,6 @@ export class WorkflowEnginePanelComponent implements OnChanges {
     variable: null,
   };
 
-  public typeId = 3;
   public formElements: string[] = [];
   public currentGroupIndex = 0;
   public fields: IFieldsGroup = {
@@ -45,21 +46,53 @@ export class WorkflowEnginePanelComponent implements OnChanges {
   };
 
   public groupsProperties = [];
+  public propertyFunction: any = [];
+  public currentVariabletype = 'simple';
+  public types: IType[] = [];
+  public formControls: FormGroup[] = [];
 
   constructor (
-    private typesApi: TypesApi,
     private workflowengineApi:WorkflowsengineApi,
+    protected settingsService: SettingsService,
   ) {
   }
 
   ngOnChanges (): void {
     this.loadWorkflow();
+    this.types = this.settingsService.getAllTypes();
   }
 
   private loadWorkflow () {
     this.workflowengineApi.get(this.panelId)
       .subscribe(res => {
         this.workflow = res;
+        this.propertyFunction = [];
+        const fieldsNames: any = {
+          uuid: null,
+          fieldtype: 'itemname',
+          field: null,
+          reference: null,
+        };
+        for (const group of res.groups) {
+          for (const prop of group.properties) {
+            fieldsNames[prop.name] = prop.value;
+          }
+          const formGroup = new FormGroup({
+            uuid: new FormControl(fieldsNames.uuid, {
+              validators: [],
+            }),
+            fieldtype: new FormControl(fieldsNames.fieldtype, {
+              validators: [],
+            }),
+            field: new FormControl(fieldsNames.field, {
+              validators: [],
+            }),
+            reference: new FormControl(fieldsNames.reference, {
+              validators: [],
+            }),
+          });
+          this.formControls.push(formGroup);
+        }
       });
   }
 
@@ -73,12 +106,39 @@ export class WorkflowEnginePanelComponent implements OnChanges {
     }
   }
 
-  public updateProperty (property: any) {
-    this.workflowengineApi.updateProperty(this.workflow.id, property.id, property.value)
-      .subscribe(res => {
-        console.log('property updated');
-      });
+  public getPropertiesOfType () {
+    const type = this.types.find((type: IType) => type.id === this.typeId);
+    if (type === undefined) {
+      return [];
+    }
+    return type.properties;
   }
+
+  public updateProperty (property: any) {
+    if (this.formControls[this.currentGroupIndex].get(property.name)) {
+      this.workflowengineApi.updateProperty(this.workflow.id, property.id, this.formControls[this.currentGroupIndex].get(property.name)?.value)
+        .subscribe(res => {
+          console.log('property updated');
+        });
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   public isFieldtypeItemname () {
     const fieldtype = this.workflow.groups[this.currentGroupIndex].properties.find((item: any) => item.name === 'fieldtype');
@@ -121,5 +181,12 @@ export class WorkflowEnginePanelComponent implements OnChanges {
       .subscribe(res => {
         console.log('variable updated');
       });
+  }
+
+  private calculateVariablenameProperty (variablename: string) {
+    const variableProperty = this.variables.find((item:any) => item.name === variablename);
+    if (variableProperty !== undefined) {
+      this.currentVariabletype = variableProperty.variabletype;
+    }
   }
 }
