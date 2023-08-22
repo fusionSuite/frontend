@@ -61,6 +61,13 @@
         display: block;
       }
 
+      .text-error {
+        color: var(--color-error11);
+        font-size: 12px;
+        top: -6px;
+        position: relative;
+      }
+
       input {
         width: 100%;
 
@@ -133,4 +140,8 @@
   &:focus {
     outline: none !important;
   }
+}
+
+ng-select.ng-invalid.ng-touched .ng-select-container {
+  border-bottom: 2px solid #dc3545;
 }

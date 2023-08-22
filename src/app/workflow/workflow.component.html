@@ -77,10 +77,27 @@
         {{action.name}}
       </div>
     </div>
-    <div *ngIf="configPanel === 'engine'">
-      <app-workflowEnginePanel [panelId]="panelId" [panelType]="panelType"></app-workflowEnginePanel>
+    <div *ngIf="configPanel === 'engine' && panelType === 'checkcriteria'">
+      <app-workflowCheckcriteriaPanel [panelId]="panelId" [panelType]="panelType" [variables]="variables[panelId]" [typeId]="typeId"></app-workflowCheckcriteriaPanel>
     </div>
-    <div *ngIf="configPanel === 'trigger'">
+    <div *ngIf="configPanel === 'engine' && panelType === 'getdata'">
+      <app-workflowGetdataPanel [panelId]="panelId" [panelType]="panelType" [variables]="variables[panelId]" [typeId]="typeId"></app-workflowGetdataPanel>
+    </div>
+    <div *ngIf="configPanel === 'engine' && panelType === 'searchitem'">
+      <app-workflowSearchitemPanel [panelId]="panelId" [panelType]="panelType" [variables]="variables[panelId]" [typeId]="typeId"></app-workflowSearchitemPanel>
+    </div>
+    <div *ngIf="configPanel === 'engine' && panelType === 'transformdata'">
+      <app-workflowTransformdataPanel [panelId]="panelId" [panelType]="panelType" [variables]="variables[panelId]"></app-workflowTransformdataPanel>
+    </div>
+    <div *ngIf="configPanel === 'trigger' && panelType === 'fusioninventory'">
+      <app-workflowFusioninventoryPanel
+        [panelId]="panelId"
+        [panelType]="panelType"
+        (changeTriggerData)="changeTriggerData($event)"
+      >
+      </app-workflowFusioninventoryPanel>
+    </div>
+    <div *ngIf="configPanel === 'trigger' && panelType !== 'fusioninventory'">
       <app-workflowTriggerPanel
         [panelId]="panelId"
         [panelType]="panelType"

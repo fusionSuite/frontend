@@ -14,11 +14,18 @@
     <fa-icon icon="gear" [fixedWidth]="true" size="lg"></fa-icon>
     <fa-icon icon="clock" [fixedWidth]="true" size="xs"></fa-icon>
   </span>
-
   <div class="subtype">
     {{data.subtype}}
   </div>
   <div class="subcontent">
     {{data.subtype}}
+  </div>
+</div>
+<div class="testing" style="cursor: pointer;" (click)="runtest()" *ngIf="data.subtype === 'fusioninventory'">
+  <div [class]="tested ? 'flex success' : 'flex'">
+    <span class="bubble-testing">
+      <fa-icon icon="flask" [fixedWidth]="true" size="lg"></fa-icon>
+    </span>
+    <span class="testingbutton">Test this workflow</span>
   </div>
 </div>

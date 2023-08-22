@@ -225,6 +225,21 @@
     margin-top: 0;
     margin-bottom: 0;
   }
+
+  &.flexitems {
+    display: flex;
+
+    flex-wrap: wrap;
+  }
+
+  .information {
+    flex-grow: 1;
+  }
+
+  .shortcuts {
+    width: 300px;
+  }
+
 }
 
 .page__inner {
