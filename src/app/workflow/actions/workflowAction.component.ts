@@ -6,6 +6,7 @@ import { WorkflowsactionApi } from 'src/app/api/workflowsaction';
 })
 export class WorkflowActionComponent {
   @Input() data: any;
+  @Input() testingData: any;
   public field: string = '';
   public value: string = '';
 

@@ -1,5 +1,8 @@
 <div class="title">
   {{data.type}}
+  <span style="border-left: 1px solid var(--color-grey6);margin-left: 4px;cursor: pointer;visibility: hidden;">
+    <fa-icon icon="xmark" [fixedWidth]="true" size="lg"></fa-icon>
+  </span>
 </div>
 <div class="content">
   <span class="bubble engine">
@@ -11,4 +14,31 @@
   <div class="subcontent">
     {{data.subtype}}
   </div>
+</div>
+<div
+  class="testing"
+  *ngIf="testingData !== undefined"
+>
+  <div [class]="testingData[0].returnData.return ? 'success' : 'error'">
+    <div class="flex">
+      <span class="bubble-testingValid">
+        <fa-icon icon="check" [fixedWidth]="true" size="lg" *ngIf="testingData[0].isValid" class="valid"></fa-icon>
+        <fa-icon icon="xmark" [fixedWidth]="true" size="lg" *ngIf="!testingData[0].isValid" class="notvalid"></fa-icon>
+      </span>
+      <span class="testingbutton">
+        {{ testingData.length }} iterations
+        <fa-icon icon="list-ul" [fixedWidth]="true" size="lg" style="cursor: pointer;" (click)="toggleDetails()"></fa-icon>
+      </span>
+    </div>
+  </div>
+  <span *ngIf="displayTestDetails">
+    <div [class]="data.returnData.return ? 'success' : 'error'" *ngFor="let data of testingData">
+      <div class="flex">
+        <span class="bubble-testingValid">
+          <fa-icon icon="check" [fixedWidth]="true" size="lg" *ngIf="data.isValid" class="valid"></fa-icon>
+          <fa-icon icon="xmark" [fixedWidth]="true" size="lg" *ngIf="!data.isValid" class="notvalid"></fa-icon>
+        </span>
+      </div>
+    </div>
+  </span>
 </div>

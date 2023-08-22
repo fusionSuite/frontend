@@ -61,6 +61,10 @@
     border: 1px solid var(--color-grey6) !important;
 
     .outputs {
+      top: 40px;
+      position: absolute;
+      right: 0;
+
       .output {
         top: 10px !important;
         right: 10px !important;
@@ -78,6 +82,9 @@
     }
 
     .inputs {
+      top: 40px;
+      position: absolute;
+
       .input {
         left: -12px !important;
 
@@ -203,7 +210,7 @@
     min-height: 25px;
     min-width: 240px;
     margin-top: 5px;
-    padding: 0 10px;
+    padding: 0 35px;
     text-align: end;
     color: var(--color-grey10);
     text-transform: uppercase;
@@ -314,4 +321,101 @@
     font-size: 22px;
     position: relative;
   }
+
+  .testing {
+    border-top: 1px solid var(--color-grey6);
+    min-height: 50px;
+
+    .success {
+      background-color: #7cbb06;
+      color: #fff;
+    }
+  
+    .error {
+      background-color: #fe294d;
+      color: #fff;
+    }
+
+    .flex {
+      height: 50px;
+      display: flex;
+    }
+
+    .testingbutton {
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: 10px;      
+    }
+  }
+
+  .bubble-testing {
+    display: inline-grid;
+
+    width: 40px;
+    height: 40px;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    position: relative;
+
+    background-color: #fe9c00;
+    color: #fff;
+
+    margin-left: 5px;
+    margin-top: 5px;
+    
+    fa-icon {
+      position: absolute;
+      margin-top: 7px;
+      margin-left: 5px;
+    }
+  }
+
+  .bubble-testingValid {
+
+    display: inline-grid;
+
+    width: 40px;
+    height: 40px;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    position: relative;
+
+    background-color: #fff;
+
+    margin-left: 5px;
+    margin-top: 5px;
+    
+    .valid {
+      color: #7cbb06;
+    }
+
+    .notvalid {
+      color:#fe294d;
+    }
+
+    fa-icon {
+      position: absolute;
+      margin-top: 7px;
+      margin-left: 5px;
+    }
+  }
+}
+
+.drawflow-delete {
+  background: unset;
+  color: var(--color-grey10);
+  border-radius: unset;
+  border-top: unset;
+  border-right: unset;
+  border-bottom: unset;
+  border-top: unset;
+  border-left: 1px solid var(--color-grey6);
+  right: 0 !important;
+  top: 0 !important;
 }

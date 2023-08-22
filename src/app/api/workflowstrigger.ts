@@ -98,4 +98,12 @@ export class WorkflowstriggerApi {
       },
     });
   }
+
+  public testTrigger (id: number) {
+    return this.http.post(this.settingsService.backendUrl + '/v1/workflows/trigger/' + id + '/test', {}, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
 }

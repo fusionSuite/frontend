@@ -8,6 +8,9 @@ import { WorkflowsengineApi } from 'src/app/api/workflowsengine';
 })
 export class WorkflowEngineComponent {
   @Input() data: any;
+  @Input() testingData: any;
+
+  public displayTestDetails = false;
 
   constructor (
     private workflowengineApi:WorkflowsengineApi,
@@ -24,5 +27,9 @@ export class WorkflowEngineComponent {
         // Reset the form to its initial state
         // this.notificationsService.success($localize `The item has been updated successfully.`);
       });
+  }
+
+  public toggleDetails () {
+    this.displayTestDetails = !this.displayTestDetails;
   }
 }

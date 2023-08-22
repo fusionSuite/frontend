@@ -17,11 +17,11 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { lastValueFrom, throwError } from 'rxjs';
-import { catchError, map, take } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { NotificationsService } from 'src/app/notifications/notifications.service';
 import { ActivatedRoute } from '@angular/router';
@@ -39,7 +39,6 @@ import { ITypepanelitem } from 'src/app/interfaces/typepanelitem';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { IFonticon } from 'src/app/interfaces/fonticon';
 import { icons } from 'src/app/modal/iconchoice/iconlists';
-import { IProperty } from 'src/app/interfaces/property';
 
 @Component({
   selector: 'app-items-edit-page',

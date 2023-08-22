@@ -19,42 +19,60 @@
 <app-page i18n-page-title page-title="Edit type">
   <modal-iconchoice *ngIf="showIcons" (newIcon)="updateIcon($event)"></modal-iconchoice>
   <modal-quickadd-menu *ngIf="showQuickAddMenu" (menuAdded)="reloadMenu($event)"></modal-quickadd-menu>
-  <header class="page__header flow flow--small">
-    <h1 *ngIf="type !== null">#{{ type.id }} - {{ type.name }}</h1>
+  <header class="page__header flexitems flow flow--small">
+    <span class="information">
+      <h1 *ngIf="type !== null">#{{ type.id }} - {{ type.name }}</h1>
 
-    <div class="subtitle" *ngIf="typeLoaded && type !== null">
-      <span *ngIf="type.created_by !== null">
-        <strong>{{ type.created_by.first_name }} {{ type.created_by.last_name}}</strong>
-        <fa-icon icon="circle-info" [fixedWidth]="true" size="xs" class="icon-info" style="color: var(--color-grey9);"></fa-icon>
-        created this type {{ createdAt }}</span>
-        <span *ngIf="type.updated_by !== null"> • <strong>
-          {{ type.updated_by.first_name }} {{ type.updated_by.last_name}}</strong> updated this type {{ updatedAt }}
-      </span>
-    </div>
-
-    <div>
-      <a class="a--back" [routerLink]="['/config/types']" data-cy="back-to-types-list" i18n>
-        Back to types
-      </a>
-    </div>
-    <div class="form__container__editionmode">
-      <label class="form__switch">
-        <input
-          id="editionmode"
-          name="editionmode"
-          type="checkbox"
-          [checked]="editionmode"
-          (change)="editionmode = !editionmode"
+      <div class="subtitle" *ngIf="typeLoaded && type !== null">
+        <span *ngIf="type.created_by !== null">
+          <strong>{{ type.created_by.first_name }} {{ type.created_by.last_name}}</strong>
+          <fa-icon icon="circle-info" [fixedWidth]="true" size="xs" class="icon-info" style="color: var(--color-grey9);"></fa-icon>
+          created this type {{ createdAt }}</span>
+          <span *ngIf="type.updated_by !== null"> • <strong>
+            {{ type.updated_by.first_name }} {{ type.updated_by.last_name}}</strong> updated this type {{ updatedAt }}
+        </span>
+      </div>
+  
+      <div>
+        <a class="a--back" [routerLink]="['/config/types']" data-cy="back-to-types-list" i18n>
+          Back to types
+        </a>
+      </div>
+      <div class="form__container__editionmode">
+        <label class="form__switch">
+          <input
+            id="editionmode"
+            name="editionmode"
+            type="checkbox"
+            [checked]="editionmode"
+            (change)="editionmode = !editionmode"
+          >
+          <span class="slider" data-cy="type-edit-switch-button"></span>
+        </label>
+        <label
+          [class]="editionmode ? 'form__swith__label form__swith__label__enabled' : 'form__swith__label'"
+          i18n
         >
-        <span class="slider" data-cy="type-edit-switch-button"></span>
-      </label>
-      <label
-        [class]="editionmode ? 'form__swith__label form__swith__label__enabled' : 'form__swith__label'"
-        i18n
-      >
-        Edition mode
-      </label>    
-    </div>
+          Edition mode
+        </label>    
+      </div>
+    </span>
+    <span class="shortcuts" *ngIf="id > 0">
+      <span i18n>Shortcuts</span>
+      <span *ngFor="let shortcut of shortcuts" class="shortcutlists">
+        <span class="shortcuts__row">
+          <fa-icon icon="circle-dot" [fixedWidth]="true" size="xs" style="color: var(--color-grey9);"></fa-icon>
+          <a
+            class="a--animation"
+            [routerLink]="['/config/types/' + id]"
+            [fragment]="shortcut.link"
+            data-cy="type-edit-property"
+          >
+            {{ shortcut.name }}
+          </a>
+        </span>
+      </span>
+    </span>
   </header>
 
   <div class="page__inner">
@@ -479,11 +497,13 @@
     <app-workflow
       class="form__edit page__inner__cadre__workflow"
       [typeId]="id"
+      id="workflow"
     >
     </app-workflow>
 
     <app-timeline
       *ngIf="type !== null && type.changes !== null"
+      id="timeline"
       [changes]="type.changes"
       class="form__edit page__inner__cadre__timeline"
     ></app-timeline>

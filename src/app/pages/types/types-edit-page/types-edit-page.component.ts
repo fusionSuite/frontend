@@ -110,6 +110,29 @@ export class TypesEditPageComponent implements OnInit {
     }),
   });
 
+  public shortcuts = [
+    {
+      name: 'Properties',
+      link: 'properties',
+    },
+    {
+      name: 'Panels',
+      link: 'panels',
+    },
+    {
+      name: 'Menu',
+      link: 'menu',
+    },
+    {
+      name: 'Workflow',
+      link: 'workflow',
+    },
+    {
+      name: 'Timeline',
+      link: 'timeline',
+    },
+  ];
+
   constructor (
     private typesApi: TypesApi,
     private menusApi: MenusApi,

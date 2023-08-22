@@ -83,9 +83,9 @@ export class WorkflowsactionApi {
     });
   }
 
-  public createConnection (sourceId: number, destinationId: number, validate: boolean = true) {
+  public createConnection (sourceId: number, destinationId: number, success: boolean = true) {
     const payload = {
-      validate,
+      success,
     };
     return this.http.post(this.settingsService.backendUrl + '/v1/workflows/action/' + sourceId + '/connection/' + destinationId, payload, {
       headers: {
