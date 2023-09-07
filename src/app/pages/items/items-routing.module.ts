@@ -27,7 +27,7 @@ import { ItemsEditPageComponent } from './items-edit-page/items-edit-page.compon
 const routes: Routes = [
   {
     path: ':internalname/list',
-    title: $localize `Properties`,
+    title: $localize `Items list`,
     component: ItemsListPageComponent,
     canActivate: [LoggedInGuard],
   },

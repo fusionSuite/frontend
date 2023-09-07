@@ -158,14 +158,6 @@
           <context context-type="sourcefile">src/app/modal/quickadd-listvalue/quickadd-listvalue.component.html</context>
           <context context-type="linenumber">38</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/engines/workflowEnginePanel.component.html</context>
-          <context context-type="linenumber">58</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="6827689427293151797" datatype="html">
         <source>Add this value</source>
@@ -189,18 +181,54 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">89</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">231</context>
+          <context context-type="linenumber">249</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/engines/workflowEnginePanel.component.html</context>
+          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
+          <context context-type="linenumber">131</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowCheckcriteriaPanel.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowCheckcriteriaPanel.component.html</context>
+          <context context-type="linenumber">156</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowGetdataPanel.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowGetdataPanel.component.html</context>
+          <context context-type="linenumber">122</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowSearchitemPanel.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowSearchitemPanel.component.html</context>
+          <context context-type="linenumber">177</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowTransformdataPanel.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowTransformdataPanel.component.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/triggers/workflowFusioninventoryPanel.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
         <context-group purpose="location">
@@ -216,7 +244,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">240</context>
+          <context context-type="linenumber">258</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1172866303261737245" datatype="html">
@@ -255,7 +283,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.ts</context>
-          <context context-type="linenumber">315</context>
+          <context context-type="linenumber">341</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1312515981620869544" datatype="html">
@@ -375,19 +403,19 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.ts</context>
-          <context context-type="linenumber">287</context>
+          <context context-type="linenumber">286</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/workflow/workflow.component.ts</context>
-          <context context-type="linenumber">385</context>
+          <context context-type="linenumber">400</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/workflow/workflow.component.ts</context>
-          <context context-type="linenumber">416</context>
+          <context context-type="linenumber">431</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/workflow/workflow.component.ts</context>
-          <context context-type="linenumber">448</context>
+          <context context-type="linenumber">463</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5324147361912094446" datatype="html">
@@ -413,7 +441,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">54,56</context>
+          <context context-type="linenumber">55,57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7658402240953727096" datatype="html">
@@ -427,63 +455,133 @@
           <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="4371394591827243740" datatype="html">
+        <source>Organization:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.html</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2736556170366900089" datatype="html">
+        <source>Type:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6726119028748944569" datatype="html">
+        <source>Creation date:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.html</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5754500914781778239" datatype="html">
+        <source>Created by:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.html</context>
+          <context context-type="linenumber">119</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8646843061009450466" datatype="html">
+        <source>Last updated date:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.html</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="740569994364855508" datatype="html">
+        <source>Last updated by:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.html</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8856905278208146821" datatype="html">
         <source> <x id="ICU" equiv-text="{panel.items.length, plural, =1 {{{ panel.items.length }} property} other {{{ panel.items.length }} properties}}" xid="849192593829534729"/> </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.html</context>
-          <context context-type="linenumber">115,117</context>
+          <context context-type="linenumber">146,148</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.html</context>
-          <context context-type="linenumber">258,260</context>
+          <context context-type="linenumber">335,337</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">144,146</context>
+          <context context-type="linenumber">162,164</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2639698298741220873" datatype="html">
         <source>{VAR_PLURAL, plural, =1 {<x id="INTERPOLATION"/> property} other {<x id="INTERPOLATION"/> properties}}</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.html</context>
-          <context context-type="linenumber">116</context>
+          <context context-type="linenumber">147</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.html</context>
-          <context context-type="linenumber">259</context>
+          <context context-type="linenumber">336</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="linenumber">163</context>
         </context-group>
       </trans-unit>
       <trans-unit id="187187500641108332" datatype="html">
         <source><x id="INTERPOLATION" equiv-text="prop.name }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.html</context>
-          <context context-type="linenumber">126,127</context>
+          <context context-type="linenumber">157,158</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.html</context>
-          <context context-type="linenumber">272,273</context>
+          <context context-type="linenumber">349,350</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
           <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowCheckcriteriaPanel.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowGetdataPanel.component.html</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowSearchitemPanel.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowTransformdataPanel.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/triggers/workflowFusioninventoryPanel.component.html</context>
+          <context context-type="linenumber">26,27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2765730777030958810" datatype="html">
         <source>The item has been updated successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.ts</context>
-          <context context-type="linenumber">188</context>
+          <context context-type="linenumber">187</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6328045667055402821" datatype="html">
         <source>The property has been updated successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.ts</context>
-          <context context-type="linenumber">227</context>
+          <context context-type="linenumber">226</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-edit-page/properties-edit-page.component.ts</context>
@@ -494,7 +592,7 @@
         <source>The value has been copied in clipboard successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-edit-page/items-edit-page.component.ts</context>
-          <context context-type="linenumber">243</context>
+          <context context-type="linenumber">242</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6162691442834560200" datatype="html">
@@ -511,26 +609,26 @@
           <context context-type="linenumber">27,29</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8778616811237742446" datatype="html">
-        <source> Name </source>
+      <trans-unit id="2032576317901281243" datatype="html">
+        <source> Name <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;form__edit__item__value&quot;&gt;"/><x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input [(ngModel)]=&quot;search&quot; (ngModelChange)=&quot;searchUpdate.next($event)&quot;&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
-          <context context-type="linenumber">35,37</context>
+          <context context-type="linenumber">117,121</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
-          <context context-type="linenumber">35,37</context>
+          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
+          <context context-type="linenumber">35,39</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
-          <context context-type="linenumber">35,37</context>
+          <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.html</context>
+          <context context-type="linenumber">34,38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4360239040231802726" datatype="html">
         <source> Actions </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
-          <context context-type="linenumber">42,44</context>
+          <context context-type="linenumber">133,135</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
@@ -553,7 +651,7 @@
         <source>Delete <x id="INTERPOLATION" equiv-text="{{ item.name }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">158</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
@@ -565,7 +663,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">187</context>
+          <context context-type="linenumber">205</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.html</context>
@@ -580,7 +678,7 @@
         <source> Delete <x id="INTERPOLATION" equiv-text="{{ item.name }}"/> </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
-          <context context-type="linenumber">72,74</context>
+          <context context-type="linenumber">163,165</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
@@ -592,7 +690,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">192,194</context>
+          <context context-type="linenumber">210,212</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.html</context>
@@ -607,47 +705,35 @@
         <source> Loading of items… </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
-          <context context-type="linenumber">84,86</context>
+          <context context-type="linenumber">175,177</context>
         </context-group>
       </trans-unit>
       <trans-unit id="979528895496820968" datatype="html">
         <source> There are no items to show. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
-          <context context-type="linenumber">91,93</context>
+          <context context-type="linenumber">182,184</context>
         </context-group>
       </trans-unit>
       <trans-unit id="331524422622571645" datatype="html">
         <source>Do you really want to delete the item “<x id="PH" equiv-text="item.name"/>”?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.ts</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8061836061585563314" datatype="html">
         <source>The item has been deleted successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.ts</context>
-          <context context-type="linenumber">98</context>
+          <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8721861281513890587" datatype="html">
-        <source>Properties</source>
+      <trans-unit id="4489288718374221302" datatype="html">
+        <source>Items list</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-routing.module.ts</context>
           <context context-type="linenumber">30</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/properties/properties-routing.module.ts</context>
-          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1519954996184640001" datatype="html">
@@ -838,6 +924,17 @@
           <context context-type="linenumber">27,29</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="8778616811237742446" datatype="html">
+        <source> Name </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/organizations/organizations-list-page/organizations-list-page.component.html</context>
+          <context context-type="linenumber">35,37</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/users/users-list-page/users-list-page.component.html</context>
+          <context context-type="linenumber">35,37</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="3658263344318351354" datatype="html">
         <source> There are no organizations to show. </source>
         <context-group purpose="location">
@@ -980,22 +1077,26 @@
           <context context-type="linenumber">208</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="8721861281513890587" datatype="html">
+        <source>Properties</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/properties/properties-routing.module.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="1461399197778237904" datatype="html">
         <source> Create a property </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
           <context context-type="linenumber">27,29</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="2032576317901281243" datatype="html">
-        <source> Name <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;form__edit__item__value&quot;&gt;"/><x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input (keyup)=&quot;updateSearch($event)&quot;&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/properties/properties-list-page/properties-list-page.component.html</context>
-          <context context-type="linenumber">35,39</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/types/types-list-page/types-list-page.component.html</context>
-          <context context-type="linenumber">34,38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5627036671899398319" datatype="html">
@@ -1053,7 +1154,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">36,38</context>
+          <context context-type="linenumber">37,39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5578256881532370727" datatype="html">
@@ -1078,7 +1179,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">90</context>
+          <context context-type="linenumber">108</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3076687427621376223" datatype="html">
@@ -1134,123 +1235,130 @@
           <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="7884965915711326781" datatype="html">
+        <source>Shortcuts</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="5139118152626940877" datatype="html">
         <source>Tree</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8140471090521721085" datatype="html">
         <source>Allow multiple roots</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7433992871571599759" datatype="html">
         <source>Unique name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8117657889567915898" datatype="html">
         <source>Associate property</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">149</context>
+          <context context-type="linenumber">167</context>
         </context-group>
       </trans-unit>
       <trans-unit id="179058026319911785" datatype="html">
         <source> configuration of the panels </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">204,206</context>
+          <context context-type="linenumber">222,224</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6814295386768519176" datatype="html">
         <source>Timeline</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">268</context>
+          <context context-type="linenumber">286</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5884077810837766125" datatype="html">
         <source> manage displaying in the menu </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">370,372</context>
+          <context context-type="linenumber">388,390</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1850750263706682861" datatype="html">
         <source>Menu choice</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">378</context>
+          <context context-type="linenumber">396</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5985919682305394027" datatype="html">
         <source>Icon of this type in menu</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
-          <context context-type="linenumber">447</context>
+          <context context-type="linenumber">465</context>
         </context-group>
       </trans-unit>
       <trans-unit id="450534630192135626" datatype="html">
         <source>The type has been updated successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.ts</context>
-          <context context-type="linenumber">195</context>
+          <context context-type="linenumber">221</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5807959168736591321" datatype="html">
         <source>The property has been associated successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.ts</context>
-          <context context-type="linenumber">212</context>
+          <context context-type="linenumber">238</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1647167425408515622" datatype="html">
         <source>The property has been removed successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.ts</context>
-          <context context-type="linenumber">229</context>
+          <context context-type="linenumber">255</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2242682587202892461" datatype="html">
         <source>The type has been added to the menu successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.ts</context>
-          <context context-type="linenumber">252</context>
+          <context context-type="linenumber">278</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1358847951548319238" datatype="html">
         <source>The type has been deleted from the menu successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.ts</context>
-          <context context-type="linenumber">270</context>
+          <context context-type="linenumber">296</context>
         </context-group>
       </trans-unit>
       <trans-unit id="469291213434006591" datatype="html">
         <source>The type has been modified to the menu successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.ts</context>
-          <context context-type="linenumber">290</context>
+          <context context-type="linenumber">316</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5222323115077863725" datatype="html">
         <source>The panel has been create successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.ts</context>
-          <context context-type="linenumber">352</context>
+          <context context-type="linenumber">378</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4164297065755119191" datatype="html">
         <source>The property has been moved successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.ts</context>
-          <context context-type="linenumber">452</context>
+          <context context-type="linenumber">478</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8227518180408399341" datatype="html">
@@ -1498,113 +1606,41 @@
           <context context-type="linenumber">180,181</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4820528532769775314" datatype="html">
-        <source>Field</source>
+      <trans-unit id="948386687012538131" datatype="html">
+        <source> This variable does not exists. </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="sourcefile">src/app/workflow/engines/workflowCheckcriteriaPanel.component.html</context>
+          <context context-type="linenumber">80,82</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/engines/workflowEnginePanel.component.html</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="29445361772884824" datatype="html">
-        <source>Function</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
-          <context context-type="linenumber">38</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/engines/workflowEnginePanel.component.html</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="sourcefile">src/app/workflow/engines/workflowCheckcriteriaPanel.component.html</context>
+          <context context-type="linenumber">137,139</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7105012512086063714" datatype="html">
-        <source>Next type for workflow</source>
+      <trans-unit id="6537904131139019667" datatype="html">
+        <source>type</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="sourcefile">src/app/workflow/engines/workflowCheckcriteriaPanel.component.html</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowGetdataPanel.component.html</context>
+          <context context-type="linenumber">133</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowSearchitemPanel.component.html</context>
+          <context context-type="linenumber">188</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/workflow/engines/workflowTransformdataPanel.component.html</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7306330785611446730" datatype="html">
-        <source>FusionInventory data</source>
+      <trans-unit id="3487166369483103850" datatype="html">
+        <source> This fonction is incompatible with the variable. </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
-          <context context-type="linenumber">61</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="3792445020401925970" datatype="html">
-        <source>Property</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
-          <context context-type="linenumber">71</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="866433983758730500" datatype="html">
-        <source>Source of data</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
-          <context context-type="linenumber">90</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/engines/workflowEnginePanel.component.html</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="1179184907489210406" datatype="html">
-        <source>Operator</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
-          <context context-type="linenumber">101</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/engines/workflowEnginePanel.component.html</context>
-          <context context-type="linenumber">41</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="6678171760523373674" datatype="html">
-        <source>New value</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
-          <context context-type="linenumber">118</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/engines/workflowEnginePanel.component.html</context>
-          <context context-type="linenumber">65</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="6222116225531633647" datatype="html">
-        <source>Variable</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
-          <context context-type="linenumber">125</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/engines/workflowEnginePanel.component.html</context>
-          <context context-type="linenumber">82</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7287155384016221024" datatype="html">
-        <source>Recursive loop</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
-          <context context-type="linenumber">134</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/engines/workflowEnginePanel.component.html</context>
-          <context context-type="linenumber">91</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="8830982776434857645" datatype="html">
-        <source>Delete properties not found</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/actions/workflowActionPanel.component.html</context>
-          <context context-type="linenumber">146</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/workflow/engines/workflowEnginePanel.component.html</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="sourcefile">src/app/workflow/engines/workflowTransformdataPanel.component.html</context>
+          <context context-type="linenumber">68,70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8275800366978668046" datatype="html">
@@ -1618,14 +1654,14 @@
         <source>The connection has been created successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/workflow/workflow.component.ts</context>
-          <context context-type="linenumber">639</context>
+          <context context-type="linenumber">647</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6075575568437919293" datatype="html">
         <source>The connection has been deleted successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/workflow/workflow.component.ts</context>
-          <context context-type="linenumber">678</context>
+          <context context-type="linenumber">688</context>
         </context-group>
       </trans-unit>
     </body>

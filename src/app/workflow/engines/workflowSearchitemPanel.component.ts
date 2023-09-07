@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { TypesApi } from 'src/app/api/types';
 import { WorkflowsengineApi } from 'src/app/api/workflowsengine';
 import { IType } from 'src/app/interfaces/type';

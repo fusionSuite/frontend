@@ -28,15 +28,106 @@
         Create an item
       </ng-container>
     </a>
+    <span class="page__counters" *ngIf="contentRange !== ''">
+      {{ contentRange }} items
+      <fa-icon
+        icon="angles-left"
+        [fixedWidth]="true"
+        *ngIf="links.first !== undefined"
+        class="page__counters__navigation"
+        (click)="loadItems(links.first)"
+      >
+      </fa-icon>
+      <fa-icon
+        icon="angles-left"
+        [fixedWidth]="true"
+        *ngIf="links.first === undefined"
+        class="page__counters__navigation disabled"
+      >
+      </fa-icon>
+
+      <fa-icon
+        icon="angle-left"
+        [fixedWidth]="true"
+        *ngIf="links.prev !== undefined"
+        class="page__counters__navigation"
+        (click)="loadItems(links.prev)"
+      >
+      </fa-icon>
+      <fa-icon
+        icon="angle-left"
+        [fixedWidth]="true"
+        *ngIf="links.prev === undefined"
+        class="page__counters__navigation disabled"
+      >
+      </fa-icon>
+
+      <span>
+        <ng-select
+          [clearable]="false"
+          class="page__counters__pages"
+          [(ngModel)]="currentPageNumber"
+          (change)="changePage($event)"
+        >
+        <ng-option
+          *ngFor="let page of pages"
+          [value]="page"
+        >
+          {{ page }}
+        </ng-option>
+        </ng-select>
+      </span>
+
+      <fa-icon
+        icon="angle-right"
+        [fixedWidth]="true"
+        *ngIf="links.next !== undefined"
+        class="page__counters__navigation"
+        (click)="loadItems(links.next)"
+      >
+      </fa-icon>
+      <fa-icon
+        icon="angle-right"
+        [fixedWidth]="true"
+        *ngIf="links.next === undefined"
+        class="page__counters__navigation disabled"
+      >
+      </fa-icon>
+
+      <fa-icon
+        icon="angles-right"
+        [fixedWidth]="true"
+        *ngIf="links.last !== undefined"
+        class="page__counters__navigation"
+        (click)="loadItems(links.last)"
+      >
+      </fa-icon>
+      <fa-icon
+        icon="angles-right"
+        [fixedWidth]="true"
+        *ngIf="links.last === undefined"
+        class="page__counters__navigation disabled"
+      >
+      </fa-icon>
+    </span>
 
     <table>
       <thead>
         <tr>
           <th i18n>
             Name
+            <span class="form__edit__item__value">
+              <input [(ngModel)]="search" (ngModelChange)="searchUpdate.next($event)">
+            </span>  
           </th>
-
           <th class="col--actions">
+            <fa-icon
+              [icon]="['far', 'circle-xmark']"
+              [fixedWidth]="true"
+              *ngIf="search !== ''"
+              style="left: -65px; position: relative; top: 10px; cursor: pointer;"
+              (click)="searchUpdate.next(''); search = ''"
+            ></fa-icon>
             <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
 
             <span class="sr-only" i18n>

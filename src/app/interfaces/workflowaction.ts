@@ -37,4 +37,9 @@ export interface IWorkflowaction {
     type: 'action';
     category: string;
   }[];
+  variable: {
+    id: number;
+    name: string;
+    variabletype: 'simple'|'list';
+  }|null;
 }

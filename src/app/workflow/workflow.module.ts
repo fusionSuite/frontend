@@ -34,6 +34,7 @@ import { WorkflowGetdataPanelComponent } from './engines/workflowGetdataPanel.co
 import { WorkflowSearchitemPanelComponent } from './engines/workflowSearchitemPanel.component';
 import { WorkflowTransformdataPanelComponent } from './engines/workflowTransformdataPanel.component';
 import { WorkflowFusioninventoryPanelComponent } from './triggers/workflowFusioninventoryPanel.component';
+import { WorkflowWebhookPanelComponent } from './triggers/workflowWebhookPanel.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { WorkflowFusioninventoryPanelComponent } from './triggers/workflowFusion
     WorkflowTriggerPanelComponent,
     WorkflowActionPanelComponent,
     WorkflowFusioninventoryPanelComponent,
+    WorkflowWebhookPanelComponent,
   ],
   imports: [
     CommonModule,

@@ -42,6 +42,7 @@ import { icons } from 'src/app/modal/iconchoice/iconlists';
 import { IFonticon } from 'src/app/interfaces/fonticon';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { InitappService } from 'src/app/services/initapp.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-types-edit-page',
@@ -144,6 +145,7 @@ export class TypesEditPageComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private initappService: InitappService,
+    private titleService: Title,
   ) {}
 
   ngOnInit (): void {
@@ -161,6 +163,7 @@ export class TypesEditPageComponent implements OnInit {
   public loadType () {
     this.typesApi.get(this.id)
       .subscribe(res => {
+        this.titleService.setTitle('Edit type: ' + res.name);
         for (const change of res.changes) {
           change.customdata = {
             user: {

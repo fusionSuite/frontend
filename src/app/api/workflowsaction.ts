@@ -125,4 +125,12 @@ export class WorkflowsactionApi {
       },
     });
   }
+
+  public updateVariable (id: number, data: any) {
+    return this.http.patch(this.settingsService.backendUrl + '/v1/workflows/action/' + id + '/variable', data, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+    });
+  }
 }

@@ -20,18 +20,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { NotificationsService } from 'src/app/notifications/notifications.service';
-import { PropertiesApi } from 'src/app/api/properties';
-import { IProperty } from 'src/app/interfaces/property';
 import { ActivatedRoute } from '@angular/router';
 import { TypesApi } from 'src/app/api/types';
 import { IType } from 'src/app/interfaces/type';
 import { ItemsApi } from 'src/app/api/items';
 import { IItem } from 'src/app/interfaces/item';
 import { SettingsService } from 'src/app/services/settings.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-items-list-page',
@@ -45,6 +44,13 @@ export class ItemsListPageComponent implements OnInit {
   public type: IType|null = null;
   public id: number = 0;
   public internalname: string = '';
+  public xTotalCount = 0;
+  public links: any = {};
+  public contentRange = '';
+  public search: string = '';
+  public searchUpdate = new Subject<string>();
+  public pages = [1];
+  public currentPageNumber = 1;
 
   deleteForm = new FormGroup({});
 
@@ -54,7 +60,20 @@ export class ItemsListPageComponent implements OnInit {
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
     protected settingsService: SettingsService,
-  ) { }
+    private titleService: Title,
+  ) {
+    this.searchUpdate.pipe(
+      debounceTime(400),
+      distinctUntilChanged())
+      .subscribe(value => {
+        if (value === '') {
+          this.loadItems();
+        } else {
+          this.loadItems('name=' + value);
+          this.currentPageNumber = 1;
+        }
+      });
+  }
 
   ngOnInit (): void {
     this.route.paramMap.subscribe(params => {
@@ -65,6 +84,7 @@ export class ItemsListPageComponent implements OnInit {
           .subscribe((type: IType) => {
             this.type = type;
             this.id = type.id;
+            this.titleService.setTitle(type.name);
           });
 
         this.loadItems();
@@ -72,11 +92,16 @@ export class ItemsListPageComponent implements OnInit {
     });
   }
 
-  private loadItems () {
+  public loadItems (suffix: string = '') {
     // load items
-    this.itemsApi.list(this.internalname)
-      .subscribe((result: IItem[]) => {
-        this.items = result;
+    this.itemsApi.listWithHeaders(this.internalname, suffix)
+      .subscribe((result: any) => {
+        const body: IItem[] = result.body;
+        this.xTotalCount = result.headers.get('x-total-count');
+        this.pages = Array(Math.ceil(this.xTotalCount / 100)).fill(1).map((x, i) => i + 1);
+        this.parseLink(result.headers.get('link'));
+        this.parseContentRange(result.headers.get('content-range'));
+        this.items = body;
         this.itemsLoaded = true;
       });
   }
@@ -99,6 +124,24 @@ export class ItemsListPageComponent implements OnInit {
       });
   }
 
+  private parseLink (link: string) {
+    this.links = {};
+    const links = link.split(', ');
+    console.log(links);
+    for (const mylink of links) {
+      const parts = mylink.match(/([\w\d=&]+)>; rel="(\w+)"$/);
+      if (parts !== undefined && parts?.length === 3 && parts[1] !== null && parts[2] !== null) {
+        this.links[parts[2]] = parts[1];
+      }
+    }
+  }
+
+  private parseContentRange (contentRange: string) {
+    contentRange = contentRange.replace('items', '');
+    contentRange = contentRange.replace('/', ' of ');
+    this.contentRange = contentRange;
+  }
+
   // indexProperties (properties: IProperty[]) {
   //   const propsByIds: {[index: number]: IProperty} = {};
   //   properties.forEach((property) => {
@@ -106,4 +149,12 @@ export class ItemsListPageComponent implements OnInit {
   //   });
   //   return propsByIds;
   // }
+
+  public changePage (pageNumber: number) {
+    let suffix = 'per_page=100&page=' + pageNumber;
+    if (this.search !== '') {
+      suffix += '&name=' + this.search;
+    }
+    this.loadItems(suffix);
+  }
 }
