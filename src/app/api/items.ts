@@ -29,6 +29,10 @@ export class ItemsApi extends ApiV1 {
     return this.listItems(internalName);
   }
 
+  public listWithHeaders (internalName: string, suffix: string = '') {
+    return this.listItemsWithHeaders(internalName, suffix);
+  }
+
   public get (id: number) {
     return this.getItem(id);
   }

@@ -46,10 +46,25 @@ export class ApiV1 {
 
   protected listItems (typeInternalname: string) {
     const typeId = this.settingsService.getTypeIdByInternalname(typeInternalname);
+
     return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/' + typeId, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
+    });
+  }
+
+  protected listItemsWithHeaders (typeInternalname: string, suffix: string) {
+    const typeId = this.settingsService.getTypeIdByInternalname(typeInternalname);
+    if (suffix !== '') {
+      suffix = '?' + suffix;
+    }
+
+    return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/' + typeId + suffix, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+      observe: 'response',
     });
   }
 

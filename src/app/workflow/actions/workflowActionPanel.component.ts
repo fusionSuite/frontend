@@ -43,6 +43,7 @@ export class WorkflowActionPanelComponent implements OnChanges {
     groups: [],
     children: [],
     children_error: [],
+    variable: null,
   };
 
   constructor (
@@ -78,6 +79,16 @@ export class WorkflowActionPanelComponent implements OnChanges {
     this.workflowactionApi.updateProperty(this.workflow.id, property.id, property.value)
       .subscribe(res => {
         console.log('property updated');
+      });
+  }
+
+  public updateVariable (value: string, key: string) {
+    if (key === 'name' && this.workflow.variable !== null) {
+      value = this.workflow.variable.name;
+    }
+    this.workflowactionApi.updateVariable(this.workflow.id, { [key]: value })
+      .subscribe(res => {
+        console.log('variable updated');
       });
   }
 

@@ -114,11 +114,11 @@ export class WorkflowComponent implements OnChanges {
         name: 'Go to another type (FusionInventory)',
         icon: 'plus',
       },
-      {
-        type: 'associateitemtoproperty',
-        name: 'Associate item to property of previous item',
-        icon: 'plus',
-      },
+      // {
+      //   type: 'associateitemtoproperty',
+      //   name: 'Associate item to property of previous item',
+      //   icon: 'plus',
+      // },
       {
         type: 'createventdatetime',
         name: 'Create event with datetime',

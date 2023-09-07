@@ -99,6 +99,37 @@
             >
           </div>
         </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Organization:</div>
+          <div class="form__edit__item__value"><span class="value">{{ item.organization.name }}</span></div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Type:</div>
+          <div class="form__edit__item__value"><span class="value">{{ type?.name }}</span></div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Creation date:</div>
+          <div class="form__edit__item__value"><span class="value">{{ item.created_at }} ({{ createdAt }})</span></div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Created by:</div>
+          <div class="form__edit__item__value"><span class="value">{{ item.created_by?.first_name }} {{ item.created_by?.last_name }}</span></div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Last updated date:</div>
+          <div class="form__edit__item__value"><span class="value">{{ item.updated_at }} ({{ updatedAt }})</span></div>
+        </div>
+
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Last updated by:</div>
+          <div class="form__edit__item__value"><span class="value">{{ item.updated_by?.first_name }} {{ item.updated_by?.last_name }}</span></div>
+        </div>
+
       </form>
     </div>
 
@@ -136,8 +167,41 @@
                   {{ prop.value.value }}
                 </span>
                 <span class="value" *ngIf="prop.valuetype === 'itemlink' && prop.value !== null">
-                  {{ prop.value.name }}
+                  <a
+                    class="a--animation"
+                    [routerLink]="['/items/' + prop.value.id]"
+                    [id]="prop.value.id"
+                    [name]="prop.value.name"
+                  >
+                    {{ prop.value.name }}
+                  </a>
                 </span>
+                <span class="value" *ngIf="prop.valuetype === 'itemlinks' && prop.value !== null">
+                  <div *ngFor="let iteml of prop.value">
+                    <a
+                      class="a--animation"
+                      [routerLink]="['/items/' + iteml.id]"
+                      [id]="iteml.id"
+                      [name]="iteml.name"
+                    >
+                      {{ iteml.name }}
+                    </a>
+                  </div>
+                </span>
+
+                <span class="value" *ngIf="prop.valuetype === 'boolean' && prop.value !== null">
+                  <label class="form__switch">
+                    <input
+                      id="prop.id"
+                      name="prop.name"
+                      type="checkbox"
+                      [checked]="prop.value"
+                      readonly="readonly"
+                    >
+                    <span class="slider"></span>
+                  </label>
+                </span>
+
               </div>
 
               <div class="form__edit__item__value" *ngIf="editionmode && editionmodePanel[panel.id]">
@@ -148,6 +212,19 @@
                   (change)="updateProperty($event, prop)"
                   *ngIf="['string', 'integer', 'decimal', 'number'].includes(prop.valuetype)"
                 >
+
+                <label class="form__switch" *ngIf="prop.valuetype === 'boolean'">
+                  <input
+                    id="prop.id"
+                    name="prop.name"
+                    type="checkbox"
+                    [formControlName]="'prop' + prop.id.toString()"
+                    (change)="updateProperty($event, prop)"
+                    [checked]="prop.value === 'on'"
+                  >
+                  <span class="slider"></span>
+                </label>
+
                 <ng-select
                   *ngIf="prop.valuetype === 'list'"
                   [items]="prop.listvalues"

@@ -56,8 +56,9 @@
 }
 
 .date-ago {
-  text-align: end;
   flex-grow: 1;
+
+  text-align: end;
 }
 
 .conversation-message {
@@ -220,7 +221,6 @@
 
       flex-wrap: wrap;
       justify-content: space-between;
-      // gap: 20px;
     }
 
     .user {

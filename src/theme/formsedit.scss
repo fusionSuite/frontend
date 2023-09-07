@@ -55,32 +55,34 @@
       }
 
       .value {
+        display: block;
+        min-height: 50px;
         margin-left: 11px;
         padding-top: 6px;
-        min-height: 50px;
-        display: block;
       }
 
       .text-error {
+        position: relative;
+        top: -6px;
+
         color: var(--color-error11);
         font-size: 12px;
-        top: -6px;
-        position: relative;
       }
 
       input {
         width: 100%;
+        min-height: 36px;
+        padding-left: 10px;
 
+        align-items: center;
+
+        color: #333;
         font-family: inherit;
         font-size: 20px;
 
-        color: #333;
         background-color: #fff;
-        border-radius: 4px;
         border: 1px solid #ccc;
-        min-height: 36px;
-        align-items: center;
-        padding-left: 10px;
+        border-radius: 4px;
 
         &:focus {
           border-bottom: 2px solid var(--color-primary10);

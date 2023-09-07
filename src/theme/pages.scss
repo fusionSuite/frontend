@@ -30,8 +30,8 @@
     overflow: auto;
 
     width: 275px;
-    max-height: calc(100% - 3.5rem);
     height: calc(100% - 3.5rem);
+    max-height: calc(100% - 3.5rem);
     margin-bottom: 3rem;
     padding: 1rem 0.5rem;
 
@@ -49,7 +49,7 @@
     @media screen and (max-width: 1024px) {
       display: none;
     }
-  
+
     &__search {
       border-bottom: 1px solid #ffffff91;
 
@@ -82,7 +82,9 @@
 
       &__item {
         padding: 10px 12px;
+
         transition: all 0.2s ease;
+
         cursor: pointer;
 
         &__active {
@@ -98,6 +100,61 @@
           color: var(--red10);
         }
       }
+    }
+  }
+
+  &__counters {
+    display: flex;
+    margin-right: 20px;
+
+    flex-grow: 1;
+    justify-content: flex-end;
+
+    font-size: 16px;
+    text-align: end;
+
+    &__navigation {
+      min-width: 30px;
+      height: 30px;
+      margin-left: 10px;
+
+      color: var(--color-grey11);
+      font-size: 20px;
+
+      border: 2px solid var(--color-grey8);
+      border-radius: 5px;
+
+      cursor: pointer;
+    }
+
+    &__pages {
+      min-width: 30px;
+      height: 30px;
+      margin-left: 10px;
+
+      color: var(--color-grey11);
+      font-size: 15px;
+
+      border: 2px solid var(--color-grey8);
+      border-radius: 5px;
+
+      cursor: pointer;
+
+      .ng-select-container {
+        min-width: 50px;
+        height: 26px !important;
+        min-height: 26px;
+
+        border: none;
+      }
+    }
+
+    .disabled {
+      color: var(--color-grey6);
+
+      border: 2px solid var(--color-grey6);
+
+      cursor: unset;
     }
   }
 }
@@ -135,8 +192,9 @@
 
   &.active {
     color: var(--sky11);
-    border-radius: 3px;
+
     background-color: white;
+    border-radius: 3px;
   }
 
   &.config {
@@ -209,11 +267,10 @@
 .page__content {
   overflow: hidden;
 
+  margin-left: 275px;
   padding: 1rem;
 
   flex: 1;
-
-  margin-left: 275px;
 
   @media screen and (max-width: 1024px) {
     margin-left: unset;
@@ -239,7 +296,6 @@
   .shortcuts {
     width: 300px;
   }
-
 }
 
 .page__inner {
@@ -260,25 +316,24 @@
       border-box no-repeat,
       conic-gradient(from 0deg at bottom 2px left 2px, #0000 90deg, var(--sky11) 0) 0 100% / 30px 30px
       border-box no-repeat;
-    // border: 5px solid #0000;
 
     &__timeline {
       width: 750px;
       margin: 15px 8px;
-  
+
       background:
         conic-gradient(from 270deg at bottom 2px right 2px, #0000 90deg, #ff0e95 0) 100% 100% / 30px 30px
         border-box no-repeat,
         conic-gradient(from 0deg at bottom 2px left 2px, #0000 90deg, #ff0e95 0) 0 100% / 30px 30px
         border-box no-repeat;
-      // border: 5px solid #0000;
     }
 
     &__workflow {
       // width: 100%;
-      flex-basis: 100%;
       margin: 15px 8px;
-  
+
+      flex-basis: 100%;
+
       background:
         conic-gradient(from 180deg at top 2px right 2px, #0000 90deg, var(--sky11) 0) 100% 0 / 30px 30px
         border-box no-repeat,
@@ -288,37 +343,41 @@
   }
 
   &__title {
-    color: var(--sky11);
-    font-size: 22px;
-    font-weight: bold;
-    border-top: 2px solid var(--sky11);
-    border-bottom: 2px solid var(--sky11);
-    // border-left: 2px solid var(--sky11);
-    background: linear-gradient(117deg, #ffffff 0%, #ffffff 30%, var(--sky11) 100%);
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 5px;
 
+    color: var(--sky11);
+    font-size: 22px;
+    font-weight: bold;
+
+    background: linear-gradient(117deg, #fff 0%, #fff 30%, var(--sky11) 100%);
+    border-top: 2px solid var(--sky11);
+    border-bottom: 2px solid var(--sky11);
+
     &__timeline {
+      padding-top: 5px;
+      padding-bottom: 5px;
+
       color: #ff0e95;
       font-size: 22px;
       font-weight: bold;
+
+      background: linear-gradient(117deg, #fff 0%, #fff 30%, #ff0e95 100%);
       border-top: 2px solid #ff0e95;
       border-bottom: 2px solid #ff0e95;
-      background: linear-gradient(117deg, #ffffff 0%, #ffffff 30%, #ff0e95 100%);
-      padding-top: 5px;
-      padding-bottom: 5px;
-      }
+    }
 
     &__note {
-      font-size: 16px;
-      font-style: italic;     color: var(--color-grey11);
- 
-      font-weight: normal;
       float: right;
-      color: white;
-      margin-right: 10px;
+
       margin-top: 2px;
+      margin-right: 10px;
+
+      color: var(--color-grey11);
+      font-size: 16px;
+      font-style: italic;
+      font-weight: normal;
     }
   }
 
@@ -336,12 +395,14 @@
   width: 100%;
   height: 120px;
   padding: 0.25rem 0.5rem;
-  justify-content: space-around;
 
   align-items: center;
+  justify-content: space-around;
+
+  color: white;
 
   background-color: var(--sky11);
-  color: white;
+
   box-shadow: 4px 0 8px rgb(0 0 0 / 25%);
 
   @media screen and (min-width: 1024px) {
@@ -353,6 +414,7 @@
 
     &.active {
       color: var(--sky11);
+
       background-color: white;
     }
 
@@ -361,7 +423,6 @@
     }
   }
 }
-
 
 .accessibility-nav {
   position: absolute;
