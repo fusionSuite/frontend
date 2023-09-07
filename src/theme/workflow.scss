@@ -26,24 +26,23 @@
 
 .workflow {
   &__trigger {
+    width: unset !important;
+    min-width: 140px !important;
+    min-height: 70px !important;
+    padding: 0 !important;
+
     color: #000 !important;
 
     // background-color: var(--color-grey2) !important;
     background-color: #fff !important;
     border: 1px solid var(--color-grey6) !important;
-    padding: 0 0 !important;
-    width: unset !important;
-    min-height: 70px !important;
-    min-width: 140px !important;
 
     .outputs {
       .output {
-        border: 2px solid var(--color-grey8);
-        right: 9px !important;
         top: 10px !important;
-        // width: 14px !important;
-        // height: 14px !important;
-        // right: -8px !important;
+        right: 9px !important;
+
+        border: 2px solid var(--color-grey8);
       }
     }
   }
@@ -61,8 +60,8 @@
     border: 1px solid var(--color-grey6) !important;
 
     .outputs {
-      top: 40px;
       position: absolute;
+      top: 40px;
       right: 0;
 
       .output {
@@ -82,8 +81,8 @@
     }
 
     .inputs {
-      top: 40px;
       position: absolute;
+      top: 40px;
 
       .input {
         left: -12px !important;
@@ -136,25 +135,28 @@
   }
 
   &__barzoom {
-    float: right;
     position: relative;
-    bottom: 55px;
     right: 15px;
+    bottom: 55px;
+    float: right;
+
     display: flex;
-    font-size: 24px;
-    color: white;
     padding: 5px 10px;
+
+    color: white;
+    font-size: 24px;
+
     background: var(--sky11);
-    border-radius: 4px;
     border-right: 1px solid var(--sky12);
+    border-radius: 4px;
   }
 
   &__btn {
     display: inline-block;
-    padding: 1px 5px;
-    margin-left: 8px;
     width: calc(100% - 16px);
     margin-bottom: 4px;
+    margin-left: 8px;
+    padding: 1px 5px;
 
     color: var(--color-grey12);
     font-family: inherit;
@@ -205,16 +207,17 @@
 
 .drawflow_content_node {
   .title {
-    background-color: #fff;
-    color: #000;
-    min-height: 25px;
     min-width: 240px;
+    min-height: 25px;
     margin-top: 5px;
     padding: 0 35px;
-    text-align: end;
+
     color: var(--color-grey10);
-    text-transform: uppercase;
     font-size: 16px;
+    text-align: end;
+    text-transform: uppercase;
+
+    background-color: #fff;
     border-bottom: 1px solid var(--color-grey6);
   }
 
@@ -224,14 +227,17 @@
   }
 
   .subtype {
-    top: -20px;
-    color: var(--color-grey10);
     position: relative;
+    top: -20px;
+
+    color: var(--color-grey10);
   }
 
   .bubble {
-    display: inline-grid;
+    position: relative;
+    top: -20px;
 
+    display: inline-grid;
     width: 40px;
     height: 40px;
 
@@ -239,168 +245,180 @@
 
     border-radius: 50%;
 
-    top: -20px;
-    position: relative;
-
     fa-icon {
       position: absolute;
+
       margin-top: 7px;
       margin-left: 5px;
     }
   }
 
   .trigger {
-    background-color: var(--sky11);
     color: #fff;
+
+    background-color: var(--sky11);
   }
 
   .engine {
-    background-color: #f9c10a;
     color: #fff;
+
+    background-color: #f9c10a;
   }
 
   .action {
-    background-color: #fe294d;
     color: #fff;
+
+    background-color: #fe294d;
   }
 
   .synchrone {
-    float: right;
     top: 3px;
-    border: 3px solid #7cbb06;
     right: -8px;
+    float: right;
+
+    border: 3px solid #7cbb06;
+
     cursor: pointer;
 
     fa-icon:first-child {
-      color: var(--color-grey10);
-      left: -3px;
       top: -2px;
+      left: -3px;
+
+      color: var(--color-grey10);
     }
 
     fa-icon:nth-child(2) {
-      color: #7cbb06;
-      background-color: white;
       top: 17px;
       left: -12px;
+
       width: 20px;
       height: 20px;
       padding-top: 2px;
+
+      color: #7cbb06;
+
+      background-color: white;
       border-radius: 10px;
     }
-
   }
 
   .asynchrone {
-    float: right;
     top: 3px;
-    border: 3px solid #fe9c00;
     right: -8px;
+    float: right;
+
+    border: 3px solid #fe9c00;
+
     cursor: pointer;
 
     fa-icon:first-child {
-      color: var(--color-grey10);
-      left: -3px;
       top: -2px;
+      left: -3px;
+
+      color: var(--color-grey10);
     }
 
     fa-icon:nth-child(2) {
-      color: #fe9c00;
-      background-color: white;
       top: 17px;
       left: -12px;
+
       width: 20px;
       height: 20px;
       padding-top: 2px;
+
+      color: #fe9c00;
+
+      background-color: white;
       border-radius: 10px;
     }
   }
 
   .subcontent {
-    top: -20px;
-    font-weight: bold;
-    font-size: 22px;
     position: relative;
+    top: -20px;
+
+    font-size: 22px;
+    font-weight: bold;
   }
 
   .testing {
-    border-top: 1px solid var(--color-grey6);
     min-height: 50px;
 
+    border-top: 1px solid var(--color-grey6);
+
     .success {
+      color: #fff;
+
       background-color: #7cbb06;
-      color: #fff;
     }
-  
+
     .error {
-      background-color: #fe294d;
       color: #fff;
+
+      background-color: #fe294d;
     }
 
     .flex {
-      height: 50px;
       display: flex;
+      height: 50px;
     }
 
     .testingbutton {
       margin-top: auto;
       margin-bottom: auto;
-      margin-left: 10px;      
+      margin-left: 10px;
     }
   }
 
   .bubble-testing {
-    display: inline-grid;
+    position: relative;
 
+    display: inline-grid;
     width: 40px;
     height: 40px;
+    margin-top: 5px;
+    margin-left: 5px;
 
     justify-content: center;
 
-    border-radius: 50%;
-
-    position: relative;
-
-    background-color: #fe9c00;
     color: #fff;
 
-    margin-left: 5px;
-    margin-top: 5px;
-    
+    background-color: #fe9c00;
+    border-radius: 50%;
+
     fa-icon {
       position: absolute;
+
       margin-top: 7px;
       margin-left: 5px;
     }
   }
 
   .bubble-testingValid {
+    position: relative;
 
     display: inline-grid;
-
     width: 40px;
     height: 40px;
+    margin-top: 5px;
+    margin-left: 5px;
 
     justify-content: center;
 
+    background-color: #fff;
     border-radius: 50%;
 
-    position: relative;
-
-    background-color: #fff;
-
-    margin-left: 5px;
-    margin-top: 5px;
-    
     .valid {
       color: #7cbb06;
     }
 
     .notvalid {
-      color:#fe294d;
+      color: #fe294d;
     }
 
     fa-icon {
       position: absolute;
+
       margin-top: 7px;
       margin-left: 5px;
     }
@@ -408,14 +426,73 @@
 }
 
 .drawflow-delete {
-  background: unset;
+  top: 0 !important;
+  right: 0 !important;
+
   color: var(--color-grey10);
-  border-radius: unset;
+
+  background: unset;
   border-top: unset;
   border-right: unset;
   border-bottom: unset;
-  border-top: unset;
   border-left: 1px solid var(--color-grey6);
-  right: 0 !important;
-  top: 0 !important;
+  border-radius: unset;
+}
+
+.workflowdropzone {
+  display: flex;
+
+  &__smartphone {
+    margin: 50px 60px;
+
+    text-align: center;
+
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
+
+  &__dropzone {
+    min-height: 850px;
+
+    flex-grow: 1;
+
+    resize: vertical;
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
+
+    .drawflowzone {
+      height: 100%;
+
+      border: 1px solid var(--sky11);
+
+      resize: vertical;
+    }
+  }
+
+  &__panels {
+    width: 310px;
+
+    border-top: 1px solid var(--sky11);
+    border-right: 1px solid var(--sky11);
+    border-bottom: 1px solid var(--sky11);
+    border-radius: 0 5px 5px 0;
+
+    .panelblock {
+      display: block;
+      width: 100%;
+
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+
+      background-color: var(--sky11);
+    }
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
 }

@@ -1,5 +1,5 @@
 <span style="font-weight: bold;color: #fff;background-color: var(--sky11);width: 100%;display: block;text-align: center;">
-  Action
+  Action - id {{ panelId }}
 </span>
 <div class="form__edit__item" style="margin-left: 4px;margin-right: 4px;">
   <div>
@@ -118,4 +118,43 @@
       </div>
     </div>
   </div>
+
+  <div 
+    style="font-size: 24px;font-weight: bold; color: var(--sky11);border-top: 2px solid var(--sky11);border-bottom: 2px solid var(--sky11);width: 100%;"
+    *ngIf="workflow.variable !== null"
+  >
+    <fa-icon icon="warehouse" size="xs" [fixedWidth]="true"></fa-icon>
+    Store Id in variable
+  </div>
+  <div *ngIf="workflow.variable !== null"  style="width: 100%;">
+    <div>
+      <div class="form__edit__item__titlesky" i18n>Name</div>
+      <div class="form__edit__item__value short">
+        <input
+          [value]="workflow.variable.name"
+          name="variable name"
+          [(ngModel)]="workflow.variable.name"
+          (change)="updateVariable('', 'name')"
+        >
+      </div>
+    </div>
+    <!-- <div>
+      <div class="form__edit__item__titlesky" i18n>type</div>
+      <div class="form__edit__item__value short">
+        <ng-select
+          name="variabletype"
+          required
+          [items]="['simple', 'list']"
+          [(ngModel)]="workflow.variable.variabletype"
+          [clearable]="false"
+          (change)="updateVariable($event, 'variabletype')"
+        >
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+            {{ item }}
+          </ng-template>
+        </ng-select>
+      </div>
+    </div> -->
+  </div>
+
 </div>

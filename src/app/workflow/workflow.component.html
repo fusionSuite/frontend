@@ -22,11 +22,15 @@
   <span class="page__inner__title__note">powerful workflows used to execute actions</span>
 </div>
 
-<div style="display: flex">
-  <div style="min-height: 850px;resize: vertical;flex-grow: 1;">
+<div class="workflowdropzone">
+  <div class="workflowdropzone__smartphone" i18n>
+    The wokflow configuration can be used only on large screen.
+  </div>
+
+  <div class="workflowdropzone__dropzone">
     <div
       id="drawflowDiv"
-      style="border: 1px solid var(--sky11);height: 100%;resize: vertical;"
+      class="drawflowzone"
       dndDropzone
       (dndDrop)="onDrop($event)"
       adHost
@@ -38,9 +42,9 @@
       <fa-icon icon="search-plus" [fixedWidth]="true" (click)="flowchart.zoom_in()"></fa-icon>
     </div>
   </div>
-  <div style="width: 310px;border-bottom: 1px solid var(--sky11);border-radius: 0px 5px 5px 0px;border-right: 1px solid var(--sky11);border-top: 1px solid var(--sky11);">
+  <div class="workflowdropzone__panels">
     <div *ngIf="configPanel === 'blocks'">
-      <span style="font-weight: bold;color: #fff;background-color: var(--sky11);width: 100%;display: block;text-align: center;">
+      <span class="panelblock">
         Blocks
       </span>
       <span>Trigger</span>
@@ -51,7 +55,7 @@
         dndType="trigger"
         id="testtest"
       >
-        <fa-icon icon="plus"></fa-icon>
+        <fa-icon icon="bolt-lightning"></fa-icon>
         {{trigger.name}}
       </div>
       <span>Engine</span>
@@ -62,7 +66,7 @@
         dndType="engine"
         id="testtest"
       >
-        <fa-icon icon="filter"></fa-icon>
+        <fa-icon icon="brain"></fa-icon>
         {{engine.name}}
       </div>
       <span>Action</span>
@@ -73,7 +77,7 @@
         dndType="action"
         id="testtest"
       >
-        <fa-icon icon="filter"></fa-icon>
+        <fa-icon icon="wrench"></fa-icon>
         {{action.name}}
       </div>
     </div>
@@ -97,7 +101,15 @@
       >
       </app-workflowFusioninventoryPanel>
     </div>
-    <div *ngIf="configPanel === 'trigger' && panelType !== 'fusioninventory'">
+    <div *ngIf="configPanel === 'trigger' && panelType === 'webhook'">
+      <app-workflowWebhookPanel
+        [panelId]="panelId"
+        [panelType]="panelType"
+        (changeTriggerData)="changeTriggerData($event)"
+      >
+      </app-workflowWebhookPanel>
+    </div>
+    <div *ngIf="configPanel === 'trigger' && panelType !== 'fusioninventory' && panelType !== 'webhook'">
       <app-workflowTriggerPanel
         [panelId]="panelId"
         [panelType]="panelType"
