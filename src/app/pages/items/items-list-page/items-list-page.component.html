@@ -21,13 +21,128 @@
     <h1 *ngIf="type !== null" i18n>{{ type.name }}</h1>
   </header>
 
+  <div class="form__edit__search">
+    <div id="input" contenteditable="false" class="searchinput">
+      <fa-icon
+        icon="magnifying-glass"
+        [class]="searchFocused ? 'focused' : ''"
+      ></fa-icon>
+      <span
+        contenteditable="true"
+        *ngFor="let group of searchGroups; let i = index"
+        (keydown)="denyEnterEvent($event)"
+      >
+        <span [id]="'searchgroupfield-' + i">{{group.field}}</span>:
+        <span [id]="'searchgroupvalue-' + i" class="value">{{group.value}}</span>
+      </span>
+      <input
+        [(ngModel)]="search"
+        (keyup.enter)="addSearchGroup($event)"
+        (focus)="searchSetFocus()"
+        (focusout)="searchUnsetFocus()"
+        value="quite cool!"
+        placeholder="type [ / ] to search"
+        #searchBar
+      >
+      <fa-icon
+        [icon]="['far', 'circle-xmark']"
+        [fixedWidth]="true"
+        *ngIf="searchGroups.length > 0"
+        style="cursor: pointer;"
+        (click)="searchUpdate.next(''); search = '';this.searchGroups = [];"
+      ></fa-icon>
+      <fa-icon
+        icon="wand-magic-sparkles"
+        (click)="searchBuilder = !searchBuilder"
+        [class]="searchBuilder && type !== null ? 'advancedsearchicon active' : 'advancedsearchicon'"
+      ></fa-icon>
+    </div>
+  </div>
+
+  <div class="form__edit__search" *ngIf="searchBuilder && type !== null" style="width: 100%;">
+    <div class="searchBuilder">
+      <span style="display: flex;gap: 16px;padding-left: 16px;padding-right: 16px;margin-top: 10px;">
+        <ng-select style="flex-grow: 2;" [(ngModel)]="searchField" (change)="searchSelectField()" placeholder="select field name">
+          <ng-option value="name">Name</ng-option>
+          <ng-option [value]="prop" *ngFor="let prop of type.properties">Propriété : {{ prop.name }}</ng-option>
+        </ng-select>
+        <ng-select style="flex-grow: 1;" [(ngModel)]="searchOperator" placeholder="choose the operator">
+          <ng-option [value]="operator" *ngFor="let operator of searchOperatorOptions">{{ operator }}</ng-option>
+        </ng-select>
+
+        <span style="flex-grow: 4; display: flex;gap: 15px;" *ngIf="searchFieldIsSelect()">
+          <ng-select
+            *ngIf="searchField !== 'name' && searchField !== null && searchField.valuetype !== null && ['itemlink', 'itemlinks'].includes(searchField.valuetype)"
+            [items]="searchField.allowedtypes"
+            bindLabel="name"
+            bindValue="internalname"
+            style="flex-grow: 1;"
+            [(ngModel)]="searchTypeForSelect"
+            (change)="getItemsForType($event)"
+          >
+          </ng-select>
+          <ng-select
+            [(ngModel)]="searchValue"
+            placeholder="choose the itemsLoaded"
+            style="flex-grow: 4;"
+            [items]="selectItems[searchTypeForSelect]"
+            bindLabel="name"
+            bindValue="id"
+            *ngIf="searchTypeForSelect !== null"
+          >
+          <!-- <ng-option [value]="operator" *ngFor="let operator of searchOperatorOptions">{{ operator }}</ng-option> -->
+          </ng-select>
+
+          <ng-select
+            *ngIf="searchField !== 'name' && searchField !== null && searchField.valuetype !== null && searchField.valuetype == 'list'"
+            [items]="selectItemsFromList[searchField.id]"
+            bindLabel="value"
+            bindValue="id"
+            style="flex-grow: 1;"
+            [(ngModel)]="searchValue"
+          >
+          </ng-select>
+        </span>
+
+        <input
+          style="flex-grow: 2;"
+          type="checkbox"
+          [checked]="true"
+          [(ngModel)]="searchValue"
+          (keydown.enter)="searchAdd()"
+          *ngIf="searchField !== 'name' && searchField !== null && searchField.valuetype !== null && searchField.valuetype === 'boolean'"
+        >
+
+        <input
+          style="flex-grow: 2;"
+          [(ngModel)]="searchValue"
+          (keydown.enter)="searchAdd()"
+          placeholder="enter the value"
+          *ngIf="!searchFieldIsSelect() && (searchField !== 'name' && searchField !== null && searchField.valuetype !== null && searchField.valuetype !== 'boolean')"
+        >
+        <button type="submit" class="button--primary" (click)="searchAdd()" i18n>Add</button>
+      </span>
+    </div>
+  </div>
+  <br>
+
   <div class="page__inner flow">
-    <a class="a--action" [routerLink]="['/items/' + internalname + '/new']" data-cy="link-items-new">
-      <fa-icon icon="plus" [fixedWidth]="true"></fa-icon>
-      <ng-container i18n>
-        Create an item
-      </ng-container>
-    </a>
+    <span class="page__listactions">
+      <a [routerLink]="['/items/' + internalname + '/new']" data-cy="link-items-new">
+        <fa-icon [icon]="['far', 'square-plus']" size="lg"></fa-icon>
+      </a>
+      <!-- use class 'available' if one item checked -->
+      <fa-icon icon="pen-to-square" size="lg" (click)="changeActionDisplayed('actions')" [class]="actionDisplayed === 'actions'?'activated':''"></fa-icon>
+      <fa-icon icon="file-export" (click)="changeActionDisplayed('export')" [class]="actionDisplayed === 'export'?'activated':''"></fa-icon>
+    </span>
+    <span class="page__listactions">
+      <!-- actions list -->
+      <fa-icon icon="filter" (click)="changeActionDisplayed('filter')" [class]="actionDisplayed === 'filter'?'activated':''"></fa-icon>
+      <fa-icon icon="bookmark" (click)="changeActionDisplayed('bookmark')" [class]="actionDisplayed === 'bookmark'?'activated':''"></fa-icon>
+      <fa-icon icon="floppy-disk" (click)="changeActionDisplayed('save')" [class]="actionDisplayed === 'save'?'activated':''"></fa-icon>
+      <fa-icon icon="gears" (click)="changeActionDisplayed('columns')" [class]="actionDisplayed === 'columns'?'activated':''"></fa-icon>
+    </span>
+
     <span class="page__counters" *ngIf="contentRange !== ''">
       {{ contentRange }} items
       <fa-icon
@@ -110,35 +225,56 @@
       >
       </fa-icon>
     </span>
+  </div>
 
-    <table>
-      <thead>
+  <div class="page__listitems">
+
+    <span *ngIf="!itemsLoaded" class="loader flow">
+      <div class="loader__spinner"></div>
+      <p class="loader__message" i18n>
+        Loading of items…
+      </p>
+    </span>
+
+    <span *ngIf="itemsLoaded && items.length === 0" i18n>
+      There are no items to show.
+    </span>
+
+    <span *ngIf="actionDisplayed !== null" class="listactions">
+      <span class="title">{{ actionDisplayed }}</span>
+      <span *ngIf="actionDisplayed === 'columns' && type !== null">
+        <div *ngFor="let property of type.properties" (click)="updateColumns(property)">
+          <span class="actioncolumns">{{ property.name }}</span>
+        </div>
+      </span>
+      <span *ngIf="actionDisplayed === 'export'">
+        <div>
+          <fa-icon icon="file-csv" [fixedWidth]="true"></fa-icon>
+          CSV export
+        </div>
+        <div>
+          <fa-icon icon="file-pdf" [fixedWidth]="true"></fa-icon>
+          PDF export
+        </div>
+      </span>
+    </span>
+
+    <table *ngIf="itemsLoaded && items.length > 0">
+      <thead class="header">
         <tr>
-          <th i18n>
-            Name
-            <span class="form__edit__item__value">
-              <input [(ngModel)]="search" (ngModelChange)="searchUpdate.next($event)">
-            </span>  
+          <th i18n class="actionstitle">Actions</th>
+          <th i18n>Name</th>
+          <th *ngFor="let property of columns">
+            {{ property.name }}
           </th>
-          <th class="col--actions">
-            <fa-icon
-              [icon]="['far', 'circle-xmark']"
-              [fixedWidth]="true"
-              *ngIf="search !== ''"
-              style="left: -65px; position: relative; top: 10px; cursor: pointer;"
-              (click)="searchUpdate.next(''); search = ''"
-            ></fa-icon>
-            <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
-
-            <span class="sr-only" i18n>
-              Actions
-            </span>
-          </th>
+          <th></th>
         </tr>
       </thead>
-
-      <tbody data-cy="list-items">
+      <tbody data-cy="list-items" class="skyborder">
         <tr *ngFor="let item of items | sortBy:'asc':'name'" data-cy="item-items">
+          <td>
+            <input type="checkbox">
+          </td>
           <td>
             <a
               class="a--animation"
@@ -150,8 +286,18 @@
             </a>
           </td>
 
+          <td *ngFor="let property of columns">
+            <span *ngIf="property.valuetype !== 'boolean'">{{ getProperty(property, item.properties) }}</span>
+            <span *ngIf="property.valuetype === 'boolean' && getProperty(property, item.properties)">
+              <fa-icon icon="check" [fixedWidth]="true"></fa-icon>
+            </span>
+            <span *ngIf="property.valuetype === 'boolean' && !getProperty(property, item.properties)">
+              <fa-icon icon="xmark" [fixedWidth]="true"></fa-icon>
+            </span>
+          </td>
+
           <td class="col--actions">
-            <form [formGroup]="deleteForm" (ngSubmit)="deleteItem(item)">
+            <!-- <form [formGroup]="deleteForm" (ngSubmit)="deleteItem(item)">
               <button
                 type="submit"
                 i18n-title
@@ -164,23 +310,7 @@
                   Delete {{ item.name }}
                 </span>
               </button>
-            </form>
-          </td>
-        </tr>
-
-        <tr *ngIf="!itemsLoaded">
-          <td colspan="2" class="loader flow">
-            <div class="loader__spinner"></div>
-
-            <p class="loader__message" i18n>
-              Loading of items…
-            </p>
-          </td>
-        </tr>
-
-        <tr *ngIf="itemsLoaded && items.length === 0" class="tr--placeholder">
-          <td colspan="2" i18n>
-            There are no items to show.
+            </form> -->
           </td>
         </tr>
       </tbody>

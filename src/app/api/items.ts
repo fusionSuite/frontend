@@ -20,13 +20,42 @@ import { Injectable } from '@angular/core';
 import { ICreateItem } from '../interfaces/create/item';
 
 import { ApiV1 } from './v1';
+import { forkJoin, switchMap } from 'rxjs';
+import { IItem } from '../interfaces/item';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ItemsApi extends ApiV1 {
   public list (internalName: string) {
-    return this.listItems(internalName);
+    // return this.listItems(internalName);
+
+    return this.listItemsResponse(internalName)
+      .pipe(
+        switchMap((res) => {
+          const totalCount = res.headers.get('x-total-count');
+          let totalPages: number = 0;
+          if (totalCount !== null) {
+            totalPages = Math.ceil(parseInt(totalCount) / 100);
+          }
+          const req$ = Array(totalPages).fill(1).map((_, index) =>
+            this.listItems(internalName, index + 1),
+          );
+          return forkJoin(req$);
+        }),
+      // ).subscribe({
+      //   next: (res: any) => {
+      //     let all: IItem[] = [];
+      //     for (let page = 0; page < res.length; page++) {
+      //       all = all.concat(res[page]);
+      //     }
+      //     return all;
+      //   },
+      //   error: (e) => {
+      //     console.log('Error Fetching Items');
+      //   },
+      // },
+      );
   }
 
   public listWithHeaders (internalName: string, suffix: string = '') {
