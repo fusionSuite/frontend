@@ -22,7 +22,8 @@
       "es2022",
       "dom"
     ],
-    "types": ["cypress", "@4tw/cypress-drag-drop"]
+    "types": ["cypress", "@4tw/cypress-drag-drop"],
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

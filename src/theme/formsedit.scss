@@ -127,6 +127,105 @@
       }
     }
   }
+
+  &__search {
+    margin-left: 10px;
+    padding-right: 10px;
+    padding-left: 2px;
+
+    display: flex;
+
+    input {
+      min-height: 36px;
+      padding-left: 10px;
+
+      align-items: center;
+
+      color: #333;
+      font-family: inherit;
+      font-size: 17px;
+
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+
+      &:focus {
+        border-bottom: 2px solid var(--color-primary10);
+        outline: none !important;
+      }
+    }
+
+    .searchinput {
+      width: 100%;
+      min-height: 46px;
+      padding-left: 10px;
+      display: flex;
+
+      color: #333;
+      font-family: inherit;
+      font-size: 17px;
+
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+
+      span {
+        margin-top: 12px;
+      }
+
+      span .value {
+        margin-right: 10px;
+
+        color: var(--sky10);
+        font-weight: bold;
+      }
+
+      input {
+        width: unset;
+        min-width: 10px;
+        padding-left: unset;
+        margin-left: unset;
+        border: unset;
+        flex-grow: 1;
+      }
+
+      fa-icon {
+        padding-top: 12px;
+        padding-right: 13px;
+      }
+
+      .advancedsearchicon {
+        width: 44px;
+        padding-left: 13px;
+
+        border-left: 1px solid #ccc;
+      }
+
+      .active {
+        background-color: var(--color-grey4);
+      }
+
+      .focused {
+        color: var(--sky10);
+      }
+    }
+
+    .searchBuilder {
+      margin-left: 50px;
+      margin-right: 10px;
+      min-height: 65px;
+      background-color: var(--color-grey4);
+      border-radius: 0 0 10px 10px;
+      width: 100%;
+      border-left: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+
+      .ng-select.ng-select-single .ng-select-container {
+        height: 42px;
+      }
+    }
+  }
 }
 
 .form__container__editionmode {
@@ -146,4 +245,60 @@
 
 ng-select.ng-invalid.ng-touched .ng-select-container {
   border-bottom: 2px solid #dc3545;
+}
+
+input[type="checkbox"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+
+  /* Remove most all native input styles */
+  appearance: none;
+
+  display: grid;
+
+  width: 1.15em;
+  height: 1.15em;
+
+  /* Not removed via appearance */
+  margin: 0;
+
+  color: var(--sky10);
+  font: inherit;
+
+  /* For iOS < 15 */
+  background-color: var(--form-background);
+
+  border: 0.15em solid var(--sky11);
+  border-radius: 0.15em;
+
+  transform: translateY(-0.075em);
+
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+
+  width: 0.65em;
+  height: 0.65em;
+
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+
+  background-color: var(--sky11);
+  box-shadow: inset 1em 1em var(--form-control-color);
+
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: 120ms transform ease-in-out;
+}
+
+input[type="checkbox"]:checked::before {
+  color: var(--sky10);
+
+  transform: scale(1);
+}
+
+input[type="checkbox"]:focus {
+  outline: unset;
+  outline-offset: unset;
 }

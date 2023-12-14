@@ -25,7 +25,7 @@ import { catchError } from 'rxjs/operators';
 
 import { NotificationsService } from 'src/app/notifications/notifications.service';
 import { ActivatedRoute } from '@angular/router';
-import { format, formatDistanceToNow, formatDistanceToNowStrict } from 'date-fns';
+import { format, formatDistanceToNow, formatDistanceToNowStrict, formatRelative, parseISO } from 'date-fns';
 import { IItem } from 'src/app/interfaces/item';
 import { ItemsApi } from 'src/app/api/items';
 import { IType } from 'src/app/interfaces/type';
@@ -122,6 +122,12 @@ export class ItemsEditPageComponent implements OnInit {
         this.item.properties.sort((u1, u2) => u1.name.localeCompare(u2.name));
         this.udpateDateDistance();
         this.loopUdpateDateDistance();
+
+        this.item.created_at = formatRelative(parseISO(this.item.created_at), new Date());
+        if (this.item.updated_at !== null) {
+          this.item.updated_at = formatRelative(parseISO(this.item.updated_at), new Date());
+        }
+
         this.formControls.controls.name.setValue(res.name);
         const formProp: {[key: string]: any} = {};
         for (const prop of res.properties) {
@@ -158,6 +164,8 @@ export class ItemsEditPageComponent implements OnInit {
             }
           } else if (prop.valuetype === 'datetime') {
             formProp['prop' + prop.id.toString()] = new FormControl(new Date(prop.value));
+          } else if (prop.valuetype === 'boolean' && prop.value === null) {
+            formProp['prop' + prop.id.toString()] = new FormControl(false);
           } else {
             formProp['prop' + prop.id.toString()] = new FormControl(prop.value);
           }
@@ -209,9 +217,9 @@ export class ItemsEditPageComponent implements OnInit {
     if (this.item !== null) {
       if (property.valuetype === 'boolean') {
         if (value === 'on') {
-          value = true;
-        } else {
           value = false;
+        } else {
+          value = true;
         }
       }
       this.itemsApi.updateProperty(this.item?.id, property.id, { value })
@@ -517,8 +525,12 @@ export class ItemsEditPageComponent implements OnInit {
       return;
     }
     this.itemsApi.list(typeInternalname)
-      .subscribe((result: IItem[]) => {
-        this.selectItems[typeInternalname] = result;
+      .subscribe((result: any[]) => {
+        let all: IItem[] = [];
+        for (let page = 0; page < result.length; page++) {
+          all = all.concat(result[page]);
+        }
+        this.selectItems[typeInternalname] = all;
       });
   }
 }

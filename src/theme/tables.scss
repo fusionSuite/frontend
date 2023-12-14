@@ -19,7 +19,30 @@
 table {
   width: 100%;
 
-  border-collapse: collapse;
+  // border-collapse: collapse;
+
+  .skyborder {
+    box-shadow: 0 0 0 2px var(--sky11);
+    border-radius: 10px;
+  }
+
+  .skyborder::after {
+    height: 6px;
+    content: '';
+    display: block;
+  }
+
+  .header {
+    color: var(--sky11);
+
+    background-color: unset;
+    border-bottom: unset;
+
+    .actionstitle {
+      color: var(--color-grey9);
+      width: 100px;
+    }
+  }
 }
 
 thead {
@@ -34,6 +57,7 @@ td {
   padding: 0.5rem;
 
   font-size: 0.9rem;
+  text-align: left;
 
   &.col--actions {
     width: 5rem;

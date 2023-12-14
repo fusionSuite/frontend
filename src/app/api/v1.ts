@@ -44,13 +44,24 @@ export class ApiV1 {
     });
   }
 
-  protected listItems (typeInternalname: string) {
+  protected listItems (typeInternalname: string, page: number = 0, perPage: number = 100) {
     const typeId = this.settingsService.getTypeIdByInternalname(typeInternalname);
 
-    return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/' + typeId, {
+    return this.http.get<IItem[]>(this.settingsService.backendUrl + '/v1/items/type/' + typeId + '?per_page=' + perPage + '&page=' + page, {
       headers: {
         Authorization: 'Bearer ' + this.authService.getToken(),
       },
+    });
+  }
+
+  protected listItemsResponse (typeInternalname: string, page: number = 0, perPage: number = 100) {
+    const typeId = this.settingsService.getTypeIdByInternalname(typeInternalname);
+
+    return this.http.get(this.settingsService.backendUrl + '/v1/items/type/' + typeId + '?per_page=' + perPage + '&page=' + page, {
+      headers: {
+        Authorization: 'Bearer ' + this.authService.getToken(),
+      },
+      observe: 'response',
     });
   }
 
