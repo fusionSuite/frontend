@@ -31,9 +31,21 @@
         contenteditable="true"
         *ngFor="let group of searchGroups; let i = index"
         (keydown)="denyEnterEvent($event)"
+        (keyup.enter)="updateSearchGroup($event, i)"
       >
-        <span [id]="'searchgroupfield-' + i">{{group.field}}</span>:
-        <span [id]="'searchgroupvalue-' + i" class="value">{{group.value}}</span>
+        <span
+          contenteditable="false"
+          [id]="'searchgroupfield-' + i"
+        >
+          {{group.field}}
+        </span>
+        <span contenteditable="false">: </span>
+        <span
+          [id]="'searchgroupvalue-' + i"
+          class="value"
+        >
+          {{group.value}}
+        </span>
       </span>
       <input
         [(ngModel)]="search"

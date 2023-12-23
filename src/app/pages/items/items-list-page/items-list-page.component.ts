@@ -268,7 +268,7 @@ export class ItemsListPageComponent implements OnInit {
   }
 
   public catchslash (event: any) {
-    console.log(event);
+    // console.log(event);
     // if (event.keyCode === 13 && event.shiftKey !== 1) {
     //   event.preventDefault();
     // }
@@ -280,6 +280,10 @@ export class ItemsListPageComponent implements OnInit {
 
   public addSearchGroup (event: any) {
     this.addSearchGroupValue(event.target.value);
+  }
+
+  public updateSearchGroup (event: any, index: number) {
+    this.updateSearchGroupValue(event.target.lastChild.innerText, index);
   }
 
   private addSearchGroupValue (value: string) {
@@ -299,6 +303,18 @@ export class ItemsListPageComponent implements OnInit {
       this.searchUpdate.next('name_contains:' + value);
       this.search = '';
     }
+  }
+
+  private updateSearchGroupValue (value: string, index: number) {
+    if (value === undefined || value.trim() === '') {
+      this.searchGroups.splice(index, 1);
+      this.searchUpdate.next('next');
+      this.search = '';
+      return;
+    }
+    this.searchGroups[index].value = value;
+    this.searchUpdate.next(value);
+    this.search = '';
   }
 
   public denyEnterEvent (event: any) {
@@ -321,7 +337,7 @@ export class ItemsListPageComponent implements OnInit {
         case 'integer':
         case 'decimal':
         case 'number':
-          this.searchOperatorOptions = ['contains', 'begin', 'end', 'less', 'greater'];
+          this.searchOperatorOptions = ['less', 'greater'];
           this.searchOperator = 'contains';
           break;
 
