@@ -28,34 +28,48 @@
         [class]="searchFocused ? 'focused' : ''"
       ></fa-icon>
       <span
-        contenteditable="true"
         *ngFor="let group of searchGroups; let i = index"
-        (keydown)="denyEnterEvent($event)"
-        (keyup.enter)="updateSearchGroup($event, i)"
+        [class]="searchGroupsInError.includes(i) ? 'searchContainer groupError' : 'searchContainer'"
       >
+        <fa-icon
+          icon="rectangle-xmark"
+          class="searchGroupDelete"
+          (click)="deleteSearchGroup(i)"
+        ></fa-icon>
         <span
-          contenteditable="false"
           [id]="'searchgroupfield-' + i"
         >
           {{group.field}}
         </span>
-        <span contenteditable="false">: </span>
+        <span>: </span>
         <span
           [id]="'searchgroupvalue-' + i"
           class="value"
         >
+        <span
+          contenteditable="true"
+          class="searchEdit"
+          (keydown)="denyEnterEvent($event)"
+          (keyup.enter)="updateSearchGroup($event, i)"
+        >
           {{group.value}}
+        </span>
         </span>
       </span>
       <input
         [(ngModel)]="search"
         (keyup.enter)="addSearchGroup($event)"
+        (keyup)="setAutocompleteSearch($event)"
         (focus)="searchSetFocus()"
         (focusout)="searchUnsetFocus()"
         value="quite cool!"
         placeholder="type [ / ] to search"
         #searchBar
+        list="dynmicUserIds"
       >
+      <datalist id="dynmicUserIds">
+        <option *ngFor="let val of searchProposals" [value]="val"></option>
+      </datalist>
       <fa-icon
         [icon]="['far', 'circle-xmark']"
         [fixedWidth]="true"

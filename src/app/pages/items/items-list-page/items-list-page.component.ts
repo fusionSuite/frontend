@@ -76,6 +76,9 @@ export class ItemsListPageComponent implements OnInit {
   public searchTypeForSelect = null;
   public selectItems: any = {};
   public selectItemsFromList: any = {};
+  public searchProposals: string[] = [];
+  public lastSearchGroup: number | null = null;
+  public searchGroupsInError: number[] = [];
 
   deleteForm = new FormGroup({});
 
@@ -104,6 +107,7 @@ export class ItemsListPageComponent implements OnInit {
           }
 
           const query = [];
+          const re = /(\[)(\w+)(\])/;
           for (const group of this.searchGroups) {
             let field = '';
             if (group.field.startsWith('name')) {
@@ -118,13 +122,11 @@ export class ItemsListPageComponent implements OnInit {
             if (argsConters[group.field] > 1) {
               query.push(field + '[]=' + group.value);
             } else {
+              field = field.replace(re, '_$2');
               query.push(field + '=' + group.value);
             }
           }
-
-          let queryStr = query.join('&');
-          queryStr = queryStr.split('[contains]').join('_contains');
-          queryStr = queryStr.split('[in]').join('_in');
+          const queryStr = query.join('&');
           this.loadItems(queryStr);
           this.currentPageNumber = 1;
         }
@@ -146,6 +148,7 @@ export class ItemsListPageComponent implements OnInit {
                 this.selectItemsFromList[prop.id] = prop.listvalues;
               }
             }
+            this.initSearchProposals();
           });
 
         this.loadItems();
@@ -156,7 +159,16 @@ export class ItemsListPageComponent implements OnInit {
   public loadItems (suffix: string = '') {
     // load items
     this.itemsApi.listWithHeaders(this.internalname, suffix)
-      .subscribe((result: any) => {
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.notificationsService.error(error.error.message);
+          if (this.lastSearchGroup !== null) {
+            this.searchGroupsInError.push(this.lastSearchGroup);
+          }
+          return throwError(() => new Error(error.error.message));
+        }),
+      ).subscribe((result: any) => {
+        this.searchGroupsInError = [];
         const body: IItem[] = result.body;
         this.xTotalCount = result.headers.get('x-total-count');
         this.pages = Array(Math.ceil(this.xTotalCount / 100)).fill(1).map((x, i) => i + 1);
@@ -283,16 +295,46 @@ export class ItemsListPageComponent implements OnInit {
   }
 
   public updateSearchGroup (event: any, index: number) {
-    this.updateSearchGroupValue(event.target.lastChild.innerText, index);
+    this.updateSearchGroupValue(event.target.innerText, index);
+  }
+
+  public deleteSearchGroup (index: number) {
+    this.searchGroups.splice(index, 1);
+    if (this.searchGroups.length === 0) {
+      this.searchUpdate.next('');
+      this.searchGroupsInError = [];
+    } else {
+      const newList = [];
+      for (const val of this.searchGroupsInError) {
+        if (val > index) {
+          newList.push(val - 1);
+        } else if (val < index) {
+          newList.push(val);
+        }
+      }
+      this.searchGroupsInError = newList;
+      this.searchUpdate.next('next');
+    }
+    this.search = '';
   }
 
   private addSearchGroupValue (value: string) {
+    // if use datalist and field not complete, not consider run search
+    if (value.startsWith('property.')) {
+      if (!value.match(/:.+$/)) {
+        // TODO 
+        // manage searchProposals list (datalist) from value yet, perhaps not required because setAutocompleteSearch() in input event
+        return;
+      }
+    }
+
     if (value.includes(':')) {
       const parts = value.split(':');
       this.searchGroups.push({
         field: parts[0],
         value: parts[1],
       });
+      this.lastSearchGroup = (this.searchGroups.length - 1);
       this.searchUpdate.next(value);
       this.search = '';
     } else {
@@ -300,9 +342,11 @@ export class ItemsListPageComponent implements OnInit {
         field: 'name[contains]',
         value,
       });
+      this.lastSearchGroup = (this.searchGroups.length - 1);
       this.searchUpdate.next('name_contains:' + value);
       this.search = '';
     }
+    this.initSearchProposals();
   }
 
   private updateSearchGroupValue (value: string, index: number) {
@@ -313,6 +357,7 @@ export class ItemsListPageComponent implements OnInit {
       return;
     }
     this.searchGroups[index].value = value;
+    this.lastSearchGroup = index;
     this.searchUpdate.next(value);
     this.search = '';
   }
@@ -387,6 +432,7 @@ export class ItemsListPageComponent implements OnInit {
     this.searchField = null;
     this.searchOperator = '';
     this.searchValue = '';
+    this.initSearchProposals();
   }
 
   public searchSetFocus () {
@@ -428,5 +474,58 @@ export class ItemsListPageComponent implements OnInit {
         }
         this.selectItems[ev.internalname] = all;
       });
+  }
+
+  public setAutocompleteSearch (ev: any) {
+    if (this.type !== undefined && this.type !== null) {
+      if (ev.target === undefined || ev.target.value === '') {
+        // // this.searchProposals.push('name');
+        // for (const prop of this.type.properties) {
+        //   this.searchProposals.push('property.' + prop.internalname);
+        // }
+      } else if (ev.target !== undefined) {
+        if (ev.target.value.match(/^property.[a-zA-Z0-9]+$/)) {
+          this.searchProposals = [];
+          // TODO manage for this property the operator
+          const splitted = ev.target.value.split('.');
+          const prop = this.type.properties.find((item: any) => item.internalname === splitted[1]);
+          if (prop !== undefined) {
+            this.searchField = prop;
+            this.searchSelectField();
+            for (const operator of this.searchOperatorOptions) {
+              this.searchProposals.push(ev.target.value + '[' + operator + ']:');
+            }
+          }
+        } else if (ev.target.value.match(/^property.[a-zA-Z0-9]+\[is\]:$/)) {
+          const splitted = ev.target.value.split('.');
+          const prop = this.type.properties.find((item: any) => item.internalname === splitted[1].replace('[is]:', ''));
+          if (prop !== undefined) {
+            if (prop.valuetype === 'boolean') {
+              this.searchProposals = [];
+              this.searchProposals.push(ev.target.value + 'true');
+              this.searchProposals.push(ev.target.value + 'false');
+            } else if (prop.valuetype === 'list') {
+              this.searchProposals = [];
+              for (const listval of prop.listvalues) {
+                this.searchProposals.push(ev.target.value + listval.value + '.' + listval.id);
+              }
+            }
+            // TODO else
+          }
+        } else if (this.searchProposals.length === 0) {
+          this.initSearchProposals();
+        }
+      }
+    }
+  }
+
+  private initSearchProposals () {
+    this.searchProposals = [];
+    if (this.type !== undefined && this.type !== null) {
+      // this.searchProposals.push('name');
+      for (const prop of this.type.properties) {
+        this.searchProposals.push('property.' + prop.internalname);
+      }
+    }
   }
 }
