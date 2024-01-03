@@ -170,13 +170,13 @@
       border-radius: 4px;
 
       span {
-        margin-top: 12px;
+        padding-top: 6px;
       }
 
       span .value {
         margin-right: 10px;
 
-        color: var(--sky10);
+        // color: var(--sky10);
         font-weight: bold;
       }
 
@@ -207,6 +207,33 @@
 
       .focused {
         color: var(--sky10);
+      }
+
+      .searchEdit {
+        &:focus {
+          border: 0;
+          outline: none !important;
+        }
+      }
+
+      .searchContainer {
+        background-color: var(--sky11);
+        border-radius: 5px;
+        padding-left: 10px;
+        padding-right: 0;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        color: white;
+        margin-right: 6px;
+
+        .searchGroupDelete {
+          padding-right: 2px;
+          cursor: pointer;
+        }
+      }
+
+      .groupError {
+        background-color: var(--red11);
       }
     }
 
