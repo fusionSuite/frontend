@@ -27,10 +27,18 @@ describe('types', () => {
   it('list types', () => {
     cy.visit('/');
 
-    cy.get('[data-cy="menu-configuration"]').click();
-    cy.get('[data-cy="link-types"]').should('exist');
+    cy.get('[data-cy="menu-configuration"]').filter(':visible').click();
 
-    cy.get('[data-cy="link-types"]').click();
+    // for smartphone menu
+    cy.get('body').then((body: any) => {
+      if (body.find('[data-cy="link-nextbutton"]').filter(':visible').length > 0) {
+        cy.get('[data-cy="link-nextbutton"]').filter(':visible').click();
+      }
+    });
+
+    cy.get('[data-cy="link-types"]').filter(':visible').should('exist');
+
+    cy.get('[data-cy="link-types"]').filter(':visible').click();
     cy.url().should('equal', Cypress.config('baseUrl') + '/config/types');
 
     cy.get('[data-cy="list-types"]').should('contain', 'Laptop');
@@ -39,7 +47,7 @@ describe('types', () => {
   it('create new type', () => {
     cy.visit('/config/types');
 
-    cy.get('[data-cy="link-types-new"]').click();
+    cy.get('[data-cy="link-types-new"]').filter(':visible').click();
     cy.url().should('equal', Cypress.config('baseUrl') + '/config/types/new');
 
     // fill form and submit
@@ -108,11 +116,14 @@ describe('types', () => {
     // add property Address
     cy.intercept({
       method: 'GET',
-      url: '/api/v1/display/type/*/panels',
+      url: '**/v1/display/type/*/panels',
     }).as('panelsAPIRes');
     cy.get('[data-cy="type-categories-selectadd"]').should('exist');
     cy.get('[data-cy="type-categories-selectadd"]').click();
-    cy.get('[data-cy="type-categories-selectadd"]').type('Addres').type('{enter}');
+    cy.get('[data-cy="type-categories-selectadd"]').type('Addres');
+    cy.wait(300);
+    cy.get('[data-cy="type-categories-selectadd"]').type('{enter}');
+
     cy.wait('@panelsAPIRes')
       .its('response.body')
       .then((bodyJson) => {
@@ -162,7 +173,7 @@ describe('types', () => {
     cy.get('[data-cy="form-types-new-panel"] [name="icon"]').type('beer').type('{enter}');
     cy.intercept({
       method: 'POST',
-      url: '/api/v1/display/type/panels',
+      url: '**/v1/display/type/panels',
     }).as('postNewPanelAPIRes');
     cy.get('[data-cy="form-types-new-panel"] [data-cy="submit"]').click();
     cy.wait('@postNewPanelAPIRes')
@@ -188,7 +199,7 @@ describe('types', () => {
     cy.get('[data-cy="item-types"] [name="string type updated"]').click();
     cy.get('[data-cy="type-edit-switch-button"]').should('exist');
     cy.get('[data-cy="type-edit-switch-button"]').click();
-    
+
     // cy.get('[id="panelitem-' + descriptionID + '"]').trigger('dragstart', {
     //   dataTransfer,
     // });
@@ -215,7 +226,6 @@ describe('types', () => {
 
   // type must be displayed with icon
 
-
   it('delete property in type', () => {
     cy.visit('/config/types');
 
@@ -236,44 +246,76 @@ describe('types', () => {
   });
 
   it('import template (import file)', () => {
-    cy.visit('/config/types');
+    cy.visit('/');
 
-    cy.get('[data-cy="link-types-import"]').click();
-    cy.url().should('equal', Cypress.config('baseUrl') + '/config/types/import');
+    cy.get('[data-cy="menu-configuration"]').filter(':visible').click();
+    // for smartphone menu
+    cy.get('body').then((body: any) => {
+      if (body.find('[data-cy="link-nextbutton"]').filter(':visible').length > 0) {
+        cy.get('[data-cy="link-nextbutton"]').filter(':visible').click();
+        cy.get('[data-cy="link-nextbutton"]').filter(':visible').click();
+      }
+    });
+    cy.get('[data-cy="link-templateimport"]').filter(':visible').click();
+    cy.url().should('equal', Cypress.config('baseUrl') + '/config/templateimport');
 
     // import file with file input, select file and import it automatically
     cy.get('[data-cy="type-import-imputfile"]').selectFile('cypress/templates/test1.json');
     cy.get('[data-cy="notification-success"]').should('exist');
 
-    cy.get('[data-cy="back-to-types-list"]').click();
-    cy.url().should('equal', Cypress.config('baseUrl') + '/config/types');
+    cy.get('body').then((body: any) => {
+      if (body.find('[data-cy="link-nextbutton"]').filter(':visible').length > 0) {
+        cy.get('[data-cy="link-nextbutton"]').filter(':visible').click();
+      }
+    });
+    cy.get('[data-cy="link-types"]').filter(':visible').click();
 
     // check the type in the template file is right in the type list
     cy.get('[data-cy="list-types"]').should('contain', 'test 1 import');
   });
 
   it('import template (dropping file)', () => {
-    cy.visit('/config/types');
+    cy.visit('/');
 
-    cy.get('[data-cy="link-types-import"]').click();
-    cy.url().should('equal', Cypress.config('baseUrl') + '/config/types/import');
+    cy.get('[data-cy="menu-configuration"]').filter(':visible').click();
+    // for smartphone menu
+    cy.get('body').then((body: any) => {
+      if (body.find('[data-cy="link-nextbutton"]').filter(':visible').length > 0) {
+        cy.get('[data-cy="link-nextbutton"]').filter(':visible').click();
+        cy.get('[data-cy="link-nextbutton"]').filter(':visible').click();
+      }
+    });
+    cy.get('[data-cy="link-templateimport"]').filter(':visible').click();
+    cy.url().should('equal', Cypress.config('baseUrl') + '/config/templateimport');
 
     // import file with drag and drop and import it automatically
     cy.get('[data-cy="type-import-dragdropzone"]').selectFile('cypress/templates/test2.json', { action: 'drag-drop' });
     cy.get('[data-cy="notification-success"]').should('exist');
 
-    cy.get('[data-cy="back-to-types-list"]').click();
-    cy.url().should('equal', Cypress.config('baseUrl') + '/config/types');
+    cy.get('body').then((body: any) => {
+      if (body.find('[data-cy="link-nextbutton"]').filter(':visible').length > 0) {
+        cy.get('[data-cy="link-nextbutton"]').filter(':visible').click();
+      }
+    });
+    cy.get('[data-cy="link-types"]').filter(':visible').click();
 
     // check the type in the template file is right in the type list
     cy.get('[data-cy="list-types"]').should('contain', 'test 2 import');
   });
 
   it('import template file with wrong type', () => {
-    cy.visit('/config/types');
+    cy.visit('/');
 
-    cy.get('[data-cy="link-types-import"]').click();
-    cy.url().should('equal', Cypress.config('baseUrl') + '/config/types/import');
+    cy.get('[data-cy="menu-configuration"]').filter(':visible').click();
+    // for smartphone menu
+    cy.get('body').then((body: any) => {
+      if (body.find('[data-cy="link-nextbutton"]').filter(':visible').length > 0) {
+        cy.get('[data-cy="link-nextbutton"]').filter(':visible').click();
+        cy.get('[data-cy="link-nextbutton"]').filter(':visible').click();
+      }
+    });
+    cy.get('[data-cy="link-templateimport"]').filter(':visible').click();
+    cy.url().should('equal', Cypress.config('baseUrl') + '/config/templateimport');
 
     // import file with wrong type
     cy.get('[data-cy="type-import-imputfile"]').selectFile('cypress/templates/Logo-freebsd.svg');

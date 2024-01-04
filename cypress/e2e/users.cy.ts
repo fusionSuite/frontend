@@ -25,15 +25,15 @@ describe('users', () => {
   it('creates and deletes users', () => {
     cy.visit('/');
 
-    cy.get('[data-cy="menu-configuration"]').click();
-    cy.get('[data-cy="link-users"]').should('exist');
+    cy.get('[data-cy="menu-configuration"]').filter(':visible').click();
+    cy.get('[data-cy="link-users"]').filter(':visible').should('exist');
 
-    cy.get('[data-cy="link-users"]').click();
+    cy.get('[data-cy="link-users"]').filter(':visible').click();
     cy.url().should('equal', Cypress.config('baseUrl') + '/users');
 
     cy.get('[data-cy="list-users"]').should('contain', 'admin');
 
-    cy.get('[data-cy="link-users-new"]').click();
+    cy.get('[data-cy="link-users-new"]').filter(':visible').click();
     cy.url().should('equal', Cypress.config('baseUrl') + '/users/new');
 
     cy.get('[data-cy="form-users-new"] [name="firstname"]').type('Alix');

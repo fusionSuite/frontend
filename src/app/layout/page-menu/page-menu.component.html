@@ -134,24 +134,23 @@
           style="display: flex;"
         >
           <a
-          class="page__nav-link"
-          style="flex-grow: 1;"
-          [routerLink]="['/items/' + item.type.internalname + '/list']"
-          routerLinkActive="active"
-          ariaCurrentWhenActive="page"
-          data-cy="link-organizations"
-          (click)="changeRoute('/items/' + item.type.internalname + '/list')"
-        >
-          <fa-icon
-            [icon]="parseIcon(item.icon)"
-            size="xs"
-            [fixedWidth]="true"
-            *ngIf="parseIcon(item.icon) !== null"
-          ></fa-icon>
-          <ng-container>
-            {{ item.name }}
-          </ng-container>
-        </a>
+            class="page__nav-link"
+            style="flex-grow: 1;"
+            [routerLink]="['/items/' + item.type.internalname + '/list']"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            (click)="changeRoute('/items/' + item.type.internalname + '/list')"
+          >
+            <fa-icon
+              [icon]="parseIcon(item.icon)"
+              size="xs"
+              [fixedWidth]="true"
+              *ngIf="parseIcon(item.icon) !== null"
+            ></fa-icon>
+            <ng-container>
+              {{ item.name }}
+            </ng-container>
+          </a>
           <fa-icon
             style="float: right;margin: auto 8px;cursor: pointer;"
             [icon]="['far', 'star']"
@@ -276,25 +275,234 @@
  
 </div>
 
+<!-- Version small screen (smartphone...) -->
 <div class="page__navsmall">
-  <span *ngFor="let custom of menuCustom" style="width: 80px; text-align: center;">
-    <a
-      [routerLink]="['/items/' + custom.menuitem.type.internalname + '/list']"
-      routerLinkActive="active"
-      ariaCurrentWhenActive="page"
-      data-cy="link-organizations"
-      style="width: 80px;display: block;height: 80px;padding-top: 10px;border-radius: 8px;"
+  <!-- Personal menu -->
+  <div *ngIf="view === 'personal'" class="buttonscontainer">
+    <span *ngIf="menuCustom.length > 3 && smallMenu.start > 0" class="smallbutton" (click)="smallMenuPrevious()">
+      <fa-icon
+        icon="chevron-left"
+        size="lg"
+        [fixedWidth]="true"
+      ></fa-icon>
+    </span>
+    <span *ngIf="!(menuCustom.length > 3 && smallMenu.start > 0)" class="smallbutton">
+    </span>
+    <span
+      *ngFor="let custom of menuCustom | slice:smallMenu.start:smallMenu.end"
+      style="width: 80px; text-align: center;"
+    >
+      <a
+        [routerLink]="['/items/' + custom.menuitem.type.internalname + '/list']"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        data-cy="link-organizations"
+        class="button"
+      >
+        <fa-icon
+          [icon]="parseIcon(custom.menuitem.icon)"
+          size="2xl"
+          [fixedWidth]="true"
+          *ngIf="parseIcon(custom.menuitem.icon) !== null"
+        ></fa-icon>
+        <fa-icon
+          [icon]="['fas', 'square-up-right']"
+          size="2xl"
+          [fixedWidth]="true"
+          *ngIf="parseIcon(custom.menuitem.icon) === null"
+        ></fa-icon>
+        <br>
+        <ng-container>
+          {{ custom.menuitem.name }}
+        </ng-container>
+      </a>
+    </span>
+    <span *ngIf="menuCustom.length > 3 && smallMenu.end < menuCustom.length" class="smallbutton" (click)="smallMenuNext()">
+      <fa-icon
+        icon="chevron-right"
+        size="lg"
+        [fixedWidth]="true"
+      ></fa-icon>
+    </span>
+    <span *ngIf="!(menuCustom.length > 3 && smallMenu.end < menuCustom.length)" class="smallbutton">
+    </span>
+    <span *ngIf="menuCustom.length === 0" style="width: 80px; text-align: center; height: 70px;">
+    </span>
+  </div>
+  <!-- Business menu -->
+  <div *ngIf="view === 'business'">
+    <!-- <span style="width: 80px; height: 70px ;text-align: center;">
+    </span> -->
+    <div *ngIf="expandedBusinessMenu.length === 0" class="buttonscontainer">
+      <span *ngFor="let submenu of menuWithItems()" style="width: 80px; text-align: center;">
+        <a
+          class="button"
+          (click)="menuExpand(submenu)"
+          ariaCurrentWhenActive="page"
+        >
+          <fa-stack>
+            <fa-icon
+              [icon]="parseIcon(submenu.icon)"
+              size="2xl"
+              [fixedWidth]="true"
+              *ngIf="parseIcon(submenu.icon) !== null"
+            ></fa-icon>
+            <fa-icon
+              [icon]="['fas', 'square-up-right']"
+              size="2xl"
+              [fixedWidth]="true"
+              *ngIf="parseIcon(submenu.icon) === null"
+            ></fa-icon>
+            <fa-icon icon="folder-open" stackItemSize="1x" transform="shrink-4 up-20 right-20"></fa-icon>
+          </fa-stack>
+          <ng-container i18n>
+            {{ submenu.name }}
+          </ng-container>
+        </a>
+      </span>
+    </div>
+    <span *ngIf="expandedBusinessMenu.length > 0" class="buttonscontainer">
+      <span *ngIf="expandedBusinessMenu.length > 3 && smallMenu.start > 0" class="smallbutton" (click)="smallMenuPrevious()">
+        <!-- <fa-icon
+          icon="arrow-turn-up"
+          size="sm"
+          [fixedWidth]="true"
+        ></fa-icon> -->
+        <fa-icon
+          icon="chevron-left"
+          size="lg"
+          [fixedWidth]="true"
+        ></fa-icon>
+      </span>
+      <span *ngIf="!(expandedBusinessMenu.length > 3 && smallMenu.start > 0)" class="smallbutton">
+      </span>
+      <span style="width: 80px; text-align: center;" *ngFor="let item of filtered(expandedBusinessMenu) | slice:smallMenu.start:smallMenu.end">
+        <a
+          class="button"
+          [routerLink]="['/items/' + item.type.internalname + '/list']"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          (click)="changeRoute('/items/' + item.type.internalname + '/list')"
+        >
+          <fa-icon
+            [icon]="parseIcon(item.icon)"
+            size="2xl"
+            [fixedWidth]="true"
+            *ngIf="parseIcon(item.icon) !== null"
+          ></fa-icon>
+          <fa-icon
+            [icon]="['fas', 'square-up-right']"
+            size="2xl"
+            [fixedWidth]="true"
+            *ngIf="parseIcon(item.icon) === null"
+          ></fa-icon>
+            <ng-container i18n>
+            {{ item.name }}
+          </ng-container>
+        </a>
+      </span>
+      <span *ngIf="expandedBusinessMenu.length > 3 && smallMenu.end < expandedBusinessMenu.length" class="smallbutton" (click)="smallMenuNext()">
+        <fa-icon
+          icon="chevron-right"
+          size="lg"
+          [fixedWidth]="true"
+        ></fa-icon>
+      </span>
+      <span *ngIf="!(expandedBusinessMenu.length > 3 && smallMenu.end < expandedBusinessMenu.length)" class="smallbutton">
+      </span>
+    </span>
+    <div *ngIf="expandedBusinessMenu.length === 0 && menuWithItems().length === 0" class="buttonscontainer">
+      <span style="width: 80px; text-align: center; height: 60px;">
+      </span>
+    </div>
+  </div>
+
+  <!-- Configuration menu -->
+  <div *ngIf="view === 'configuration'" class="buttonscontainer">
+    <span *ngIf="configurationMenu.length > 3 && smallMenu.start > 0" class="smallbutton" (click)="smallMenuPrevious()">
+      <fa-icon
+        icon="chevron-left"
+        size="lg"
+        [fixedWidth]="true"
+      ></fa-icon>
+    </span>
+    <span *ngIf="!(configurationMenu.length > 3 && smallMenu.start > 0)" class="smallbutton">
+    </span>
+
+    <span style="width: 80px; text-align: center;" *ngFor="let item of configurationMenu | slice:smallMenu.start:smallMenu.end">
+      <a
+        class="button"
+        [routerLink]="item.routerLink"
+        routerLinkActive="active config"
+        ariaCurrentWhenActive="page"
+        [attr.data-cy]="'link-' + item.datacy"
+      >
+        <fa-icon [icon]="item.icon" size="2xl" [fixedWidth]="true"></fa-icon>
+        <ng-container i18n>
+          {{ item.name }}
+        </ng-container>
+      </a>
+    </span>
+
+    <span *ngIf="configurationMenu.length > 3 && smallMenu.end < configurationMenu.length" class="smallbutton" (click)="smallMenuNext()">
+      <fa-icon
+        icon="chevron-right"
+        size="lg"
+        [fixedWidth]="true"
+        data-cy="link-nextbutton"
+      ></fa-icon>
+    </span>
+    <span *ngIf="!(configurationMenu.length > 3 && smallMenu.end < configurationMenu.length)" class="smallbutton">
+    </span>
+  </div>
+
+  <!-- Big categories -->
+  <div style="font-size: 14px;" class="buttonscontainer">
+    <span 
+      style="min-width: 60px; text-align: center;cursor: pointer;display: flex; flex-direction: column;" 
+      (click)="changeView('personal')"
+      [class]="view === 'personal' ? 'page__nav__view__item page__nav__view__item__active' : 'page__nav__view__item'"
     >
       <fa-icon
-        [icon]="parseIcon(custom.menuitem.icon)"
-        size="2xl"
+        icon="star"
+        size="lg"
         [fixedWidth]="true"
-        *ngIf="parseIcon(custom.menuitem.icon) !== null"
       ></fa-icon>
-      <br>
-      <ng-container>
-        {{ custom.menuitem.name }}
-      </ng-container>
-    </a>
-  </span>
+      <span i18n>Personal</span>
+    </span>
+    <span
+      style="min-width: 60px; text-align: center;cursor: pointer;display: flex; flex-direction: column;"
+      [class]="view === 'business' ? 'page__nav__view__item page__nav__view__item__active' : 'page__nav__view__item'"
+      (click)="changeView('business')"
+      data-cy="menu-business"
+    >
+      <fa-icon
+        icon="book"
+        size="lg"
+        [fixedWidth]="true"
+      ></fa-icon>
+      <span i18n>Business</span>
+    </span>
+    <span
+      style="min-width: 60px; text-align: center;cursor: pointer;display: flex; flex-direction: column;"
+      [class]="view === 'configuration' ? 'page__nav__view__item page__nav__view__item__active' : 'page__nav__view__item'"
+      (click)="changeView('configuration')"
+      data-cy="menu-configuration"
+    >
+      <fa-icon
+        icon="screwdriver-wrench"
+        size="lg"
+        [fixedWidth]="true"
+      ></fa-icon>
+      <span i18n>Configuration</span>
+    </span>
+    <span style="width: 60px; text-align: center;cursor: pointer;display: flex; flex-direction: column;" (click)="logout()">
+      <fa-icon
+        icon="sign-out-alt"
+        size="lg"
+        [fixedWidth]="true"
+      ></fa-icon>
+      <span i18n>Log out</span>
+    </span>
+  </div>
 </div>

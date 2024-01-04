@@ -23,6 +23,7 @@ function buildOrganization (id: number, name: string, parentId: number|null): Or
   return new Organization({
     id,
     id_bytype: id,
+    type_id: 1,
     name,
     parent_id: parentId,
     treepath: '0001',
@@ -32,6 +33,12 @@ function buildOrganization (id: number, name: string, parentId: number|null): Or
     },
     properties: [],
     created_at: '',
+    updated_at: '',
+    deleted_at: '',
+    created_by: null,
+    updated_by: null,
+    deleted_by: null,
+    changes: [],
   });
 }
 

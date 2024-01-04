@@ -26,18 +26,18 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.0'
+        php-version: '8.2'
 
-    - name: Use Node.js 16
-      uses: actions/setup-node@v2
+    - name: Use Node.js 20
+      uses: actions/setup-node@v4
       with:
-        node-version: '16'
+        node-version: '20'
         check-latest: true
 
     # Setup a Nginx server
     - name: Setup php-fpm
       env:
-        version: '8.0'
+        version: '8.2'
       run: |
         sudo apt-get install php$version-fpm
         sudo cp /usr/sbin/php-fpm$version /usr/bin/php-fpm
@@ -51,14 +51,14 @@ jobs:
 
     # Setup the backend
     - name: Checkout backend
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         repository: fusionSuite/backend
         path: backend
 
     - name: Cache Composer packages
       id: composer-cache
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: "**/vendor"
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -82,13 +82,13 @@ jobs:
 
     # Build the frontend
     - name: Checkout frontend
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         path: frontend
 
     - name: Cache node dependencies
       id: cache-node-modules
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: "**/node_modules"
         key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
@@ -128,22 +128,10 @@ jobs:
         sudo systemctl reload nginx
 
     # Execute Cypress tests
-    - name: Cypress run on 1024x768
-      uses: cypress-io/github-action@v4
+    - name: Cypress run on 1280x1024 (desktop)
+      uses: cypress-io/github-action@v6
       with:
-        browser: chrome
-        working-directory: ./frontend
-      env:
-        cypress_base_url: 'http://frontend.localhost'
-        cypress_backend_server: 'http://backend.localhost'
-        cypress_backend_path: '../backend'
-        cypress_viewport_width: 1024
-        cypress_viewport_height: 768
-
-    - name: Cypress run on 1280x1024
-      uses: cypress-io/github-action@v4
-      with:
-        browser: chrome
+        # browser: chrome
         working-directory: ./frontend
       env:
         cypress_base_url: 'http://frontend.localhost'
@@ -151,3 +139,25 @@ jobs:
         cypress_backend_path: '../backend'
         cypress_viewport_width: 1280
         cypress_viewport_height: 1024
+
+    - name: Cypress run on 1024x768 (smartphone / tablet)
+      uses: cypress-io/github-action@v6
+      with:
+        # browser: chrome
+        working-directory: ./frontend
+      env:
+        cypress_base_url: 'http://frontend.localhost'
+        cypress_backend_server: 'http://backend.localhost'
+        cypress_backend_path: '../backend'
+        cypress_viewport_width: 1024
+        cypress_viewport_height: 768
+    - uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: cypress-screenshots
+        path: frontend/cypress/screenshots
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: cypress-videos
+        path: frontend/cypress/videos

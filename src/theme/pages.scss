@@ -183,30 +183,34 @@
 
     .listactions {
       min-width: 250px;
-      background-color: var(--color-grey4);
-      border-radius: 19px 0 0 20px;
       margin-top: 50px;
       margin-bottom: 10px;
-      padding-left: 10px;
       padding-top: 10px;
+      padding-left: 10px;
+
+      background-color: var(--color-grey4);
+      border-radius: 19px 0 0 20px;
 
       .title {
-        color: var(--sky11);
-        margin-bottom: 20px;
         display: block;
+        margin-bottom: 20px;
+
+        color: var(--sky11);
       }
 
       .actioncolumns {
-        border-radius: 20px;
-        min-height: 30px;
-        background-color: var(--color-grey8);
-        color: white;
-        margin-bottom: 6px;
         display: inline-block;
-        padding-left: 10px;
+        min-height: 30px;
+        margin-bottom: 6px;
         padding-right: 10px;
+        padding-left: 10px;
+
+        color: white;
+
+        background-color: var(--color-grey8);
+
+        border-radius: 20px;
       }
-  
     }
   }
 }
@@ -325,6 +329,9 @@
   flex: 1;
 
   @media screen and (max-width: 1024px) {
+    overflow-y: visible;
+
+    height: calc(100vh - 140px);
     margin-left: unset;
   }
 }
@@ -352,9 +359,8 @@
     width: 300px;
   }
 
-  .searchbar {
-    
-  }
+  // .searchbar {
+  // }
 }
 
 .page__inner {
@@ -450,13 +456,11 @@
   bottom: 0;
   left: 0;
 
-  display: flex;
   width: 100%;
-  height: 120px;
-  padding: 0.25rem 0.5rem;
+  height: 140px;
+  padding: 0.15rem 0.1rem;
 
   align-items: center;
-  justify-content: space-around;
 
   color: white;
 
@@ -464,11 +468,32 @@
 
   box-shadow: 4px 0 8px rgb(0 0 0 / 25%);
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1025px) {
     display: none;
   }
 
+  div {
+    margin-top: 10px;
+
+    align-items: center;
+
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .buttonscontainer {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-around;
+
+    line-height: 1;
+  }
+
   a {
+    height: 70px !important;
+    padding-top: 5px !important;
+
     color: white;
 
     &.active {
@@ -480,6 +505,23 @@
     &.config {
       color: var(--red10);
     }
+  }
+
+  .smallbutton {
+    width: 40px;
+
+    text-align: center;
+
+    cursor: pointer;
+  }
+
+  .button {
+    display: block;
+    width: 80px;
+    height: 80px;
+    padding-top: 10px;
+
+    border-radius: 8px;
   }
 }
 

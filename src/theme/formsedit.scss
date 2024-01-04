@@ -16,6 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ng-select.ng-invalid.ng-touched .ng-select-container {
+  border-bottom: 2px solid #dc3545;
+}
+
 .form__edit {
   display: flex;
 
@@ -129,13 +133,12 @@
   }
 
   &__search {
+    display: flex;
     margin-left: 10px;
     padding-right: 10px;
     padding-left: 2px;
 
-    display: flex;
-
-    input {
+    &input {
       min-height: 36px;
       padding-left: 10px;
 
@@ -156,10 +159,10 @@
     }
 
     .searchinput {
+      display: flex;
       width: 100%;
       min-height: 46px;
       padding-left: 10px;
-      display: flex;
 
       color: #333;
       font-family: inherit;
@@ -183,10 +186,12 @@
       input {
         width: unset;
         min-width: 10px;
-        padding-left: unset;
         margin-left: unset;
-        border: unset;
+        padding-left: unset;
+
         flex-grow: 1;
+
+        border: unset;
       }
 
       fa-icon {
@@ -217,17 +222,21 @@
       }
 
       .searchContainer {
-        background-color: var(--sky11);
-        border-radius: 5px;
-        padding-left: 10px;
-        padding-right: 0;
         margin-top: 5px;
-        margin-bottom: 5px;
-        color: white;
         margin-right: 6px;
+        margin-bottom: 5px;
+        padding-right: 0;
+        padding-left: 10px;
+
+        color: white;
+
+        background-color: var(--sky11);
+
+        border-radius: 5px;
 
         .searchGroupDelete {
           padding-right: 2px;
+
           cursor: pointer;
         }
       }
@@ -238,15 +247,17 @@
     }
 
     .searchBuilder {
-      margin-left: 50px;
-      margin-right: 10px;
-      min-height: 65px;
-      background-color: var(--color-grey4);
-      border-radius: 0 0 10px 10px;
       width: 100%;
-      border-left: 1px solid #ccc;
-      border-bottom: 1px solid #ccc;
+      min-height: 65px;
+      margin-right: 10px;
+      margin-left: 50px;
+
+      background-color: var(--color-grey4);
+
       border-right: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-radius: 0 0 10px 10px;
 
       .ng-select.ng-select-single .ng-select-container {
         height: 42px;
@@ -270,14 +281,7 @@
   }
 }
 
-ng-select.ng-invalid.ng-touched .ng-select-container {
-  border-bottom: 2px solid #dc3545;
-}
-
 input[type="checkbox"] {
-  /* Add if not using autoprefixer */
-  -webkit-appearance: none;
-
   /* Remove most all native input styles */
   appearance: none;
 

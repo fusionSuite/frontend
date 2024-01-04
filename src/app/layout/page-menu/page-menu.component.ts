@@ -33,6 +33,7 @@ import { catchError, throwError } from 'rxjs';
 import { IMenucustom } from 'src/app/interfaces/menucustom';
 import { icons } from 'src/app/modal/iconchoice/iconlists';
 import { IFonticon } from 'src/app/interfaces/fonticon';
+import { IConfigurationMenu } from 'src/app/interfaces/configurationmenu';
 
 @Component({
   selector: '[app-page-menu]',
@@ -50,6 +51,44 @@ export class PageMenuComponent implements OnInit {
   public currentRoute: string = '/';
   public configurationExpanded: boolean = false;
   public icons: IFonticon[] = icons;
+  public expandedBusinessMenu: any[] = [];
+  public smallMenu = {
+    start: 0,
+    end: 3,
+  };
+
+  public configurationMenu: IConfigurationMenu[] = [
+    {
+      name: 'Organizations',
+      datacy: 'organizations',
+      routerLink: ['/organizations'],
+      icon: ['fas', 'users'],
+    },
+    {
+      name: 'Users',
+      datacy: 'users',
+      routerLink: ['/users'],
+      icon: ['fas', 'user'],
+    },
+    {
+      name: 'Properties',
+      datacy: 'properties',
+      routerLink: ['/config/properties'],
+      icon: ['fas', 'screwdriver-wrench'],
+    },
+    {
+      name: 'Types',
+      datacy: 'types',
+      routerLink: ['/config/types'],
+      icon: ['fas', 'screwdriver-wrench'],
+    },
+    {
+      name: 'Import template',
+      datacy: 'templateimport',
+      routerLink: ['/config/templateimport'],
+      icon: ['fas', 'file-import'],
+    },
+  ];
 
   constructor (
     private authService: AuthService,
@@ -117,6 +156,7 @@ export class PageMenuComponent implements OnInit {
       for (const mymenu of this.menu) {
         if (mymenu.items.length > 0) {
           mymenu.expanded = true;
+          this.expandedBusinessMenu = mymenu.items;
           break;
         }
       }
@@ -124,8 +164,17 @@ export class PageMenuComponent implements OnInit {
   }
 
   public changeView (view: 'personal'|'business'|'configuration') {
+    if (view !== this.view) {
+      this.smallMenu = {
+        start: 0,
+        end: 3,
+      };
+    }
     this.view = view;
     this.authService.view = view;
+    if (view === 'business') {
+      this.expandedBusinessMenu = [];
+    }
   }
 
   public addMenuitemToCustom (item: any) {
@@ -184,6 +233,8 @@ export class PageMenuComponent implements OnInit {
   public menuExpand (menu: IMenu) {
     if (menu.expanded === undefined || !menu.expanded) {
       menu.expanded = true;
+      this.expandedBusinessMenu = menu.items;
+      console.log(this.expandedBusinessMenu);
       // need disable expanded to all other menus
       for (const mymenu of this.menu) {
         if (mymenu.id !== menu.id) {
@@ -192,6 +243,7 @@ export class PageMenuComponent implements OnInit {
       }
     } else {
       menu.expanded = false;
+      this.expandedBusinessMenu = [];
     }
   }
 
@@ -212,6 +264,16 @@ export class PageMenuComponent implements OnInit {
       }
       return myicon.name;
     }
+  }
+
+  public smallMenuNext () {
+    this.smallMenu.start++;
+    this.smallMenu.end++;
+  }
+
+  public smallMenuPrevious () {
+    this.smallMenu.start--;
+    this.smallMenu.end--;
   }
 
   private getCustomitemmenu () {

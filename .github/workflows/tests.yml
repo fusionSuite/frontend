@@ -11,17 +11,17 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-        - uses: actions/checkout@v2
+        - uses: actions/checkout@v4
 
-        - name: Use Node.js 18
-          uses: actions/setup-node@v2
+        - name: Use Node.js 20
+          uses: actions/setup-node@v4
           with:
-            node-version: '18'
+            node-version: '20'
             check-latest: true
 
         - name: Cache node dependencies
           id: cache-node-modules
-          uses: actions/cache@v2
+          uses: actions/cache@v4
           with:
             path: "**/node_modules"
             key: ${{ runner.os }}-node-modules-${{ hashFiles('yarn.lock') }}
