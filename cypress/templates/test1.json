@@ -20,9 +20,10 @@
     {
       "name": "test 1 import",
       "internalname": "testimportone",
-      "propertygroups": [
+      "panels": [
         {
           "name": "Main",
+          "icon": "[\"fas\",\"circle-info\"]",
           "properties": [
             {
               "name": "Description",

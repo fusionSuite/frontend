@@ -46,7 +46,12 @@
       conversations
     </span>
   </div>
-  <fa-icon [icon]="sortIcon()" [fixedWidth]="true" style="float: right;cursor: pointer;color: var(--sky11);margin-right: 4px;" (click)="changeSort()"></fa-icon>
+  <fa-icon 
+    [icon]="sortIcon()"
+    [fixedWidth]="true" style="float: right;cursor: pointer;color: var(--sky11);margin-right: 4px;"
+    (click)="changeSort()"
+    data-cy="timeline-changesort"
+  ></fa-icon>
   
   <div style="height: 30px" *ngIf="haveMessages"></div>
 

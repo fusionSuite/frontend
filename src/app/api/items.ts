@@ -21,7 +21,6 @@ import { ICreateItem } from '../interfaces/create/item';
 
 import { ApiV1 } from './v1';
 import { forkJoin, switchMap } from 'rxjs';
-import { IItem } from '../interfaces/item';
 
 @Injectable({
   providedIn: 'root',

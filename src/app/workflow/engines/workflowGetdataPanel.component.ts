@@ -123,23 +123,6 @@ export class WorkflowGetdataPanelComponent implements OnChanges {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   public isFieldtypeItemname () {
     const fieldtype = this.workflow.groups[this.currentGroupIndex].properties.find((item: any) => item.name === 'fieldtype');
     if (fieldtype === undefined) {

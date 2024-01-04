@@ -27,9 +27,10 @@ table {
   }
 
   .skyborder::after {
-    height: 6px;
-    content: '';
+    content: "";
+
     display: block;
+    height: 6px;
   }
 
   .header {
@@ -39,8 +40,9 @@ table {
     border-bottom: unset;
 
     .actionstitle {
-      color: var(--color-grey9);
       width: 100px;
+
+      color: var(--color-grey9);
     }
   }
 }

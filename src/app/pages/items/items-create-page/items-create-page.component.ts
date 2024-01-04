@@ -24,10 +24,8 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { NotificationsService } from 'src/app/notifications/notifications.service';
-import { PropertiesApi } from 'src/app/api/properties';
 import { FormStatus } from 'src/app/utils/form-status';
 import { IProperty } from 'src/app/interfaces/property';
-import { ICreateProperty } from 'src/app/interfaces/create/property';
 import { IFormElement } from 'src/app/interfaces/form-element';
 import { ItemsApi } from 'src/app/api/items';
 import { ActivatedRoute } from '@angular/router';

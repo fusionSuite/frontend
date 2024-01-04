@@ -25,10 +25,10 @@ describe('properties', () => {
   it('list properties', () => {
     cy.visit('/');
 
-    cy.get('[data-cy="menu-configuration"]').click();
-    cy.get('[data-cy="link-properties"]').should('exist');
+    cy.get('[data-cy="menu-configuration"]').filter(':visible').click();
+    cy.get('[data-cy="link-properties"]').filter(':visible').should('exist');
 
-    cy.get('[data-cy="link-properties"]').click();
+    cy.get('[data-cy="link-properties"]').filter(':visible').click();
     cy.url().should('equal', Cypress.config('baseUrl') + '/config/properties');
 
     cy.get('[data-cy="list-properties"]').should('contain', 'First name');
@@ -38,7 +38,7 @@ describe('properties', () => {
   it('create new property', () => {
     cy.visit('/config/properties');
 
-    cy.get('[data-cy="link-properties-new"]').click();
+    cy.get('[data-cy="link-properties-new"]').filter(':visible').click();
     cy.url().should('equal', Cypress.config('baseUrl') + '/config/properties/new');
 
     cy.get('[data-cy="form-properties-new"] [name="name"]').type('test property string');

@@ -322,7 +322,7 @@ export class ItemsListPageComponent implements OnInit {
     // if use datalist and field not complete, not consider run search
     if (value.startsWith('property.')) {
       if (!value.match(/:.+$/)) {
-        // TODO 
+        // TODO
         // manage searchProposals list (datalist) from value yet, perhaps not required because setAutocompleteSearch() in input event
         return;
       }

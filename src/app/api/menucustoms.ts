@@ -19,7 +19,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IMenucustom } from '../interfaces/menucustom';
-import { IType } from '../interfaces/type';
 import { AuthService } from '../services/auth.service';
 import { SettingsService } from '../services/settings.service';
 

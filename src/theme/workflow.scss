@@ -17,7 +17,7 @@
  */
 
 .selected {
-  box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+  box-shadow: rgba(0 0 0 / 35%) 0 5px 15px;
 }
 
 .parent-drawflow:focus {
@@ -386,7 +386,7 @@
     background-color: #fe9c00;
     border-radius: 50%;
 
-    fa-icon {
+    &fa-icon {
       position: absolute;
 
       margin-top: 7px;
@@ -416,7 +416,7 @@
       color: #fe294d;
     }
 
-    fa-icon {
+    &fa-icon {
       position: absolute;
 
       margin-top: 7px;

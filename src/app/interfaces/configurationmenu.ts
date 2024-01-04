@@ -16,29 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-.dialog {
-  position: fixed;
-  z-index: 2;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
-  background: rgba(0 0 0 / 50%);
-
-  transition: 0.8s ease-in-out;
-
-  &__main {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-
-    width: 800px;
-    min-height: 500px;
-    margin: 0;
-
-    background: white;
-
-    transform: translateY(-50%) translateX(-50%);
-  }
+export interface IConfigurationMenu {
+  name: string;
+  datacy: string;
+  routerLink: string[];
+  icon: IconProp;
 }

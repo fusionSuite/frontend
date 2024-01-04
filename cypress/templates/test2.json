@@ -20,7 +20,7 @@
     {
       "name": "test 2 import",
       "internalname": "testimporttwo",
-      "propertygroups": [
+      "panels": [
         {
           "name": "Main",
           "properties": [

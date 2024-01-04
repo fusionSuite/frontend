@@ -207,6 +207,7 @@ export class TimelineComponent implements OnChanges {
   private loadViewer () {
     for (const change of this.changes) {
       if (change.customdata !== undefined && change.customdata.type === 'message') {
+        // eslint-disable-next-line no-unused-vars
         const toto = new Viewer({
           el: document.querySelector('#messageId-' + change.id) as HTMLElement,
           initialValue: change.customdata.message,

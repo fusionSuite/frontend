@@ -24,7 +24,7 @@ describe('timeline in properties', () => {
   it('create new property', () => {
     cy.visit('/config/properties');
 
-    cy.get('[data-cy="link-properties-new"]').click();
+    cy.get('[data-cy="link-properties-new"]').filter(':visible').click();
     cy.url().should('equal', Cypress.config('baseUrl') + '/config/properties/new');
 
     cy.get('[data-cy="form-properties-new"] [name="name"]').type('my best property');
@@ -61,7 +61,7 @@ describe('timeline in properties', () => {
 
     cy.get('[data-cy="timeline-title"]').should('exist');
     cy.get('[data-cy="timeline-event"]').should('have.length', 2);
-    cy.scrollTo('bottom');
+    cy.get('[id="content-focus"]').scrollTo('bottom', { ensureScrollable: false });
 
     cy.get('[data-cy="timeline-event"]').eq(0).should('contain', 'village');
     cy.get('[data-cy="timeline-event"]').eq(1).should('contain', 'blablabla');
@@ -73,9 +73,9 @@ describe('timeline in properties', () => {
 
     cy.get('[data-cy="property-edit-switch-button"]').should('exist');
     cy.get('[data-cy="property-edit-switch-button"]').click();
-    cy.scrollTo('bottom');
+    cy.get('[id="content-focus"]').scrollTo('bottom', { ensureScrollable: false });
 
-    cy.get('[data-cy="timeline-changesort"]').select('oldest');
+    cy.get('[data-cy="timeline-changesort"]').click();
     cy.wait(500);
     cy.get('[data-cy="timeline-title"]').should('exist');
     cy.get('[data-cy="timeline-event"]').should('have.length', 2);
