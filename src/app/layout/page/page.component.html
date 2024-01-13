@@ -21,7 +21,7 @@
 
   <nav *ngIf="shouldShowNavigation()" app-page-menu style="position: fixed;height: 100%;"></nav>
 
-  <main class="page__content flow" id="content-focus" tabindex="-1">
+  <main [class]="pageLayout === 'login' ? 'page__login flow' : 'page__content flow'" id="content-focus" tabindex="-1">
     <ng-content></ng-content>
   </main>
 </div>

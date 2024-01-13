@@ -1,0 +1,101 @@
+.login {
+  display: block;
+  width: 100%;
+
+  background-image: url("../assets/login_bg.svg");
+
+  &__card {
+    display: flex;
+
+    min-height: 400px;
+    margin-right: auto;
+    margin-left: auto;
+
+    flex-wrap: wrap;
+
+    opacity: 0.92;
+    background-color: #f8f9fa;
+    box-shadow: rgba(0 0 0 / 15%) 0 5px 15px 0;
+
+    border: 1px solid var(--color-grey5);
+    border-radius: 5px;
+
+    @media screen and (max-width: 1024px) {
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+
+    .info {
+      display: flex;
+      width: 420px;
+
+      flex-direction: column;
+
+      background-color: #68d3ff;
+      background-image: url("../assets/login_img_bg.png");
+      background-repeat: no-repeat;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      background-position-y: 140px;
+
+      @media screen and (max-width: 1024px) {
+        background-position: center;
+        background-size: 90%;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom-left-radius: 0;
+        background-position-y: 80px;
+      }
+
+      img {
+        display: block;
+        width: 70%;
+        margin-top: 30px;
+        margin-right: auto;
+        margin-left: auto;
+
+        @media screen and (max-width: 1024px) {
+          margin-top: 5px;
+        }
+      }
+
+      span {
+        margin-right: auto;
+        margin-left: auto;
+        padding-top: 240px;
+
+        flex-grow: 1;
+
+        color: #fff;
+
+        @media screen and (max-width: 1024px) {
+          padding-top: 160px;
+        }
+
+        a {
+          color: var(--sky12);
+        }
+      }
+    }
+
+    .form {
+      margin-top: 20px;
+      margin-right: auto;
+      margin-left: auto;
+
+      .transparent {
+        background-color: unset;
+      }
+
+      .loginform {
+        @media screen and (min-width: 1025px) {
+          margin-top: 30px;
+        }
+
+        @media screen and (max-width: 1024px) {
+          padding-top: 0;
+        }
+      }
+    }
+  }
+}
