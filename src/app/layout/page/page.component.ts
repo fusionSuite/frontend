@@ -21,7 +21,7 @@ import { Router, NavigationEnd } from '@angular/router';
 
 import { filter } from 'rxjs/operators';
 
-export type Layout = 'normal' | 'simple';
+export type Layout = 'normal' | 'simple' | 'login';
 
 @Component({
   selector: 'app-page',

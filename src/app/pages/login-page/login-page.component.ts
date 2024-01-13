@@ -28,6 +28,7 @@ import { ApiV1 } from 'src/app/api/v1';
 import { AuthService } from 'src/app/services/auth.service';
 import { InitappService } from 'src/app/services/initapp.service';
 import { FormStatus } from 'src/app/utils/form-status';
+import { getYear } from 'date-fns';
 
 @Component({
   selector: 'app-login-page',
@@ -50,13 +51,16 @@ export class LoginPageComponent implements OnInit {
   formSubmitted = false;
   formStatus: FormStatus = 'Initial';
   formError = '';
+  public year: number = 2000;
 
   constructor (
     private apiV1: ApiV1,
     private authService: AuthService,
     private initappService: InitappService,
     private router: Router,
-  ) { }
+  ) {
+    this.year = getYear(new Date());
+  }
 
   ngOnInit (): void {
   }

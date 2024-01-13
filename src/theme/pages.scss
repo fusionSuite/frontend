@@ -336,6 +336,19 @@
   }
 }
 
+.page__login {
+  overflow: hidden;
+
+  margin-top: 200px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @media screen and (max-width: 1024px) {
+    margin-top: 50px;
+    margin-left: unset;
+  }
+}
+
 .page__header {
   h1 {
     margin-top: 0;
