@@ -52,6 +52,10 @@ thead {
 
   background-color: var(--color-grey3);
   border-bottom: 1px solid var(--color-grey6);
+
+  tr {
+    height: 42px;
+  }
 }
 
 th,
@@ -84,4 +88,8 @@ tr.tr--placeholder {
     font-style: italic;
     text-align: center;
   }
+}
+
+tr.last {
+  height: 100%;
 }
