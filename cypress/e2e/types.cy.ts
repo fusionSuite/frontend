@@ -72,7 +72,7 @@ describe('types', () => {
     cy.visit('/config/types');
 
     cy.get('[data-cy="item-types"] [name="test type string"]').click();
-    cy.get('[data-cy="type-edit-switch-button"]').should('exist');
+    cy.get('[data-cy="type-editionmode-button"]').should('exist');
     cy.get('[data-cy="type-edit-name-textonly"]').should('exist');
     cy.get('[data-cy="type-edit-name-input"]').should('not.exist');
     cy.get('[data-cy="type-categories-selectadd"]').should('not.exist');
@@ -83,8 +83,8 @@ describe('types', () => {
 
     // activate edition mode
     cy.get('[data-cy="item-types"] [name="test type string"]').click();
-    cy.get('[data-cy="type-edit-switch-button"]').should('exist');
-    cy.get('[data-cy="type-edit-switch-button"]').click();
+    cy.get('[data-cy="type-editionmode-button"]').should('exist');
+    cy.get('[data-cy="type-editionmode-button"]').click();
 
     // check name field is in edition mode
     cy.get('[data-cy="type-edit-name-textonly"]').should('not.exist');
@@ -110,8 +110,8 @@ describe('types', () => {
 
     // pass in edition mode
     cy.get('[data-cy="item-types"] [name="string type updated"]').click();
-    cy.get('[data-cy="type-edit-switch-button"]').should('exist');
-    cy.get('[data-cy="type-edit-switch-button"]').click();
+    cy.get('[data-cy="type-editionmode-button"]').should('exist');
+    cy.get('[data-cy="type-editionmode-button"]').click();
 
     // add property Address
     cy.intercept({
@@ -163,8 +163,8 @@ describe('types', () => {
 
     // pass in edition mode
     cy.get('[data-cy="item-types"] [name="string type updated"]').click();
-    cy.get('[data-cy="type-edit-switch-button"]').should('exist');
-    cy.get('[data-cy="type-edit-switch-button"]').click();
+    cy.get('[data-cy="type-editionmode-button"]').should('exist');
+    cy.get('[data-cy="type-editionmode-button"]').click();
 
     // click on button to create a new panel
     cy.get('[data-cy="type-edit-create-panel"]').click();
@@ -197,8 +197,8 @@ describe('types', () => {
 
     // pass in edition mode
     cy.get('[data-cy="item-types"] [name="string type updated"]').click();
-    cy.get('[data-cy="type-edit-switch-button"]').should('exist');
-    cy.get('[data-cy="type-edit-switch-button"]').click();
+    cy.get('[data-cy="type-editionmode-button"]').should('exist');
+    cy.get('[data-cy="type-editionmode-button"]').click();
 
     // cy.get('[id="panelitem-' + descriptionID + '"]').trigger('dragstart', {
     //   dataTransfer,
@@ -231,8 +231,8 @@ describe('types', () => {
 
     // pass in edition mode
     cy.get('[data-cy="item-types"] [name="string type updated"]').click();
-    cy.get('[data-cy="type-edit-switch-button"]').should('exist');
-    cy.get('[data-cy="type-edit-switch-button"]').click();
+    cy.get('[data-cy="type-editionmode-button"]').should('exist');
+    cy.get('[data-cy="type-editionmode-button"]').click();
 
     // delete the second property in the list (Description)
     cy.get('[data-cy="button-type-property-delete"]').eq(1).click();

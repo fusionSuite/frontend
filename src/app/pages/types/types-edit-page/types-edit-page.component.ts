@@ -43,6 +43,7 @@ import { IFonticon } from 'src/app/interfaces/fonticon';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { InitappService } from 'src/app/services/initapp.service';
 import { Title } from '@angular/platform-browser';
+import { ITypeshortcut } from 'src/app/interfaces/typeshortcut';
 
 @Component({
   selector: 'app-types-edit-page',
@@ -111,26 +112,31 @@ export class TypesEditPageComponent implements OnInit {
     }),
   });
 
-  public shortcuts = [
+  public shortcuts: ITypeshortcut[] = [
     {
       name: 'Properties',
       link: 'properties',
+      icon: ['fas', 'tags'],
     },
     {
       name: 'Panels',
       link: 'panels',
+      icon: ['fas', 'table-columns'],
     },
     {
       name: 'Menu',
       link: 'menu',
+      icon: ['fas', 'bars'],
     },
     {
       name: 'Workflow',
       link: 'workflow',
+      icon: ['fas', 'diagram-project'],
     },
     {
       name: 'Timeline',
       link: 'timeline',
+      icon: ['fas', 'timeline'],
     },
   ];
 

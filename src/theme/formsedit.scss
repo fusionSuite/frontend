@@ -20,6 +20,37 @@ ng-select.ng-invalid.ng-touched .ng-select-container {
   border-bottom: 2px solid #dc3545;
 }
 
+.form__container__editionmode {
+  display: flex;
+  min-width: 220px;
+  max-width: 350px;
+  height: 60px;
+  margin-right: 10px;
+  margin-bottom: 8px;
+  margin-left: 2px;
+
+  flex-direction: column;
+  justify-content: center;
+
+  color: var(--green9);
+  text-align: center;
+
+  border: 1px solid var(--green9);
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  fa-icon {
+    font-size: 24px;
+  }
+}
+
+.form__container__editionmode.activated {
+  color: var(--red9);
+
+  border: 1px solid var(--red9);
+}
+
 .form__edit {
   display: flex;
 
@@ -263,21 +294,6 @@ ng-select.ng-invalid.ng-touched .ng-select-container {
         height: 42px;
       }
     }
-  }
-}
-
-.form__container__editionmode {
-  display: flex;
-  min-height: 57px;
-  padding: 8px 16px;
-
-  align-items: center;
-
-  border: none;
-  gap: 10px;
-
-  &:focus {
-    outline: none !important;
   }
 }
 

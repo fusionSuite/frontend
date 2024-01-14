@@ -461,7 +461,14 @@
   }
 
   .shortcuts {
-    width: 300px;
+    display: flex;
+    max-width: 350px;
+
+    flex-wrap: wrap;
+  }
+
+  .flexgrow {
+    flex-grow: 1;
   }
 
   // .searchbar {

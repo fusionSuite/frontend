@@ -42,8 +42,8 @@ describe('timeline in properties', () => {
     cy.visit('/config/properties');
 
     cy.get('[data-cy="item-properties"] [name="my best property"]').click();
-    cy.get('[data-cy="property-edit-switch-button"]').should('exist');
-    cy.get('[data-cy="property-edit-switch-button"]').click();
+    cy.get('[data-cy="property-editionmode-button"]').should('exist');
+    cy.get('[data-cy="property-editionmode-button"]').click();
 
     cy.get('[data-cy="property-edit-name-textonly"]').should('not.exist');
     cy.get('[data-cy="property-edit-name-input"]').should('exist');
@@ -71,8 +71,8 @@ describe('timeline in properties', () => {
     cy.visit('/config/properties');
     cy.get('[data-cy="item-properties"] [name="village"]').click();
 
-    cy.get('[data-cy="property-edit-switch-button"]').should('exist');
-    cy.get('[data-cy="property-edit-switch-button"]').click();
+    cy.get('[data-cy="property-editionmode-button"]').should('exist');
+    cy.get('[data-cy="property-editionmode-button"]').click();
     cy.get('[id="content-focus"]').scrollTo('bottom', { ensureScrollable: false });
 
     cy.get('[data-cy="timeline-changesort"]').click();

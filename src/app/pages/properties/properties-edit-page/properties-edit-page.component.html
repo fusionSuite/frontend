@@ -18,43 +18,42 @@
 
 <app-page i18n-page-title page-title="Edit property">
   <modal-quickadd-listvalue [propertyId]="id" (newValuelist)="reload($event)" *ngIf="showQuickAddListvalue"></modal-quickadd-listvalue>
-  <header class="page__header flow flow--small">
-    <h1 *ngIf="property !== null">#{{ property.id }} - {{ property.name }}</h1>
+  <header class="page__header flexitems">
+    <div class="flexgrow">
+      <h1 *ngIf="property !== null">#{{ property.id }} - {{ property.name }}</h1>
 
-    <div class="subtitle" *ngIf="propertyLoaded && property !== null">
-      <span *ngIf="property.created_by !== null">
-        <strong>{{ property.created_by.first_name }} {{ property.created_by.last_name}}</strong>
-        <fa-icon icon="circle-info" [fixedWidth]="true" size="xs" class="icon-info" style="color: var(--color-grey9);"></fa-icon>
-        created this property {{ createdAt }}</span>
-        <span *ngIf="property.updated_by !== null"> • <strong>
-          {{ property.updated_by.first_name }} {{ property.updated_by.last_name}}</strong> updated this property {{ updatedAt }}
+      <div class="subtitle" *ngIf="propertyLoaded && property !== null">
+        <span *ngIf="property.created_by !== null">
+          <strong>{{ property.created_by.first_name }} {{ property.created_by.last_name}}</strong>
+          <fa-icon icon="circle-info" [fixedWidth]="true" size="xs" class="icon-info" style="color: var(--color-grey9);"></fa-icon>
+          created this property {{ createdAt }}</span>
+          <span *ngIf="property.updated_by !== null"> • <strong>
+            {{ property.updated_by.first_name }} {{ property.updated_by.last_name}}</strong> updated this property {{ updatedAt }}
+        </span>
+      </div>
+  
+      <div>
+        <a class="a--back" [routerLink]="['/config/properties']" i18n>
+          Back to properties
+        </a>
+      </div>
+    </div>
+    <span
+      [class]="editionmode ? 'form__container__editionmode activated' : 'form__container__editionmode'"
+      (click)="editionmode = !editionmode"
+      data-cy="property-editionmode-button"
+    >
+      <span>
+        <fa-icon icon="eye" [fixedWidth]="true" *ngIf="!editionmode"></fa-icon>
+        <fa-icon icon="user-pen" [fixedWidth]="true" *ngIf="editionmode"></fa-icon>
       </span>
-    </div>
-
-    <div>
-      <a class="a--back" [routerLink]="['/config/properties']" i18n>
-        Back to properties
-      </a>
-    </div>
-    <div class="form__container__editionmode">
-      <label class="form__switch">
-        <input
-          id="editionmode"
-          name="editionmode"
-          type="checkbox"
-          [checked]="editionmode"
-          (change)="editionmode = !editionmode"
-        >
-        <span class="slider" data-cy="property-edit-switch-button"
-        ></span>
-      </label>
-      <label
-        i18n
-        [class]="editionmode ? 'form__swith__label form__swith__label__enabled' : 'form__swith__label'"
-      >
+      <span i18n *ngIf="!editionmode">
+        Visualization mode
+      </span>
+      <span i18n *ngIf="editionmode">
         Edition mode
-      </label>    
-    </div>
+      </span>
+    </span>
   </header>
 
   <div class="page__inner">

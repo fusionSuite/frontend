@@ -38,40 +38,40 @@
           Back to types
         </a>
       </div>
-      <div class="form__container__editionmode">
-        <label class="form__switch">
-          <input
-            id="editionmode"
-            name="editionmode"
-            type="checkbox"
-            [checked]="editionmode"
-            (change)="editionmode = !editionmode"
-          >
-          <span class="slider" data-cy="type-edit-switch-button"></span>
-        </label>
-        <label
-          [class]="editionmode ? 'form__swith__label form__swith__label__enabled' : 'form__swith__label'"
-          i18n
-        >
-          Edition mode
-        </label>    
-      </div>
     </span>
-    <span class="shortcuts" *ngIf="id > 0">
-      <span i18n>Shortcuts</span>
-      <span *ngFor="let shortcut of shortcuts" class="shortcutlists">
-        <span class="shortcuts__row">
-          <fa-icon icon="circle-dot" [fixedWidth]="true" size="xs" style="color: var(--color-grey9);"></fa-icon>
-          <a
-            class="a--animation"
-            [routerLink]="['/config/types/' + id]"
-            [fragment]="shortcut.link"
-          >
-            {{ shortcut.name }}
-          </a>
+    <div>
+      <span
+        [class]="editionmode ? 'form__container__editionmode activated' : 'form__container__editionmode'"
+        (click)="editionmode = !editionmode"
+        data-cy="type-editionmode-button"
+      >
+        <span>
+          <fa-icon icon="eye" [fixedWidth]="true" *ngIf="!editionmode"></fa-icon>
+          <fa-icon icon="user-pen" [fixedWidth]="true" *ngIf="editionmode"></fa-icon>
+        </span>
+        <span i18n *ngIf="!editionmode">
+          Visualization mode
+        </span>
+        <span i18n *ngIf="editionmode">
+          Edition mode
         </span>
       </span>
-    </span>
+      <span class="shortcuts" *ngIf="id > 0">
+        <span i18n>Shortcuts:</span>
+        <span *ngFor="let shortcut of shortcuts" class="shortcutlists">
+          <span class="shortcuts__row">
+            <a
+              class="a--animation"
+              [routerLink]="['/config/types/' + id]"
+              [fragment]="shortcut.link"
+            >
+              <fa-icon [icon]="shortcut.icon" [fixedWidth]="true"></fa-icon>
+              {{ shortcut.name }}
+            </a>
+          </span>
+        </span>
+      </span>
+    </div>
   </header>
 
   <div class="page__inner">
@@ -290,7 +290,7 @@
                 formControlName="timeline"
                 type="checkbox"
               >
-              <span class="slider" data-cy="type-edit-switch-button"></span>
+              <span class="slider"></span>
             </label>
           </div>
           <button
