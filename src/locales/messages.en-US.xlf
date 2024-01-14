@@ -379,7 +379,7 @@
         <target state="final"> Loading of items… </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
-          <context context-type="linenumber">260</context>
+          <context context-type="linenumber">287</context>
         </context-group>
       </trans-unit>
       <trans-unit id="979528895496820968" datatype="html">
@@ -387,15 +387,15 @@
         <target state="final"> There are no items to show. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
-          <context context-type="linenumber">265</context>
+          <context context-type="linenumber">292</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3193976279273491157" datatype="html">
-        <source>Actions</source>
-        <target state="final">Actions</target>
+      <trans-unit id="8937443382042319765" datatype="html">
+        <source><x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input type=&quot;checkbox&quot;>"/></source>
+        <target state="final"><x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input type=&quot;checkbox&quot;>"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
-          <context context-type="linenumber">291</context>
+          <context context-type="linenumber">322</context>
         </context-group>
       </trans-unit>
       <trans-unit id="331524422622571645" datatype="html">
@@ -403,7 +403,7 @@
         <target state="final">Do you really want to delete the item “<x id="PH" equiv-text="item.name"/>”?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.ts</context>
-          <context context-type="linenumber">192</context>
+          <context context-type="linenumber">193</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8061836061585563314" datatype="html">
@@ -411,7 +411,7 @@
         <target state="final">The item has been deleted successfully.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.ts</context>
-          <context context-type="linenumber">205</context>
+          <context context-type="linenumber">206</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4489288718374221302" datatype="html">
@@ -919,7 +919,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
-          <context context-type="linenumber">292</context>
+          <context context-type="linenumber">323</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>

@@ -152,106 +152,133 @@
   </div>
   <br>
 
-  <div class="page__inner flow">
-    <span class="page__listactions">
-      <a [routerLink]="['/items/' + internalname + '/new']" data-cy="link-items-new">
-        <fa-icon [icon]="['far', 'square-plus']" size="lg"></fa-icon>
-      </a>
-      <!-- use class 'available' if one item checked -->
-      <fa-icon icon="pen-to-square" size="lg" (click)="changeActionDisplayed('actions')" [class]="actionDisplayed === 'actions'?'activated':''"></fa-icon>
-      <fa-icon icon="file-export" (click)="changeActionDisplayed('export')" [class]="actionDisplayed === 'export'?'activated':''"></fa-icon>
-    </span>
-    <span class="page__listactions">
-      <!-- actions list -->
-      <fa-icon icon="filter" (click)="changeActionDisplayed('filter')" [class]="actionDisplayed === 'filter'?'activated':''"></fa-icon>
-      <fa-icon icon="bookmark" (click)="changeActionDisplayed('bookmark')" [class]="actionDisplayed === 'bookmark'?'activated':''"></fa-icon>
-      <fa-icon icon="floppy-disk" (click)="changeActionDisplayed('save')" [class]="actionDisplayed === 'save'?'activated':''"></fa-icon>
-      <fa-icon icon="gears" (click)="changeActionDisplayed('columns')" [class]="actionDisplayed === 'columns'?'activated':''"></fa-icon>
-    </span>
-
-    <span class="page__counters" *ngIf="contentRange !== ''">
-      {{ contentRange }} items
-      <fa-icon
-        icon="angles-left"
-        [fixedWidth]="true"
-        *ngIf="links.first !== undefined"
-        class="page__counters__navigation"
-        (click)="loadItems(links.first)"
-      >
-      </fa-icon>
-      <fa-icon
-        icon="angles-left"
-        [fixedWidth]="true"
-        *ngIf="links.first === undefined"
-        class="page__counters__navigation disabled"
-      >
-      </fa-icon>
-
-      <fa-icon
-        icon="angle-left"
-        [fixedWidth]="true"
-        *ngIf="links.prev !== undefined"
-        class="page__counters__navigation"
-        (click)="loadItems(links.prev)"
-      >
-      </fa-icon>
-      <fa-icon
-        icon="angle-left"
-        [fixedWidth]="true"
-        *ngIf="links.prev === undefined"
-        class="page__counters__navigation disabled"
-      >
-      </fa-icon>
-
-      <span>
-        <ng-select
-          [clearable]="false"
-          class="page__counters__pages"
-          [(ngModel)]="currentPageNumber"
-          (change)="changePage($event)"
-        >
-        <ng-option
-          *ngFor="let page of pages"
-          [value]="page"
-        >
-          {{ page }}
-        </ng-option>
-        </ng-select>
+  <ng-template #actionsbar>
+    <div class="page__inner flow">
+      <span class="page__listactions">
+        <span class="actionbuttons" [routerLink]="['/items/' + internalname + '/new']" data-cy="link-items-new">
+          <fa-icon icon="plus"></fa-icon>
+          <span>new item</span>
+        </span>
+        <!-- use class 'available' if one item checked -->
+        <span [class]="actionDisplayed === 'actions'?'actionbuttons activated':'actionbuttons'" (click)="changeActionDisplayed('actions')">
+          <fa-icon icon="pen-to-square"></fa-icon>
+          <span>action</span>
+        </span>
+        <span [class]="actionDisplayed === 'export'?'actionbuttons activated':'actionbuttons'" (click)="changeActionDisplayed('export')">
+          <fa-icon icon="file-export"></fa-icon>
+          <span>export</span>
+        </span>
+      <!-- </span>
+      <span class="page__listactions"> -->
+        <!-- actions list -->
+        <span [class]="actionDisplayed === 'filter'?'secondaryactionbuttons activated':'secondaryactionbuttons'" (click)="changeActionDisplayed('filter')">
+          <fa-icon icon="filter"></fa-icon>
+          <span>filter</span>
+        </span>
+        <span [class]="actionDisplayed === 'bookmark'?'secondaryactionbuttons activated':'secondaryactionbuttons'" (click)="changeActionDisplayed('bookmark')">
+          <fa-icon icon="bookmark"></fa-icon>
+          <span>bookmark</span>
+        </span>
+        <span [class]="actionDisplayed === 'save'?'secondaryactionbuttons activated':'secondaryactionbuttons'" (click)="changeActionDisplayed('save')">
+          <fa-icon icon="floppy-disk"></fa-icon>
+          <span>save</span>
+        </span>
+        <span [class]="actionDisplayed === 'columns'?'secondaryactionbuttons activated':'secondaryactionbuttons'" (click)="changeActionDisplayed('columns')">
+          <fa-icon icon="gears"></fa-icon>
+          <span>columns</span>
+        </span>
       </span>
+  
+      <span class="page__counters" *ngIf="contentRange !== ''">
+        <span>
+          {{ contentRange }} items
+        </span>
+        <span style="display: flex;">
+          <fa-icon
+            icon="angles-left"
+            [fixedWidth]="true"
+            *ngIf="links.first !== undefined"
+            class="page__counters__navigation"
+            (click)="loadItems(links.first)"
+          >
+          </fa-icon>
+          <fa-icon
+            icon="angles-left"
+            [fixedWidth]="true"
+            *ngIf="links.first === undefined"
+            class="page__counters__navigation disabled"
+          >
+          </fa-icon>
+    
+          <fa-icon
+            icon="angle-left"
+            [fixedWidth]="true"
+            *ngIf="links.prev !== undefined"
+            class="page__counters__navigation"
+            (click)="loadItems(links.prev)"
+          >
+          </fa-icon>
+          <fa-icon
+            icon="angle-left"
+            [fixedWidth]="true"
+            *ngIf="links.prev === undefined"
+            class="page__counters__navigation disabled"
+          >
+          </fa-icon>
+    
+          <span>
+            <ng-select
+              [clearable]="false"
+              class="page__counters__pages"
+              [(ngModel)]="currentPageNumber"
+              (change)="changePage($event)"
+            >
+            <ng-option
+              *ngFor="let page of pages"
+              [value]="page"
+            >
+              {{ page }}
+            </ng-option>
+            </ng-select>
+          </span>
+    
+          <fa-icon
+            icon="angle-right"
+            [fixedWidth]="true"
+            *ngIf="links.next !== undefined"
+            class="page__counters__navigation"
+            (click)="loadItems(links.next)"
+          >
+          </fa-icon>
+          <fa-icon
+            icon="angle-right"
+            [fixedWidth]="true"
+            *ngIf="links.next === undefined"
+            class="page__counters__navigation disabled"
+          >
+          </fa-icon>
+    
+          <fa-icon
+            icon="angles-right"
+            [fixedWidth]="true"
+            *ngIf="links.last !== undefined"
+            class="page__counters__navigation"
+            (click)="loadItems(links.last)"
+          >
+          </fa-icon>
+          <fa-icon
+            icon="angles-right"
+            [fixedWidth]="true"
+            *ngIf="links.last === undefined"
+            class="page__counters__navigation disabled"
+          >
+          </fa-icon>
+        </span>
+      </span>
+    </div>
+  </ng-template>
 
-      <fa-icon
-        icon="angle-right"
-        [fixedWidth]="true"
-        *ngIf="links.next !== undefined"
-        class="page__counters__navigation"
-        (click)="loadItems(links.next)"
-      >
-      </fa-icon>
-      <fa-icon
-        icon="angle-right"
-        [fixedWidth]="true"
-        *ngIf="links.next === undefined"
-        class="page__counters__navigation disabled"
-      >
-      </fa-icon>
-
-      <fa-icon
-        icon="angles-right"
-        [fixedWidth]="true"
-        *ngIf="links.last !== undefined"
-        class="page__counters__navigation"
-        (click)="loadItems(links.last)"
-      >
-      </fa-icon>
-      <fa-icon
-        icon="angles-right"
-        [fixedWidth]="true"
-        *ngIf="links.last === undefined"
-        class="page__counters__navigation disabled"
-      >
-      </fa-icon>
-    </span>
-  </div>
+  <div *ngTemplateOutlet="actionsbar"></div>
 
   <div class="page__listitems">
 
@@ -270,17 +297,21 @@
       <span class="title">{{ actionDisplayed }}</span>
       <span *ngIf="actionDisplayed === 'columns' && type !== null">
         <div *ngFor="let property of type.properties" (click)="updateColumns(property)">
-          <span class="actioncolumns">{{ property.name }}</span>
+          <span [class]="columns.includes(property) ? 'actioncolumns activated' : 'actioncolumns'">{{ property.name }}</span>
         </div>
       </span>
       <span *ngIf="actionDisplayed === 'export'">
         <div>
-          <fa-icon icon="file-csv" [fixedWidth]="true"></fa-icon>
-          CSV export
+          <a href="#">
+            <fa-icon icon="file-csv" [fixedWidth]="true"></fa-icon>
+            CSV export
+          </a>
         </div>
         <div>
-          <fa-icon icon="file-pdf" [fixedWidth]="true"></fa-icon>
-          PDF export
+          <a href="#">
+            <fa-icon icon="file-pdf" [fixedWidth]="true"></fa-icon>
+            PDF export
+          </a>
         </div>
       </span>
     </span>
@@ -288,7 +319,7 @@
     <table *ngIf="itemsLoaded && items.length > 0">
       <thead class="header">
         <tr>
-          <th i18n class="actionstitle">Actions</th>
+          <th i18n class="actionstitle"><input type="checkbox"></th>
           <th i18n>Name</th>
           <th *ngFor="let property of columns">
             {{ property.name }}
@@ -339,7 +370,13 @@
             </form> -->
           </td>
         </tr>
+        <tr class="last">
+        </tr>
       </tbody>
     </table>
   </div>
+
+  <span *ngIf="items.length > 10">
+    <div *ngTemplateOutlet="actionsbar"></div>
+  </span>
 </app-page>

@@ -184,6 +184,7 @@ export class ItemsListPageComponent implements OnInit {
         } else {
           this.currentPageNumber = 1;
         }
+        window.scroll(0, 0);
         this.itemsLoaded = true;
       });
   }
@@ -245,6 +246,7 @@ export class ItemsListPageComponent implements OnInit {
     } else {
       this.actionDisplayed = value;
     }
+    window.scroll(0, 0);
   }
 
   public updateColumns (property: IProperty) {

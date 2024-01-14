@@ -214,7 +214,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
-          <context context-type="linenumber">292</context>
+          <context context-type="linenumber">323</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/types/types-edit-page/types-edit-page.component.html</context>
@@ -658,35 +658,35 @@
         <source> Loading of items… </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
-          <context context-type="linenumber">260,262</context>
+          <context context-type="linenumber">287,289</context>
         </context-group>
       </trans-unit>
       <trans-unit id="979528895496820968" datatype="html">
         <source> There are no items to show. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
-          <context context-type="linenumber">265,267</context>
+          <context context-type="linenumber">292,294</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3193976279273491157" datatype="html">
-        <source>Actions</source>
+      <trans-unit id="8937443382042319765" datatype="html">
+        <source><x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input type=&quot;checkbox&quot;&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.html</context>
-          <context context-type="linenumber">291</context>
+          <context context-type="linenumber">322</context>
         </context-group>
       </trans-unit>
       <trans-unit id="331524422622571645" datatype="html">
         <source>Do you really want to delete the item “<x id="PH" equiv-text="item.name"/>”?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.ts</context>
-          <context context-type="linenumber">192</context>
+          <context context-type="linenumber">193</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8061836061585563314" datatype="html">
         <source>The item has been deleted successfully.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/items/items-list-page/items-list-page.component.ts</context>
-          <context context-type="linenumber">205</context>
+          <context context-type="linenumber">206</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4489288718374221302" datatype="html">
