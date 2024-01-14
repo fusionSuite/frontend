@@ -17,50 +17,46 @@
  -->
 
 <app-page i18n-page-title page-title="Edit item">
-  <header class="page__header flow flow--small">
-    <h1 *ngIf="item !== null">#{{ item.id }} - {{ item.name }}</h1>
-
-    <div class="subtitle" *ngIf="itemLoaded && item !== null">
-      <span *ngIf="item.created_by !== null">
-        <strong>{{ item.created_by.first_name }} {{ item.created_by.last_name}}</strong>
-        <fa-icon icon="circle-info" [fixedWidth]="true" size="xs" class="icon-info" style="color: var(--color-grey9);"></fa-icon>
-        created this item {{ createdAt }}</span>
-        <span *ngIf="item.updated_by !== null"> • <strong>
-          {{ item.updated_by.first_name }} {{ item.updated_by.last_name}}</strong> updated this item {{ updatedAt }}
-      </span>
+  <header class="page__header flexitems">
+    <div class="flexgrow">
+      <h1 *ngIf="item !== null">#{{ item.id }} - {{ item.name }}</h1>
+      <div class="subtitle" *ngIf="itemLoaded && item !== null">
+        <span *ngIf="item.created_by !== null">
+          <strong>{{ item.created_by.first_name }} {{ item.created_by.last_name}}</strong>
+          <fa-icon icon="circle-info" [fixedWidth]="true" size="xs" class="icon-info" style="color: var(--color-grey9);"></fa-icon>
+          created this item {{ createdAt }}</span>
+          <span *ngIf="item.updated_by !== null"> • <strong>
+            {{ item.updated_by.first_name }} {{ item.updated_by.last_name}}</strong> updated this item {{ updatedAt }}
+        </span>
+      </div>
+  
+      <div *ngIf="type !== null">
+        <a class="a--back" [routerLink]="['/items/' + type.internalname + '/list']" i18n>
+          Back to items
+        </a>
+      </div>
     </div>
 
-    <div *ngIf="type !== null">
-      <a class="a--back" [routerLink]="['/items/' + type.internalname + '/list']" i18n>
-        Back to items
-      </a>
-    </div>
-    <div style="display: flex; flex-wrap: wrap; align-items: center;">
-      <span class="form__container__editionmode">
-        <label class="form__switch">
-          <input
-            id="editionmode"
-            name="editionmode"
-            type="checkbox"
-            [checked]="editionmode"
-            (change)="editionmode = !editionmode"
-          >
-          <span class="slider" data-cy="item-edit-switch-button"
-          ></span>
-        </label>
-        <label
-          i18n
-          [class]="editionmode ? 'form__swith__label form__swith__label__enabled' : 'form__swith__label'"
-        >
+    <div>
+      <span
+        [class]="editionmode ? 'form__container__editionmode activated' : 'form__container__editionmode'"
+        (click)="editionmode = !editionmode"
+      >
+        <fa-icon icon="eye" [fixedWidth]="true" *ngIf="!editionmode"></fa-icon>
+        <fa-icon icon="user-pen" [fixedWidth]="true" *ngIf="editionmode"></fa-icon>
+        <span i18n *ngIf="!editionmode">
+          Visualization mode
+        </span>
+        <span i18n *ngIf="editionmode">
           Edition mode
-        </label>
+        </span>
       </span>
-      <div class="form__edit__item__value" style="flex-grow: 1;text-align: right;color: var(--sky11);">
+      <div class="form__edit__item__value" style="text-align: right;color: var(--sky11);">
         <fa-icon icon="magnifying-glass" [fixedWidth]="true" style="padding: 6px;position: absolute;"></fa-icon>
         <input style="max-width: 400px;padding-left: 35px;" placeholder="filter properties" [(ngModel)]="filterProperties" (keyup)="updateFilterProperties($event)">
-        <fa-icon icon="xmark" [fixedWidth]="true" *ngIf="filterProperties !== ''" style="cursor: pointer;" (click)="clearFilterProperties()"></fa-icon>
+        <fa-icon icon="xmark" [fixedWidth]="true" *ngIf="filterProperties !== ''" style="cursor: pointer;position: absolute;" (click)="clearFilterProperties()"></fa-icon>
         <span style="width: 25px;display: inline-block;" *ngIf="filterProperties === ''"></span>
-    </div>
+      </div>
     </div>
   </header>
 

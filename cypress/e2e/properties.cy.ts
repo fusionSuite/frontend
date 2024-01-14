@@ -63,7 +63,7 @@ describe('properties', () => {
     cy.visit('/config/properties');
 
     cy.get('[data-cy="item-properties"] [name="test property string"]').click();
-    cy.get('[data-cy="property-edit-switch-button"]').should('exist');
+    cy.get('[data-cy="property-editionmode-button"]').should('exist');
     cy.get('[data-cy="property-edit-name-textonly"]').should('exist');
     cy.get('[data-cy="property-edit-name-input"]').should('not.exist');
   });
@@ -72,8 +72,8 @@ describe('properties', () => {
     cy.visit('/config/properties');
 
     cy.get('[data-cy="item-properties"] [name="test property string"]').click();
-    cy.get('[data-cy="property-edit-switch-button"]').should('exist');
-    cy.get('[data-cy="property-edit-switch-button"]').click();
+    cy.get('[data-cy="property-editionmode-button"]').should('exist');
+    cy.get('[data-cy="property-editionmode-button"]').click();
 
     cy.get('[data-cy="property-edit-name-textonly"]').should('not.exist');
     cy.get('[data-cy="property-edit-name-input"]').should('exist');
