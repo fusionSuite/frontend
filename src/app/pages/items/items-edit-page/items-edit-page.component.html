@@ -357,7 +357,7 @@
               *ngIf="!editionmode"
               data-cy="type-edit-name-textonly"
             >
-              <span *ngIf="['string', 'integer', 'decimal', 'number'].includes(prop.valuetype)">
+              <span *ngIf="['string', 'text', 'integer', 'decimal', 'number'].includes(prop.valuetype)">
                 {{ prop.value }}
               </span>
               <span *ngIf="prop.valuetype === 'list' && prop.value !== null">
@@ -432,11 +432,13 @@
                 [items]="getItemsOfSelect(prop)"
                 bindLabel="name"
                 bindValue="id"
-                groupBy="type_id"
+                groupBy="parent_id"
                 [formControlName]="'prop' + prop.id.toString()"
                 (change)="updateProperty($event, prop)"
               >
-
+                <ng-template ng-optgroup-tmp let-item="item">
+                  {{item.parent_id || 'Unnamed group'}}
+                </ng-template>
               </ng-select>
 
               <ng-select

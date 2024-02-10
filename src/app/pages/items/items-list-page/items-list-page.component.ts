@@ -274,6 +274,9 @@ export class ItemsListPageComponent implements OnInit {
         }
         return myValues.join(', ');
       }
+      if (myprop.valuetype === 'itemlink' || myprop.valuetype === 'typelink') {
+        return myprop.value.name;
+      }
       if (myprop.value.id !== undefined) {
         return myprop.value.value;
       }
