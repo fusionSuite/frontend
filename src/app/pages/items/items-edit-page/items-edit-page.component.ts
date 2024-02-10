@@ -524,7 +524,7 @@ export class ItemsEditPageComponent implements OnInit {
     if (typeInternalname in this.selectItems) {
       return;
     }
-    this.itemsApi.list(typeInternalname)
+    this.itemsApi.list(typeInternalname, 4)
       .subscribe((result: any[]) => {
         let all: IItem[] = [];
         for (let page = 0; page < result.length; page++) {

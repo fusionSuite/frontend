@@ -320,6 +320,7 @@
       <thead class="header">
         <tr>
           <th i18n class="actionstitle"><input type="checkbox"></th>
+          <th i18n>Id</th>
           <th i18n>Name</th>
           <th *ngFor="let property of columns">
             {{ property.name }}
@@ -332,6 +333,7 @@
           <td>
             <input type="checkbox">
           </td>
+          <td>{{ item.id }}</td>
           <td>
             <a
               class="a--animation"
