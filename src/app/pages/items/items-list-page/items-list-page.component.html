@@ -21,7 +21,7 @@
     <h1 *ngIf="type !== null" i18n>{{ type.name }}</h1>
   </header>
 
-  <div class="form__edit__search">
+  <div class="form__edit__search" *ngIf="type !== null">
     <div id="input" contenteditable="false" class="searchinput">
       <fa-icon
         icon="magnifying-glass"
@@ -83,7 +83,9 @@
         [class]="searchBuilder && type !== null ? 'advancedsearchicon active' : 'advancedsearchicon'"
       ></fa-icon>
     </div>
+    
   </div>
+  
 
   <div class="form__edit__search" *ngIf="searchBuilder && type !== null" style="width: 100%;">
     <div class="searchBuilder">
@@ -280,8 +282,7 @@
 
   <div *ngTemplateOutlet="actionsbar"></div>
 
-  <div class="page__listitems">
-
+  <div class="page__listitems" id="contentItemChecked" #contentItemCheckedPortrait #contentItemCheckedLandscape>
     <span *ngIf="!itemsLoaded" class="loader flow">
       <div class="loader__spinner"></div>
       <p class="loader__message" i18n>
@@ -295,6 +296,13 @@
 
     <span *ngIf="actionDisplayed !== null" class="listactions">
       <span class="title">{{ actionDisplayed }}</span>
+      <!--Ici pour ajouter des boutons dans la partie action-->
+      <span *ngIf="actionDisplayed === 'actions'">
+        <div>
+          <input type="submit" value="update">
+          <input type="submit" value="delete" (click) = deleteItemChecked()>   
+        </div>
+      </span>
       <span *ngIf="actionDisplayed === 'columns' && type !== null">
         <div *ngFor="let property of type.properties" (click)="updateColumns(property)">
           <span [class]="columns.includes(property) ? 'actioncolumns activated' : 'actioncolumns'">{{ property.name }}</span>
@@ -302,15 +310,21 @@
       </span>
       <span *ngIf="actionDisplayed === 'export'">
         <div>
-          <a href="#">
+          <a href="#" (click)="exportToCsv()">
             <fa-icon icon="file-csv" [fixedWidth]="true"></fa-icon>
             CSV export
           </a>
         </div>
         <div>
-          <a href="#">
+          <a href="#" (click)="exportToPdfPortrait()">
+            <fa-icon icon="file-pdf" [fixedWidth]="true" ></fa-icon>
+            PDF export (portrait)
+          </a>
+        </div>
+        <div>
+          <a href="#" (click)="exportToPdfLandscape()">
             <fa-icon icon="file-pdf" [fixedWidth]="true"></fa-icon>
-            PDF export
+            PDF export (landscape)
           </a>
         </div>
       </span>
@@ -319,7 +333,7 @@
     <table *ngIf="itemsLoaded && items.length > 0">
       <thead class="header">
         <tr>
-          <th i18n class="actionstitle"><input type="checkbox"></th>
+          <th i18n class="actionstitle"><input type="checkbox"  (change)="checkedOrNot($event)"></th>
           <th i18n>Name</th>
           <th *ngFor="let property of columns">
             {{ property.name }}
@@ -327,10 +341,10 @@
           <th></th>
         </tr>
       </thead>
-      <tbody data-cy="list-items" class="skyborder">
+      <tbody data-cy="list-items" class="skyborder" >
         <tr *ngFor="let item of items | sortBy:'asc':'name'" data-cy="item-items">
           <td>
-            <input type="checkbox">
+            <input type="checkbox" [(ngModel)]="item.checked" (change)="updateChecking($event, item)">
           </td>
           <td>
             <a
