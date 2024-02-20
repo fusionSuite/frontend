@@ -1,0 +1,29 @@
+<div class="itemsFields">
+  <span class="itemsFields__title" i18n>{{ property.name }}</span>
+  <div
+    *ngIf="!editionMode && property.value !== null"
+    class="itemsFields__valuereadonly"
+  >
+    <span>
+      {{ property.value }}
+    </span>
+  </div>
+
+  <div
+    *ngIf="editionMode"
+    class="itemsFields__value"
+  >
+    <input
+      [formControlName]="'prop' + property.id.toString()"
+      [owlDateTime]="datetimepicker"
+      [owlDateTimeTrigger]="datetimepicker"
+      placeholder="select a date and time"
+      (dateTimeChange)="setValue($event)"
+    >
+    <owl-date-time
+      [showSecondsTimer]="true"
+      #datetimepicker
+    >
+    </owl-date-time>
+  </div>
+</div>

@@ -26,7 +26,7 @@ import { forkJoin, switchMap } from 'rxjs';
   providedIn: 'root',
 })
 export class ItemsApi extends ApiV1 {
-  public list (internalName: string) {
+  public list (internalName: string, $pageLimit: number|null = null, perPage: number = 100) {
     // return this.listItems(internalName);
 
     return this.listItemsResponse(internalName)
@@ -35,25 +35,16 @@ export class ItemsApi extends ApiV1 {
           const totalCount = res.headers.get('x-total-count');
           let totalPages: number = 0;
           if (totalCount !== null) {
-            totalPages = Math.ceil(parseInt(totalCount) / 100);
+            totalPages = Math.ceil(parseInt(totalCount) / perPage);
+          }
+          if ($pageLimit !== null && totalPages > $pageLimit) {
+            totalPages = $pageLimit;
           }
           const req$ = Array(totalPages).fill(1).map((_, index) =>
-            this.listItems(internalName, index + 1),
+            this.listItems(internalName, index + 1, perPage),
           );
           return forkJoin(req$);
         }),
-      // ).subscribe({
-      //   next: (res: any) => {
-      //     let all: IItem[] = [];
-      //     for (let page = 0; page < res.length; page++) {
-      //       all = all.concat(res[page]);
-      //     }
-      //     return all;
-      //   },
-      //   error: (e) => {
-      //     console.log('Error Fetching Items');
-      //   },
-      // },
       );
   }
 

@@ -8,6 +8,7 @@ import { ICreateMessage } from '../interfaces/create/message';
 import { ICreateMessages } from '../interfaces/create/messages';
 import { ItemsApi } from '../api/items';
 import { NotificationsService } from '../notifications/notifications.service';
+import { IItemproperty } from '../interfaces/itemproperty';
 
 @Component({
   selector: 'app-timeline',
@@ -18,6 +19,8 @@ export class TimelineComponent implements OnChanges {
   @Input() haveMessages: boolean = false;
   @Input() typeId: number = 0;
   @Input() itemId: number = 0;
+  @Input() properties: IItemproperty[] = [];
+  @Input() propertiesItemlinks: IItemproperty[] = [];
   @Input() messages: ICreateMessages = {
     messages: [],
     defaultNane: '',

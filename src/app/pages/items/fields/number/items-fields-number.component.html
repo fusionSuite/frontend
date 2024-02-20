@@ -1,0 +1,42 @@
+<div class="itemsFields">
+  <span class="itemsFields__title" i18n>{{ property.name }}</span>
+  <div
+    *ngIf="!editionMode && property.value !== null"
+    class="itemsFields__valuereadonly"
+  >
+    <span>
+      {{ property.value }} {{property.unit}}
+    </span>
+  </div>
+
+  <div
+    *ngIf="editionMode"
+    class="itemsFields__value"
+  >
+    <form
+      [formGroup]="formControls"
+    >
+      <input
+        formControlName="value"
+        data-cy="item-edit-property-input"
+        type="text"
+        class="short"
+        size="10"
+        pattern="^[-]{0,1}[0-9]+$"
+        (change)="setValue($event)"
+      >
+      <span class="unit">{{property.unit}}</span>
+    </form>
+    <div *ngIf="formControls.controls.value.errors?.['pattern']" class="error" i18n>Enter only numbers</div>
+    <div *ngIf="formControls.controls.value.errors?.['min']" class="error" i18n>The mininum is 0</div>
+  </div>
+  <div class="copycontainer">
+    <fa-icon
+      [icon]="['far', 'clone']"
+      [fixedWidth]="true"
+      class="copy"
+      *ngIf="property.value !== '' && property.value !== null"
+      (click)="toClipboard(property.value)"
+    ></fa-icon>
+  </div>
+</div>

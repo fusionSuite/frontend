@@ -1,0 +1,44 @@
+<div class="itemsFields">
+  <span class="itemsFields__title" i18n>{{ property.name }}</span>
+  <div
+    *ngIf="!editionMode && property.value !== null"
+    class="itemsFields__valuereadonly"
+  >
+    <span>
+      {{ property.value.name }}
+    </span>
+  </div>
+
+  <div
+    *ngIf="editionMode"
+    class="itemsFields__value"
+  >
+    <ng-select
+      *ngIf="property.allowedtypes.length > 1"
+      bindLabel="name"
+      bindValue="id"
+      [(ngModel)]="chosenType"
+      (change)="setType($event)"
+    >
+    </ng-select>
+
+    <ng-select
+      [items]="items"
+      bindLabel="name"
+      bindValue="id"
+      [(ngModel)]="value"
+      (change)="setValue($event)"
+      (search)="runSearch($event)"
+    >
+    </ng-select>
+  </div>
+  <div class="copycontainer">
+    <fa-icon
+      [icon]="['far', 'clone']"
+      [fixedWidth]="true"
+      class="copy"
+      *ngIf="property.value !== '' && property.value !== null"
+      (click)="toClipboard(property.value)"
+    ></fa-icon>
+  </div>
+</div>

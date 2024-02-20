@@ -1,0 +1,63 @@
+<div class="itemsFields">
+  <span class="itemsFields__title">
+    <div>
+      {{ property.name }}
+      <fa-icon
+        icon="circle-info"
+        [fixedWidth]="true"
+        class="info"
+        *ngIf="property.description !== '' && property.description !== null && property.description !== undefined"
+        (click)="toggleDescription()"
+      ></fa-icon>
+    </div>
+    <div class="quickactions" *ngIf="editionMode">
+      .:|
+      <a (click)="setDefault()">
+        <fa-icon icon="rotate-left" [fixedWidth]="true" size="xs"></fa-icon>reset to default
+      </a>
+      |:.
+    </div>
+  </span>
+  <div
+    *ngIf="!editionMode && property.value !== null"
+    class="itemsFields__valuereadonly"
+  >
+    <span>
+      <label class="form__switch">
+        <input
+          id="property.id"
+          name="property.name"
+          type="checkbox"
+          [checked]="property.value"
+          readonly="readonly"
+        >
+        <span class="slider"></span>
+      </label>
+    </span>
+  </div>
+
+  <div
+    *ngIf="editionMode"
+    class="itemsFields__value"
+  >
+    <form
+      [formGroup]="formControls"
+    >
+
+      <label class="form__switch">
+        <input
+          id="editionmode"
+          name="editionmode"
+          type="checkbox"
+          formControlName="value"
+          [disabled]="true"
+          (change)="setValue()"
+        >
+        <span class="slider"></span>
+      </label>
+    </form>
+  </div>
+  <div *ngIf="displayDescription" class="description">
+    {{property.description}}
+  </div>
+</div>

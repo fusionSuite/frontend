@@ -25,10 +25,20 @@
         Back to items
       </a>
     </div>
+    <button
+      type="submit"
+      class="button--primary form__button__submit"
+      data-cy="submit"
+      (click)="createItem()"
+      i18n
+    >
+      Create an item
+    </button>
+
   </header>
 
   <div class="page__inner">
-    <form
+    <!-- <form
       [formGroup]="newItemForm"
       (ngSubmit)="onFormSubmit()"
       class="flow wrapper wrapper--small"
@@ -71,52 +81,183 @@
 
         <div
           *ngIf="element.type === 'switch'"
-          class="form__container form__container__switch"
-          [attr.aria-invalid]="elementIsInvalid(element.name)"
-        >
-          <label
-            *ngIf="element.type === 'switch'"
-            class="form__switch"
-          >
-            <input
-              [id]="element.name"
-              [name]="element.name"
-              type="checkbox"
-              [formControlName]="element.name"
-            >
-            <span class="slider"></span>          
-          </label>
-
-          <label
-            class="form__swith__label"
+            class="form__container form__container__switch"
             [attr.aria-invalid]="elementIsInvalid(element.name)"
           >
-          {{ element.label }}
-          </label>
-        </div>
+            <label
+              *ngIf="element.type === 'switch'"
+              class="form__switch"
+            >
+              <input
+                [id]="element.name"
+                [name]="element.name"
+                type="checkbox"
+                [formControlName]="element.name"
+              >
+              <span class="slider"></span>          
+            </label>
 
-        <div
-          class="form__supporting_text"
-          id="name-error"
-          role="alert"
-        >
-          <span class="sr-only" i18n>Error:</span>
-          <span
-            *ngIf="elementHasError(element.name, 'required') && elementIsInvalid(element.name) && element.required"
-            class="form__error"
-            i18n
+            <label
+              class="form__swith__label"
+              [attr.aria-invalid]="elementIsInvalid(element.name)"
+            >
+            {{ element.label }}
+            </label>
+          </div>
+
+          <div
+            class="form__supporting_text"
+            id="name-error"
+            role="alert"
           >
-            must be filled
-          </span>
-          <span *ngIf="!elementIsInvalid(element.name) && element.required" i18n>
-            required
-          </span>
+            <span class="sr-only" i18n>Error:</span>
+            <span
+              *ngIf="elementHasError(element.name, 'required') && elementIsInvalid(element.name) && element.required"
+              class="form__error"
+              i18n
+            >
+              must be filled
+            </span>
+            <span *ngIf="!elementIsInvalid(element.name) && element.required" i18n>
+              required
+            </span>
+          </div>
+        </div>
+
+        <div class="form__actions">
+          <button type="submit" class="button--primary form__button__submit" data-cy="submit" i18n>Create an item</button>
+        </div>
+      </form>
+    </div> -->
+
+    <div
+      class="form__edit page__inner__cadre"
+    >
+      <div class="page__inner__title">
+        <fa-icon icon="circle-info" [fixedWidth]="true"></fa-icon>
+        Main
+      </div>
+      <div class="page__inner__content">
+        <div class="form__edit__item">
+          <div class="form__edit__item__title" i18n>Name:</div>
+          <div class="form__edit__item__value">
+            <input
+              (change)="setName($event)"
+              data-cy="item-edit-name-input"
+            >
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="form__actions">
-        <button type="submit" class="button--primary form__button__submit" data-cy="submit" i18n>Create an item</button>
+    <div
+      *ngFor="let panel of panels"
+      class="form__edit page__inner__cadre"
+    >
+      <div class="page__inner__title">
+        <fa-icon [icon]="parseIcon(panel.icon)" [fixedWidth]="true" *ngIf="parseIcon(panel.icon) !== null"></fa-icon>
+        <fa-icon icon="rectangle-list" [fixedWidth]="true" *ngIf="parseIcon(panel.icon) === '' && panel.name === 'Default'"></fa-icon>
+        {{ panel.name }}
+        <span class="page__inner__title__note" data-cy="type-edit-properties-note" i18n>
+          {panel.items.length, plural, =1 {{{ panel.items.length }} property} other {{{ panel.items.length }} properties}}         
+        </span>
       </div>
-    </form>
+      <div class="page__inner__content">
+        <div>
+          <div class="form__edit__item" *ngFor="let prop of panel.properties">
+            <app-items-fields-list
+              *ngIf="prop.valuetype === 'list'"
+              [property]="prop"
+              [editionMode]="true"
+            ></app-items-fields-list>
+
+            <app-items-fields-itemlink
+              *ngIf="prop.valuetype === 'itemlink'"
+              [property]="prop"
+              [editionMode]="true"
+              (setPropertyValueEvent)="setPropertyValue($event, prop)"
+            ></app-items-fields-itemlink>
+
+            <app-items-fields-itemlinks
+              *ngIf="prop.valuetype === 'itemlinks'"
+              [property]="prop"
+              [editionMode]="true"
+            ></app-items-fields-itemlinks>
+
+            <app-items-fields-boolean
+              *ngIf="prop.valuetype === 'boolean'"
+              [property]="prop"
+              [editionMode]="true"
+            ></app-items-fields-boolean>
+
+            <app-items-fields-string
+              *ngIf="prop.valuetype === 'string'"
+              [property]="prop"
+              [editionMode]="true"
+            ></app-items-fields-string>
+
+            <app-items-fields-text
+              *ngIf="prop.valuetype === 'text'"
+              [property]="prop"
+              [editionMode]="true"
+            ></app-items-fields-text>
+
+            <app-items-fields-date
+              *ngIf="prop.valuetype === 'date'"
+              [property]="prop"
+              [editionMode]="true"
+            ></app-items-fields-date>
+
+            <app-items-fields-datetime
+              *ngIf="prop.valuetype === 'datetime'"
+              [property]="prop"
+              [editionMode]="true"
+            ></app-items-fields-datetime>
+
+            <app-items-fields-time
+              *ngIf="prop.valuetype === 'time'"
+              [property]="prop"
+              [editionMode]="true"
+            ></app-items-fields-time>
+
+            <app-items-fields-typelink
+              *ngIf="prop.valuetype === 'typelink'"
+              [property]="prop"
+              [editionMode]="true"
+            ></app-items-fields-typelink>
+
+            <app-items-fields-typelinks
+              *ngIf="prop.valuetype === 'typelinks'"
+              [property]="prop"
+              [editionMode]="true"
+            ></app-items-fields-typelinks>
+
+            <app-items-fields-decimal
+              *ngIf="prop.valuetype === 'decimal'"
+              [property]="prop"
+              [editionMode]="true"
+            ></app-items-fields-decimal>
+
+            <app-items-fields-integer
+              *ngIf="prop.valuetype === 'integer'"
+              [property]="prop"
+              [editionMode]="true"
+            ></app-items-fields-integer>
+
+            <app-items-fields-number
+              *ngIf="prop.valuetype === 'number'"
+              [property]="prop"
+              [editionMode]="true"
+            ></app-items-fields-number>
+
+            <app-items-fields-propertylink
+              *ngIf="prop.valuetype === 'propertylink'"
+              [property]="prop"
+              [editionMode]="true"
+            ></app-items-fields-propertylink>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </app-page>

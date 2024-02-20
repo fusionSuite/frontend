@@ -16,22 +16,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IShortType } from './short-type';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { QuickaddListvalueComponent } from './quickadd-listvalue.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReactiveFormsModule } from '@angular/forms';
 
-export interface IItemproperty {
-  id: number;
-  name: string;
-  internalname: string;
-  valuetype: 'string'|'integer'|'decimal'|'text'|'boolean'|'datetime'|'date'|
-             'time'|'number'|'itemlink'|'itemlinks'|'typelink'|'typelinks'|
-             'propertylink'|'list'|'password'|'passwordhash';
-  value: any;
-  unit: string|null;
-  listvalues: {
-    id: number;
-    value: string|number;
-  }[]|null;
-  default: any|null;
-  allowedtypes: IShortType[];
-  description?: string|null;
-}
+@NgModule({
+  declarations: [
+    QuickaddListvalueComponent,
+  ],
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    ReactiveFormsModule,
+  ],
+  exports: [
+    QuickaddListvalueComponent,
+  ],
+})
+export class QuickaddListvalueModule { }

@@ -48,6 +48,7 @@ import { SortablejsModule } from '@dustfoundation/ngx-sortablejs';
 import { OWL_DATE_TIME_FORMATS, OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OwlDayJsDateTimeModule } from '@danielmoncada/angular-datetime-picker-dayjs-adapter';
+import { QuickaddListvalueModule } from './modal/quickadd-listvalue/quickadd_listvalue.module';
 
 // See the Day.js docs for the meaning of these formats:
 // https://day.js.org/docs/en/display/format
@@ -72,7 +73,6 @@ function initializeApp (initapp: InitappService) {
     HomePageComponent,
     LoginPageComponent,
     NotFoundPageComponent,
-
     NotificationsComponent,
   ],
   imports: [
@@ -93,6 +93,7 @@ function initializeApp (initapp: InitappService) {
     OwlNativeDateTimeModule,
     BrowserAnimationsModule,
     OwlDayJsDateTimeModule,
+    QuickaddListvalueModule,
   ],
   providers: [
     httpInterceptorProviders,
