@@ -26,6 +26,7 @@ export class Item {
   parentId: number;
   treepath: string;
   name: string;
+  checked: boolean;
   propertiesIndexedByInternalname: {[key: string]: IItemproperty} = {};
 
   constructor (item: IItem) {
@@ -34,6 +35,7 @@ export class Item {
     this.parentId = item.parent_id != null ? item.parent_id : -1;
     this.treepath = item.treepath != null ? item.treepath : '';
     this.name = item.name;
+    this.checked = item.checked;
     this.item.properties.forEach((property) => {
       this.propertiesIndexedByInternalname[property.internalname] = property;
     });
