@@ -40,13 +40,13 @@ export class ItemsFieldsListComponent implements OnChanges {
   }
 
   public setValue (ev: any) {
-    if (ev.id !== undefined) {
+    if (ev.id !== undefined) { 
       this.setPropertyValueEvent.emit(ev.id);
     } else if (ev === null) {
       this.setPropertyValueEvent.emit(null);
     }
   }
-
+  
   public toClipboard (value: any) {
     this.copyToClipboard.emit(value);
   }
@@ -64,10 +64,12 @@ export class ItemsFieldsListComponent implements OnChanges {
   }
 
   public setDefault () {
-    this.setValue(this.property.default);
+    this.setValue(this.property);
+    
   }
 
   public reload (ev: any) {
     this.forceReloadItem.emit(true);
+    this.showQuickAddListvalue = false;
   }
 }

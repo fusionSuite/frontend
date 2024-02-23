@@ -30,6 +30,7 @@ const routes: Routes = [
     title: $localize `Items list`,
     component: ItemsListPageComponent,
     canActivate: [LoggedInGuard],
+    pathMatch: 'full',
   },
   {
     path: ':internalname/new',

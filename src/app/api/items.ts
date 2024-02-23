@@ -21,6 +21,7 @@ import { ICreateItem } from '../interfaces/create/item';
 
 import { ApiV1 } from './v1';
 import { forkJoin, switchMap } from 'rxjs';
+import { Item } from '../models/item';
 
 @Injectable({
   providedIn: 'root',
@@ -67,6 +68,8 @@ export class ItemsApi extends ApiV1 {
       },
     });
   }
+
+  
 
   public delete (id: number) {
     return this.http.delete(this.settingsService.backendUrl + '/v1/items/' + id, {

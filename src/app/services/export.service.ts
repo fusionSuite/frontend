@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ngxCsv } from 'ngx-csv';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import jsPDF from 'jspdf';
 import { IItem } from '../interfaces/item';
-import { el } from 'date-fns/locale';
+import { el, ro } from 'date-fns/locale';
+import { jsPDFConstructor, jsPDFDocument } from 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
+import { head } from 'cypress/types/lodash';
+import { ngxCsv } from 'ngx-csv';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +42,7 @@ export class ExportcsvService {
   public exportToPdf(itemsProperties: any[], internalname: string, landscape: boolean){
     let doc: jsPDF;
     let value:any;
+    
     const margins = {
       top: 30,
       bottom: 30,
@@ -47,37 +51,44 @@ export class ExportcsvService {
     }
     if(landscape === true){
       doc = new jsPDF({
-        orientation: 'landscape'
+        orientation: 'landscape',
+        format: 'A3',
       });
     }
     else{
-      doc = new jsPDF();
+      doc = new jsPDF({
+        format: 'A3',//A voir si on met le format portrait en A3 ou A4
+      });
     }
     const pageWidth = doc.internal.pageSize.getWidth();//Largeur de la page
     const pageHeigth = doc.internal.pageSize.getHeight();//Hauteur de la page
+    const offsetY = 50; //Permet de centrer à la verticale
+    const offsetX = (pageWidth - 67) /2 ;//Permet de centrer à l'horizontale
     doc.setFontSize(18);
     doc.text(`Liste des items : ${internalname}`, margins.left, margins.top );
-    console.log(itemsProperties);
 
     doc.setFontSize(15);
     doc.setFont('Times');
-    itemsProperties.forEach((item, index) => {
-      const offsetY = (pageHeigth - 150)/2; //Permet de centrer à la verticale
-      const offsetX = (pageWidth - 67) /2 ;//Permet de centrer à l'horizontale
-      doc.text(`Item ${index + 1} : ${item.name}`, offsetX, offsetY )
 
-      Object.keys(item).forEach((propertyKey, propertyIndex) =>{
-        if(propertyKey !== 'id' && propertyKey !== 'name'){
-          value = item[propertyKey];
-          doc.text(`${propertyKey}: ${value}`, offsetX, offsetY + (propertyIndex + 1) *8);//Permet de gérer l'espacement de chaque propiété
-        }
-      });
-
-      if(index < itemsProperties.length - 1){
-        doc.addPage();
-      }
-
+    //Tableau qui va correspondre au body
+    const data: any[] = [];
+    
+    const headers = Object.keys(itemsProperties[0])
+    itemsProperties.forEach(item => {
+      let datarow : any[] = [];
+      headers.forEach(header =>{
+        datarow.push(item[header]);
+      })
+      data.push(datarow);
     });
-    doc.save(`items${internalname}`);
+    
+    autoTable(doc, {
+      head: [headers],
+      body: data,
+      startY: offsetY,
+      styles: {fontSize: 10}
+    });
+    console.log(data);
+    doc.save(`items_${internalname}`);    
   }
 }
