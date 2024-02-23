@@ -33,12 +33,43 @@ import { ItemsCreatePageComponent } from './items-create-page/items-create-page.
 import { ItemsEditPageComponent } from './items-edit-page/items-edit-page.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { ItemsFieldsListComponent } from './fields/list/items-fields-list.component';
+import { ItemsFieldsItemlinkComponent } from './fields/itemlink/items-fields-itemlink.component';
+import { ItemsFieldsBooleanComponent } from './fields/boolean/items-fields-boolean.component';
+import { ItemsFieldsItemlinksComponent } from './fields/itemlinks/items-fields-itemlinks.component';
+import { ItemsFieldsStringComponent } from './fields/string/items-fields-string.component';
+import { ItemsFieldsTextComponent } from './fields/text/items-fields-text.component';
+import { ItemsFieldsDateComponent } from './fields/date/items-fields-date.component';
+import { ItemsFieldsDatetimeComponent } from './fields/datetime/items-fields-datetime.component';
+import { ItemsFieldsTypelinkComponent } from './fields/typelink/items-fields-typelink.component';
+import { ItemsFieldsTypelinksComponent } from './fields/typelinks/items-fields-typelinks.component';
+import { ItemsFieldsDecimalComponent } from './fields/decimal/items-fields-decimal.component';
+import { ItemsFieldsIntegerComponent } from './fields/integer/items-fields-integer.component';
+import { ItemsFieldsNumberComponent } from './fields/number/items-fields-number.component';
+import { ItemsFieldsPropertylinkComponent } from './fields/propertylink/items-fields-propertylink.component';
+import { ItemsFieldsTimeComponent } from './fields/time/items-fields-time.component';
+import { QuickaddListvalueModule } from 'src/app/modal/quickadd-listvalue/quickadd_listvalue.module';
 
 @NgModule({
   declarations: [
     ItemsListPageComponent,
     ItemsCreatePageComponent,
     ItemsEditPageComponent,
+    ItemsFieldsListComponent,
+    ItemsFieldsItemlinkComponent,
+    ItemsFieldsItemlinksComponent,
+    ItemsFieldsBooleanComponent,
+    ItemsFieldsStringComponent,
+    ItemsFieldsTextComponent,
+    ItemsFieldsDateComponent,
+    ItemsFieldsDatetimeComponent,
+    ItemsFieldsTimeComponent,
+    ItemsFieldsTypelinkComponent,
+    ItemsFieldsTypelinksComponent,
+    ItemsFieldsDecimalComponent,
+    ItemsFieldsIntegerComponent,
+    ItemsFieldsNumberComponent,
+    ItemsFieldsPropertylinkComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +83,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angul
     FormsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    QuickaddListvalueModule,
   ],
 })
 export class ItemsModule { }

@@ -150,7 +150,112 @@
         >
           <div>
             <div class="form__edit__item" *ngFor="let prop of groupProperties(panel.items); let i = index;">
-              <div class="form__edit__item__title" i18n>{{ prop.name }}</div>
+              <app-items-fields-list
+                *ngIf="prop.valuetype === 'list'"
+                [property]="prop"
+                [editionMode]="editionmode"
+                (copyToClipboard)="copyToClipboard($event)"
+                (setPropertyValueEvent)="setPropertyValue($event, prop)"
+                (forceReloadItem)="loadItem()"
+              ></app-items-fields-list>
+
+              <app-items-fields-itemlink
+                *ngIf="prop.valuetype === 'itemlink'"
+                [property]="prop"
+                [editionMode]="editionmode"
+                (copyToClipboard)="copyToClipboard($event)"
+                (setPropertyValueEvent)="setPropertyValue($event, prop)"
+              ></app-items-fields-itemlink>
+
+              <app-items-fields-itemlinks
+                *ngIf="prop.valuetype === 'itemlinks'"
+                [property]="prop"
+                [editionMode]="editionmode"
+              ></app-items-fields-itemlinks>
+
+              <app-items-fields-boolean
+                *ngIf="prop.valuetype === 'boolean'"
+                [property]="prop"
+                [editionMode]="editionmode"
+                (setPropertyValueEvent)="setPropertyValue($event, prop)"
+              ></app-items-fields-boolean>
+
+              <app-items-fields-string
+                *ngIf="prop.valuetype === 'string'"
+                [property]="prop"
+                [editionMode]="editionmode"
+                (copyToClipboard)="copyToClipboard($event)"
+                (setPropertyValueEvent)="setPropertyValue($event, prop)"
+              ></app-items-fields-string>
+
+              <app-items-fields-text
+                *ngIf="prop.valuetype === 'text'"
+                [property]="prop"
+                [editionMode]="editionmode"
+              ></app-items-fields-text>
+
+              <app-items-fields-date
+                *ngIf="prop.valuetype === 'date'"
+                [property]="prop"
+                [editionMode]="editionmode"
+              ></app-items-fields-date>
+
+              <app-items-fields-datetime
+                *ngIf="prop.valuetype === 'datetime'"
+                [property]="prop"
+                [editionMode]="editionmode"
+              ></app-items-fields-datetime>
+
+              <app-items-fields-time
+                *ngIf="prop.valuetype === 'time'"
+                [property]="prop"
+                [editionMode]="editionmode"
+              ></app-items-fields-time>
+
+              <app-items-fields-typelink
+                *ngIf="prop.valuetype === 'typelink'"
+                [property]="prop"
+                [editionMode]="editionmode"
+              ></app-items-fields-typelink>
+
+              <app-items-fields-typelinks
+                *ngIf="prop.valuetype === 'typelinks'"
+                [property]="prop"
+                [editionMode]="editionmode"
+              ></app-items-fields-typelinks>
+
+              <app-items-fields-decimal
+                *ngIf="prop.valuetype === 'decimal'"
+                [property]="prop"
+                [editionMode]="editionmode"
+                (copyToClipboard)="copyToClipboard($event)"
+                (setPropertyValueEvent)="setPropertyValue($event, prop)"
+              ></app-items-fields-decimal>
+
+              <app-items-fields-integer
+                *ngIf="prop.valuetype === 'integer'"
+                [property]="prop"
+                [editionMode]="editionmode"
+                (copyToClipboard)="copyToClipboard($event)"
+                (setPropertyValueEvent)="setPropertyValue($event, prop)"
+              ></app-items-fields-integer>
+
+              <app-items-fields-number
+                *ngIf="prop.valuetype === 'number'"
+                [property]="prop"
+                [editionMode]="editionmode"
+                (copyToClipboard)="copyToClipboard($event)"
+                (setPropertyValueEvent)="setPropertyValue($event, prop)"
+              ></app-items-fields-number>
+
+              <app-items-fields-propertylink
+                *ngIf="prop.valuetype === 'propertylink'"
+                [property]="prop"
+                [editionMode]="editionmode"
+              ></app-items-fields-propertylink>
+
+
+              <!-- <div class="form__edit__item__title" i18n>{{ prop.name }}</div>
               <div
                 class="form__edit__item__value"
                 *ngIf="!editionmode || !editionmodePanel[panel.id]"
@@ -221,7 +326,7 @@
                   <span class="slider"></span>
                 </label>
 
-                <ng-select
+                   <ng-select
                   *ngIf="prop.valuetype === 'list'"
                   [items]="prop.listvalues"
                   bindLabel="value"
@@ -289,8 +394,8 @@
                 (click)="copyToClipboard(prop.value)"
                 style="color: var(--color-grey8);float: right;margin-right: 10px; cursor: pointer"
                 *ngIf="prop.value !== '' && prop.value !== null"
-              ></fa-icon>
-        </div>
+              ></fa-icon> -->
+            </div>
           </div>
         </form>
       </div>
@@ -303,6 +408,7 @@
     ></app-timeline>
   </div>
 
+  <!-- Timeline view -->
   <div
     class="page__inner"
     *ngIf="itemLoaded && item !== null && timelineView"
@@ -312,6 +418,8 @@
       [changes]="item.changes"
       [haveMessages]=true
       [messages]="timelineMessages"
+      [properties]="propertiesForTimelime"
+      [propertiesItemlinks]="propertiesItemlinksForTimelime"
       (newMessageEvent)="addMessage($event)"
       class="form__edit page__inner__cadre__timeline"
       style="flex-grow: 1;width: 400px;"
@@ -340,7 +448,112 @@
             (mouseover)="displayActionsProperty[prop.id] = true"
             (mouseleave)="displayActionsProperty[prop.id] = false"
           >
-            <div class="form__edit__item__title" style="min-height: 16px;display: flex;width: 100%;align-items: flex-end;">
+            <app-items-fields-list
+              *ngIf="prop.valuetype === 'list'"
+              [property]="prop"
+              [editionMode]="editionmode"
+              (copyToClipboard)="copyToClipboard($event)"
+              (setPropertyValueEvent)="setPropertyValue($event, prop)"
+              (forceReloadItem)="loadItem()"
+            ></app-items-fields-list>
+
+            <app-items-fields-itemlink
+              *ngIf="prop.valuetype === 'itemlink'"
+              [property]="prop"
+              [editionMode]="editionmode"
+              (copyToClipboard)="copyToClipboard($event)"
+              (setPropertyValueEvent)="setPropertyValue($event, prop)"
+            ></app-items-fields-itemlink>
+
+            <app-items-fields-itemlinks
+              *ngIf="prop.valuetype === 'itemlinks'"
+              [property]="prop"
+              [editionMode]="editionmode"
+            ></app-items-fields-itemlinks>
+
+            <app-items-fields-boolean
+              *ngIf="prop.valuetype === 'boolean'"
+              [property]="prop"
+              [editionMode]="editionmode"
+              (setPropertyValueEvent)="setPropertyValue($event, prop)"
+            ></app-items-fields-boolean>
+
+            <app-items-fields-string
+              *ngIf="prop.valuetype === 'string'"
+              [property]="prop"
+              [editionMode]="editionmode"
+              (copyToClipboard)="copyToClipboard($event)"
+              (setPropertyValueEvent)="setPropertyValue($event, prop)"
+            ></app-items-fields-string>
+
+            <app-items-fields-text
+              *ngIf="prop.valuetype === 'text'"
+              [property]="prop"
+              [editionMode]="editionmode"
+            ></app-items-fields-text>
+
+            <app-items-fields-date
+              *ngIf="prop.valuetype === 'date'"
+              [property]="prop"
+              [editionMode]="editionmode"
+            ></app-items-fields-date>
+
+            <app-items-fields-datetime
+              *ngIf="prop.valuetype === 'datetime'"
+              [property]="prop"
+              [editionMode]="editionmode"
+            ></app-items-fields-datetime>
+
+            <app-items-fields-time
+              *ngIf="prop.valuetype === 'time'"
+              [property]="prop"
+              [editionMode]="editionmode"
+            ></app-items-fields-time>
+
+            <app-items-fields-typelink
+              *ngIf="prop.valuetype === 'typelink'"
+              [property]="prop"
+              [editionMode]="editionmode"
+            ></app-items-fields-typelink>
+
+            <app-items-fields-typelinks
+              *ngIf="prop.valuetype === 'typelinks'"
+              [property]="prop"
+              [editionMode]="editionmode"
+            ></app-items-fields-typelinks>
+
+            <app-items-fields-decimal
+              *ngIf="prop.valuetype === 'decimal'"
+              [property]="prop"
+              [editionMode]="editionmode"
+              (copyToClipboard)="copyToClipboard($event)"
+              (setPropertyValueEvent)="setPropertyValue($event, prop)"
+          ></app-items-fields-decimal>
+
+            <app-items-fields-integer
+              *ngIf="prop.valuetype === 'integer'"
+              [property]="prop"
+              [editionMode]="editionmode"
+              (copyToClipboard)="copyToClipboard($event)"
+              (setPropertyValueEvent)="setPropertyValue($event, prop)"
+            ></app-items-fields-integer>
+
+            <app-items-fields-number
+              *ngIf="prop.valuetype === 'number'"
+              [property]="prop"
+              [editionMode]="editionmode"
+              (copyToClipboard)="copyToClipboard($event)"
+              (setPropertyValueEvent)="setPropertyValue($event, prop)"
+            ></app-items-fields-number>
+
+            <app-items-fields-propertylink
+              *ngIf="prop.valuetype === 'propertylink'"
+              [property]="prop"
+              [editionMode]="editionmode"
+            ></app-items-fields-propertylink>
+
+
+            <!-- <div class="form__edit__item__title" style="min-height: 16px;display: flex;width: 100%;align-items: flex-end;">
               <span style="font-size: 16px;color: var(--sky11);" i18n>{{ prop.name }}</span>
               <span style="font-size: 11px;flex-grow: 1;text-align: end;" *ngIf="editionmode && displayActionsProperty[prop.id]">
                 <span *ngIf="['list', 'itemlink', 'itemlinks'].includes(prop.valuetype)">
@@ -451,8 +664,8 @@
               >
 
               </ng-select>
-            </div>
-          </div>
+            </div> -->
+          <!-- </div> -->
 
           </div>
         </div>

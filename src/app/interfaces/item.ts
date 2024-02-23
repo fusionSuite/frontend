@@ -26,6 +26,7 @@ export interface IItem {
   id_bytype: number;
   type_id: number;
   name: string;
+  checked: boolean;
   parent_id: number|null;
   treepath: string|null;
   organization: IShortOrganization;

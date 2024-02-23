@@ -1,0 +1,64 @@
+<div class="itemsFields">
+  <modal-quickadd-listvalue [propertyId]="property.id" (newValuelist)="reload($event)" *ngIf="showQuickAddListvalue"></modal-quickadd-listvalue>
+  <span class="itemsFields__title">
+    <div>
+      {{ property.name }}
+      <fa-icon
+        icon="circle-info"
+        [fixedWidth]="true"
+        class="info"
+        *ngIf="property.description !== '' && property.description !== null && property.description !== undefined"
+        (click)="toggleDescription()"
+      ></fa-icon>
+    </div>
+    <div class="quickactions" *ngIf="editionMode">
+      .:|
+      <a (click)="addNew()">
+        <fa-icon icon="add" [fixedWidth]="true" size="xs"></fa-icon>add new
+      </a>
+      |
+      <a (click)="setDefault()">
+        <fa-icon icon="rotate-left" [fixedWidth]="true" size="xs"></fa-icon>reset to default
+      </a>
+      |
+      <a (click)="setEmpty()">
+        <fa-icon icon="xmark" [fixedWidth]="true" size="xs"></fa-icon>empty
+      </a>
+      |:.
+    </div>
+  </span>
+  <div
+    *ngIf="!editionMode && property.value !== null"
+    class="itemsFields__valuereadonly"
+  >
+    <span>
+      {{ property.value.value }}
+    </span>
+  </div>
+
+  <div
+    *ngIf="editionMode"
+    class="itemsFields__value"
+  >
+    <ng-select
+      [items]="property.listvalues"
+      bindLabel="value"
+      bindValue="id"
+      [(ngModel)]="value.id"
+      (change)="setValue($event)"
+    >
+    </ng-select>
+  </div>
+  <div class="copycontainer">
+    <fa-icon
+      [icon]="['far', 'clone']"
+      [fixedWidth]="true"
+      class="copy"
+      *ngIf="property.value !== '' && property.value !== null"
+      (click)="toClipboard(property.value)"
+    ></fa-icon>
+  </div>
+  <div *ngIf="displayDescription" class="description">
+    {{property.description}}
+  </div>
+</div>

@@ -21,7 +21,7 @@
     <h1 *ngIf="type !== null" i18n>{{ type.name }}</h1>
   </header>
 
-  <div class="form__edit__search">
+  <div class="form__edit__search" *ngIf="type !== null">
     <div id="input" contenteditable="false" class="searchinput">
       <fa-icon
         icon="magnifying-glass"
@@ -83,7 +83,9 @@
         [class]="searchBuilder && type !== null ? 'advancedsearchicon active' : 'advancedsearchicon'"
       ></fa-icon>
     </div>
+    
   </div>
+  
 
   <div class="form__edit__search" *ngIf="searchBuilder && type !== null" style="width: 100%;">
     <div class="searchBuilder">
@@ -280,8 +282,7 @@
 
   <div *ngTemplateOutlet="actionsbar"></div>
 
-  <div class="page__listitems">
-
+  <div class="page__listitems" id="contentItemChecked" #contentItemCheckedPortrait #contentItemCheckedLandscape>
     <span *ngIf="!itemsLoaded" class="loader flow">
       <div class="loader__spinner"></div>
       <p class="loader__message" i18n>
@@ -295,6 +296,129 @@
 
     <span *ngIf="actionDisplayed !== null" class="listactions">
       <span class="title">{{ actionDisplayed }}</span>
+      <!--Ici pour ajouter des boutons dans la partie action-->
+      <span *ngIf="actionDisplayed === 'actions'" >
+        <span style="background-color:hsl(194.81deg 100% 31.76%); border-radius: 5px; width: auto;padding: 3px 6px; height: 45px; cursor: pointer;">
+          <img src="../../../../assets/update.png" style="height: 25px; width:min-content; margin: 10px 1px -6px 1px;" icon="angles-right">
+          <input type="submit" value="update" (click)="loadFormUpdatingItem()" style="color: white; background-color:hsl(194.81deg 100% 31.76%); font-size: 18px; margin: 0px 1px 3px 3px; border-color: transparent; cursor: pointer;"><br>
+        </span>
+        <span style="background-color:hsl(194.81deg 100% 31.76%); border-radius: 5px; width: auto;padding: 3px 6px; height: 45px; cursor: pointer;">
+          <img src="../../../../assets/delete.png" style="height: 25px; width:min-content; margin: 10px 1px -6px 1px;" icon="angles-right">
+          <input type="submit" value="delete" (click) = deleteItemChecked() style="color: white; background-color:hsl(194.81deg 100% 31.76%); font-size: 18px; margin: 0px 1px 3px 3px; border-color: transparent; cursor: pointer;"> 
+        </span>
+        <div *ngIf="goToUpdate === true && type !== null">
+          <ng-select
+            [items] = "items[0].properties"
+            [multiple] = "true"
+            [closeOnSelect] = "false"
+            bindLabel="name"
+            placeholder="Select properties"
+            [(ngModel)]="propertiesToUpdate">
+          </ng-select>
+        </div>
+        <div *ngIf="propertiesToUpdate !== null && propertiesToUpdate.length >= 1 " >
+          <span *ngFor="let property of propertiesToUpdate">
+            <app-items-fields-list
+                *ngIf="property.valuetype === 'list'"
+                [property]="property"
+                [editionMode]="true"
+                (setPropertyValueEvent)="setPropertyValue($event, property)"
+                (forceReloadItem)="loadItems()"
+              ></app-items-fields-list>
+
+              <app-items-fields-itemlink
+                *ngIf="property.valuetype === 'itemlink'"
+                [property]="property"
+                [editionMode]="true"
+                (setPropertyValueEvent)="setPropertyValue($event, property)"
+              ></app-items-fields-itemlink>
+
+              <app-items-fields-itemlinks
+                *ngIf="property.valuetype === 'itemlinks'"
+                [property]="property"
+                [editionMode]="true"
+              ></app-items-fields-itemlinks>
+
+              <app-items-fields-boolean
+                *ngIf="property.valuetype === 'boolean'"
+                [property]="property"
+                [editionMode]="true"
+                (setPropertyValueEvent)="setPropertyValue($event, property)"
+              ></app-items-fields-boolean>
+
+              <app-items-fields-string
+                *ngIf="property.valuetype === 'string'"
+                [property]="property"
+                [editionMode]="true"
+                (setPropertyValueEvent)="setPropertyValue($event, property)"
+              ></app-items-fields-string>
+
+              <app-items-fields-text
+                *ngIf="property.valuetype === 'text'"
+                [property]="property"
+                [editionMode]="true"
+              ></app-items-fields-text>
+
+              <app-items-fields-date
+                *ngIf="property.valuetype === 'date'"
+                [property]="property"
+                [editionMode]="true"
+              ></app-items-fields-date>
+
+              <app-items-fields-datetime
+                *ngIf="property.valuetype === 'datetime'"
+                [property]="property"
+                [editionMode]="true"
+              ></app-items-fields-datetime>
+
+              <app-items-fields-time
+                *ngIf="property.valuetype === 'time'"
+                [property]="property"
+                [editionMode]="true"
+              ></app-items-fields-time>
+
+              <app-items-fields-typelink
+                *ngIf="property.valuetype === 'typelink'"
+                [property]="property"
+                [editionMode]="true"
+              ></app-items-fields-typelink>
+
+              <app-items-fields-typelinks
+                *ngIf="property.valuetype === 'typelinks'"
+                [property]="property"
+                [editionMode]="true"
+              ></app-items-fields-typelinks>
+
+              <app-items-fields-decimal
+                *ngIf="property.valuetype === 'decimal'"
+                [property]="property"
+                [editionMode]="true"
+                (setPropertyValueEvent)="setPropertyValue($event, property)"
+              ></app-items-fields-decimal>
+
+              <app-items-fields-integer
+                *ngIf="property.valuetype === 'integer'"
+                [property]="property"
+                [editionMode]="true"
+                (setPropertyValueEvent)="setPropertyValue($event, property)"
+              ></app-items-fields-integer>
+
+              <app-items-fields-number
+                *ngIf="property.valuetype === 'number'"
+                [property]="property"
+                [editionMode]="true"
+                (setPropertyValueEvent)="setPropertyValue($event, property)"
+              ></app-items-fields-number>
+
+              <app-items-fields-propertylink
+                *ngIf="property.valuetype === 'propertylink'"
+                [property]="property"
+                [editionMode]="true"
+              ></app-items-fields-propertylink>
+            </span>
+          <input type="submit" value="Validate Update" (click) = UpdateItem()> 
+        </div>
+      </span>
       <span *ngIf="actionDisplayed === 'columns' && type !== null">
         <div *ngFor="let property of type.properties" (click)="updateColumns(property)">
           <span [class]="columns.includes(property) ? 'actioncolumns activated' : 'actioncolumns'">{{ property.name }}</span>
@@ -302,15 +426,21 @@
       </span>
       <span *ngIf="actionDisplayed === 'export'">
         <div>
-          <a href="#">
+          <a href="#" (click)="exportToCsv()">
             <fa-icon icon="file-csv" [fixedWidth]="true"></fa-icon>
             CSV export
           </a>
         </div>
         <div>
-          <a href="#">
+          <a href="#" (click)="exportToPdfPortrait()">
+            <fa-icon icon="file-pdf" [fixedWidth]="true" ></fa-icon>
+            PDF export (portrait)
+          </a>
+        </div>
+        <div>
+          <a href="#" (click)="exportToPdfLandscape()">
             <fa-icon icon="file-pdf" [fixedWidth]="true"></fa-icon>
-            PDF export
+            PDF export (landscape)
           </a>
         </div>
       </span>
@@ -319,7 +449,7 @@
     <table *ngIf="itemsLoaded && items.length > 0">
       <thead class="header">
         <tr>
-          <th i18n class="actionstitle"><input type="checkbox"></th>
+          <th i18n class="actionstitle"><input type="checkbox"  (change)="checkedOrNot($event)" style="cursor: pointer;" #checkBoxAllValue></th>
           <th i18n>Name</th>
           <th *ngFor="let property of columns">
             {{ property.name }}
@@ -327,10 +457,10 @@
           <th></th>
         </tr>
       </thead>
-      <tbody data-cy="list-items" class="skyborder">
+      <tbody data-cy="list-items" class="skyborder" >
         <tr *ngFor="let item of items | sortBy:'asc':'name'" data-cy="item-items">
           <td>
-            <input type="checkbox">
+            <input type="checkbox" [(ngModel)]="item.checked" (change)="updateChecking($event, item)" style="cursor: pointer;">
           </td>
           <td>
             <a

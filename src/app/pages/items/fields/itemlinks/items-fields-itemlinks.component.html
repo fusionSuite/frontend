@@ -1,0 +1,45 @@
+<div class="itemsFields">
+  <span class="itemsFields__title" i18n>{{ property.name }}</span>
+  <div
+    *ngIf="!editionMode && property.value !== null"
+    class="itemsFields__value"
+  >
+    <span>
+      {{ property.value.value }}
+    </span>
+  </div>
+
+  <div
+    *ngIf="editionMode"
+    class="itemsFields__value"
+  >
+    <ng-select
+      *ngIf="property.allowedtypes.length > 1"
+      bindLabel="name"
+      bindValue="id"
+      [(ngModel)]="chosenType"
+      (change)="setType($event)"
+    >
+    </ng-select>
+
+    <ng-select
+      bindLabel="name"
+      bindValue="id"
+      [(ngModel)]="property.value"
+      (change)="setValue($event)"
+    >
+    </ng-select>
+
+    <!-- <ng-select
+      *ngIf="prop.valuetype === 'itemlink'"
+      [items]="getItemsOfSelect(prop)"
+      bindLabel="name"
+      bindValue="id"
+      groupBy="type_id"
+      [formControlName]="'prop' + prop.id.toString()"
+      (change)="updateProperty($event, prop)"
+    >
+    </ng-select> -->
+
+  </div>
+</div>

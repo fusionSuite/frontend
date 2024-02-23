@@ -18,6 +18,7 @@
 
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { ITypepanelitem } from './typepanelitem';
+import { IItemproperty } from './itemproperty';
 
 export interface ITypepanel {
   id: number;
@@ -26,4 +27,5 @@ export interface ITypepanel {
   position: number;
   displaytype: 'default'|'timeline';
   items: ITypepanelitem[];
+  properties?: IItemproperty[];
 }

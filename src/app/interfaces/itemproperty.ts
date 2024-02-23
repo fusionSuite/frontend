@@ -22,14 +22,16 @@ export interface IItemproperty {
   id: number;
   name: string;
   internalname: string;
-  property_id: number,
   valuetype: 'string'|'integer'|'decimal'|'text'|'boolean'|'datetime'|'date'|
              'time'|'number'|'itemlink'|'itemlinks'|'typelink'|'typelinks'|
              'propertylink'|'list'|'password'|'passwordhash';
   value: any;
+  unit: string|null;
   listvalues: {
     id: number;
     value: string|number;
   }[]|null;
+  default: any|null;
   allowedtypes: IShortType[];
+  description?: string|null;
 }

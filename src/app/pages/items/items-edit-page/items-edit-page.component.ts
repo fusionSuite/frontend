@@ -67,6 +67,9 @@ export class ItemsEditPageComponent implements OnInit {
     defaultNane: '',
   };
 
+  public propertiesForTimelime: IItemproperty[] = [];
+  public propertiesItemlinksForTimelime: IItemproperty[] = [];
+
   public displayActionsProperty: {[key: number]: boolean} = {};
 
   public icons: IFonticon[] = icons;
@@ -174,6 +177,14 @@ export class ItemsEditPageComponent implements OnInit {
         this.typesApi.get(res.type_id)
           .subscribe((resType) => {
             this.type = resType;
+            if (this.item !== null) {
+              for (const prop of this.item.properties) {
+                const myProp = this.type?.properties.find(item => item.id === prop.id);
+                if (myProp !== undefined) {
+                  prop.description = myProp.description;
+                }
+              }
+            }
           });
         this.itemLoaded = true;
       });
@@ -195,6 +206,39 @@ export class ItemsEditPageComponent implements OnInit {
             this.notificationsService.success($localize `The item has been updated successfully.`);
           });
       }
+    }
+  }
+
+  public setPropertyValue (event: any, property: IItemproperty) {
+    let value: any = '';
+    if (property.valuetype === 'itemlink') {
+      value = event;
+    } else if (property.valuetype === 'list') {
+      value = event;
+    } else if (property.valuetype === 'string') {
+      value = event;
+    } else if (property.valuetype === 'number') {
+      value = event;
+    } else if (property.valuetype === 'integer') {
+      value = event;
+    } else if (property.valuetype === 'decimal') {
+      value = event;
+    } else if (property.valuetype === 'boolean') {
+      value = event;
+    }
+
+    if (this.item !== null) {
+      this.itemsApi.updateProperty(this.item?.id, property.id, { value })
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            this.notificationsService.error(error.error.message);
+            return throwError(() => new Error(error.error.message));
+          }),
+        ).subscribe((result: any) => {
+          // Reset the form to its initial state
+          this.loadItem();
+          this.notificationsService.success($localize `The property has been updated successfully.`);
+        });
     }
   }
 
@@ -512,6 +556,19 @@ export class ItemsEditPageComponent implements OnInit {
             this.editionmodePanel[panel.id] = false;
             if (panel.displaytype === 'timeline') {
               this.timelineView = true;
+              // Loop on each items of panel
+              for (const panelItem of panel.items) {
+                const property = this.item?.properties.find(obj => {
+                  return obj.id === panelItem.property_id;
+                });
+                if (property !== undefined) {
+                  if (property.valuetype === 'itemlinks') {
+                    this.propertiesItemlinksForTimelime.push(property);
+                  } else {
+                    this.propertiesForTimelime.push(property);
+                  }
+                }
+              }
               break;
             }
           }
@@ -524,7 +581,7 @@ export class ItemsEditPageComponent implements OnInit {
     if (typeInternalname in this.selectItems) {
       return;
     }
-    this.itemsApi.list(typeInternalname)
+    this.itemsApi.list(typeInternalname, 4)
       .subscribe((result: any[]) => {
         let all: IItem[] = [];
         for (let page = 0; page < result.length; page++) {

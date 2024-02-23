@@ -17,9 +17,13 @@
  */
 
 import { Injectable } from '@angular/core';
+import { ResolveFn } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { IItemproperty } from 'src/app/interfaces/itemproperty';
 import { IType } from 'src/app/interfaces/type';
+
+
 
 interface Configuration {
   backendUrl: string;
@@ -28,7 +32,7 @@ interface Configuration {
 @Injectable({
   providedIn: 'root',
 })
-export class SettingsService {
+export class SettingsService{
   public configuration: Configuration = {
     backendUrl: '/api',
   };
@@ -71,3 +75,5 @@ export class SettingsService {
     return Object.values(this.typesIndexedByInternalname);
   }
 }
+
+

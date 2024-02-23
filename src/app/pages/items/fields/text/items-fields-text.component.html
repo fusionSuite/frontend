@@ -1,0 +1,32 @@
+<div class="itemsFields">
+  <span class="itemsFields__title" i18n>{{ property.name }}</span>
+  <div
+    *ngIf="!editionMode && property.value !== null"
+    class="itemsFields__valuereadonly"
+  >
+    <span>
+      {{ property.value }}
+    </span>
+  </div>
+
+  <div
+    *ngIf="editionMode"
+    class="itemsFields__value"
+  >
+    <input
+      [value]="property.value"
+      data-cy="item-edit-property-input"
+      (change)="setValue($event)"
+    >
+
+    <div
+      id="editor"
+      #editor
+      class="editor"
+      (loaded)="loadEditor()"
+      name="message"
+    >
+    </div>
+
+  </div>
+</div>

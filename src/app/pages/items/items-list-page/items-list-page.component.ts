@@ -17,23 +17,31 @@
  */
 
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
+import { FormGroup, NgModel } from '@angular/forms';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { Subject, throwError } from 'rxjs';
+import { Observable, Subject, forkJoin, of, throwError } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { NotificationsService } from 'src/app/notifications/notifications.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TypesApi } from 'src/app/api/types';
 import { IType } from 'src/app/interfaces/type';
 import { ItemsApi } from 'src/app/api/items';
 import { IItem } from 'src/app/interfaces/item';
 import { SettingsService } from 'src/app/services/settings.service';
-import { Title } from '@angular/platform-browser';
+import { Title, bootstrapApplication } from '@angular/platform-browser';
+import { ItemsRoutingModule } from '../items-routing.module';
 import { IItemproperty } from 'src/app/interfaces/itemproperty';
 import { IProperty } from 'src/app/interfaces/property';
 import { ISearchgroup } from 'src/app/interfaces/searchgroup';
+import { all, any } from 'cypress/types/bluebird';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { forEach, property, tap } from 'lodash';
+import { Item } from 'src/app/models/item';
+import { error, event } from 'cypress/types/jquery';
+import { ExportcsvService } from 'src/app/services/export.service';
+import { IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 
 @Component({
   selector: 'app-items-list-page',
@@ -42,6 +50,7 @@ import { ISearchgroup } from 'src/app/interfaces/searchgroup';
 })
 export class ItemsListPageComponent implements OnInit {
   @ViewChild('searchBar') searchBarEl: ElementRef|undefined = undefined;
+  @ViewChild('checkBoxAllValue') checkBoxAllValue: ElementRef<HTMLInputElement> | undefined;
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent (event: KeyboardEvent) {
@@ -79,6 +88,18 @@ export class ItemsListPageComponent implements OnInit {
   public searchProposals: string[] = [];
   public lastSearchGroup: number | null = null;
   public searchGroupsInError: number[] = [];
+  public goToUpdate:boolean = false;
+  public itemsProperties: any[] = [];
+  public propertyName: string[]  =[];
+  public propertiesToUpdate: any[] | null = [];
+  public propertiesValue:{[key:string]: any} ={}
+  public propertiesInNgSelect: any[] = []
+  public item: IItem|null = null;
+  public isChecked: boolean |undefined;
+  public editionmode: boolean = false;
+  public editionmodePanel: any = {
+    0: false,
+  };
 
   deleteForm = new FormGroup({});
 
@@ -89,6 +110,7 @@ export class ItemsListPageComponent implements OnInit {
     private route: ActivatedRoute,
     protected settingsService: SettingsService,
     private titleService: Title,
+    private exportcsvService: ExportcsvService
   ) {
     this.searchUpdate.pipe(
       debounceTime(400),
@@ -134,6 +156,7 @@ export class ItemsListPageComponent implements OnInit {
   }
 
   ngOnInit (): void {
+    this.isChecked = false;
     this.route.paramMap.subscribe(params => {
       const internalname = params.get('internalname');
       if (internalname !== null) {
@@ -157,7 +180,14 @@ export class ItemsListPageComponent implements OnInit {
   }
 
   public loadItems (suffix: string = '') {
-    // load items
+    //load items
+
+    //Temporaire
+    if(this.checkBoxAllValue && this.checkBoxAllValue.nativeElement){
+      this.checkBoxAllValue.nativeElement.checked= false;
+      this.allItemsLoadedUncheck();
+    }
+    
     this.itemsApi.listWithHeaders(this.internalname, suffix)
       .pipe(
         catchError((error: HttpErrorResponse) => {
@@ -176,7 +206,7 @@ export class ItemsListPageComponent implements OnInit {
         this.parseContentRange(result.headers.get('content-range'));
         this.items = body;
         // manage to get current page number
-        if (suffix !== '') {
+        if (suffix !== '') {  
           const matches = suffix.match(/&page=(\d+)/);
           if (matches !== null) {
             this.currentPageNumber = parseInt(matches[1]);
@@ -329,7 +359,7 @@ export class ItemsListPageComponent implements OnInit {
         return;
       }
     }
-
+      
     if (value.includes(':')) {
       const parts = value.split(':');
       this.searchGroups.push({
@@ -529,5 +559,233 @@ export class ItemsListPageComponent implements OnInit {
         this.searchProposals.push('property.' + prop.internalname);
       }
     }
+  }
+
+
+
+
+  //Si l'input au dessus de la liste est coché
+  public checkedOrNot($event: Event){
+    this.isChecked = ($event.target as HTMLInputElement).checked;
+    if(this.isChecked){
+      this.allItemsLoadedCheck();
+    }
+    else{
+      this.allItemsLoadedUncheck();
+    }
+  }
+
+  
+  
+  //On récupère tous les input checkbox de la liste
+  public allItemsLoaded(): NodeListOf<Element>{
+    const AllCheckboxes = document.querySelectorAll('tbody input[type = "checkbox"]');
+    return AllCheckboxes;
+  }
+
+  //Cocher toutes les checkboxes
+  public allItemsLoadedCheck(){
+    const allCheckBoxes = this.allItemsLoaded();
+    for(let i = 0; i < allCheckBoxes.length; i++){
+      (allCheckBoxes[i] as HTMLInputElement).checked = true;
+    }
+    this.items.forEach(item =>{
+      item.checked = true;
+    });
+  }
+
+  //Décocher toutes les checkboxes
+  public allItemsLoadedUncheck(){
+    const allCheckBoxes = this.allItemsLoaded();
+    for(let i = 0; i < allCheckBoxes.length; i++){
+      (allCheckBoxes[i] as HTMLInputElement).checked = false
+    }
+    this.items.forEach(item => {
+      item.checked = false
+    });
+  }
+
+  public updateChecking($event: any, item: IItem){
+    item.checked = $event.target.checked;
+  }
+
+  
+  public getItemLoadedChecked(): IItem[]{
+    let itemsChecked: IItem[] = [] ;
+    let addOrNot:boolean = false;
+    let removeOrNot:boolean = false;
+    this.items.forEach(item => {
+      if(!itemsChecked.length){
+        if(item.checked === true){
+          itemsChecked.push(item);
+        }
+      }
+      else{
+        if(item.checked === true){
+          for(let i = 0; i < itemsChecked.length; i++){
+            if(item != itemsChecked[i]){
+              addOrNot = true;
+            }
+          }
+          if(addOrNot === true){
+            itemsChecked.push(item);
+          }
+        }
+        else{
+          for(let i = 0; i < itemsChecked.length; i++){
+            if(item == itemsChecked[i]){
+              itemsChecked.splice(itemsChecked.indexOf(item), 1);
+            }
+          }
+        }
+      }
+    })
+    return itemsChecked;
+  }
+
+  
+  public loadFormUpdatingItem(){
+    this.goToUpdate = true;
+    this.propertiesInNgSelect = [];
+    this.itemsProperties = this.prepareToExport();
+    console.log("avant");
+    console.log(this.itemsProperties);
+    if(this.itemsProperties.length){
+      
+      /*
+      this.propertyName = Object.keys(this.itemsProperties[0]).filter(key => key !== 'id' && key !== 'name');
+      for(let i = 1; i<= this.propertyName.length; i++){
+        this.propertiesInNgSelect.push(
+          { value: i, label: this.propertyName[i-1]}
+        )
+      }*/
+      console.log(this.propertiesInNgSelect);
+    }
+  }
+
+  
+
+  public UpdateItem(){
+    const itemsApi = this.itemsApi;
+    let propertiesNameModified = Object.keys(this.propertiesValue);
+    const list: {[key: string]: Observable<any>} = {};
+    console.log(this.items[0].properties);
+    
+      this.itemsProperties.forEach(item =>{
+        if(this.propertiesToUpdate !== null){ 
+          for(const prop of this.propertiesToUpdate){
+            console.log(prop);
+            list[item.id]= itemsApi.updateProperty(item.id, prop.id, {value: this.propertiesValue[prop.id]});//On stock les requêtes dans la list
+          }
+        }
+      })
+    
+    
+    forkJoin(list).subscribe(//On execute les requêtes en même temps grâce au forkJoin
+      () => {
+        console.log('Next');
+        this.loadItems();
+      },
+      (error: any) => {
+        console.log('Error', error);
+      }
+    );
+    this.propertiesValue = [];
+  }
+
+  public setPropertyValue (event: any, property: IItemproperty) {
+    let value: any = '';
+    if (property.valuetype === 'itemlink') {
+      value = event;
+    } else if (property.valuetype === 'list') {
+      value = event;
+    } else if (property.valuetype === 'string') {
+      value = event;
+    } else if (property.valuetype === 'number') {
+      value = event;
+    } else if (property.valuetype === 'integer') {
+      value = event;
+    } else if (property.valuetype === 'decimal') {
+      value = event;
+    } else if (property.valuetype === 'boolean') {
+      value = event;
+    }
+    this.propertiesValue[property.id] = value;
+
+  }
+  
+  
+
+
+  public deleteItemChecked(){
+    let itemsChecked: IItem[] | null = this.getItemLoadedChecked();
+    const itemsApi = this.itemsApi;
+    const list: {[key: string]: Observable<any>} = {};
+    console.log(this.getItemLoadedChecked());
+    
+    itemsChecked.forEach(item =>{
+      list[item.id] = itemsApi.delete(item.id);
+    }) 
+    
+    forkJoin(list).subscribe(
+      () => {
+        console.log('Next');
+        this.loadItems();
+      },
+      (error: any) => {
+        console.log('Error', error);
+      }
+    );
+  }  
+
+  //Export
+  //On va pouvoir récupérer notre fonction getItemLoadedChecked() pour pouvoir récupérer les items cochés
+
+  public prepareToExport(): any[]{
+    //On récupère la liste des items sélectionnés
+    let itemsChecked: IItem[] | null = this.getItemLoadedChecked();
+    //On créé une liste qui va contenir les informations essentiels de nos items
+    let itemsProperties: any[] = [];
+    for(let item of itemsChecked){
+      let myItem:any = {
+        id: item.id,
+        name: item.name,
+      };
+      for(let property of item.properties){
+        myItem[property.name] = null;
+        if(property.valuetype === "list"){
+          if(property.value !== null){
+            myItem[property.name] = property.value.value;
+          }
+        }
+        else{
+          if(property.value === null){
+            myItem[property.name] = null;
+          }
+          else{
+            myItem[property.name] = property.value;
+          }
+        }
+      }
+      itemsProperties.push(myItem);
+    }
+    return itemsProperties;
+  }
+
+  public exportToCsv(){
+    let itemsProperties = this.prepareToExport();
+    this.exportcsvService.saveDataInCSV(itemsProperties, this.internalname);
+  }
+
+  @ViewChild('contentItemChecked') contentItemCheckedPortrait: ElementRef | undefined;
+  public exportToPdfPortrait(){
+    let itemsProperties = this.prepareToExport();
+    this.exportcsvService.exportToPdf(itemsProperties, this.internalname, false);
+  }
+
+  @ViewChild('contentItemChecked') contentItemCheckedLandscape: ElementRef | undefined;
+  public exportToPdfLandscape(){
+    let itemsProperties = this.prepareToExport();
+    this.exportcsvService.exportToPdf(itemsProperties, this.internalname, true);
   }
 }
